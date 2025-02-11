@@ -44,4 +44,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

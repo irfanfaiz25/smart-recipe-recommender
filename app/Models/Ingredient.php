@@ -12,4 +12,15 @@ class Ingredient extends Model
         'image',
         'description'
     ];
+
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function recipes()
+    {
+        return $this->belongsToMany(Recipe::class);
+    }
 }
