@@ -29,7 +29,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-[#FAFAFA] dark:bg-[#1c1c1c] font-sans">
+<body class="bg-bg-primary dark:bg-bg-secondary font-sans">
 
     @livewire('header-layout')
 
