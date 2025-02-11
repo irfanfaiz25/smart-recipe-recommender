@@ -36,14 +36,14 @@
                         <div class="mx-4 my-2">
                             <div class="flex z-50 space-x-1">
                                 <div wire:click='profileToggle'
-                                    class="rounded-md cursor-pointer hover:text-text-dark-500 px-7 py-2 duration-100"
+                                    class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
                                     @click="darkMode= false"
                                     :class="darkMode ? 'text-text-primary dark:text-text-dark-primary' :
                                         'bg-neutral-100 text-secondary'">
                                     <i class="fa-regular fa-lightbulb text-lg"></i>
                                 </div>
                                 <div wire:click='profileToggle'
-                                    class="rounded-md cursor-pointer hover:text-text-dark-500 px-7 py-2 duration-100"
+                                    class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
                                     @click="darkMode= true"
                                     :class="darkMode ? 'bg-[#303030] text-secondary' : 'text-text-primary'">
                                     <i class="fa-solid fa-lightbulb text-lg"></i>
@@ -65,7 +65,7 @@
                         <div class="mx-1 pt-2">
                             <div wire:click='logout'
                                 class="hover:bg-neutral-100 dark:hover:bg-[#373636] px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                <i class="ri-logout-circle-line text-xl"></i>
+                                <i class="fa-solid fa-right-from-bracket text-lg"></i>
                                 <span>Keluar</span>
                             </div>
                         </div>
