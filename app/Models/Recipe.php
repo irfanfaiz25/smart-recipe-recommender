@@ -23,10 +23,10 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredients');
     }
 
-    public function Steps()
+    public function steps()
     {
         return $this->hasMany(RecipeStep::class);
     }
