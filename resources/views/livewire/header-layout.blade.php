@@ -35,15 +35,13 @@
                     <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c] flex justify-center">
                         <div class="mx-4 my-2">
                             <div class="flex z-50 space-x-1">
-                                <div wire:click='profileToggle'
-                                    class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
+                                <div class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
                                     @click="darkMode= false"
                                     :class="darkMode ? 'text-text-primary dark:text-text-dark-primary' :
                                         'bg-neutral-100 text-secondary'">
                                     <i class="fa-regular fa-lightbulb text-lg"></i>
                                 </div>
-                                <div wire:click='profileToggle'
-                                    class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
+                                <div class="rounded-md cursor-pointer hover:text-gray-500 px-7 py-2 duration-100"
                                     @click="darkMode= true"
                                     :class="darkMode ? 'bg-[#303030] text-secondary' : 'text-text-primary'">
                                     <i class="fa-solid fa-lightbulb text-lg"></i>

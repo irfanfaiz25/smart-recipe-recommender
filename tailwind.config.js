@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 export default {
     darkMode: "class",
     content: [
@@ -13,11 +15,14 @@ export default {
                 sans: ["Fira Sans", "sans-serif"],
             },
             colors: {
+                ...colors,
                 // Main Colors
                 primary: "#327039", // Green
+                "primary-hover": "#2d6433", // Green
                 "primary-light": "#8BC652",
 
                 secondary: "#DD5C36", // Orange
+                "secondary-hover": "#d65933", // Orange
                 "secondary-light": "#EE892F",
 
                 accent: "#E0BB76", // Orange
@@ -25,6 +30,7 @@ export default {
                 // Background Colors
                 "bg-primary": "#FFFFFF",
                 "bg-dark-primary": "#252525",
+                "bg-dark-secondary": "#1c1c1c",
                 "bg-secondary": "#475569",
                 "bg-tertiary": "#F1F5F9",
 

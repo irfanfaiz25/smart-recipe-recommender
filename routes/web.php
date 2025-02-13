@@ -2,10 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('layouts.main');
-})->name('dashboard.index');
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('layouts.main');
+    })->name('dashboard.index');
 
-Route::get('/ingridients', function () {
-    return view('layouts.main');
-})->name('ingridients.index');
+    Route::get('/ingredients', function () {
+        return view('contents.admin.ingredients');
+    })->name('ingredients.index');
+
+    Route::get('/recipes', function () {
+        return view('contents.admin.ingredients');
+    })->name('recipes.index');
+});

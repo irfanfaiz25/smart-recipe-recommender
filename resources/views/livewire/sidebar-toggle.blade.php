@@ -22,7 +22,7 @@
         <div class="mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
             @foreach ($sidebarMenu as $menu)
                 <a href="{{ route($menu['route']) }}" wire:navigate
-                    class="group flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-[#f2f2f2] dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-[#f2f2f2] dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
+                    class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/20 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
                     <i class="{{ $menu['icon'] }} text-lg"></i>
                     <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>
                 </a>

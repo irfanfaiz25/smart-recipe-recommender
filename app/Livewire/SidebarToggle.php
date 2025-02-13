@@ -12,13 +12,19 @@ class SidebarToggle extends Component
             'name' => 'dashboard',
             'route' => 'dashboard.index',
             'icon' => 'fa-solid fa-house',
-            'request' => 'dashboard*'
+            'request' => 'admin/dashboard*'
         ],
         [
-            'name' => 'Ingridients Data',
-            'route' => 'ingridients.index',
-            'icon' => 'fa-solid fa-layer-group',
-            'request' => 'ingridients*'
+            'name' => 'Ingredients',
+            'route' => 'ingredients.index',
+            'icon' => 'fa-solid fa-wheat-awn',
+            'request' => 'admin/ingredients*'
+        ],
+        [
+            'name' => 'Recipes',
+            'route' => 'recipes.index',
+            'icon' => 'fa-solid fa-utensils',
+            'request' => 'admin/recipes*'
         ],
     ];
 

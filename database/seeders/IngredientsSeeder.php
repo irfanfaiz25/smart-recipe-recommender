@@ -14,10 +14,10 @@ class IngredientsSeeder extends Seeder
     public function run(): void
     {
         $ingredients = [
-            ['name' => 'Bawang Merah', 'category' => 'Bumbu'],
-            ['name' => 'Bawang Putih', 'category' => 'Bumbu'],
-            ['name' => 'Telur', 'category' => 'Protein'],
-            ['name' => 'Nasi Putih', 'category' => 'Karbohidrat'],
+            ['name' => 'Bawang Merah', 'category' => 'bumbu'],
+            ['name' => 'Bawang Putih', 'category' => 'bumbu'],
+            ['name' => 'Telur', 'category' => 'protein'],
+            ['name' => 'Nasi Putih', 'category' => 'karbohidrat'],
         ];
 
         foreach ($ingredients as $ingredient) {

@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode === true }" class="antialiased">
+<html lang="en" x-data="{
+    darkMode: localStorage.getItem('darkMode') === 'true' || false,
+    init() {
+        $watch('darkMode', value => {
+            localStorage.setItem('darkMode', value);
+        });
+    }
+}" :class="{ 'dark': darkMode === true }" class="antialiased">
 
 <head>
     <meta charset="UTF-8">
