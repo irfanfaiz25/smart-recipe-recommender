@@ -10,7 +10,7 @@
 
     <!-- Sidebar -->
     <div :class="isSidebarVisible ? 'translate-x-0' : '-translate-x-full'"
-        class="bg-[#FAFAFA] dark:bg-[#1c1c1c] fixed top-0 left-0 min-h-screen w-72 duration-500 text-gray-100 px-3 z-40 pt-20 lg:pt-10 transform lg:translate-x-0">
+        class="bg-[#F1F0E8] dark:bg-[#1c1c1c] fixed top-0 left-0 min-h-screen w-72 duration-500 text-gray-100 px-3 z-40 pt-20 lg:pt-10 transform lg:translate-x-0">
         <div class="flex lg:hidden items-center mt-2">
             <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
                 <i class="fa-solid fa-plate-wheat text-xl"></i>
@@ -22,7 +22,7 @@
         <div class="mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
             @foreach ($sidebarMenu as $menu)
                 <a href="{{ route($menu['route']) }}" wire:navigate
-                    class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/20 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
+                    class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
                     <i class="{{ $menu['icon'] }} text-lg"></i>
                     <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>
                 </a>

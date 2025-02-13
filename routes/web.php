@@ -12,6 +12,6 @@ Route::prefix('admin')->group(function () {
     })->name('ingredients.index');
 
     Route::get('/recipes', function () {
-        return view('contents.admin.ingredients');
+        return view('contents.admin.recipes');
     })->name('recipes.index');
 });

@@ -111,7 +111,7 @@ class IngredientsTable extends Component
 
         $imagePath = $this->isEditMode ? $this->existingImagePath : null;
         if ($this->newImage) {
-            if ($this->isEditMode && $ingredient->image_path && Storage::disk('public')->exists(str_replace('storage/', '', $ingredient->image))) {
+            if ($this->isEditMode && $ingredient->image && Storage::disk('public')->exists(str_replace('storage/', '', $ingredient->image))) {
                 Storage::disk('public')->delete(str_replace('storage/', '', $ingredient->image));
             }
             $imagePath = 'storage/' . $this->newImage->store('img/ingredients', 'public');
@@ -135,6 +135,19 @@ class IngredientsTable extends Component
 
         $this->closeModal();
         toastr()->success('Ingredient berhasil ditambahkan.');
+    }
+
+    public function handleDelete()
+    {
+        $ingredient = Ingredient::find($this->deleteId);
+
+        if ($ingredient->image && Storage::disk('public')->exists(str_replace('storage/', '', $ingredient->image))) {
+            Storage::disk('public')->delete(str_replace('storage/', '', $ingredient->image));
+        }
+
+        $ingredient->delete();
+        $this->closeConfirmationModal();
+        toastr()->success('Ingredient berhasil dihapus.');
     }
 
     public function render()
