@@ -153,8 +153,8 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div
-                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-dark-tertiary-bg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white dark:bg-dark-tertiary-bg">
+                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white dark:bg-bg-dark-primary">
                         <div
                             class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
                             <h3 class="text-lg font-semibold">
@@ -179,7 +179,8 @@
                         @if ($detailName === 'ingredient')
                             <div class="p-4 grid grid-cols-2 gap-3">
                                 @foreach ($detailContent as $item)
-                                    <div class="h-16 flex space-x-3 bg-gray-100 shadow-md rounded-lg p-2">
+                                    <div
+                                        class="h-16 flex space-x-3 bg-gray-100 dark:bg-neutral-900 shadow-md rounded-lg p-2">
                                         @if ($item['image'])
                                             <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}"
                                                 class="h-full w-12 rounded-md object-cover shadow-md">
