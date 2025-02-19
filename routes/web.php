@@ -12,6 +12,21 @@ Route::prefix('admin')->group(function () {
     })->name('ingredients.index');
 
     Route::get('/recipes', function () {
-        return view('contents.admin.recipes');
+        return view('contents.admin.recipes', [
+            'content' => 'table'
+        ]);
     })->name('recipes.index');
+
+    Route::get('/recipes/create', function () {
+        return view('contents.admin.recipes', [
+            'content' => 'create'
+        ]);
+    })->name('recipes.create');
+
+    Route::get('/recipes/edit/{id}', function ($id) {
+        return view('contents.admin.recipes', [
+            'content' => 'edit',
+            'recipeId' => $id
+        ]);
+    })->name('recipes.edit');
 });

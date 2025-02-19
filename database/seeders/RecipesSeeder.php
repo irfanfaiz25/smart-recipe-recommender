@@ -23,10 +23,10 @@ class RecipesSeeder extends Seeder
 
         // attach ingredients
         $nasiGoreng->ingredients()->attach([
-            1 => ['amount' => 3, 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => 2, 'unit' => 'siung'], // Bawang Putih
-            3 => ['amount' => 1, 'unit' => 'butir'], // Telur
-            4 => ['amount' => 2, 'unit' => 'piring'], // Nasi Putih
+            1 => ['amount' => '3', 'unit' => 'siung'], // Bawang Merah
+            2 => ['amount' => '2', 'unit' => 'siung'], // Bawang Putih
+            3 => ['amount' => '1', 'unit' => 'butir'], // Telur
+            4 => ['amount' => '2 1/2', 'unit' => 'piring'], // Nasi Putih
         ]);
 
         // create steps

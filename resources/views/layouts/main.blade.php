@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{
-    darkMode: localStorage.getItem('darkMode') === 'true' || false,
-    init() {
-        $watch('darkMode', value => {
-            localStorage.setItem('darkMode', value);
-        });
-    }
-}" :class="{ 'dark': darkMode === true }" class="antialiased">
+<html lang="en" class="antialiased">
 
 <head>
+    <script>
+        // Initialize dark mode on page load
+        function initializeDarkMode() {
+            const isDark = localStorage.getItem('darkMode') === 'true';
+            document.documentElement.classList.toggle('dark', isDark);
+        }
+
+        // Apply dark mode after Livewire navigation
+        document.addEventListener('livewire:navigated', () => {
+            initializeDarkMode();
+        });
+
+        // Initial setup
+        initializeDarkMode();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -46,7 +55,7 @@
             @livewire('sidebar-toggle')
 
             <div
-                class="flex-1 p-4 text-xl bg-[#F1F0E8] dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
+                class="flex-1 p-4 text-xl bg-[#edf5e4] dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
 
                 @yield('content')
 

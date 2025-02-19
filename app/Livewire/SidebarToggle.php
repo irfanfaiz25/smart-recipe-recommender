@@ -9,19 +9,19 @@ class SidebarToggle extends Component
     public $isSidebarVisible = false;
     public $sidebarMenu = [
         [
-            'name' => 'dashboard',
+            'name' => 'Dashboard',
             'route' => 'dashboard.index',
             'icon' => 'fa-solid fa-house',
             'request' => 'admin/dashboard*'
         ],
         [
-            'name' => 'Ingredients',
+            'name' => 'Ingredient',
             'route' => 'ingredients.index',
             'icon' => 'fa-solid fa-wheat-awn',
             'request' => 'admin/ingredients*'
         ],
         [
-            'name' => 'Recipes',
+            'name' => 'Resep',
             'route' => 'recipes.index',
             'icon' => 'fa-solid fa-utensils',
             'request' => 'admin/recipes*'
