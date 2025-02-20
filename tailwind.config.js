@@ -11,6 +11,18 @@ export default {
     ],
     theme: {
         extend: {
+            backgroundSize: {
+                "300%": "300%",
+            },
+            keyframes: {
+                shine: {
+                    "0%": { backgroundPosition: "0% 50%" },
+                    "100%": { backgroundPosition: "150% 50%" },
+                },
+            },
+            animation: {
+                shine: "shine 3s linear infinite",
+            },
             fontFamily: {
                 sans: ["Fira Sans", "sans-serif"],
             },

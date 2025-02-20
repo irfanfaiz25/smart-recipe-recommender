@@ -4,10 +4,25 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class HeaderLayout extends Component
+class UserHeader extends Component
 {
     public $isProfileButtonVisible;
     public $isSetting = false;
+
+    public $menus = [
+        [
+            'name' => 'Home',
+            'link' => '/'
+        ],
+        [
+            'name' => 'SavoryAI',
+            'link' => '/savoryai'
+        ],
+        [
+            'name' => 'Bookmarks',
+            'link' => '/bookmarks'
+        ],
+    ];
 
 
     // public function mount()
@@ -20,15 +35,8 @@ class HeaderLayout extends Component
         $this->isProfileButtonVisible = !$this->isProfileButtonVisible;
     }
 
-    // public function logout()
-    // {
-    //     Auth::logout();
-
-    //     return redirect(route('login'));
-    // }
-
     public function render()
     {
-        return view('livewire.admin.header-layout');
+        return view('livewire.user.user-header');
     }
 }

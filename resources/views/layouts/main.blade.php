@@ -47,21 +47,36 @@
 
 <body class="bg-bg-primary dark:bg-bg-secondary font-sans">
 
-    @livewire('header-layout')
+    @if (str_contains(request()->path(), 'admin'))
+        @livewire('header-layout')
 
-    <div class="relative">
-        <div class="flex gap-6 pt-16">
+        <div class="relative">
+            <div class="flex gap-6 pt-16">
 
-            @livewire('sidebar-toggle')
+                @livewire('sidebar-toggle')
 
-            <div
-                class="flex-1 p-4 text-xl bg-[#edf5e4] dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
+                <div
+                    class="flex-1 p-4 text-xl bg-[#edf5e4] dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
 
-                @yield('content')
+                    @yield('content')
 
+                </div>
             </div>
         </div>
-    </div>
+    @else
+        @livewire('user-header')
+
+        <div class="relative">
+            <div class="pb-16">
+                <div
+                    class="text-xl bg-white dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500">
+
+                    @yield('content')
+
+                </div>
+            </div>
+        </div>
+    @endif
 
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>

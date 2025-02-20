@@ -35,6 +35,6 @@ class SidebarToggle extends Component
 
     public function render()
     {
-        return view('livewire.sidebar-toggle');
+        return view('livewire.admin.sidebar-toggle');
     }
 }

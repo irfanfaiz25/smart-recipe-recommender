@@ -30,3 +30,7 @@ Route::prefix('admin')->group(function () {
         ]);
     })->name('recipes.edit');
 });
+
+Route::get('/', function () {
+    return view('contents.user.home');
+});
