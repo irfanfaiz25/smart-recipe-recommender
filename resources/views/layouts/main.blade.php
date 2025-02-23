@@ -67,11 +67,19 @@
         @livewire('user-header')
 
         <div class="relative">
-            <div class="pb-16">
-                <div
+            <div class="">
+                <div x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 100)"
                     class="text-xl bg-white dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500">
 
+                    <!-- Page Content with Transitions -->
+                    {{-- <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
+                        x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transform transition-all duration-500 ease-in"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-8 scale-95"> --}}
                     @yield('content')
+                    {{-- </div> --}}
 
                 </div>
             </div>

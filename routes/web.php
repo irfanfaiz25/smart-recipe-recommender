@@ -33,4 +33,8 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/', function () {
     return view('contents.user.home');
-});
+})->name('home.index');
+
+Route::get('/savoryai', function () {
+    return view('contents.user.savoryai');
+})->name('savoryai.index');

@@ -12,15 +12,18 @@ class UserHeader extends Component
     public $menus = [
         [
             'name' => 'Home',
-            'link' => '/'
+            'route' => 'home.index',
+            'request' => '/'
         ],
         [
             'name' => 'SavoryAI',
-            'link' => '/savoryai'
+            'route' => 'savoryai.index',
+            'request' => 'savoryai*'
         ],
         [
             'name' => 'Bookmarks',
-            'link' => '/bookmarks'
+            'route' => 'savoryai.index',
+            'request' => 'bookmarks*'
         ],
     ];
 

@@ -14,9 +14,17 @@
                 class="absolute bottom-24 right-1/4 w-[24rem] h-[24rem] bg-[#FAD126] rounded-full mix-blend-multiply filter blur-2xl opacity-70">
             </div>
         </div>
+
         <!-- Content -->
-        <div class="relative z-10 w-full h-full py-36">
-            <div class="leading-[6rem]">
+        <!-- Content with transition -->
+        <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
+            x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transform transition-all duration-500 ease-in"
+            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+            x-transition:leave-end="opacity-0 -translate-y-8 scale-95" class="relative z-10 w-full h-full py-36">
+            <!-- Your existing content here -->
+            <div class="leading-[6.4rem] font-display">
                 <h1
                     class="text-[70px] font-bold text-center bg-gradient-to-r from-[#FF564E] via-[#ff834e] to-[#FAD126] text-transparent bg-clip-text">
                     SavoryAI
@@ -25,7 +33,7 @@
                     Your Personal Chef,
                 </h1>
                 <h1
-                    class="text-[70px] font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-primary-light to-text-primary bg-300% animate-shine">
+                    class="text-[70px] font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-green-400 to-text-primary bg-300% animate-shine">
                     Powered By AI
                 </h1>
             </div>
@@ -37,7 +45,7 @@
                     </p>
                     <div class="flex justify-center items-center space-x-2">
                         <i class="fa-regular fa-user text-lg"></i>
-                        <span class="text-lg font-bold">Users</span>
+                        <span class="text-lg font-medium">Users</span>
                     </div>
                 </div>
                 <div class="space-y-3 text-[#43c8a9]">
@@ -46,7 +54,7 @@
                     </p>
                     <div class="flex justify-center items-center space-x-2">
                         <i class="fa-regular fa-lemon text-lg"></i>
-                        <span class="text-lg font-bold">Ingredients</span>
+                        <span class="text-lg font-medium">Ingredients</span>
                     </div>
                 </div>
                 <div
@@ -56,7 +64,7 @@
                     </p>
                     <div class="flex justify-center items-center space-x-2">
                         <i class="fa-regular fa-file-lines text-lg"></i>
-                        <span class="text-lg font-bold">Recipes</span>
+                        <span class="text-lg font-medium">Recipes</span>
                     </div>
                 </div>
             </div>

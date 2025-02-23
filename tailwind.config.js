@@ -20,11 +20,15 @@ export default {
                     "100%": { backgroundPosition: "150% 50%" },
                 },
             },
+            transitionTimingFunction: {
+                "bounce-in": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+            },
             animation: {
-                shine: "shine 3s linear infinite",
+                shine: "shine 4s linear infinite",
             },
             fontFamily: {
-                sans: ["Fira Sans", "sans-serif"],
+                sans: ["Parkinsans", "sans-serif"],
+                display: ["DM Serif Text", "serif"],
             },
             colors: {
                 ...colors,
