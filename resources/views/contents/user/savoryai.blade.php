@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="mt-16 py-10 px-20 page-background">
+    <div class="mt-16 py-10 px-20 page-background bg-fixed bg-repeat">
         <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -13,7 +13,7 @@
                 <h1 class="text-lg font-sans font-medium text-center">Smart Recipe Recommender</h1>
             </div>
 
-            <div class="mt-10 flex gap-4 w-full h-screen">
+            <div class="mt-10 w-full space-y-4">
                 {{-- ingredients section --}}
                 @livewire('savory-ingredients')
 
