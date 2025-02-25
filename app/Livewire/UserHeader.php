@@ -18,7 +18,17 @@ class UserHeader extends Component
         [
             'name' => 'SavoryAI',
             'route' => 'savoryai.index',
-            'request' => 'savoryai*'
+            'request' => 'savoryai*',
+            'dropdown' => [
+                [
+                    'name' => 'Smart Recommender',
+                    'route' => 'savoryai.index'
+                ],
+                [
+                    'name' => 'My Recipes',
+                    'route' => 'savoryai.index'
+                ]
+            ]
         ],
         [
             'name' => 'Bookmarks',
@@ -26,7 +36,6 @@ class UserHeader extends Component
             'request' => 'bookmarks*'
         ],
     ];
-
 
     // public function mount()
     // {

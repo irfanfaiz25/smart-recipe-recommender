@@ -17,12 +17,31 @@
 <div class="flex items-center space-x-12">
     <ul class="flex justify-end items-center space-x-6 font-sans">
         @foreach ($menus as $menu)
-            <a href="{{ route($menu['route']) }}" wire:navigate>
-                <li
-                    class="text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary dark:text-text-dark-primary hover:text-secondary' }}">
-                    {{ $menu['name'] }}
-                </li>
-            </a>
+            @if (isset($menu['dropdown']))
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" @click.away="open = false"
+                        class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary dark:text-text-dark-primary hover:text-secondary' }}">
+                        {{ $menu['name'] }}
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div x-show="open" x-transition
+                        class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
+                        @foreach ($menu['dropdown'] as $item)
+                            <a href="{{ route($item['route']) }}" wire:navigate
+                                class="block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800">
+                                {{ $item['name'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @else
+                <a href="{{ route($menu['route']) }}" wire:navigate>
+                    <li
+                        class="text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary dark:text-text-dark-primary hover:text-secondary' }}">
+                        {{ $menu['name'] }}
+                    </li>
+                </a>
+            @endif
         @endforeach
     </ul>
     <div class="relative flex items-center space-x-4">
