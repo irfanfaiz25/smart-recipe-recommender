@@ -28,10 +28,10 @@
                                 <div class="flex space-x-2 items-center justify-end">
                                     <i
                                         class="fa-regular fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
-                                    <button
+                                    <a href="{{ route('savoryai.show', $recipe['recipe']['id']) }}" wire:navigate
                                         class="px-4 py-1.5 text-xs bg-gray-50 text-text-primary hover:bg-gray-200 rounded-md">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             {{-- card body --}}

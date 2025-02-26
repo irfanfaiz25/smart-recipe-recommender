@@ -38,3 +38,7 @@ Route::get('/', function () {
 Route::get('/savoryai', function () {
     return view('contents.user.savoryai');
 })->name('savoryai.index');
+
+Route::get('/savoryai/{id}', function () {
+    return view('contents.user.savoryai');
+})->name('savoryai.show');

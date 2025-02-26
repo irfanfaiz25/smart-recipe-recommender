@@ -14,13 +14,21 @@
             </div>
 
             <div class="mt-10 w-full space-y-4">
-                {{-- ingredients section --}}
-                @livewire('savory-ingredients')
 
-                {{-- recipes section --}}
-                @livewire('savory-recipes')
+                @if (Route::current()->parameter('id'))
+                    {{-- detail page --}}
+                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id')])
+                @else
+                    {{-- recommender page --}}
+                    {{-- ingredients section --}}
+                    @livewire('savory-ingredients')
+
+                    {{-- recipes section --}}
+                    @livewire('savory-recipes')
+                @endif
 
             </div>
+
         </div>
     </div>
 @endsection
