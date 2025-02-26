@@ -10,45 +10,64 @@
     <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
         <i class="fa-solid fa-plate-wheat text-xl"></i>
     </div>
-    <h1 class="relative font-semibold text-xl ml-2 font-display text-text-primary dark:text-text-dark-primary">
+    <h1 class="relative font-semibold text-xl ml-2 font-display transition-colors duration-300"
+        :class="{ 'text-white': !isScrolled, 'text-text-primary dark:text-text-dark-primary': isScrolled }">
         SavoryAI<span class="absolute bottom-0 left-[5rem] text-primary dark:text-primary-light text-3xl">.</span>
     </h1>
 </div>
+
+{{-- navbar menu --}}
 <div class="flex items-center space-x-12">
-    <ul class="flex justify-end items-center space-x-6 font-sans">
-        @foreach ($menus as $menu)
-            @if (isset($menu['dropdown']))
-                <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" @click.away="open = false"
-                        class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary dark:text-text-dark-primary hover:text-secondary' }}">
-                        {{ $menu['name'] }}
-                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                    </button>
-                    <div x-show="open" x-transition
-                        class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
-                        @foreach ($menu['dropdown'] as $item)
-                            <a href="{{ route($item['route']) }}" wire:navigate
-                                class="block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800">
-                                {{ $item['name'] }}
-                            </a>
-                        @endforeach
+    @auth
+        <ul class="flex justify-end items-center space-x-6 font-sans">
+            @foreach ($menus as $menu)
+                @if (isset($menu['dropdown']))
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.away="open = false"
+                            class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : '' }}"
+                            :class="{
+                                'text-white': !isScrolled,
+                                'text-text-primary dark:text-text-dark-primary': isScrolled
+                            }">
+                            {{ $menu['name'] }}
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div x-show="open" x-transition
+                            class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
+                            @foreach ($menu['dropdown'] as $item)
+                                <a href="{{ route($item['route']) }}" wire:navigate
+                                    class="block px-4 py-2.5 text-sm
+                                    {{ request()->is($item['request']) ? 'text-secondary font-semibold bg-gray-100' : 'text-text-primary dark:text-text-dark-primary' }}  hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800">
+                                    {{ $item['name'] }}
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @else
-                <a href="{{ route($menu['route']) }}" wire:navigate>
-                    <li
-                        class="text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary dark:text-text-dark-primary hover:text-secondary' }}">
-                        {{ $menu['name'] }}
-                    </li>
-                </a>
-            @endif
-        @endforeach
-    </ul>
+                @else
+                    <a href="{{ route($menu['route']) }}" wire:navigate>
+                        <li class="text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
+                            :class="{
+                                'text-secondary font-semibold': {{ request()->is($menu['request']) ? 'true' : 'false' }},
+                                'text-white': !isScrolled && !{{ request()->is($menu['request']) ? 'true' : 'false' }},
+                                'text-text-primary dark:text-text-dark-primary': isScrolled && !
+                                    {{ request()->is($menu['request']) ? 'true' : 'false' }}
+                            }">
+                            {{ $menu['name'] }}
+                        </li>
+                    </a>
+                @endif
+            @endforeach
+        </ul>
+    @endauth
     <div class="relative flex items-center space-x-4">
 
         @if (!Auth::check())
             <a href="{{ route('auth.google.redirect') }}"
-                class="px-4 py-2 border flex gap-2 border-gray-400 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-gray-600 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
+                class="px-4 py-2 border flex gap-2 rounded-lg hover:shadow transition duration-150"
+                :class="{
+                    'text-text-dark-primary border-white hover:border-gray-300 hover:text-gray-300': !isScrolled,
+                    'text-text-primary dark:text-text-dark-primary border-gray-800 dark:border-gray-700 hover:border-gray-600 hover:text-gray-600': isScrolled
+                }">
                 <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy"
                     alt="google logo">
                 <span>Login with Google</span>
@@ -56,7 +75,11 @@
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
-                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 text-text-primary dark:text-text-dark-primary hover:text-gray-600">
+                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
+                    :class="{
+                        'text-white': !isScrolled,
+                        'text-text-primary dark:text-text-dark-primary': isScrolled
+                    }">
                     <i class="fa fa-circle-user mr-2 text-lg"></i>
                     {{ Auth::user()->name }}
                 </button>
@@ -72,8 +95,7 @@
                     </form>
                 </div>
             </div>
-        @endif
-        <!-- Profile Toggle Button -->
+        @endif <!-- Profile Toggle Button -->
         {{-- <button wire:click='profileToggle' class="focus:outline-none">
             <i class="fa-solid fa-circle-user text-2xl"></i>
         </button> --}}

@@ -3,7 +3,7 @@
 @section('content')
     <div class="relative overflow-hidden min-h-screen flex flex-col justify-center">
         <!-- Background Section -->
-        <div class="absolute inset-0 w-full h-full bg-gradient-to-tr from-blue-200/40 via-indigo-200/40 to-purple-200/40">
+        {{-- <div class="absolute inset-0 w-full h-full bg-gradient-to-tr from-blue-200/40 via-indigo-200/40 to-purple-200/40">
             <div
                 class="absolute top-24 left-0 w-[28rem] h-[28rem] bg-[#FF564E] rounded-full mix-blend-multiply filter blur-2xl opacity-70">
             </div>
@@ -13,6 +13,11 @@
             <div
                 class="absolute bottom-24 right-1/4 w-[24rem] h-[24rem] bg-[#FAD126] rounded-full mix-blend-multiply filter blur-2xl opacity-70">
             </div>
+        </div> --}}
+        <div class="absolute inset-0 w-full h-full">
+            <img src="{{ asset('/storage/img/main/main-background.jpg') }}" class="w-full h-full object-cover"
+                alt="background">
+            <div class="absolute inset-0 bg-black/50"></div>
         </div>
 
         <!-- Content -->
@@ -29,7 +34,7 @@
                     class="text-[70px] font-bold text-center bg-gradient-to-r from-[#FF564E] via-[#ff834e] to-[#FAD126] text-transparent bg-clip-text">
                     SavoryAI
                 </h1>
-                <h1 class="text-[70px] font-bold text-center text-text-primary dark:text-text-dark-primary">
+                <h1 class="text-[70px] font-bold text-center text-text-dark-primary">
                     Your Personal <span
                         class="underline decoration-wavy decoration-[#FAD126] underline-offset-[15px]">Chef,</span>
                 </h1>
@@ -40,7 +45,7 @@
             </div>
             <div class="mt-16 flex justify-center items-center space-x-24">
                 <div
-                    class="space-y-3 bg-gradient-to-r from-[#067D68] via-[#067D68] to-[#43c8a9] text-transparent bg-clip-text">
+                    class="space-y-3 bg-gradient-to-r from-[#64e9d1] via-[#8af5e2] to-[#43c8a9] text-transparent bg-clip-text">
                     <p class="text-lg text-center font-semibold">
                         20++
                     </p>
@@ -59,7 +64,7 @@
                     </div>
                 </div>
                 <div
-                    class="space-y-3  bg-gradient-to-r from-[#43c8a9] via-[#067D68] to-[#067D68] text-transparent bg-clip-text">
+                    class="space-y-3  bg-gradient-to-r from-[#43c8a9] via-[#8af5e2] to-[#8af5e2] text-transparent bg-clip-text">
                     <p class="text-lg text-center font-semibold">
                         1.5K++
                     </p>
@@ -79,4 +84,6 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-10 h-96 bg-white w-full"></div>
 @endsection

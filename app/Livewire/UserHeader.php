@@ -22,11 +22,13 @@ class UserHeader extends Component
             'dropdown' => [
                 [
                     'name' => 'Smart Recommender',
-                    'route' => 'savoryai.index'
+                    'route' => 'savoryai.index',
+                    'request' => 'savoryai*',
                 ],
                 [
                     'name' => 'My Recipes',
-                    'route' => 'savoryai.index'
+                    'route' => 'ingredients.index',
+                    'request' => 'ingredients*',
                 ]
             ]
         ],
