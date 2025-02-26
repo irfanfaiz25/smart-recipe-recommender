@@ -30,7 +30,8 @@
                     SavoryAI
                 </h1>
                 <h1 class="text-[70px] font-bold text-center text-text-primary dark:text-text-dark-primary">
-                    Your Personal Chef,
+                    Your Personal <span
+                        class="underline decoration-wavy decoration-[#FAD126] underline-offset-[15px]">Chef,</span>
                 </h1>
                 <h1
                     class="text-[70px] font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-green-400 to-text-primary bg-300% animate-shine">
@@ -68,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-20 flex justify-center items-center">
+            <div class="mt-20 flex justify-center items-center space-x-3">
                 <a href="#_"
                     class="relative rounded-lg px-8 py-3 overflow-hidden group bg-[#FF564E] hover:bg-gradient-to-r hover:from-[#FF564E] hover:to-[#ff834e] text-white hover:ring-2 hover:ring-offset-2 hover:ring-[#ff834e] transition-all ease-out duration-300">
                     <span

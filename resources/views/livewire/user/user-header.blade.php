@@ -45,10 +45,38 @@
         @endforeach
     </ul>
     <div class="relative flex items-center space-x-4">
+
+        @if (!Auth::check())
+            <a href="{{ route('auth.google.redirect') }}"
+                class="px-4 py-2 border flex gap-2 border-gray-400 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-gray-600 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
+                <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy"
+                    alt="google logo">
+                <span>Login with Google</span>
+            </a>
+        @else
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" @click.away="open = false"
+                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 text-text-primary dark:text-text-dark-primary hover:text-gray-600">
+                    <i class="fa fa-circle-user mr-2 text-lg"></i>
+                    {{ Auth::user()->name }}
+                </button>
+                <div x-show="open" x-transition
+                    class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
+                    <form method="POST" action="{{ route('auth.logout') }}">
+                        @csrf
+                        <button
+                            class="w-full block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800 text-start">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @endif
         <!-- Profile Toggle Button -->
-        <button wire:click='profileToggle' class="focus:outline-none">
+        {{-- <button wire:click='profileToggle' class="focus:outline-none">
             <i class="fa-solid fa-circle-user text-2xl"></i>
-        </button>
+        </button> --}}
 
         <!-- Dropdown Menu -->
         @if ($isProfileButtonVisible)

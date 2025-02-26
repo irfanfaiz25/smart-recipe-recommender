@@ -1,6 +1,17 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
+
+
+// redirect to Google's OAuth page
+Route::get('/api/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+
+// handle the callback from Google
+Route::get('/api/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+
+// logout
+Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
@@ -29,7 +40,7 @@ Route::prefix('admin')->group(function () {
             'recipeId' => $id
         ]);
     })->name('recipes.edit');
-});
+})->middleware('auth');
 
 Route::get('/', function () {
     return view('contents.user.home');
