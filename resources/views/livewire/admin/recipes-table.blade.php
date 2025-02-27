@@ -117,6 +117,11 @@
                     <div class="mt-5 flex justify-between items-center">
                         <div class="flex justify-center items-center space-x-3">
                             <div class="flex items-center space-x-1 text-sm">
+                                <i
+                                    class="fa-solid fa-earth-americas {{ $recipe->is_published ? 'text-primary' : 'text-gray-700' }}"></i>
+                                <span class="font-medium">{{ $recipe->is_published ? 'Public' : 'Draf' }}</span>
+                            </div>
+                            <div class="flex items-center space-x-1 text-sm">
                                 <i class="fa-regular fa-clock text-primary"></i>
                                 <span class="font-medium">{{ $recipe->cooking_time }} min</span>
                             </div>
@@ -129,7 +134,8 @@
                                 <span class="font-medium">{{ $recipe->servings }}</span>
                             </div>
                         </div>
-                        <div class="flex space-x-1 text-sm text-secondary">
+
+                        <div class="flex space-x-1 text-sm text-secondary items-center">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>

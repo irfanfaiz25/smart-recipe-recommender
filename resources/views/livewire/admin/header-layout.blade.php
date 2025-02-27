@@ -4,8 +4,8 @@
         <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
             <i class="fa-solid fa-plate-wheat text-xl"></i>
         </div>
-        <h1 class="relative font-semibold text-lg ml-2 font-sans text-text-primary dark:text-text-dark-primary">
-            SavoryAI<span class="absolute bottom-0 left-[4.55rem] text-primary dark:text-primary-light text-3xl">.</span>
+        <h1 class="relative font-semibold text-xl ml-2 font-display text-text-primary dark:text-text-dark-primary">
+            SavoryAI<span class="absolute bottom-0 left-[5rem] text-primary dark:text-primary-light text-3xl">.</span>
         </h1>
     </div>
     <div class="relative flex items-center space-x-4">

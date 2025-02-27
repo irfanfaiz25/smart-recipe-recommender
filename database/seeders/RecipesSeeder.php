@@ -74,7 +74,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 20,
             'difficulty' => 'sedang',
             'servings' => 1,
-            'image' => Storage::url($nasiGorengImage)
+            'image' => Storage::url($nasiGorengImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 450
         ]);
 
         $nasiGoreng->ingredients()->attach([
@@ -102,7 +106,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 30,
             'difficulty' => 'sedang',
             'servings' => 2,
-            'image' => Storage::url($ayamGorengImage)
+            'image' => Storage::url($ayamGorengImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 700
         ]);
 
         $ayamGoreng->ingredients()->attach([
@@ -128,7 +136,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 45,
             'difficulty' => 'sedang',
             'servings' => 4,
-            'image' => Storage::url($sotoAyamImage)
+            'image' => Storage::url($sotoAyamImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 310
         ]);
 
         $sotoAyam->ingredients()->attach([
@@ -156,7 +168,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 120,
             'difficulty' => 'rumit',
             'servings' => 6,
-            'image' => Storage::url($rendangDagingImage)
+            'image' => Storage::url($rendangDagingImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 193
         ]);
 
         $rendangDaging->ingredients()->attach([
@@ -185,7 +201,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 15,
             'difficulty' => 'mudah',
             'servings' => 2,
-            'image' => Storage::url($tumisKangkungImage)
+            'image' => Storage::url($tumisKangkungImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 1, // appertizer
+            'views_count' => rand(5, 20),
+            'calories' => 98
         ]);
 
         $tumisKangkung->ingredients()->attach([
@@ -211,7 +231,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 15,
             'difficulty' => 'mudah',
             'servings' => 2,
-            'image' => Storage::url($mieGorengImage)
+            'image' => Storage::url($mieGorengImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 229
         ]);
 
         $mieGoreng->ingredients()->attach([
@@ -238,7 +262,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 25,
             'difficulty' => 'sedang',
             'servings' => 4,
-            'image' => Storage::url($capcayImage)
+            'image' => Storage::url($capcayImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 1, // appertizer
+            'views_count' => rand(5, 20),
+            'calories' => 120
         ]);
 
         $capcay->ingredients()->attach([
@@ -265,7 +293,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 60,
             'difficulty' => 'rumit',
             'servings' => 6,
-            'image' => Storage::url($baksoImage)
+            'image' => Storage::url($baksoImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 444
         ]);
 
         $bakso->ingredients()->attach([
@@ -291,7 +323,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 30,
             'difficulty' => 'sedang',
             'servings' => 4,
-            'image' => Storage::url($gadogadoImage)
+            'image' => Storage::url($gadogadoImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 396
         ]);
 
         $gadoGado->ingredients()->attach([
@@ -318,7 +354,11 @@ class RecipesSeeder extends Seeder
             'cooking_time' => 40,
             'difficulty' => 'sedang',
             'servings' => 4,
-            'image' => Storage::url($sateAyamImage)
+            'image' => Storage::url($sateAyamImage),
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 340
         ]);
 
         $sateAyam->ingredients()->attach([

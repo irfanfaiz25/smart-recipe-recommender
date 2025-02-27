@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -20,11 +21,29 @@ class RecipeForm extends Component
     public $cookingTime = '';
     public $difficulty = '';
     public $servings = '';
+    public $recipeCategory;
     public $ingredient = '';
     public $ingredients = [];
     public $selectedIngredients = [];
     public $steps = [];
+    public $status;
     public $recipe = null;
+    public $units = [
+        'pcs',
+        'siung',
+        'ikat',
+        'butir',
+        'ruas',
+        'lembar',
+        'batang',
+        'gram',
+        'kg',
+        'ml',
+        'sdt',
+        'buah',
+        'piring',
+    ];
+    public $searchIngredients = '';
 
 
     public function mount($recipeId = null)
@@ -32,11 +51,13 @@ class RecipeForm extends Component
         if ($recipeId) {
             $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
             $this->name = $this->recipe->name;
+            $this->recipeCategory = $this->recipe->category_id;
             $this->description = $this->recipe->description;
             $this->cookingTime = $this->recipe->cooking_time;
             $this->difficulty = $this->recipe->difficulty;
             $this->servings = $this->recipe->servings;
             $this->existingImagePath = $this->recipe->image;
+            $this->status = $this->recipe->is_published;
 
             // Load ingredients with pivot data
             $this->selectedIngredients = $this->recipe->ingredients->map(function ($ingredient) {
@@ -57,14 +78,28 @@ class RecipeForm extends Component
         $this->ingredients = $ingredients;
     }
 
-    public function updatedIngredient($value)
+    // OLD METHOD
+    // public function updatedIngredient($value)
+    // {
+    //     $ingredient = json_decode($value, true);
+    //     $ingredient['amount'] = '';
+    //     $ingredient['unit'] = 'pcs';
+
+    //     $this->selectedIngredients[] = $ingredient;
+    //     $this->ingredient = '';
+    // }
+
+    public function selectIngredient($ingredientId)
     {
-        $ingredient = json_decode($value, true);
+        $ingredient = Ingredient::select(['id', 'name', 'image'])
+            ->where('id', $ingredientId)
+            ->first()
+            ->toArray();
         $ingredient['amount'] = '';
         $ingredient['unit'] = 'pcs';
 
         $this->selectedIngredients[] = $ingredient;
-        $this->ingredient = '';
+        $this->searchIngredients = '';
     }
 
     public function increaseIngredientAmount($id)
@@ -130,11 +165,13 @@ class RecipeForm extends Component
         // validate the fields
         $validated = $this->validate([
             'name' => 'required|string|max:100',
+            'recipeCategory' => 'required|exists:recipe_categories,id',
             'description' => 'required|string',
             'cookingTime' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:mudah,sedang,rumit',
             'servings' => 'required|integer|min:1',
             'newImage' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required',
             'selectedIngredients' => 'required|array|min:1',
             'selectedIngredients.*' => 'required',
             'steps' => 'required|array|min:1',
@@ -160,11 +197,13 @@ class RecipeForm extends Component
             // update recipe
             $this->recipe->update([
                 'name' => $validated['name'],
+                'category_id' => $validated['recipeCategory'],
                 'description' => $validated['description'],
                 'cooking_time' => $validated['cookingTime'],
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
-                'image' => $imagePath ?? null
+                'image' => $imagePath ?? null,
+                'is_published' => (bool) $validated['status'],
             ]);
 
             // delete existing relationships
@@ -191,11 +230,14 @@ class RecipeForm extends Component
             // insert field to recipes table
             $recipe = Recipe::create([
                 'name' => $validated['name'],
+                'user_id' => 1,
+                'category_id' => $validated['recipeCategory'],
                 'description' => $validated['description'],
                 'cooking_time' => $validated['cookingTime'],
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
-                'image' => $imagePath ?? null
+                'image' => $imagePath ?? null,
+                'is_published' => (bool) $validated['status'],
             ]);
 
             foreach ($this->selectedIngredients as $ingredient) {
@@ -214,6 +256,11 @@ class RecipeForm extends Component
             }
         }
 
+
+        $this->steps = [];
+        $this->selectedIngredients = [];
+        $this->reset('name', 'recipeCategory', 'description', 'cookingTime', 'difficulty', 'servings', 'newImage', 'existingImagePath', 'status');
+
         $this->redirect(route('recipes.index'), navigate: true);
         toastr()->success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
         $this->recipe = null;
@@ -221,6 +268,12 @@ class RecipeForm extends Component
 
     public function render()
     {
-        return view('livewire.admin.recipe-form');
+        $ingredients = Ingredient::select('id', 'name', 'image')->where('name', 'like', "%$this->searchIngredients%")->get()->toArray();
+        $this->ingredients = $ingredients;
+
+        $recipeCategories = RecipeCategory::select('id', 'name')->get();
+        return view('livewire.admin.recipe-form', [
+            'recipeCategories' => $recipeCategories
+        ]);
     }
 }

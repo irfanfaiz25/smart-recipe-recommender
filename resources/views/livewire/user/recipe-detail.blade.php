@@ -78,8 +78,8 @@
                     </h2>
                     <ul class="mt-3 w-[80%] text-lg text-text-primary space-y-3 font-normal">
                         @foreach ($recipe->ingredients as $ingredient)
-                            <li class="pb-2 border-b border-gray-200"><i class="fa-solid fa-check pe-2"></i>2
-                                {{ $ingredient->amount . ' ' . $ingredient->unit . ' ' . $ingredient->name }}
+                            <li class="pb-2 border-b border-gray-200"><i class="fa-solid fa-check pe-2 text-sm"></i>
+                                {{ $ingredient->pivot->amount . ' ' . $ingredient->pivot->unit . ' ' . $ingredient->name }}
                             </li>
                         @endforeach
                     </ul>

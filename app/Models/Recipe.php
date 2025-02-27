@@ -3,16 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OpenAI\Enums\Moderations\Category;
 
 class Recipe extends Model
 {
     protected $fillable = [
+        'user_id',
+        'category_id',
         'name',
         'description',
         'cooking_time',
         'difficulty',
         'servings',
         'image',
+        'views_count',
+        'is_published'
     ];
 
 
@@ -30,5 +35,10 @@ class Recipe extends Model
     public function steps()
     {
         return $this->hasMany(RecipeStep::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(RecipeCategory::class);
     }
 }
