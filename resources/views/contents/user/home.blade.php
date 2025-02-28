@@ -75,11 +75,11 @@
                 </div>
             </div>
             <div class="mt-20 flex justify-center items-center space-x-3">
-                <a href="#_"
-                    class="relative rounded-lg px-8 py-3 overflow-hidden group bg-[#FF564E] hover:bg-gradient-to-r hover:from-[#FF564E] hover:to-[#ff834e] text-white hover:ring-2 hover:ring-offset-2 hover:ring-[#ff834e] transition-all ease-out duration-300">
+                <a href="{{ Auth::check() ? route('savoryai.index') : route('login') }}" wire:navigate
+                    class="relative rounded-lg px-8 py-3 overflow-hidden group bg-[#FF564E] hover:bg-gradient-to-r hover:from-[#FF564E] hover:to-[#ff834e] text-white hover:ring-2 hover:ring-offset-2 hover:ring-[#ff834e] transition-all ease-out duration-300 text-base">
                     <span
                         class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                    <span class="relative">Get Started</span>
+                    <span class="relative">Mulai Sekarang</span>
                 </a>
             </div>
         </div>

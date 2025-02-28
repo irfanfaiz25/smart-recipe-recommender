@@ -12,7 +12,7 @@
         <!-- Profile Toggle Button -->
         {{-- @dd(Auth::user()->avatar) --}}
         @if (Auth::check() && Auth::user()->avatar)
-            <img wire:click='profileToggle' class="w-11 h-11 rounded-full object-cover cursor-pointer"
+            <img wire:click='profileToggle' class="w-9 h-9 rounded-full object-cover cursor-pointer"
                 src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}">
         @else
             <button wire:click='profileToggle' class="focus:outline-none">

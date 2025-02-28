@@ -28,7 +28,7 @@
                 @if (isset($menu['dropdown']))
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" @click.away="open = false"
-                            class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : '' }}"
+                            class="flex items-center text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : '' }}"
                             :class="{
                                 'text-white': !isScrolled,
                                 'text-text-primary dark:text-text-dark-primary': isScrolled
@@ -49,7 +49,7 @@
                     </div>
                 @else
                     <a href="{{ route($menu['route']) }}" wire:navigate>
-                        <li class="text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
+                        <li class="text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
                             :class="{
                                 'text-secondary font-semibold': {{ request()->is($menu['request']) ? 'true' : 'false' }},
                                 'text-white': !isScrolled && !{{ request()->is($menu['request']) ? 'true' : 'false' }},
@@ -66,26 +66,51 @@
     <div class="relative flex items-center space-x-4">
 
         @if (!Auth::check())
-            <a href="{{ route('auth.google.redirect') }}"
-                class="px-4 py-2 border flex gap-2 rounded-lg hover:shadow transition duration-150"
+            <a href="{{ route('login') }}" wire:navigate
+                class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium transition text-white duration-300 ease-out border-2 rounded-full shadow-md group"
+                :class="{
+                    'border-white': !isScrolled,
+                    'border-secondary': isScrolled
+                }">
+                <span
+                    class="absolute inset-0 flex items-center justify-center w-full h-full duration-300 -translate-x-full group-hover:translate-x-0 ease"
+                    :class="{
+                        'bg-white text-secondary': !isScrolled,
+                        'bg-secondary text-white': isScrolled
+                    }">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </span>
+                <span
+                    class="absolute flex items-center justify-center w-full h-full transition-all duration-300 transform group-hover:translate-x-full ease"
+                    :class="{
+                        'text-white': !isScrolled,
+                        'text-secondary': isScrolled
+                    }">Masuk
+                    atau Daftar</span>
+                <span class="relative invisible">Masuk atau Daftar</span>
+            </a>
+            {{-- <a href="{{ route('login') }}" wire:navigate
+                class="px-4 py-2 border flex gap-2 rounded-lg hover:shadow transition duration-150 hover:font-medium"
                 :class="{
                     'text-text-dark-primary border-white hover:border-gray-300 hover:text-gray-300': !isScrolled,
                     'text-text-primary dark:text-text-dark-primary border-gray-800 dark:border-gray-700 hover:border-gray-600 hover:text-gray-600': isScrolled
                 }">
-                <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy"
-                    alt="google logo">
-                <span>Login with Google</span>
-            </a>
+                <span>Masuk atau Daftar</span>
+            </a> --}}
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
-                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary hover:font-semibold capitalize"
+                    class="flex items-center text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary hover:font-semibold capitalize"
                     :class="{
                         'text-white': !isScrolled,
                         'text-text-primary dark:text-text-dark-primary': isScrolled
                     }">
                     @if (Auth::check() && Auth::user()->avatar)
-                        <img class="h-11 w-11 rounded-full object-cover mr-2" src="{{ Auth::user()->avatar }}"
+                        <img class="h-9 w-9 rounded-full object-cover mr-2" src="{{ Auth::user()->avatar }}"
                             alt="{{ Auth::user()->avatar }}">
                     @else
                         <i class="fa fa-circle-user mr-2 text-2xl"></i>

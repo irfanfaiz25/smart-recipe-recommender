@@ -1,8 +1,12 @@
 <div x-data="{ email: '', password: '', name: '' }"
-    class="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl w-full max-w-md transition-all duration-300"
+    class="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl w-full max-w-md transition-all duration-300 relative"
     x-init="gsap.from($el, { opacity: 0, y: 50, duration: 1, ease: 'back' });
     gsap.from('.input-field', { opacity: 0, x: -50, stagger: 0.2, duration: 0.8, ease: 'power2.out' });
     gsap.from('.btn', { opacity: 0, scale: 0.5, duration: 0.5, delay: 1, ease: 'elastic.out(1, 0.5)' });">
+    <button onclick="window.history.back()"
+        class="px-4 py-2 bg-white hover:bg-gray-300 bg-opacity-50 backdrop-blur-md shadow-md text-text-primary rounded-md">
+        <i class="fa fa-chevron-left text-sm"></i>
+    </button>
     <h2 class="text-4xl font-extrabold text-white mb-10 text-center">{{ $isLogin ? 'Login' : 'Register' }}</h2>
     <form wire:submit.prevent="{{ $isLogin ? 'login' : 'register' }}" class="space-y-6">
         @if (!$isLogin)
