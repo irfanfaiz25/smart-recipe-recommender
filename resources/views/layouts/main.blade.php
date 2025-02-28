@@ -45,12 +45,12 @@
     @livewireStyles
 </head>
 
-<body class="bg-bg-primary dark:bg-bg-secondary font-sans">
+<body class="bg-[#edf5e4] dark:bg-[#1c1c1c] font-sans">
 
     @if (str_contains(request()->path(), 'creator'))
         @livewire('header-layout')
 
-        <div class="relative">
+        <div class="relative bg-[#edf5e4] dark:bg-[#1c1c1c] ">
             <div class="flex gap-6 pt-16">
 
                 @livewire('sidebar-toggle')

@@ -34,7 +34,7 @@ class LoginForm extends Component
 
         $avatarPath = '';
         if ($this->avatar) {
-            $avatarPath = 'storage/' . $this->avatar->store('img/recipes', 'public');
+            $avatarPath = 'storage/' . $this->avatar->store('img/users', 'public');
         }
 
         $user = User::create([
