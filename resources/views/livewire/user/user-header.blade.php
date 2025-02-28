@@ -75,12 +75,12 @@
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
-                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
+                    class="flex items-center text-base font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary capitalize"
                     :class="{
                         'text-white': !isScrolled,
                         'text-text-primary dark:text-text-dark-primary': isScrolled
                     }">
-                    <i class="fa fa-circle-user mr-2 text-lg"></i>
+                    <i class="fa fa-circle-user mr-2 text-xl"></i>
                     {{ Auth::user()->name }}
                 </button>
                 <div x-show="open" x-transition

@@ -22,7 +22,7 @@
                     <div class="px-4 pt-1 pb-2">
                         <div class="flex items-center space-x-2 pl-1 py-1">
                             <i class="fa-solid fa-circle-user text-xl"></i>
-                            <span class="font-semibold">
+                            <span class="font-semibold capitalize">
                                 @if (Auth::check())
                                     {{ Auth::user()->name }}
                                 @else
@@ -74,11 +74,14 @@
                     </div> --}}
                     <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
                         <div class="mx-1 pt-2">
-                            <div wire:click='logout'
-                                class="hover:bg-neutral-100 dark:hover:bg-[#373636] px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                <i class="fa-solid fa-right-from-bracket text-lg"></i>
-                                <span>Keluar</span>
-                            </div>
+                            <form action="{{ route('auth.logout') }}" method="post">
+                                @csrf
+                                <button type="submit"
+                                    class="hover:bg-neutral-100 dark:hover:bg-[#373636] px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
+                                    <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                                    <span>Keluar</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

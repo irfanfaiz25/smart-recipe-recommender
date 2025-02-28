@@ -1,19 +1,32 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 
-
+// AUTH
 // redirect to Google's OAuth page
 Route::get('/api/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 
 // handle the callback from Google
 Route::get('/api/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
+// redirect to login page
+Route::get('/login', function () {
+    return view('layouts.login');
+})->name('login');
+
+// login action
+Route::post('/login', [AuthController::class, 'login'])->name('login.action');
+
+// register
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
 // logout
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
-Route::prefix('admin')->group(function () {
+// creators
+Route::prefix('creators')->middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.main');
     })->name('dashboard.index');
@@ -40,7 +53,7 @@ Route::prefix('admin')->group(function () {
             'recipeId' => $id
         ]);
     })->name('recipes.edit');
-})->middleware('auth');
+});
 
 Route::get('/', function () {
     return view('contents.user.home');

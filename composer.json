@@ -11,7 +11,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "openai-php/laravel": "^0.10.2",
-        "spatie/laravel-permission": "^6.13",
+        "spatie/laravel-permission": "^6.15",
         "yoeunes/toastr": "^3.1"
     },
     "require-dev": {

@@ -47,7 +47,7 @@
 
 <body class="bg-bg-primary dark:bg-bg-secondary font-sans">
 
-    @if (str_contains(request()->path(), 'admin'))
+    @if (str_contains(request()->path(), 'creator'))
         @livewire('header-layout')
 
         <div class="relative">
