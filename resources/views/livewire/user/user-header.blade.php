@@ -1,6 +1,6 @@
 @if (request()->is('/'))
     <div x-data="{ isScrolled: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 0 })"
-        class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center px-20 py-[0.8rem]"
+        class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center px-20 py-4"
         :class="{
             'bg-white bg-opacity-70 backdrop-blur-md dark:bg-bg-dark-primary shadow-md': isScrolled,
             'bg-transparent': !
@@ -8,7 +8,7 @@
         }">
     @else
         <div
-            class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center bg-white bg-opacity-20 backdrop-blur-md dark:bg-bg-dark-primary shadow-md px-20 py-[0.8rem]">
+            class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center bg-white bg-opacity-20 backdrop-blur-md dark:bg-bg-dark-primary shadow-md px-20 py-4">
 @endif
 <div class="hidden lg:flex items-center">
     <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
@@ -104,7 +104,7 @@
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
-                    class="flex items-center text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary hover:font-semibold capitalize"
+                    class="flex items-center text-sm font-normal cursor-pointer hover:scale-105 transition-all duration-300 hover:text-secondary hover:font-semibold capitalize"
                     :class="{
                         'text-white': !isScrolled,
                         'text-text-primary dark:text-text-dark-primary': isScrolled
