@@ -2,8 +2,8 @@
     x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
     class="w-full">
 
-    <div class="rounded-lg p-4 bg-white shadow-lg h-[1000px]">
-        <div class="mt-2 w-full h-[950px] overflow-y-auto">
+    <div class="rounded-lg p-4 bg-white shadow-lg h-fit">
+        <div class="mt-2 w-full h-fit overflow-y-auto">
             <h2 class="text-base">
                 Rekomendasi Resep :
             </h2>

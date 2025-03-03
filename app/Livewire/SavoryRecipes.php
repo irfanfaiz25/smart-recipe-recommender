@@ -24,6 +24,16 @@ class SavoryRecipes extends Component
         $this->updateMatchedRecipes();
     }
 
+    #[On('detected-ingredient')]
+    public function updateDetectedIngredeints($ingredients)
+    {
+        foreach ($ingredients as $ingredient) {
+            $this->selectedIngredientsId[] = $ingredient['id'];
+        }
+
+        $this->updateMatchedRecipes();
+    }
+
     public function getRecipesWithPartialMatch()
     {
         $recipes = Recipe::whereHas('ingredients', function ($query) {
@@ -53,6 +63,14 @@ class SavoryRecipes extends Component
             ->reject(fn($ingredient) => $ingredient === $id)
             ->values()
             ->toArray();
+
+        $this->updateMatchedRecipes();
+    }
+
+    #[On('reset-ingredients')]
+    public function resetIngredients()
+    {
+        $this->selectedIngredientsId = [];
 
         $this->updateMatchedRecipes();
     }
