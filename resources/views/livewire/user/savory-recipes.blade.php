@@ -28,10 +28,10 @@
                                 <div class="flex space-x-2 items-center justify-end">
                                     <i
                                         class="fa-regular fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
-                                    <a href="{{ route('savoryai.show', $recipe['recipe']['id']) }}" wire:navigate
+                                    <button wire:click="viewRecipeDetail({{ $recipe['recipe']['id'] }})"
                                         class="px-4 py-1.5 text-xs bg-gray-50 text-text-primary hover:bg-gray-200 rounded-md">
                                         Lihat Detail
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             {{-- card body --}}
@@ -96,15 +96,20 @@
                                         <div class="flex justify-center items-center space-x-3">
                                             <div class="flex items-center space-x-2 text-sm">
                                                 <i class="fa-regular fa-clock text-primary"></i>
-                                                <span class="font-medium">20 min</span>
+                                                <span class="font-medium">{{ $recipe['recipe']['cooking_time'] }}
+                                                    min</span>
                                             </div>
                                             <div class="flex items-center space-x-2 text-sm capitalize">
                                                 <i class="fa-solid fa-sliders text-yellow-500"></i>
-                                                <span class="font-medium">Mudah</span>
+                                                <span class="font-medium">{{ $recipe['recipe']['difficulty'] }}</span>
                                             </div>
                                             <div class="flex items-center space-x-2 text-sm">
                                                 <i class="fa-solid fa-bowl-food text-secondary"></i>
-                                                <span class="font-medium">1</span>
+                                                <span class="font-medium">{{ $recipe['recipe']['servings'] }}</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2 text-sm">
+                                                <i class="fa-solid fa-eye text-secondary"></i>
+                                                <span class="font-medium">{{ $recipe['recipe']['views_count'] }}</span>
                                             </div>
                                         </div>
                                     </div>
