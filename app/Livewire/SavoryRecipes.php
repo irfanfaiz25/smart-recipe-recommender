@@ -91,10 +91,10 @@ class SavoryRecipes extends Component
 
         if ($recipe->bookmarkedBy->contains($user)) {
             $recipe->bookmarkedBy()->detach($user);
-            toastr()->success('Resep dihapus dari bookmarks');
+            toastr()->success('Resep berhasil dihapus dari daftar favorit');
         } else {
             $recipe->bookmarkedBy()->attach($user);
-            toastr()->success('Resep dimasukkan ke bookmarks.');
+            toastr()->success('Resep berhasil ditambahkan ke daftar favorit');
         }
 
         $this->updateMatchedRecipes();

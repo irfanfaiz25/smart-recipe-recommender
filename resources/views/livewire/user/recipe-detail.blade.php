@@ -16,7 +16,7 @@
         @endif
         <div class="py-8 px-14">
             <h3 class="text-lg font-medium text-text-primary text-center uppercase">
-                recipe by tomingse
+                recipe by {{ $recipe->user->name }}
             </h3>
             <h1 class="mt-2 text-6xl font-bold font-display text-center">
                 {{ $recipe->name }}
@@ -60,10 +60,14 @@
                 </p>
             </div>
             <div class="mt-10 flex justify-center items-center space-x-3">
-                <button
+                <button wire:click='toggleBookmark({{ $recipe->id }})'
                     class="px-6 py-3 bg-secondary hover:bg-secondary-hover text-text-dark-primary text-base font-semibold rounded-full shadow-lg">
-                    <i class="fa-regular fa-heart pe-1 text-base"></i>
-                    Simpan Resep
+                    @if ($recipe->isBookmarkedBy(auth()->user()))
+                        <i class="fa-solid fa-bookmark pe-1 text-base"></i>
+                    @else
+                        <i class="fa-regular fa-bookmark pe-1 text-base"></i>
+                    @endif
+                    Tambah ke Favorit
                 </button>
                 <button
                     class="px-6 py-3 bg-primary hover:bg-primary-hover text-text-dark-primary text-base font-semibold rounded-full shadow-lg">
