@@ -41,4 +41,14 @@ class Recipe extends Model
     {
         return $this->belongsTo(RecipeCategory::class);
     }
+
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+    }
+
+    public function isBookmarkedBy($user)
+    {
+        return $this->bookmarkedBy()->where('user_id', $user->id)->exists();
+    }
 }

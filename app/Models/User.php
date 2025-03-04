@@ -64,4 +64,9 @@ class User extends Authenticatable
             ? $this->avatar
             : asset($this->avatar);
     }
+
+    public function bookmarkedRecipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'bookmarks')->withTimeStamps();
+    }
 }

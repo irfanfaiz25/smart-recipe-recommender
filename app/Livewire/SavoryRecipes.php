@@ -38,7 +38,7 @@ class SavoryRecipes extends Component
     {
         $recipes = Recipe::whereHas('ingredients', function ($query) {
             $query->whereIn('ingredients.id', $this->selectedIngredientsId);
-        })->with('ingredients')->get();
+        })->with(['ingredients', 'bookmarkedBy'])->get();
 
         $recipeWithPercentage = $recipes->map(function ($recipe) {
             $matchingIngredients = $recipe->ingredients->whereIn('id', $this->selectedIngredientsId)->count();
@@ -84,9 +84,27 @@ class SavoryRecipes extends Component
         $this->redirectRoute('savoryai.show', ['id' => $id], navigate: true);
     }
 
+    public function toggleBookmark($recipeId)
+    {
+        $recipe = Recipe::find($recipeId);
+        $user = auth()->user();
+
+        if ($recipe->bookmarkedBy->contains($user)) {
+            $recipe->bookmarkedBy()->detach($user);
+            toastr()->success('Resep dihapus dari bookmarks');
+        } else {
+            $recipe->bookmarkedBy()->attach($user);
+            toastr()->success('Resep dimasukkan ke bookmarks.');
+        }
+
+        $this->updateMatchedRecipes();
+        $this->dispatch('updated-bookmarks');
+    }
+
+
     private function initializeRecipes()
     {
-        $recipes = Recipe::with('ingredients')->get();
+        $recipes = Recipe::with(['ingredients', 'bookmarkedBy'])->get();
         $this->matchedRecipes = $recipes->map(function ($recipe) {
             return [
                 'recipe' => $recipe,

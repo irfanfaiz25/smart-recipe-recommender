@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class UserHeader extends Component
@@ -26,14 +27,14 @@ class UserHeader extends Component
                     'request' => 'savoryai*',
                 ],
                 [
-                    'name' => 'My Recipes',
+                    'name' => 'Recipes',
                     'route' => 'ingredients.index',
                     'request' => 'ingredients*',
                 ]
             ]
         ],
         [
-            'name' => 'Bookmarks',
+            'name' => 'Creators',
             'route' => 'savoryai.index',
             'request' => 'bookmarks*'
         ],
@@ -41,7 +42,8 @@ class UserHeader extends Component
 
     // public function mount()
     // {
-    //     request()->is('user-management') ? $this->isSetting = true : $this->isSetting = false;
+    //     // request()->is('user-management') ? $this->isSetting = true : $this->isSetting = false;
+    //     $this->totalBookmarks = Auth::user()->bookmarkedRecipes()->count();
     // }
 
     public function profileToggle()

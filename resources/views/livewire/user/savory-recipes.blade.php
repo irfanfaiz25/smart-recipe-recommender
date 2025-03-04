@@ -11,6 +11,7 @@
             {{-- card recipe recommendation --}}
             <div class="mt-4 grid grid-cols-2 gap-4">
                 @foreach ($matchedRecipes as $recipe)
+                    {{-- @dd($recipe) --}}
                     <div class="flex">
                         <div class="w-full border-2 border-primary rounded-lg">
                             {{-- card header --}}
@@ -26,8 +27,13 @@
                                     @endif
                                 </div>
                                 <div class="flex space-x-2 items-center justify-end">
-                                    <i
-                                        class="fa-regular fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
+                                    @if ($recipe['recipe']->isBookmarkedBy(auth()->user()))
+                                        <i wire:click="toggleBookmark({{ $recipe['recipe']['id'] }})"
+                                            class="fa-solid fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
+                                    @else
+                                        <i wire:click="toggleBookmark({{ $recipe['recipe']['id'] }})"
+                                            class="fa-regular fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
+                                    @endif
                                     <button wire:click="viewRecipeDetail({{ $recipe['recipe']['id'] }})"
                                         class="px-4 py-1.5 text-xs bg-gray-50 text-text-primary hover:bg-gray-200 rounded-md">
                                         Lihat Detail

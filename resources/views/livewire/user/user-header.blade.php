@@ -10,6 +10,7 @@
         <div
             class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center bg-white bg-opacity-20 backdrop-blur-md dark:bg-bg-dark-primary shadow-md px-20 py-4">
 @endif
+
 <div class="hidden lg:flex items-center">
     <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
         <i class="fa-solid fa-plate-wheat text-xl"></i>
@@ -52,7 +53,8 @@
                         <li class="text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary"
                             :class="{
                                 'text-secondary font-semibold': {{ request()->is($menu['request']) ? 'true' : 'false' }},
-                                'text-white': !isScrolled && !{{ request()->is($menu['request']) ? 'true' : 'false' }},
+                                'text-white': !isScrolled && !
+                                    {{ request()->is($menu['request']) ? 'true' : 'false' }},
                                 'text-text-primary dark:text-text-dark-primary': isScrolled && !
                                     {{ request()->is($menu['request']) ? 'true' : 'false' }}
                             }">
@@ -93,14 +95,6 @@
                     atau Daftar</span>
                 <span class="relative invisible">Masuk atau Daftar</span>
             </a>
-            {{-- <a href="{{ route('login') }}" wire:navigate
-                class="px-4 py-2 border flex gap-2 rounded-lg hover:shadow transition duration-150 hover:font-medium"
-                :class="{
-                    'text-text-dark-primary border-white hover:border-gray-300 hover:text-gray-300': !isScrolled,
-                    'text-text-primary dark:text-text-dark-primary border-gray-800 dark:border-gray-700 hover:border-gray-600 hover:text-gray-600': isScrolled
-                }">
-                <span>Masuk atau Daftar</span>
-            </a> --}}
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
@@ -110,7 +104,7 @@
                         'text-text-primary dark:text-text-dark-primary': isScrolled
                     }">
                     @if (Auth::check() && Auth::user()->avatar)
-                        <img class="h-9 w-9 rounded-full object-cover mr-2" src="{{ Auth::user()->avatar }}"
+                        <img class="h-9 w-9 rounded-full object-cover mr-2" src="{{ asset(Auth::user()->avatar) }}"
                             alt="{{ Auth::user()->avatar }}">
                     @else
                         <i class="fa fa-circle-user mr-2 text-2xl"></i>
@@ -130,7 +124,9 @@
                 </div>
             </div>
         @endif
+
     </div>
+
 </div>
 
 </div>

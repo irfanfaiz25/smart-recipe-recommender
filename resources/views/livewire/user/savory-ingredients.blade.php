@@ -5,7 +5,7 @@
         <div class="w-[75%] rounded-lg bg-white shadow-lg h-80">
             <div class="p-5">
                 <div class="flex space-x-2 items-center">
-                    <div class="w-[65%] min-w-[200px]">
+                    <div class="w-[60%] min-w-[200px]">
                         <div class="relative">
                             <input wire:model.live.debounce.300ms='search'
                                 class="w-full bg-bg-primary dark:bg-bg-dark-primary placeholder:text-slate-400 text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-md pl-3 pr-28 py-3 transition duration-300 ease focus:outline-none focus:border-secondary-light dark:focus:border-secondary-light hover:border-gray-300 shadow-sm focus:shadow"
@@ -20,7 +20,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="w-[35%]">
+                    <div class="w-[40%]">
                         <button type="button" wire:click="$set('isImageRecognitionOpen', true)"
                             class="w-full px-4 py-3 bg-secondary hover:bg-secondary-hover text-text-dark-primary font-medium rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98] text-sm">
                             Deteksi Bahan Masakan dengan Kamera Anda</button>
