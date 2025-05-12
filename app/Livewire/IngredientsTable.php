@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class IngredientsTable extends Component
 {
@@ -134,7 +135,7 @@ class IngredientsTable extends Component
         }
 
         $this->closeModal();
-        toastr()->success('Ingredient berhasil ditambahkan.');
+        Toaster::success('Ingredient berhasil ditambahkan.');
     }
 
     public function handleDelete()
@@ -147,7 +148,7 @@ class IngredientsTable extends Component
 
         $ingredient->delete();
         $this->closeConfirmationModal();
-        toastr()->success('Ingredient berhasil dihapus.');
+        Toaster::success('Ingredient berhasil dihapus.');
     }
 
     public function render()

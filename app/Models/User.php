@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Recipe::class, 'bookmarks')->withTimeStamps();
     }
+
+    public function likedRatings()
+    {
+        return $this->belongsToMany(Rating::class, 'rating_likes')->withTimestamps();
+    }
 }

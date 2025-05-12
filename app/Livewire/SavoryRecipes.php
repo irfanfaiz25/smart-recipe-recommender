@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Recipe;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 
 class SavoryRecipes extends Component
 {
@@ -28,6 +29,8 @@ class SavoryRecipes extends Component
     public function updateDetectedIngredeints($ingredients)
     {
         foreach ($ingredients as $ingredient) {
+            // give condition here if the ingredient array doesnt have id
+
             $this->selectedIngredientsId[] = $ingredient['id'];
         }
 
@@ -91,10 +94,10 @@ class SavoryRecipes extends Component
 
         if ($recipe->bookmarkedBy->contains($user)) {
             $recipe->bookmarkedBy()->detach($user);
-            toastr()->success('Resep berhasil dihapus dari daftar favorit');
+            Toaster::success('Resep berhasil dihapus dari daftar favorit');
         } else {
             $recipe->bookmarkedBy()->attach($user);
-            toastr()->success('Resep berhasil ditambahkan ke daftar favorit');
+            Toaster::success('Resep berhasil ditambahkan ke daftar favorit');
         }
 
         $this->updateMatchedRecipes();

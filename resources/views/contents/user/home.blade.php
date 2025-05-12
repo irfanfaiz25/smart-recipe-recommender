@@ -3,17 +3,6 @@
 @section('content')
     <div class="relative overflow-hidden min-h-screen flex flex-col justify-center">
         <!-- Background Section -->
-        {{-- <div class="absolute inset-0 w-full h-full bg-gradient-to-tr from-blue-200/40 via-indigo-200/40 to-purple-200/40">
-            <div
-                class="absolute top-24 left-0 w-[28rem] h-[28rem] bg-[#FF564E] rounded-full mix-blend-multiply filter blur-2xl opacity-70">
-            </div>
-            <div
-                class="absolute top-0 right-0 w-[28rem] h-[28rem] bg-green-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70">
-            </div>
-            <div
-                class="absolute bottom-24 right-1/4 w-[24rem] h-[24rem] bg-[#FAD126] rounded-full mix-blend-multiply filter blur-2xl opacity-70">
-            </div>
-        </div> --}}
         <div class="absolute inset-0 w-full h-full">
             <img src="{{ asset('/storage/img/main/main-background.jpg') }}" class="w-full h-full object-cover"
                 alt="background">

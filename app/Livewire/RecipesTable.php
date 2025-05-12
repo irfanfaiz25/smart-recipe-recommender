@@ -8,6 +8,7 @@ use App\Models\RecipeStep;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class RecipesTable extends Component
 {
@@ -68,7 +69,7 @@ class RecipesTable extends Component
 
         $recipe->delete();
         $this->handleCloseDeleteModal();
-        toastr()->success('Resep berhasil di hapus');
+        Toaster::success('Resep berhasil di hapus');
     }
 
     public function render()
@@ -76,6 +77,7 @@ class RecipesTable extends Component
         $recipes = Recipe::when($this->search, function ($query) {
             $query->where('name', 'like', "%$this->search%");
         })->latest()->paginate(10);
+
         return view('livewire.admin.recipes-table', [
             'recipes' => $recipes
         ]);

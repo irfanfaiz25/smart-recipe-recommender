@@ -28,7 +28,7 @@
     <link rel="icon" href="{{ asset('img/Logo.png') }}">
 
     <!-- Include Tailwind CSS -->
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- google font --}}
     <link
@@ -91,6 +91,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     @livewireScripts
+
+    <x-toaster-hub />
 
     @stack('script')
 

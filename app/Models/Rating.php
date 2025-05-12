@@ -23,4 +23,14 @@ class Rating extends Model
     {
         return $this->belongsTo(Recipe::class);
     }
+
+    public function likedBy()
+    {
+        return $this->belongsToMany(User::class, 'rating_likes')->withTimestamps();
+    }
+
+    public function isLikedBy($user)
+    {
+        return $this->likedBy()->where('user_id', $user->id)->exists();
+    }
 }

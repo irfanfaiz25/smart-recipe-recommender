@@ -14,7 +14,8 @@
         @else
             <div class="w-full h-[30rem] rounded-t-lg bg-gray-200"></div>
         @endif
-        <div class="py-8 px-14">
+        <div class="py-8 px-32">
+            {{-- head details --}}
             <h3 class="text-lg font-medium text-text-primary text-center uppercase">
                 recipe by {{ $recipe->user->name }}
             </h3>
@@ -22,11 +23,12 @@
                 {{ $recipe->name }}
             </h1>
             <div class="mt-8 flex space-x-1 justify-center items-center text-secondary text-2xl">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                @for ($i = 1; $i <= 5; $i++)
+                    <i class="fa-{{ $i <= (int) $averageRating ? 'solid' : 'regular' }} fa-star"></i>
+                @endfor
+                <p class="text-text-primary font-semibold text-2xl">
+                    /{{ $averageRating }}
+                </p>
             </div>
             <div class="mt-8 flex items-center justify-center">
                 <div class="w-1/3 h-24 grid grid-cols-3">
@@ -59,15 +61,18 @@
                     labore!
                 </p>
             </div>
+            {{-- end head details --}}
+            {{-- button --}}
             <div class="mt-10 flex justify-center items-center space-x-3">
                 <button wire:click='toggleBookmark({{ $recipe->id }})'
                     class="px-6 py-3 bg-secondary hover:bg-secondary-hover text-text-dark-primary text-base font-semibold rounded-full shadow-lg">
                     @if ($recipe->isBookmarkedBy(auth()->user()))
                         <i class="fa-solid fa-bookmark pe-1 text-base"></i>
+                        Hapus dari Favorit
                     @else
                         <i class="fa-regular fa-bookmark pe-1 text-base"></i>
+                        Tambah ke Favorit
                     @endif
-                    Tambah ke Favorit
                 </button>
                 <button
                     class="px-6 py-3 bg-primary hover:bg-primary-hover text-text-dark-primary text-base font-semibold rounded-full shadow-lg">
@@ -75,6 +80,8 @@
                     Tambah Ke Riwayat Masak
                 </button>
             </div>
+            {{-- end button --}}
+            {{-- recipe ingredients & steps --}}
             <div class="mt-12 flex space-x-4">
                 <div class="w-[40%]">
                     <h2 class="text-2xl font-display font-medium text-text-primary">
@@ -107,6 +114,162 @@
                     </ul>
                 </div>
             </div>
+            {{-- end recipe ingredients & steps --}}
+            {{-- comment section --}}
+            <div class="mt-5">
+                <h2 class="text-2xl font-display font-semibold">
+                    {{ $recipe->ratings->count() }} Reviews
+                </h2>
+                <div class="mt-1 flex space-x-1 items-center text-secondary text-xl">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <i class="fa-{{ $i <= (int) $averageRating ? 'solid' : 'regular' }} fa-star"></i>
+                    @endfor
+                    <p class="text-text-primary font-semibold text-lg">
+                        /{{ $averageRating }}
+                    </p>
+                </div>
+                <form wire:submit.prevent='submitRating'>
+                    <div class="mt-8 flex space-x-4">
+                        <i class="fa fa-circle-user text-4xl text-gray-500"></i>
+                        <div class="w-full space-y-1">
+                            <textarea wire:model='comment'
+                                class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
+                                rows="3" placeholder="Masukkan penilaian anda tentang resep ini"></textarea>
+                            @error('comment')
+                                <p class="text-xs text-red-500 font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center space-x-3">
+                        <div class="flex space-x-3">
+                            <div>
+                                <h3 class="text-base font-medium text-text-primary">
+                                    Berikan Penilaian Anda :
+                                </h3>
+                                @error('rating')
+                                    <p class="text-xs text-red-500 font-medium">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <div x-data="{ rating: 0, hoverRating: 0 }" class="flex space-x-1 items-center text-secondary text-3xl"
+                                x-on:rating-submitted.window="rating = 0; hoverRating = 0">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="fa-star cursor-pointer transition-all duration-150"
+                                        :class="{
+                                            'fa-solid': rating >= {{ $i }} || hoverRating >=
+                                                {{ $i }},
+                                            'fa-regular': rating < {{ $i }} && hoverRating <
+                                                {{ $i }}
+                                        }"
+                                        @click="rating = {{ $i }}; $wire.rating = {{ $i }}"
+                                        @mouseenter="hoverRating = {{ $i }}" @mouseleave="hoverRating = 0">
+                                    </i>
+                                @endfor
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="px-8 py-2.5 bg-secondary hover:bg-secondary-hover rounded-lg shadow-md text-text-dark-primary text-base">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-3 flex justify-end items-center border-b border-gray-300 py-2 space-x-2">
+                    <label for="sortby" class="text-sm text-gray-700 font-semibold">
+                        <i class="fa-solid fa-arrow-up-wide-short"></i>
+                        Urutkan
+                    </label>
+                    <select id="sortby" wire:model.live.debounce.300ms='sortBy'
+                        class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block min-w-32 p-2 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
+                        <option value="latest">Terbaru</option>
+                        <option value="higher">Tertinggi</option>
+                        <option value="lower">Terendah</option>
+                        <option value="likes">Disukai</option>
+                    </select>
+                </div>
+                <div class="mt-3">
+
+                    @foreach ($ratings as $item)
+                        <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
+                            @if ($item->user->avatar)
+                                <img class="h-9 w-9 rounded-full object-cover" src="{{ asset($item->user->avatar) }}"
+                                    alt="{{ $item->user->name }}">
+                            @else
+                                <i class="fa fa-circle-user text-4xl text-gray-500"></i>
+                            @endif
+                            <div class="w-full">
+                                <div class="flex justify-between w-full">
+                                    <div class="text-base font-semibold text-text-primary">
+                                        <p>{{ $item->user->name }}
+                                            <span class="text-base font-normal text-gray-500 ml-1">
+                                                21 Februari 2025
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="flex space-x-1 items-start text-lg text-secondary">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fa-{{ $i <= $item->rating ? 'solid' : 'regular' }} fa-star"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <p class="mt-1 text-sm font-normal text-gray-700">
+                                    {{ $item->comment }}
+                                </p>
+                                <div class="mt-2 flex space-x-2 items-center">
+                                    @if ($item->isLikedBy(auth()->user()))
+                                        <i wire:click='toggleLike({{ $item->id }})'
+                                            class="fa-solid fa-thumbs-up text-base text-secondary cursor-pointer"></i>
+                                    @else
+                                        <i wire:click='toggleLike({{ $item->id }})'
+                                            class="fa-regular fa-thumbs-up text-base text-secondary cursor-pointer"></i>
+                                    @endif
+                                    <p class="text-sm font-semibold text-gray-700">
+                                        {{ $item->likedBy->count() }} Likes
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
+                        <i class="fa fa-circle-user text-4xl text-gray-500"></i>
+                        <div>
+                            <div class="flex justify-between w-full">
+                                <div class="text-base font-semibold text-text-primary">
+                                    <p>Tomingse
+                                        <span class="text-base font-normal text-gray-500 ml-1">
+                                            21 Februari 2025
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="flex space-x-1 items-start text-lg text-secondary">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="mt-1 text-sm font-normal text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto aliquam doloribus
+                                ipsum nesciunt ab tenetur accusamus rem explicabo? Eum, maiores quae qui reiciendis
+                                saepe sapiente. Iusto quisquam fugiat veniam recusandae.
+                            </p>
+                            <div class="mt-2 flex space-x-2 items-center">
+                                <i class="fa-solid fa-thumbs-up text-base text-secondary"></i>
+                                <p class="text-sm font-semibold text-gray-700">
+                                    1 Like
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{-- end comment section --}}
         </div>
+
     </div>
 </div>

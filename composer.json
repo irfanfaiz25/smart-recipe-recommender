@@ -10,6 +10,7 @@
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "masmerise/livewire-toaster": "^2.8",
         "openai-php/client": "^0.10.3",
         "openai-php/laravel": "^0.10.2",
         "spatie/laravel-permission": "^6.15",
