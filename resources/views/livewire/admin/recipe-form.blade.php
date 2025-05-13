@@ -265,74 +265,95 @@
                     <p class="text-sm mb-1">Bahan Masakan Terpilih :</p>
                     <div class="grid grid-cols-2 gap-3">
                         @forelse ($selectedIngredients as $key => $ingredient)
-                            <div
-                                class="h-[7rem] flex items-center space-x-2 p-2 bg-gray-50 dark:bg-neutral-700 rounded-lg shadow-md">
-                                <div class="w-[25%] h-full">
-                                    @if ($ingredient['image'])
-                                        <img src="{{ asset($ingredient['image']) }}" alt="{{ $ingredient['name'] }}"
-                                            class="h-full w-24 rounded-md object-cover shadow-md">
-                                    @else
-                                        <div
-                                            class="h-full w-24 flex justify-center items-center bg-gray-100 rounded-md shadow-md">
-                                            <i class="fa-regular fa-image text-sm text-gray-400"></i>
+                            <div class="h-[9rem] p-2 bg-gray-50 dark:bg-neutral-700 rounded-lg shadow-md">
+                                <div class="flex w-full h-[5.8rem] items-center space-x-2">
+                                    <div class="w-[25%] h-full">
+                                        @if ($ingredient['image'])
+                                            <img src="{{ asset($ingredient['image']) }}"
+                                                alt="{{ $ingredient['name'] }}"
+                                                class="h-full w-24 rounded-md object-cover shadow-md">
+                                        @else
+                                            <div
+                                                class="h-full w-24 flex justify-center items-center bg-gray-100 rounded-md shadow-md">
+                                                <i class="fa-regular fa-image text-sm text-gray-400"></i>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="w-[75%] h-full flex flex-col justify-between">
+                                        <div class="flex justify-between space-x-2">
+                                            <div class="w-[90%] h-fit">
+                                                <p class="text-sm font-medium">{{ $ingredient['name'] }}</p>
+                                            </div>
+                                            <div class="w-[10%] text-end">
+                                                <i wire:click="removeIngredient({{ $ingredient['id'] }})"
+                                                    wire:loading.remove
+                                                    wire:target="removeIngredient({{ $ingredient['id'] }})"
+                                                    class="fa fa-solid fa-circle-xmark cursor-pointer text-base text-rose-500 hover:text-rose-600"></i>
+                                                <div role="status" wire:loading
+                                                    wire:target="removeIngredient({{ $ingredient['id'] }})">
+                                                    <svg aria-hidden="true"
+                                                        class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-primary"
+                                                        viewBox="0 0 100 101" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                            fill="currentColor" />
+                                                        <path
+                                                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                            fill="currentFill" />
+                                                    </svg>
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    @endif
-                                </div>
-                                <div class="w-[75%] h-full flex flex-col justify-between">
-                                    <div class="flex justify-between space-x-2">
-                                        <div class="w-[90%] h-fit">
-                                            <p class="text-sm font-medium">{{ $ingredient['name'] }}</p>
-                                        </div>
-                                        <div class="w-[10%] text-end">
-                                            <i wire:click="removeIngredient({{ $ingredient['id'] }})"
-                                                wire:loading.remove
-                                                wire:target="removeIngredient({{ $ingredient['id'] }})"
-                                                class="fa fa-solid fa-circle-xmark cursor-pointer text-base text-rose-500 hover:text-rose-600"></i>
-                                            <div role="status" wire:loading
-                                                wire:target="removeIngredient({{ $ingredient['id'] }})">
-                                                <svg aria-hidden="true"
-                                                    class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-primary"
-                                                    viewBox="0 0 100 101" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                                        fill="currentColor" />
-                                                    <path
-                                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                                        fill="currentFill" />
-                                                </svg>
-                                                <span class="sr-only">Loading...</span>
+                                        <div class="flex space-x-3">
+                                            <div class="space-y-1">
+                                                <label for="unit"
+                                                    class="text-xs text-text-primary dark:text-text-dark-primary">
+                                                    Jumlah/Berat
+                                                </label>
+                                                <input
+                                                    wire:model.live="selectedIngredients.{{ $key }}.amount"
+                                                    wire:change="updateIngredientAmount({{ $ingredient['id'] }}, $event.target.value)"
+                                                    type="text"
+                                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
+                                                    placeholder="2.5">
+                                                @error('selectedIngredients.' . $key . '.amount')
+                                                    <p class="text-red-500 text-xs mt-1">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
+                                            </div>
+                                            <div class="space-y-1">
+                                                <label for="unit"
+                                                    class="text-xs text-text-primary dark:text-text-dark-primary">
+                                                    Satuan
+                                                </label>
+                                                <select
+                                                    wire:change="updateIngredientUnit({{ $ingredient['id'] }}, $event.target.value)"
+                                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
+                                                    @foreach ($units as $unit)
+                                                        <option value="{{ $unit }}" class="capitalize"
+                                                            {{ $ingredient['unit'] == $unit ? 'selected' : '' }}>
+                                                            {{ $unit }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex space-x-3">
-                                        <div class="space-y-1">
-                                            <label for="unit"
-                                                class="text-xs text-text-primary dark:text-text-dark-primary">
-                                                Jumlah/Berat
-                                            </label>
-                                            <input wire:model.live="selectedIngredients.{{ $key }}.amount"
-                                                wire:change="updateIngredientAmount({{ $ingredient['id'] }}, $event.target.value)"
-                                                type="text"
-                                                class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
-                                                placeholder="2.5">
-                                        </div>
-                                        <div class="space-y-1">
-                                            <label for="unit"
-                                                class="text-xs text-text-primary dark:text-text-dark-primary">
-                                                Satuan
-                                            </label>
-                                            <select
-                                                wire:change="updateIngredientUnit({{ $ingredient['id'] }}, $event.target.value)"
-                                                class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
-                                                @foreach ($units as $unit)
-                                                    <option value="{{ $unit }}" class="capitalize"
-                                                        {{ $ingredient['unit'] == $unit ? 'selected' : '' }}>
-                                                        {{ $unit }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="mt-1 flex justify-center">
+                                    <div class="flex items-center py-2 ps-3">
+                                        <input wire:model.live="selectedIngredients.{{ $key }}.isPrimary"
+                                            id="isPrimary{{ $key }}"
+                                            wire:change="updateIngredientIsPrimary({{ $ingredient['id'] }}, $event.target.checked)"
+                                            type="checkbox"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="isPrimary{{ $key }}"
+                                            class="ms-1.5 text-sm font-normal text-gray-500 dark:text-gray-300">
+                                            Tandai sebagai bahan utama
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -462,23 +483,6 @@
             <div class="flex items-center justify-end space-x-2 pt-3 px-4">
                 <a href="{{ route('recipes.index') }}" wire:navigate
                     class="py-2 px-5 text-sm font-medium text-rose-500 border border-rose-500 hover:bg-rose-500 hover:text-text-dark-primary rounded-md transition duration-300">Batal</a>
-                {{-- <button type="submit" wire:loading.attr="disabled" wire:target='save'
-                    class="flex justify-center items-center space-x-2 text-white bg-gray-500 hover:bg-gray-600 border border-gray-500 px-6 py-2 text-sm text-center rounded-md transition duration-300">
-                    Draf
-                    <div role="status" wire:loading wire:target='save'>
-                        <svg aria-hidden="true"
-                        class="ml-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white"
-                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="currentColor" />
-                        <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentFill" />
-                    </svg>
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </button> --}}
                 <button type="submit" wire:loading.attr="disabled" wire:target='save'
                     class="flex justify-center items-center space-x-2 text-white bg-primary hover:bg-primary-hover border border-primary px-6 py-2 text-sm text-center rounded-md transition duration-300">
                     {{ $recipe ? 'Simpan Resep' : 'Unggah Resep' }}

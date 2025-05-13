@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class RecipeForm extends Component
 {
@@ -25,6 +26,7 @@ class RecipeForm extends Component
     public $ingredient = '';
     public $ingredients = [];
     public $selectedIngredients = [];
+    public $isPrimary;
     public $steps = [];
     public $status;
     public $recipe = null;
@@ -66,9 +68,11 @@ class RecipeForm extends Component
                     'name' => $ingredient->name,
                     'image' => $ingredient->image,
                     'amount' => (int) $ingredient->pivot->amount,
-                    'unit' => $ingredient->pivot->unit
+                    'unit' => $ingredient->pivot->unit,
+                    'isPrimary' => $ingredient->pivot->is_primary === 1 ? true : false,
                 ];
             })->toArray();
+            // dd($this->selectedIngredients);
 
             // Load steps
             $this->steps = $this->recipe->steps->pluck('description')->toArray();
@@ -97,9 +101,20 @@ class RecipeForm extends Component
             ->toArray();
         $ingredient['amount'] = '';
         $ingredient['unit'] = 'pcs';
+        $ingredient['isPrimary'] = false;
 
         $this->selectedIngredients[] = $ingredient;
         $this->searchIngredients = '';
+    }
+
+    public function updateIngredientIsPrimary($id, $value)
+    {
+        foreach ($this->selectedIngredients as $key => $ingredient) {
+            if ($ingredient['id'] === $id) {
+                $this->selectedIngredients[$key]['isPrimary'] = $value;
+                break;
+            }
+        }
     }
 
     public function increaseIngredientAmount($id)
@@ -173,10 +188,26 @@ class RecipeForm extends Component
             'newImage' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required',
             'selectedIngredients' => 'required|array|min:1',
-            'selectedIngredients.*' => 'required',
+            'selectedIngredients.*.id' => 'required|integer|exists:ingredients,id',
+            'selectedIngredients.*.amount' => 'required',
+            'selectedIngredients.*.unit' => 'required|string',
+            'selectedIngredients.*.isPrimary' => 'required|boolean',
             'steps' => 'required|array|min:1',
             'steps.*' => 'required',
+        ], [
+            'selectedIngredients.*.amount.required' => 'Jumlah tidak boleh kosong',
+            'selectedIngredients.*.isPrimary.required' => 'Bahan utama tidak boleh kosong',
         ]);
+
+        // check if the ingredients has primary ingredient
+        $primaryIngredientExists = collect($this->selectedIngredients)->contains(function ($ingredient) {
+            return $ingredient['isPrimary'] === true;
+        });
+
+        if (!$primaryIngredientExists) {
+            Toaster::error('Resep harus memiliki bahan utama, anda belum memilih bahan utama');
+            return;
+        }
 
         // storing image to storage
         $imagePath = $this->existingImagePath ?? '';
@@ -215,7 +246,8 @@ class RecipeForm extends Component
                 $this->recipe->ingredients()->attach($ingredient['id'], [
                     'ingredient_id' => $ingredient['id'],
                     'amount' => $ingredient['amount'],
-                    'unit' => $ingredient['unit']
+                    'unit' => $ingredient['unit'],
+                    'is_primary' => $ingredient['isPrimary']
                 ]);
             }
 
@@ -244,7 +276,8 @@ class RecipeForm extends Component
                 $recipe->ingredients()->attach($ingredient['id'], [
                     'ingredient_id' => $ingredient['id'],
                     'amount' => $ingredient['amount'],
-                    'unit' => $ingredient['unit']
+                    'unit' => $ingredient['unit'],
+                    'is_primary' => $ingredient['isPrimary']
                 ]);
             }
 
@@ -255,7 +288,6 @@ class RecipeForm extends Component
                 ]);
             }
         }
-
 
         $this->steps = [];
         $this->selectedIngredients = [];

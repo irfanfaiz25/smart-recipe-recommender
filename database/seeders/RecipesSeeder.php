@@ -82,10 +82,10 @@ class RecipesSeeder extends Seeder
         ]);
 
         $nasiGoreng->ingredients()->attach([
-            1 => ['amount' => '3', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '2', 'unit' => 'siung'], // Bawang Putih
-            3 => ['amount' => '1', 'unit' => 'butir'], // Telur
-            4 => ['amount' => '2 1/2', 'unit' => 'piring'], // Nasi Putih
+            1 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '2', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            3 => ['amount' => '1', 'unit' => 'butir', 'is_primary' => false], // Telur
+            4 => ['amount' => '2 1/2', 'unit' => 'piring', 'is_primary' => true], // Nasi Putih
         ]);
 
         $nasiGoreng->steps()->createMany([
@@ -114,11 +114,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $ayamGoreng->ingredients()->attach([
-            5 => ['amount' => '500', 'unit' => 'gram'], // Ayam
-            1 => ['amount' => '4', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '3', 'unit' => 'siung'], // Bawang Putih
-            29 => ['amount' => '1', 'unit' => 'ruas'], // Kunyit
-            30 => ['amount' => '1', 'unit' => 'ruas'], // Lengkuas
+            5 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Ayam
+            1 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            30 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Lengkuas
         ]);
 
         $ayamGoreng->steps()->createMany([
@@ -144,13 +144,13 @@ class RecipesSeeder extends Seeder
         ]);
 
         $sotoAyam->ingredients()->attach([
-            5 => ['amount' => '500', 'unit' => 'gram'], // Ayam
-            1 => ['amount' => '5', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '4', 'unit' => 'siung'], // Bawang Putih
-            29 => ['amount' => '2', 'unit' => 'ruas'], // Kunyit
-            30 => ['amount' => '1', 'unit' => 'ruas'], // Lengkuas
-            31 => ['amount' => '2', 'unit' => 'lembar'], // Daun Salam
-            32 => ['amount' => '1', 'unit' => 'batang'], // Serai
+            5 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Ayam
+            1 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '2', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            30 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Lengkuas
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+            32 => ['amount' => '1', 'unit' => 'batang', 'is_primary' => false], // Serai
         ]);
 
         $sotoAyam->steps()->createMany([
@@ -176,13 +176,13 @@ class RecipesSeeder extends Seeder
         ]);
 
         $rendangDaging->ingredients()->attach([
-            6 => ['amount' => '1', 'unit' => 'kg'], // Daging Sapi
-            1 => ['amount' => '10', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '8', 'unit' => 'siung'], // Bawang Putih
-            29 => ['amount' => '3', 'unit' => 'ruas'], // Kunyit
-            30 => ['amount' => '2', 'unit' => 'ruas'], // Lengkuas
-            31 => ['amount' => '3', 'unit' => 'lembar'], // Daun Salam
-            32 => ['amount' => '2', 'unit' => 'batang'], // Serai
+            6 => ['amount' => '1', 'unit' => 'kg', 'is_primary' => true], // Daging Sapi
+            1 => ['amount' => '10', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '8', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '3', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            30 => ['amount' => '2', 'unit' => 'ruas', 'is_primary' => false], // Lengkuas
+            31 => ['amount' => '3', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+            32 => ['amount' => '2', 'unit' => 'batang', 'is_primary' => false], // Serai
         ]);
 
         $rendangDaging->steps()->createMany([
@@ -209,10 +209,10 @@ class RecipesSeeder extends Seeder
         ]);
 
         $tumisKangkung->ingredients()->attach([
-            13 => ['amount' => '1', 'unit' => 'ikat'], // Kangkung
-            2 => ['amount' => '3', 'unit' => 'siung'], // Bawang Putih
-            26 => ['amount' => '2', 'unit' => 'buah'], // Cabai Merah
-            20 => ['amount' => '1', 'unit' => 'sdt'], // Garam
+            13 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => true], // Kangkung
+            2 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            26 => ['amount' => '2', 'unit' => 'buah', 'is_primary' => false], // Cabai Merah
+            20 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
         ]);
 
         $tumisKangkung->steps()->createMany([
@@ -239,11 +239,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $mieGoreng->ingredients()->attach([
-            16 => ['amount' => '200', 'unit' => 'gram'], // Mie
-            3 => ['amount' => '2', 'unit' => 'butir'], // Telur
-            10 => ['amount' => '1', 'unit' => 'buah'], // Wortel
-            12 => ['amount' => '1', 'unit' => 'ikat'], // Bayam
-            2 => ['amount' => '3', 'unit' => 'siung'], // Bawang Putih
+            16 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Mie
+            3 => ['amount' => '2', 'unit' => 'butir', 'is_primary' => false], // Telur
+            10 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => false], // Wortel
+            12 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => false], // Bayam
+            2 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
         ]);
 
         $mieGoreng->steps()->createMany([
@@ -270,11 +270,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $capcay->ingredients()->attach([
-            10 => ['amount' => '1', 'unit' => 'buah'], // Wortel
-            11 => ['amount' => '1', 'unit' => 'buah'], // Brokoli
-            12 => ['amount' => '1', 'unit' => 'ikat'], // Bayam
-            13 => ['amount' => '1', 'unit' => 'ikat'], // Kangkung
-            2 => ['amount' => '4', 'unit' => 'siung'], // Bawang Putih
+            10 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Wortel
+            11 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Brokoli
+            12 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => false], // Bayam
+            13 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => false], // Kangkung
+            2 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
         ]);
 
         $capcay->steps()->createMany([
@@ -301,11 +301,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $bakso->ingredients()->attach([
-            6 => ['amount' => '500', 'unit' => 'gram'], // Daging Sapi
-            1 => ['amount' => '5', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '4', 'unit' => 'siung'], // Bawang Putih
-            29 => ['amount' => '1', 'unit' => 'ruas'], // Kunyit
-            31 => ['amount' => '2', 'unit' => 'lembar'], // Daun Salam
+            6 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Daging Sapi
+            1 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
         ]);
 
         $bakso->steps()->createMany([
@@ -331,11 +331,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $gadoGado->ingredients()->attach([
-            10 => ['amount' => '1', 'unit' => 'buah'], // Wortel
-            11 => ['amount' => '1', 'unit' => 'buah'], // Brokoli
-            12 => ['amount' => '1', 'unit' => 'ikat'], // Bayam
-            14 => ['amount' => '2', 'unit' => 'buah'], // Kentang
-            8 => ['amount' => '200', 'unit' => 'gram'], // Tahu
+            10 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Wortel
+            11 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Brokoli
+            12 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => false], // Bayam
+            14 => ['amount' => '2', 'unit' => 'buah', 'is_primary' => true], // Kentang
+            8 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Tahu
         ]);
 
         $gadoGado->steps()->createMany([
@@ -362,11 +362,11 @@ class RecipesSeeder extends Seeder
         ]);
 
         $sateAyam->ingredients()->attach([
-            5 => ['amount' => '500', 'unit' => 'gram'], // Ayam
-            1 => ['amount' => '5', 'unit' => 'siung'], // Bawang Merah
-            2 => ['amount' => '4', 'unit' => 'siung'], // Bawang Putih
-            29 => ['amount' => '1', 'unit' => 'ruas'], // Kunyit
-            31 => ['amount' => '2', 'unit' => 'lembar'], // Daun Salam
+            5 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Ayam
+            1 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
         ]);
 
         $sateAyam->steps()->createMany([

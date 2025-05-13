@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('ingredient_id');
             $table->string('amount', 5);
             $table->string('unit', 50);
+            $table->boolean('is_primary')->default(false);
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');

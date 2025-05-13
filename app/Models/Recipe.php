@@ -34,7 +34,7 @@ class Recipe extends Model
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class, 'recipe_ingredients')
-            ->withPivot('amount', 'unit');
+            ->withPivot('amount', 'unit', 'is_primary');
     }
 
     public function steps()
