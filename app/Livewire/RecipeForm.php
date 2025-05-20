@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
+use OpenAI;
 
 class RecipeForm extends Component
 {
@@ -175,6 +176,57 @@ class RecipeForm extends Component
         $this->steps = array_values($this->steps);
     }
 
+    private function countTotalCalories()
+    {
+        $recipeName = $this->name;
+
+        $client = OpenAI::client(config('services.openai.key'));
+
+        // Get and format selected ingredients
+        $selectedIngredients = collect($this->selectedIngredients)->map(function ($ingredient) {
+            $detailIngredient = $ingredient['name'] . ' ' . $ingredient['amount'] . ' ' . $ingredient['unit'];
+            return $detailIngredient;
+        })->toArray();
+
+        // separate selected ingredients by comma
+        $selectedIngredients = implode(', ', $selectedIngredients);
+
+        // Prompt for getting the total calories
+        $prompt = "Calculate the total calories in kcal for the recipe: {$recipeName} with the following ingredients: {$selectedIngredients}. Return only the number of total calories without any text, nothing else";
+
+        // Build the request payload
+        $payload = [
+            'model' => 'gpt-4o',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => $prompt
+                        ],
+                    ]
+                ]
+            ],
+            'max_tokens' => 300,
+        ];
+
+        // Send the request to OpenAI
+        try {
+            $response = $client->chat()->create($payload);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        $detectedCalories = $response->choices[0]->message->content;
+        // remove non-numeric characters
+        $detectedCalories = preg_replace('/\D/', '', $detectedCalories);
+        // convert to integer
+        $detectedCalories = (int) $detectedCalories;
+
+        return $detectedCalories;
+    }
+
     public function save()
     {
         // validate the fields
@@ -225,6 +277,12 @@ class RecipeForm extends Component
         }
 
         if ($this->recipe) {
+            $calories = $this->recipe->calories;
+            // check if the calories is empty
+            if ($calories === null) {
+                $calories = $this->countTotalCalories();
+            }
+
             // update recipe
             $this->recipe->update([
                 'name' => $validated['name'],
@@ -234,6 +292,7 @@ class RecipeForm extends Component
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
                 'image' => $imagePath ?? null,
+                'calories' => $calories,
                 'is_published' => (bool) $validated['status'],
             ]);
 
@@ -259,6 +318,9 @@ class RecipeForm extends Component
                 ]);
             }
         } else {
+            // count calories for each portion
+            $calories = $this->countTotalCalories();
+
             // insert field to recipes table
             $recipe = Recipe::create([
                 'name' => $validated['name'],
@@ -269,6 +331,7 @@ class RecipeForm extends Component
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
                 'image' => $imagePath ?? null,
+                'calories' => $calories,
                 'is_published' => (bool) $validated['status'],
             ]);
 

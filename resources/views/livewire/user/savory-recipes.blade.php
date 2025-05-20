@@ -124,6 +124,14 @@
                                                 <i class="fa-solid fa-eye text-secondary"></i>
                                                 <span class="font-medium">{{ $recipe['recipe']['views_count'] }}</span>
                                             </div>
+                                            <div class="flex items-center space-x-2 text-sm">
+                                                <i class="fa-solid fa-fire-flame-curved text-secondary"></i>
+                                                <span class="font-medium">
+                                                    {{ $recipe['recipe']['calories'] }} Kkal |
+                                                    {{ floor($recipe['recipe']['calories'] / $recipe['recipe']['servings']) }}
+                                                    Kkal/porsi
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

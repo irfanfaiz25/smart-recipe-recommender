@@ -2,18 +2,25 @@
     x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
     class="w-full">
     <div class="mt-3 w-full bg-white rounded-lg shadow-lg h-fit">
-        @if ($recipe->image)
-            <div class="relative w-full h-[30rem] rounded-t-lg ">
+        <div class="relative w-full rounded-t-lg ">
+            @if ($recipe->image)
                 <img class="w-full h-[30rem] rounded-t-lg object-cover" src="{{ asset($recipe->image) }}">
-                <a href="{{ route('savoryai.index') }}" wire:navigate
-                    class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-text-dark-primary text-base font-semibold rounded-lg shadow-lg">
-                    <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
-                    Kembali
-                </a>
-            </div>
-        @else
-            <div class="w-full h-[30rem] rounded-t-lg bg-gray-200"></div>
-        @endif
+            @else
+                <div class="w-full h-[30rem] rounded-t-lg bg-gray-200 flex justify-center items-center">
+                    <div class="space-y-3">
+                        <i class="fa-solid fa-utensils text-4xl text-gray-500"></i>
+                        <p class="font-normal italic text-gray-500">
+                            {{ $recipe->name }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+            <a href="{{ route('savoryai.index') }}" wire:navigate
+                class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-text-dark-primary text-base font-semibold rounded-lg shadow-lg">
+                <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
+                Kembali
+            </a>
+        </div>
         <div class="py-8 px-32">
             {{-- head details --}}
             <h3 class="text-lg font-medium text-text-primary text-center uppercase">
@@ -31,7 +38,7 @@
                 </p>
             </div>
             <div class="mt-8 flex items-center justify-center">
-                <div class="w-1/3 h-24 grid grid-cols-3">
+                <div class="w-1/2 h-28 grid grid-cols-4">
                     <div class="border-t border-b border-gray-200 flex justify-center items-center space-x-2 text-lg">
                         <div class="text-center">
                             <i class="fa-solid fa-sliders text-yellow-500"></i>
@@ -42,6 +49,26 @@
                         <div class="text-center">
                             <i class="fa-regular fa-clock text-primary"></i>
                             <p class="font-medium">{{ $recipe->cooking_time }} min</p>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 flex justify-center items-center text-lg">
+                        <div class="text-center py-2">
+                            <i class="fa-solid fa-fire-flame-curved text-orange-500 text-xl mb-2"></i>
+                            @if ($recipe->calories)
+                                <div class="flex">
+                                    <div class="px-1.5 flex flex-col border-r border-gray-200">
+                                        <span class="font-bold text-lg text-primary">{{ $recipe->calories }}</span>
+                                        <span class="text-xs text-gray-600 font-medium">Total Kkal</span>
+                                    </div>
+                                    <div class="px-1.5 flex flex-col">
+                                        <span
+                                            class="font-bold text-lg text-primary">{{ floor($recipe->calories / $recipe->servings) }}</span>
+                                        <span class="text-xs text-gray-600 font-medium">Kkal/Porsi</span>
+                                    </div>
+                                </div>
+                            @else
+                                <span class="text-sm text-gray-400 font-medium">Tidak ada info kalori</span>
+                            @endif
                         </div>
                     </div>
                     <div class="border-t border-b border-gray-200 flex justify-center items-center space-x-2 text-lg">
