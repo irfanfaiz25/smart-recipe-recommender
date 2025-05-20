@@ -12,22 +12,22 @@ class UserHeader extends Component
 
     public $menus = [
         [
-            'name' => 'Home',
+            'name' => 'Beranda',
             'route' => 'home.index',
             'request' => '/'
         ],
         [
-            'name' => 'SavoryAI',
+            'name' => 'Resep Masakan',
             'route' => 'savoryai.index',
             'request' => 'savoryai*',
             'dropdown' => [
                 [
-                    'name' => 'Smart Recommender',
+                    'name' => 'Rekomendasi Cerdas',
                     'route' => 'savoryai.index',
                     'request' => 'savoryai*',
                 ],
                 [
-                    'name' => 'Recipes',
+                    'name' => 'Resep Populer',
                     'route' => 'ingredients.index',
                     'request' => 'ingredients*',
                 ]
@@ -36,7 +36,7 @@ class UserHeader extends Component
         [
             'name' => 'Creators',
             'route' => 'savoryai.index',
-            'request' => 'bookmarks*'
+            'request' => 'creators*'
         ],
     ];
 
