@@ -13,6 +13,7 @@ class SavoryRecipes extends Component
 {
     public $selectedIngredientsId = [];
     public $matchedRecipes = [];
+    public $caloriesCategory;
 
     public function mount()
     {
@@ -25,6 +26,11 @@ class SavoryRecipes extends Component
         $this->selectedIngredientsId[] = $ingredient['id'];
 
         $this->updateMatchedRecipes();
+    }
+
+    public function updatedCaloriesCategory($category)
+    {
+        $this->updateMatchedRecipes($category);
     }
 
     #[On('detected-ingredient')]
@@ -65,7 +71,7 @@ class SavoryRecipes extends Component
     //     return $recipeWithPercentage->where('matching_percentage', '>=', 75)->sortByDesc('matching_percentage');
     // }
 
-    public function getRecipesWithCosineSimilarity()
+    public function getRecipesWithCosineSimilarity($category = '')
     {
         // Collect all ingredients in the database
         $allIngredients = Ingredient::all();
@@ -91,10 +97,32 @@ class SavoryRecipes extends Component
             $ingredientIdf[$ingredient->id] = $idf;
         }
 
-        // Get recipes that contain at least one of the selected ingredients
-        $recipes = Recipe::whereHas('ingredients', function ($query) {
-            $query->whereIn('ingredients.id', $this->selectedIngredientsId);
-        })->with(['ingredients', 'bookmarkedBy'])->get();
+        $caloriesCategory = [
+            'rendah' => '0-400',
+            'sedang' => '401-800',
+            'tinggi' => '801-9999'
+        ];
+
+        if ($category) {
+            $caloriesRange = $caloriesCategory[$category];
+            [$minCalories, $maxCalories] = explode('-', $caloriesRange);
+
+            $query = Recipe::query()
+                ->where(DB::raw('calories / servings'), '>=', $minCalories)
+                ->where(DB::raw('calories / servings'), '<=', $maxCalories)
+                ->whereHas('ingredients', function ($query) {
+                    $query->whereIn('ingredients.id', $this->selectedIngredientsId);
+                })
+                ->with(['ingredients', 'bookmarkedBy']);
+
+            $recipes = $query->get();
+        } else {
+            // Get recipes that contain at least one of the selected ingredients
+            $recipes = Recipe::whereHas('ingredients', function ($query) {
+                $query->whereIn('ingredients.id', $this->selectedIngredientsId);
+            })->with(['ingredients', 'bookmarkedBy'])->get();
+        }
+
 
         $userVector = [];
         foreach ($this->selectedIngredientsId as $ingredientId) {
@@ -252,9 +280,27 @@ class SavoryRecipes extends Component
     }
 
 
-    private function initializeRecipes()
+    private function initializeRecipes($category = '')
     {
-        $recipes = Recipe::with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
+        $caloriesCategory = [
+            'rendah' => '0-400',
+            'sedang' => '401-800',
+            'tinggi' => '801-99999'
+        ];
+
+        if ($category) {
+            $caloriesRange = $caloriesCategory[$category];
+            [$minCalories, $maxCalories] = array_map('intval', explode('-', $caloriesRange));
+
+            $query = Recipe::where(DB::raw('calories / servings'), '>=', $minCalories)
+                ->where(DB::raw('calories / servings'), '<=', $maxCalories)
+                ->with(['ingredients', 'bookmarkedBy', 'ratings']);
+
+            $recipes = $query->get();
+        } else {
+            $recipes = Recipe::with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
+        }
+
         $this->matchedRecipes = $recipes->map(function ($recipe) {
             return [
                 'recipe' => $recipe,
@@ -264,12 +310,12 @@ class SavoryRecipes extends Component
         });
     }
 
-    private function updateMatchedRecipes()
+    private function updateMatchedRecipes($category = '')
     {
         if (empty($this->selectedIngredientsId)) {
-            $this->initializeRecipes();
+            $this->initializeRecipes($category);
         } else {
-            $this->matchedRecipes = $this->getRecipesWithCosineSimilarity();
+            $this->matchedRecipes = $this->getRecipesWithCosineSimilarity($category);
         }
     }
 

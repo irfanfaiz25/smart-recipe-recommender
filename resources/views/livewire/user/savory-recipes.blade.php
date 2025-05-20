@@ -4,9 +4,32 @@
 
     <div class="rounded-lg p-4 bg-white shadow-lg h-fit">
         <div class="mt-2 w-full h-fit overflow-y-auto">
-            <h2 class="text-base">
-                Rekomendasi Resep :
-            </h2>
+
+            <div class="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-sm">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-utensils text-secondary text-xl"></i>
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        Rekomendasi Resep
+                    </h2>
+                </div>
+
+                {{-- calories preferences --}}
+                <div class="w-[35%] flex items-center space-x-3">
+                    <label for="caloriesCategory" class="text-sm font-medium text-gray-700 whitespace-nowrap">
+                        Kategori Kalori:
+                    </label>
+                    <select id="caloriesCategory" wire:model.live.debounce.300ms="caloriesCategory"
+                        class="w-full bg-white text-gray-700 text-sm border border-gray-200 rounded-lg px-4 py-2.5
+                   transition duration-200 ease-in-out
+                   focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
+                   hover:border-gray-300">
+                        <option value="">Semua Kategori</option>
+                        <option value="rendah">Kalori Rendah</option>
+                        <option value="sedang">Kalori Sedang</option>
+                        <option value="tinggi">Kalori Tinggi</option>
+                    </select>
+                </div>
+            </div>
 
             {{-- card recipe recommendation --}}
             <div class="mt-4 grid grid-cols-2 gap-4">
@@ -107,24 +130,24 @@
                                     </div>
                                     <div class="flex space-x-4">
                                         <div class="flex justify-center items-center space-x-3">
-                                            <div class="flex items-center space-x-2 text-sm">
+                                            <div class="flex items-center space-x-1 text-sm">
                                                 <i class="fa-regular fa-clock text-primary"></i>
                                                 <span class="font-medium">{{ $recipe['recipe']['cooking_time'] }}
                                                     min</span>
                                             </div>
-                                            <div class="flex items-center space-x-2 text-sm capitalize">
+                                            <div class="flex items-center space-x-1 text-sm capitalize">
                                                 <i class="fa-solid fa-sliders text-yellow-500"></i>
                                                 <span class="font-medium">{{ $recipe['recipe']['difficulty'] }}</span>
                                             </div>
-                                            <div class="flex items-center space-x-2 text-sm">
+                                            <div class="flex items-center space-x-1 text-sm">
                                                 <i class="fa-solid fa-bowl-food text-secondary"></i>
                                                 <span class="font-medium">{{ $recipe['recipe']['servings'] }}</span>
                                             </div>
-                                            <div class="flex items-center space-x-2 text-sm">
+                                            <div class="flex items-center space-x-1 text-sm">
                                                 <i class="fa-solid fa-eye text-secondary"></i>
                                                 <span class="font-medium">{{ $recipe['recipe']['views_count'] }}</span>
                                             </div>
-                                            <div class="flex items-center space-x-2 text-sm">
+                                            <div class="flex items-center space-x-1 text-sm">
                                                 <i class="fa-solid fa-fire-flame-curved text-secondary"></i>
                                                 <span class="font-medium">
                                                     {{ $recipe['recipe']['calories'] }} Kkal |
