@@ -11,17 +11,24 @@
             {{-- card recipe recommendation --}}
             <div class="mt-4 grid grid-cols-2 gap-4">
                 @foreach ($matchedRecipes as $recipe)
-                    {{-- @dd($recipe) --}}
+                    {{-- @dd($recipe['ratings']) --}}
                     <div class="flex">
                         <div class="w-full border-2 border-primary rounded-lg">
                             {{-- card header --}}
                             <div class="h-12 w-full p-3 flex justify-between items-center bg-primary rounded-t-sm">
                                 <div class="flex space-x-1 items-center justify-start text-text-dark-primary text-base">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
+                                    @if ($recipe['ratings'])
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i
+                                                class="fa-{{ $i <= (int) $recipe['ratings'] ? 'solid' : 'regular' }} fa-star"></i>
+                                        @endfor
+                                    @else
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    @endif
                                     @if ($recipe['matching_percentage'])
                                         <p>| Tingkat Kecocokan : {{ (int) $recipe['matching_percentage'] }} %</p>
                                     @endif

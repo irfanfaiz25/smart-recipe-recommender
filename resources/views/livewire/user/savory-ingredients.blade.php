@@ -23,7 +23,7 @@
                     <div class="w-[40%]">
                         <button type="button" wire:click="$set('isImageRecognitionOpen', true)"
                             class="w-full px-4 py-3 bg-secondary hover:bg-secondary-hover text-text-dark-primary font-medium rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98] text-sm">
-                            Deteksi Bahan Masakan dengan Kamera Anda</button>
+                            Deteksi Bahan Makanan dengan Kamera Anda</button>
 
                         {{-- Analyze image form modal --}}
                         <div x-show="$wire.isImageRecognitionOpen"
@@ -48,11 +48,11 @@
                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                                     <form wire:submit.prevent='recognizeImage' class="flex flex-col p-6">
                                         <div class=" mb-5">
-                                            <h2 class="text-lg font-semibold">Analisa Gambar Bahan Masakan</h2>
+                                            <h2 class="text-lg font-semibold">Analisa Gambar Bahan Makanan</h2>
                                             <p class="text-xs text-gray-500 font-normal">
-                                                Upload gambar bahan masakan yang tersedia di rumah Anda. Detail dari
+                                                Upload gambar bahan makanan yang tersedia di rumah Anda. Detail dari
                                                 gambar
-                                                yang diupload akan mempengaruhi hasil deteksi bahan masakan. </p>
+                                                yang diupload akan mempengaruhi hasil deteksi bahan makanan. </p>
                                         </div>
 
                                         <div class="flex w-full space-x-2 mb-6">
@@ -121,7 +121,7 @@
             {{-- ingredients list --}}
             <div class="p-5 max-h-[13.2rem] overflow-y-auto">
                 <h2 class="text-base">
-                    Pilih Bahan Masakan :
+                    Pilih Bahan Makanan :
                 </h2>
                 <div class="space-y-4 mt-2">
                     @foreach ($ingredients as $category => $items)

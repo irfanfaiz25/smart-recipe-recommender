@@ -83,6 +83,7 @@ class SavoryIngredients extends Component
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
+        dd($response);
         $detectedIngredients = explode(', ', $response['choices'][0]['message']['content']);
 
         $matchedIngredients = Ingredient::select('id', 'name', 'image')
@@ -124,6 +125,7 @@ class SavoryIngredients extends Component
             ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
             ->get();
 
+        $this->reset('search');
         $this->dispatch('selected-ingredient', $ingredient);
     }
 
