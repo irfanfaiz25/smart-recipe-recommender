@@ -1,4 +1,4 @@
-@if (request()->is('/'))
+@if (request()->is('/') || request()->is('creators'))
     <div x-data="{ isScrolled: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 0 })"
         class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary dark:text-text-dark-primary flex justify-end lg:justify-between items-center px-20 py-4"
         :class="{

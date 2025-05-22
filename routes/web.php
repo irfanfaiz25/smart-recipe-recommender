@@ -25,7 +25,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // logout
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
-// creators
+// creators dashboard
 Route::prefix('creators')->middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.main');
@@ -67,4 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/savoryai/{id}', function () {
         return view('contents.user.savoryai');
     })->name('savoryai.show');
+
+    // creators
+    Route::get('/creators', function () {
+        return view('contents.user.creators');
+    })->name('creators.index');
 });

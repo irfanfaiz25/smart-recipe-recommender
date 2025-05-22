@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Rating::class, 'rating_likes')->withTimestamps();
     }
+
+    public function creators()
+    {
+        return $this->hasOne(Creator::class);
+    }
 }

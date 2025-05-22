@@ -47,7 +47,7 @@
 
 <body class="bg-[#edf5e4] dark:bg-[#1c1c1c] font-sans">
 
-    @if (str_contains(request()->path(), 'creator'))
+    @if (str_contains(request()->path(), 'creators/'))
         @livewire('header-layout')
 
         <div class="relative bg-[#edf5e4] dark:bg-[#1c1c1c] ">

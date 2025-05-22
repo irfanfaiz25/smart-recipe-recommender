@@ -35,7 +35,7 @@ class UserHeader extends Component
         ],
         [
             'name' => 'Creators',
-            'route' => 'savoryai.index',
+            'route' => 'creators.index',
             'request' => 'creators*'
         ],
     ];
