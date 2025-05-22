@@ -25,15 +25,41 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // logout
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
-// creators dashboard
-Route::prefix('creators')->middleware('auth')->group(function () {
+// admin dashboard
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.main');
-    })->name('dashboard.index');
+    })->name('admin-dashboard.index');
 
     Route::get('/ingredients', function () {
         return view('contents.admin.ingredients');
-    })->name('ingredients.index');
+    })->name('admin-ingredients.index');
+
+    Route::get('/recipes', function () {
+        return view('contents.admin.recipes', [
+            'content' => 'table'
+        ]);
+    })->name('admin-recipes.index');
+
+    Route::get('/recipes/create', function () {
+        return view('contents.admin.recipes', [
+            'content' => 'create'
+        ]);
+    })->name('admin-recipes.create');
+
+    Route::get('/recipes/edit/{id}', function ($id) {
+        return view('contents.admin.recipes', [
+            'content' => 'edit',
+            'recipeId' => $id
+        ]);
+    })->name('admin-recipes.edit');
+});
+
+// creators dashboard
+Route::prefix('creators')->middleware(['auth', 'creators'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('layouts.main');
+    })->name('dashboard.index');
 
     Route::get('/recipes', function () {
         return view('contents.admin.recipes', [

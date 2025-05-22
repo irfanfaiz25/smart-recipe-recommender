@@ -22,13 +22,18 @@ class UsersSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        $admin2 = User::create([
-            'name' => 'admin2',
-            'email' => 'admin2@gmail.com',
+        $creators = User::create([
+            'name' => 'creators',
+            'email' => 'creators@gmail.com',
             'password' => Hash::make('rahasia')
         ]);
 
-        $admin2->assignRole('admin');
+        $creators->creators()->create([
+            'phone_number' => '081234567890',
+            'city' => 'Jakarta'
+        ]);
+
+        $creators->assignRole('creators');
 
         $user = User::create([
             'name' => 'user',

@@ -229,6 +229,8 @@ class RecipeForm extends Component
 
     public function save()
     {
+        $user = auth()->user();
+
         // validate the fields
         $validated = $this->validate([
             'name' => 'required|string|max:100',
@@ -277,11 +279,34 @@ class RecipeForm extends Component
         }
 
         if ($this->recipe) {
-            $calories = $this->recipe->calories;
-            // check if the calories is empty
-            if ($calories === null) {
-                $calories = $this->countTotalCalories();
+            // Check if ingredients have changed by comparing both arrays
+            $ingredientsChanged = false;
+
+            // Get current recipe ingredients as collection
+            $currentIngredients = collect($this->selectedIngredients);
+            $existingIngredients = $this->recipe->ingredients;
+
+            // Check if number of ingredients changed
+            if ($currentIngredients->count() !== $existingIngredients->count()) {
+                $ingredientsChanged = true;
+            } else {
+                // Compare each ingredient's properties
+                foreach ($currentIngredients as $current) {
+                    $existing = $existingIngredients->firstWhere('id', $current['id']);
+                    if (
+                        !$existing ||
+                        $current['amount'] != $existing->pivot->amount ||
+                        $current['unit'] !== $existing->pivot->unit ||
+                        $current['isPrimary'] !== (bool) $existing->pivot->is_primary
+                    ) {
+                        $ingredientsChanged = true;
+                        break;
+                    }
+                }
             }
+
+            // Recalculate calories only if ingredients changed and if calories field is not null
+            $calories = $ingredientsChanged || $this->recipe->calories === null ? $this->countTotalCalories() : $this->recipe->calories;
 
             // update recipe
             $this->recipe->update([
@@ -324,7 +349,7 @@ class RecipeForm extends Component
             // insert field to recipes table
             $recipe = Recipe::create([
                 'name' => $validated['name'],
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'category_id' => $validated['recipeCategory'],
                 'description' => $validated['description'],
                 'cooking_time' => $validated['cookingTime'],
@@ -357,7 +382,7 @@ class RecipeForm extends Component
         $this->reset('name', 'recipeCategory', 'description', 'cookingTime', 'difficulty', 'servings', 'newImage', 'existingImagePath', 'status');
 
         $this->redirect(route('recipes.index'), navigate: true);
-        toastr()->success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
+        Toaster::success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
         $this->recipe = null;
     }
 

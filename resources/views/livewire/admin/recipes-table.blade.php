@@ -23,7 +23,7 @@
     </div>
 
     <div class="mt-8 grid grid-cols-2 gap-3">
-        @foreach ($recipes as $recipe)
+        @forelse ($recipes as $recipe)
             <div class="h-[220px] bg-white dark:bg-bg-dark-primary rounded-lg">
                 <div
                     class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
@@ -136,16 +136,41 @@
                         </div>
 
                         <div class="flex space-x-1 text-sm text-secondary items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
+                            @if ($recipe->ratings->count() > 0)
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i
+                                        class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star"></i>
+                                @endfor
+                            @else
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-span-2 flex items-center justify-center min-h-[400px]">
+                <div class="text-center bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-8 max-w-md mx-auto">
+                    <div class="mb-4">
+                        <i class="fa-solid fa-bowl-food text-6xl text-gray-300 dark:text-gray-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-text-primary dark:text-text-dark-primary mb-2">
+                        Belum Ada Resep
+                    </h3>
+                    <p class="text-base font-medium text-gray-500 dark:text-gray-400 mb-6">
+                        Anda belum memiliki resep apapun. Mulai tambahkan resep pertama Anda sekarang!
+                    </p>
+                    <a href="{{ route('recipes.create') }}" wire:navigate
+                        class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg transition-colors duration-200">
+                        Tambah Resep
+                    </a>
+                </div>
+            </div>
+        @endforelse
     </div>
 
     <div class="mt-5">

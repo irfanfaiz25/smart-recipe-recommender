@@ -16,6 +16,7 @@ class Recipe extends Model
         'difficulty',
         'servings',
         'image',
+        'calories',
         'views_count',
         'is_published'
     ];

@@ -20,6 +20,7 @@
             </h1>
         </div>
         <div class="mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
+            {{-- @dd(request()->is('admin/recipes*')) --}}
             @foreach ($sidebarMenu as $menu)
                 <a href="{{ route($menu['route']) }}" wire:navigate
                     class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">

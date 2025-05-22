@@ -28,7 +28,7 @@ class UserHeader extends Component
                 ],
                 [
                     'name' => 'Resep Populer',
-                    'route' => 'ingredients.index',
+                    'route' => 'recipes.index',
                     'request' => 'ingredients*',
                 ]
             ]

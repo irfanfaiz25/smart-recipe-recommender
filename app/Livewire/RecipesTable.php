@@ -74,9 +74,12 @@ class RecipesTable extends Component
 
     public function render()
     {
-        $recipes = Recipe::when($this->search, function ($query) {
-            $query->where('name', 'like', "%$this->search%");
-        })->latest()->paginate(10);
+        $user = auth()->user();
+        $recipes = Recipe::where('user_id', $user->id)
+            ->with(['user', 'ratings'])
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', "%$this->search%");
+            })->latest()->paginate(10);
 
         return view('livewire.admin.recipes-table', [
             'recipes' => $recipes

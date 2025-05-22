@@ -7,7 +7,7 @@
                 <img class="w-full h-[30rem] rounded-t-lg object-cover" src="{{ asset($recipe->image) }}">
             @else
                 <div class="w-full h-[30rem] rounded-t-lg bg-gray-200 flex justify-center items-center">
-                    <div class="space-y-3">
+                    <div class="flex flex-col items-center space-y-3">
                         <i class="fa-solid fa-utensils text-4xl text-gray-500"></i>
                         <p class="font-normal italic text-gray-500">
                             {{ $recipe->name }}

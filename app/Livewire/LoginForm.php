@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Masmerise\Toaster\Toaster;
 
 class LoginForm extends Component
 {
@@ -44,6 +45,8 @@ class LoginForm extends Component
             'avatar' => $avatarPath,
         ]);
 
+        $user->assignRole('user');
+
         auth()->login($user);
         $this->reset('name', 'email', 'password', 'avatar');
         $this->redirectRoute('home.index', navigate: true);
@@ -60,14 +63,14 @@ class LoginForm extends Component
 
         // check if user exists
         if (!$user) {
-            toastr()->error('Akun tidak terdaftar.');
+            Toaster::error('Akun tidak terdaftar.');
             $this->reset('password');
             return;
         }
 
         // check if password matched
         if (!Hash::check($this->password, $user->password)) {
-            toastr()->error('Username atau password salah.');
+            Toaster::error('Username atau password salah.');
             $this->reset('password');
             return;
         }

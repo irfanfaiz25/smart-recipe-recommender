@@ -27,6 +27,9 @@ class CreatorsForm extends Component
                 'city' => $this->city,
             ]);
 
+            // assign role
+            Auth::user()->assignRole('creators');
+
             Toaster::success('Anda berhasil menjadi creators');
 
             $this->reset('phoneNumber', 'city');
