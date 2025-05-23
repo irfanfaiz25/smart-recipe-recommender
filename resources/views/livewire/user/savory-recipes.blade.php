@@ -31,134 +31,202 @@
                 </div>
             </div>
 
-            {{-- card recipe recommendation --}}
-            <div class="mt-4 grid grid-cols-2 gap-4">
+
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 @foreach ($matchedRecipes as $recipe)
-                    {{-- @dd($recipe['ratings']) --}}
-                    <div class="flex">
-                        <div class="w-full border-2 border-primary rounded-lg">
-                            {{-- card header --}}
-                            <div class="h-12 w-full p-3 flex justify-between items-center bg-primary rounded-t-sm">
-                                <div class="flex space-x-1 items-center justify-start text-text-dark-primary text-base">
-                                    @if ($recipe['ratings'])
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <i
-                                                class="fa-{{ $i <= (int) $recipe['ratings'] ? 'solid' : 'regular' }} fa-star"></i>
-                                        @endfor
-                                    @else
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                    @endif
+                    <div
+                        class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
+
+                        {{-- Background Gradient Overlay --}}
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+
+                        {{-- Top Section with Rating and Match Percentage --}}
+                        <div class="relative p-4 pb-0">
+                            <div class="flex justify-between items-start mb-3">
+                                {{-- Rating Badge --}}
+                                <div class="flex items-center space-x-2">
+                                    <div
+                                        class="flex items-center bg-gradient-to-r from-orange-400 to-red-500 text-white px-3 py-1.5 rounded-full shadow-md">
+                                        <div class="flex space-x-0.5 mr-2">
+                                            @if ($recipe['ratings'])
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i
+                                                        class="fa-{{ $i <= (int) $recipe['ratings'] ? 'solid' : 'regular' }} fa-star text-xs"></i>
+                                                @endfor
+                                            @else
+                                                @for ($i = 1; $i <= 4; $i++)
+                                                    <i class="fa-solid fa-star text-xs"></i>
+                                                @endfor
+                                                <i class="fa-regular fa-star text-xs"></i>
+                                            @endif
+                                        </div>
+                                        <span class="text-xs font-semibold">{{ $recipe['ratings'] ?? '4.0' }}</span>
+                                    </div>
+
+                                    {{-- Match Percentage Badge --}}
                                     @if ($recipe['matching_percentage'])
-                                        <p>| Tingkat Kecocokan : {{ (int) $recipe['matching_percentage'] }} %</p>
+                                        <div
+                                            class="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 pb-1.5 rounded-full shadow-md">
+                                            <span class="text-xs font-bold">
+                                                {{ (int) $recipe['matching_percentage'] }}% Match
+                                            </span>
+                                        </div>
                                     @endif
                                 </div>
-                                <div class="flex space-x-2 items-center justify-end">
+
+                                {{-- Bookmark Button --}}
+                                <button wire:click="toggleBookmark({{ $recipe['recipe']['id'] }})"
+                                    class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
                                     @if ($recipe['recipe']->isBookmarkedBy(auth()->user()))
-                                        <i wire:click="toggleBookmark({{ $recipe['recipe']['id'] }})"
-                                            class="fa-solid fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
+                                        <i class="fa-solid fa-bookmark text-xl hover:text-red-600"
+                                            style="color: #DD5C36;"></i>
                                     @else
-                                        <i wire:click="toggleBookmark({{ $recipe['recipe']['id'] }})"
-                                            class="fa-regular fa-bookmark text-xl text-gray-50 hover:text-gray-200 cursor-pointer"></i>
+                                        <i class="fa-regular fa-bookmark text-xl text-gray-400"
+                                            style="hover: #DD5C36;"></i>
                                     @endif
-                                    <button wire:click="viewRecipeDetail({{ $recipe['recipe']['id'] }})"
-                                        class="px-4 py-1.5 text-xs bg-gray-50 text-text-primary hover:bg-gray-200 rounded-md">
-                                        Lihat Detail
-                                    </button>
-                                </div>
+                                </button>
                             </div>
-                            {{-- card body --}}
-                            <div class="h-[205px] w-full flex gap-3 p-3">
-                                {{-- image card --}}
-                                <div>
+                        </div>
+
+                        {{-- Main Content Section --}}
+                        <div class="relative p-4 pt-0">
+                            <div class="flex gap-4">
+                                {{-- Recipe Image --}}
+                                <div class="flex-shrink-0">
                                     @if ($recipe['recipe']['image'])
-                                        <div class="h-[180px] w-[180px]">
-                                            <img class="h-[180px] w-[180px] object-cover rounded-md shadow-md"
+                                        <div class="relative overflow-hidden rounded-xl shadow-md">
+                                            <img class="h-40 w-40 object-cover transition-transform duration-500 group-hover:scale-110"
                                                 src="{{ asset($recipe['recipe']['image']) }}"
                                                 alt="{{ $recipe['recipe']['name'] }}">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            </div>
                                         </div>
                                     @else
                                         <div
-                                            class="h-[180px] w-[180px] flex justify-center items-center bg-gray-300 rounded-md shadow-md">
+                                            class="h-40 w-40 flex justify-center items-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl shadow-md">
                                             <i class="fa-regular fa-image text-2xl text-gray-400"></i>
                                         </div>
                                     @endif
                                 </div>
-                                <div class="flex flex-col justify-between">
-                                    <div>
-                                        <h2 class="text-lg font-bold text-primary">
-                                            {{ $recipe['recipe']['name'] }}
-                                        </h2>
-                                        <p class="mt-1 text-neutral-700 text-sm font-normal">
-                                            {{ $recipe['recipe']['description'] }}
-                                        </p>
-                                        <div class="mt-2 w-full">
-                                            <p class="mt-1 text-neutral-700 text-sm font-semibold">
-                                                Bahan Masakan :
-                                            </p>
-                                            <p class="text-neutral-700 text-sm font-normal">
-                                                @foreach ($recipe['recipe']['ingredients'] as $key => $ingredient)
-                                                    @if ($key < 4)
-                                                        {{ $ingredient['name'] }}{{ $key < 3 && isset($recipe['recipe']['ingredients'][$key + 1]) ? ', ' : '' }}
-                                                    @endif
-                                                @endforeach
-                                                @if (count($recipe['recipe']['ingredients']) > 4)
-                                                    , dll.
+
+                                {{-- Recipe Details --}}
+                                <div class="flex-1 min-w-0">
+                                    {{-- Recipe Title --}}
+                                    <h3
+                                        class="text-lg font-bold text-gray-800 mb-1 line-clamp-1 group-hover:text-green-700 transition-colors duration-200">
+                                        {{ $recipe['recipe']['name'] }}
+                                    </h3>
+
+                                    {{-- Description --}}
+                                    <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+                                        {{ $recipe['recipe']['description'] }}
+                                    </p>
+
+                                    {{-- Ingredients Section --}}
+                                    <div class="mb-3">
+                                        <h4 class="text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wide">
+                                            Available Ingredients</h4>
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach ($recipe['recipe']['ingredients'] as $key => $ingredient)
+                                                @if ($key < 3)
+                                                    <span
+                                                        class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                        {{ $ingredient['name'] }}
+                                                    </span>
                                                 @endif
-                                            </p>
-                                        </div>
-                                        @if ($recipe['matching_percentage'] && $recipe['missing_ingredients'])
-                                            <div class="w-full">
-                                                <p class="mt-1 text-neutral-700 text-sm font-semibold">
-                                                    -
-                                                </p>
-                                                <p class="text-neutral-700 text-sm font-normal line-through">
-                                                    @foreach ($recipe['missing_ingredients'] as $key => $ingredient)
-                                                        @if ($key < 5)
-                                                            {{ $ingredient['name'] }}{{ $key < 4 && isset($recipe['missing_ingredients'][$key + 1]) ? ', ' : '' }}
-                                                        @endif
-                                                    @endforeach
-                                                    @if (count($recipe['missing_ingredients']) > 5)
-                                                        , dll.
-                                                    @endif
-                                                </p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="flex space-x-4">
-                                        <div class="flex justify-center items-center space-x-3">
-                                            <div class="flex items-center space-x-1 text-sm">
-                                                <i class="fa-regular fa-clock text-primary"></i>
-                                                <span class="font-medium">{{ $recipe['recipe']['cooking_time'] }}
-                                                    min</span>
-                                            </div>
-                                            <div class="flex items-center space-x-1 text-sm capitalize">
-                                                <i class="fa-solid fa-sliders text-yellow-500"></i>
-                                                <span class="font-medium">{{ $recipe['recipe']['difficulty'] }}</span>
-                                            </div>
-                                            <div class="flex items-center space-x-1 text-sm">
-                                                <i class="fa-solid fa-bowl-food text-secondary"></i>
-                                                <span class="font-medium">{{ $recipe['recipe']['servings'] }}</span>
-                                            </div>
-                                            <div class="flex items-center space-x-1 text-sm">
-                                                <i class="fa-solid fa-eye text-secondary"></i>
-                                                <span class="font-medium">{{ $recipe['recipe']['views_count'] }}</span>
-                                            </div>
-                                            <div class="flex items-center space-x-1 text-sm">
-                                                <i class="fa-solid fa-fire-flame-curved text-secondary"></i>
-                                                <span class="font-medium">
-                                                    {{ $recipe['recipe']['calories'] }} Kkal |
-                                                    {{ floor($recipe['recipe']['calories'] / $recipe['recipe']['servings']) }}
-                                                    Kkal/porsi
+                                            @endforeach
+                                            @if (count($recipe['recipe']['ingredients']) > 3)
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-600">
+                                                    +{{ count($recipe['recipe']['ingredients']) - 3 }} more
                                                 </span>
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
+
+                                    {{-- Missing Ingredients --}}
+                                    @if ($recipe['matching_percentage'] && $recipe['missing_ingredients'])
+                                        <div class="mb-3">
+                                            <h4
+                                                class="text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wide">
+                                                Missing Ingredients
+                                            </h4>
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach ($recipe['missing_ingredients']->take(3) as $ingredient)
+                                                    <span
+                                                        class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200 line-through">
+                                                        {{ $ingredient['name'] }}
+                                                    </span>
+                                                @endforeach
+                                                @if ($recipe['missing_ingredients']->count() > 3)
+                                                    <span
+                                                        class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-600">
+                                                        +{{ $recipe['missing_ingredients']->count() - 3 }} more
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
+                        </div>
+
+                        {{-- Stats Section --}}
+                        <div class="relative px-4 pb-4">
+                            <div class="flex items-center justify-between text-xs">
+                                <div class="flex items-center space-x-4">
+                                    {{-- Cooking Time --}}
+                                    <div class="flex items-center space-x-1" style="color: #327039;">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span class="font-medium">{{ $recipe['recipe']['cooking_time'] }}m</span>
+                                    </div>
+
+                                    {{-- Difficulty --}}
+                                    <div class="flex items-center space-x-1 capitalize" style="color: #DD5C36;">
+                                        <i class="fa-solid fa-sliders"></i>
+                                        <span class="font-medium">{{ $recipe['recipe']['difficulty'] }}</span>
+                                    </div>
+
+                                    {{-- Servings --}}
+                                    <div class="flex items-center space-x-1" style="color: #327039;">
+                                        <i class="fa-solid fa-bowl-food"></i>
+                                        <span class="font-medium">{{ $recipe['recipe']['servings'] }}</span>
+                                    </div>
+
+                                    {{-- Views --}}
+                                    <div class="flex items-center space-x-1 text-gray-500">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <span class="font-medium">{{ $recipe['recipe']['views_count'] }}</span>
+                                    </div>
+                                </div>
+
+                                {{-- Calories --}}
+                                <div class="flex items-center space-x-1" style="color: #DD5C36;">
+                                    <i class="fa-solid fa-fire-flame-curved"></i>
+                                    <span class="font-medium">
+                                        {{ floor($recipe['recipe']['calories'] / $recipe['recipe']['servings']) }}
+                                        kkal
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Action Button --}}
+                        <div class="relative px-4 pb-4">
+                            <button wire:click="viewRecipeDetail({{ $recipe['recipe']['id'] }})"
+                                class="w-full text-white text-base font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                                style="background: linear-gradient(135deg, #DD5C36 0%, #FF8C4B 100%);
+                                       transition: all 0.3s ease-in-out;">
+                                Lihat Detail Resep
+                            </button>
+                        </div>
+
+                        {{-- Hover Effect Overlay --}}
+                        <div
+                            class="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                         </div>
                     </div>
                 @endforeach
