@@ -85,11 +85,16 @@ Route::get('/', function () {
     return view('contents.user.home');
 })->name('home.index');
 
+// auth middleware
 Route::middleware('auth')->group(function () {
+    // smart recommender
     Route::get('/savoryai', function () {
-        return view('contents.user.savoryai');
+        return view('contents.user.savoryai', [
+            'previousPage' => 'savoryai'
+        ]);
     })->name('savoryai.index');
 
+    // savoryai recipe detail
     Route::get('/savoryai/{id}', function () {
         return view('contents.user.savoryai');
     })->name('savoryai.show');
@@ -98,4 +103,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/creators', function () {
         return view('contents.user.creators');
     })->name('creators.index');
+
+    // bookmarks
+    Route::get('/bookmarks', function () {
+        return view('contents.user.bookmarks');
+    })->name('bookmarks.index');
+
+    // bookmarks recipe detail
+    Route::get('/bookmarks/{id}', function () {
+        return view('contents.user.bookmarks', [
+            'previousPage' => 'bookmarks'
+        ]);
+    })->name('bookmarks.show');
 });

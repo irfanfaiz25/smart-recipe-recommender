@@ -113,6 +113,15 @@
                 </button>
                 <div x-show="open" x-transition
                     class="absolute right-0 p-2 mt-6 w-52 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
+                    <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
+                        <div class="mx-1 pt-2 pb-2">
+                            <a href="{{ route('bookmarks.index') }}" wire:navigate
+                                class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
+                                <i class="ri-user-settings-line text-xl"></i>
+                                <span>Favorit</span>
+                            </a>
+                        </div>
+                    </div>
                     <form method="POST" action="{{ route('auth.logout') }}">
                         @csrf
                         <button

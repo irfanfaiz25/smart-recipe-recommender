@@ -18,11 +18,18 @@ class RecipeDetail extends Component
     public $comment;
     public $rating;
 
+    public $previousRoute;
 
-    public function mount($recipeId)
+
+    public function mount($recipeId, $previousPage)
     {
         $this->recipe = Recipe::with(['ingredients', 'ratings'])->find($recipeId);
         $this->recipeId = $recipeId;
+        if ($previousPage === 'savoryai') {
+            $this->previousRoute = 'savoryai.index';
+        } else {
+            $this->previousRoute = 'bookmarks.index';
+        }
 
         $this->updateAvgRating();
     }

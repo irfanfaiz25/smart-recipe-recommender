@@ -15,7 +15,7 @@
                     </div>
                 </div>
             @endif
-            <a href="{{ route('savoryai.index') }}" wire:navigate
+            <a href="{{ route($previousRoute) }}" wire:navigate
                 class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-text-dark-primary text-base font-semibold rounded-lg shadow-lg">
                 <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
                 Kembali

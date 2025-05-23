@@ -20,7 +20,7 @@
 
                 @if (Route::current()->parameter('id'))
                     {{-- detail page --}}
-                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id')])
+                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id'), 'previousPage' => 'savoryai'])
                 @else
                     {{-- recommender page --}}
                     {{-- ingredients section --}}

@@ -76,10 +76,10 @@
 
                     {{-- <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
                         <div class="mx-1 pt-2 pb-2">
-                            <a href="{{ route('user-management.index') }}" wire:navigate
+                            <a href="{{ route('bookmarks.index') }}" wire:navigate
                                 class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
                                 <i class="ri-user-settings-line text-xl"></i>
-                                <span>Pengaturan</span>
+                                <span>Favorit</span>
                             </a>
                         </div>
                     </div> --}}
