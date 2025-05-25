@@ -99,6 +99,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 8, 'description' => 'Sajikan ke dalam piring saji'],
         ]);
 
+        $nasiGoreng->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 2: Ayam Goreng
         $ayamGoreng = Recipe::create([
             'name' => 'Ayam Goreng',
@@ -161,6 +167,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 5, 'description' => 'Sajikan dengan nasi, soun, dan pelengkap lainnya'],
         ]);
 
+        $sotoAyam->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 4: Rendang Daging
         $rendangDaging = Recipe::create([
             'name' => 'Rendang Daging',
@@ -194,6 +206,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 6, 'description' => 'Sajikan dengan nasi hangat'],
         ]);
 
+        $rendangDaging->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 5: Tumis Kangkung
         $tumisKangkung = Recipe::create([
             'name' => 'Tumis Kangkung',
@@ -222,6 +240,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 4, 'description' => 'Masukkan kangkung dan aduk hingga layu'],
             ['step_number' => 5, 'description' => 'Tambahkan garam dan penyedap rasa'],
             ['step_number' => 6, 'description' => 'Sajikan hangat'],
+        ]);
+
+        $tumisKangkung->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
         ]);
 
         // Recipe 6: Mie Goreng
@@ -255,6 +279,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 6, 'description' => 'Sajikan hangat'],
         ]);
 
+        $mieGoreng->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 7: Capcay
         $capcay = Recipe::create([
             'name' => 'Capcay',
@@ -286,6 +316,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 6, 'description' => 'Sajikan hangat'],
         ]);
 
+        $capcay->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 8: Bakso
         $bakso = Recipe::create([
             'name' => 'Bakso',
@@ -314,6 +350,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 3, 'description' => 'Rebus bakso hingga matang'],
             ['step_number' => 4, 'description' => 'Siapkan kuah kaldu'],
             ['step_number' => 5, 'description' => 'Sajikan bakso dengan kuah dan pelengkap'],
+        ]);
+
+        $bakso->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
         ]);
 
         // Recipe 9: Gado-Gado
@@ -347,6 +389,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 6, 'description' => 'Sajikan dengan kerupuk'],
         ]);
 
+        $gadoGado->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 10: Sate Ayam
         $sateAyam = Recipe::create([
             'name' => 'Sate Ayam',
@@ -374,6 +422,553 @@ class RecipesSeeder extends Seeder
             ['step_number' => 2, 'description' => 'Tusuk ayam dengan tusukan sate'],
             ['step_number' => 3, 'description' => 'Bakar sate hingga matang'],
             ['step_number' => 4, 'description' => 'Sajikan dengan bumbu kacang dan lontong'],
+        ]);
+
+        $sateAyam->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 11: Rawon
+        $rawon = Recipe::create([
+            'name' => 'Rawon',
+            'description' => 'Sup daging hitam khas Jawa Timur dengan kluwek.',
+            'cooking_time' => 120,
+            'difficulty' => 'rumit',
+            'servings' => 6,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 352
+        ]);
+
+        $rawon->ingredients()->attach([
+            6 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Daging Sapi
+            1 => ['amount' => '8', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            33 => ['amount' => '3', 'unit' => 'butir', 'is_primary' => true], // Kluwek
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+        ]);
+
+        $rawon->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus daging hingga empuk'],
+            ['step_number' => 2, 'description' => 'Haluskan bumbu dan kluwek'],
+            ['step_number' => 3, 'description' => 'Tumis bumbu hingga harum'],
+            ['step_number' => 4, 'description' => 'Masukkan ke dalam rebusan daging'],
+            ['step_number' => 5, 'description' => 'Masak hingga bumbu meresap'],
+            ['step_number' => 6, 'description' => 'Sajikan dengan tauge dan telur asin']
+        ]);
+
+        $rawon->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 12: Soto Betawi
+        $sotoBetawi = Recipe::create([
+            'name' => 'Soto Betawi',
+            'description' => 'Soto khas Jakarta dengan kuah santan yang gurih.',
+            'cooking_time' => 90,
+            'difficulty' => 'sedang',
+            'servings' => 6,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 468
+        ]);
+
+        $sotoBetawi->ingredients()->attach([
+            6 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Daging Sapi
+            1 => ['amount' => '6', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            34 => ['amount' => '500', 'unit' => 'ml', 'is_primary' => true], // Santan
+            35 => ['amount' => '2', 'unit' => 'batang', 'is_primary' => false], // Daun Bawang
+        ]);
+
+        $sotoBetawi->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus daging hingga empuk'],
+            ['step_number' => 2, 'description' => 'Tumis bumbu halus'],
+            ['step_number' => 3, 'description' => 'Masukkan santan dan daging'],
+            ['step_number' => 4, 'description' => 'Masak hingga mendidih'],
+            ['step_number' => 5, 'description' => 'Sajikan dengan emping dan acar']
+        ]);
+
+        $sotoBetawi->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 13: Gulai Kambing
+        $gulaiKambing = Recipe::create([
+            'name' => 'Gulai Kambing',
+            'description' => 'Gulai kambing dengan rempah khas Indonesia.',
+            'cooking_time' => 120,
+            'difficulty' => 'rumit',
+            'servings' => 6,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 425
+        ]);
+
+        $gulaiKambing->ingredients()->attach([
+            36 => ['amount' => '1', 'unit' => 'kg', 'is_primary' => true], // Daging Kambing
+            1 => ['amount' => '8', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '6', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            34 => ['amount' => '500', 'unit' => 'ml', 'is_primary' => true], // Santan
+            37 => ['amount' => '3', 'unit' => 'buah', 'is_primary' => false], // Kapulaga
+        ]);
+
+        $gulaiKambing->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Potong daging kambing'],
+            ['step_number' => 2, 'description' => 'Haluskan bumbu rempah'],
+            ['step_number' => 3, 'description' => 'Tumis bumbu hingga harum'],
+            ['step_number' => 4, 'description' => 'Masukkan daging dan santan'],
+            ['step_number' => 5, 'description' => 'Masak hingga daging empuk'],
+            ['step_number' => 6, 'description' => 'Sajikan dengan nasi putih']
+        ]);
+
+        $gulaiKambing->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 14: Pecel Lele
+        $pecelLele = Recipe::create([
+            'name' => 'Pecel Lele',
+            'description' => 'Ikan lele goreng dengan sambal pecel.',
+            'cooking_time' => 30,
+            'difficulty' => 'mudah',
+            'servings' => 2,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 285
+        ]);
+
+        $pecelLele->ingredients()->attach([
+            38 => ['amount' => '2', 'unit' => 'ekor', 'is_primary' => true], // Ikan Lele
+            1 => ['amount' => '4', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+            26 => ['amount' => '5', 'unit' => 'buah', 'is_primary' => false], // Cabai Merah
+        ]);
+
+        $pecelLele->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Bersihkan ikan lele'],
+            ['step_number' => 2, 'description' => 'Lumuri dengan bumbu'],
+            ['step_number' => 3, 'description' => 'Goreng hingga kering'],
+            ['step_number' => 4, 'description' => 'Siapkan sambal pecel'],
+            ['step_number' => 5, 'description' => 'Sajikan dengan lalapan']
+        ]);
+
+        $pecelLele->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 15: Sayur Asem
+        $sayurAsem = Recipe::create([
+            'name' => 'Sayur Asem',
+            'description' => 'Sayur asem dengan berbagai sayuran segar.',
+            'cooking_time' => 45,
+            'difficulty' => 'mudah',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 1, // appetizer
+            'views_count' => rand(5, 20),
+            'calories' => 125
+        ]);
+
+        $sayurAsem->ingredients()->attach([
+            39 => ['amount' => '2', 'unit' => 'buah', 'is_primary' => true], // Asam Jawa
+            10 => ['amount' => '2', 'unit' => 'buah', 'is_primary' => true], // Wortel
+            40 => ['amount' => '100', 'unit' => 'gram', 'is_primary' => true], // Kacang Panjang
+            41 => ['amount' => '2', 'unit' => 'buah', 'is_primary' => true], // Labu Siam
+            1 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+        ]);
+
+        $sayurAsem->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Potong semua sayuran'],
+            ['step_number' => 2, 'description' => 'Rebus air dan asam jawa'],
+            ['step_number' => 3, 'description' => 'Masukkan sayuran'],
+            ['step_number' => 4, 'description' => 'Tambahkan bumbu'],
+            ['step_number' => 5, 'description' => 'Masak hingga sayuran matang']
+        ]);
+
+        $sayurAsem->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 16: Soto Banjar
+        $sotoBanjar = Recipe::create([
+            'name' => 'Soto Banjar',
+            'description' => 'Soto khas Kalimantan Selatan dengan ketupat dan daging sapi',
+            'cooking_time' => 90,
+            'difficulty' => 'sedang',
+            'image' => null,
+            'servings' => 4,
+            'user_id' => rand(1, 3),
+            'category_id' => 2,
+            'views_count' => rand(5, 20),
+            'calories' => 420
+        ]);
+
+        $sotoBanjar->ingredients()->attach([
+            6 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true],
+            1 => ['amount' => '8', 'unit' => 'siung', 'is_primary' => false],
+            34 => ['amount' => '500', 'unit' => 'ml', 'is_primary' => true]
+        ]);
+
+        $sotoBanjar->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus daging hingga empuk'],
+            ['step_number' => 2, 'description' => 'Buat kuah soto dengan rempah-rempah'],
+            ['step_number' => 3, 'description' => 'Sajikan dengan ketupat dan pelengkap']
+        ]);
+
+        $sotoBanjar->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved'
+        ]);
+
+        // Recipe 17: Nasi Uduk
+        $nasiUduk = Recipe::create([
+            'name' => 'Nasi Uduk',
+            'description' => 'Nasi yang dimasak dengan santan dan rempah-rempah khas Indonesia.',
+            'cooking_time' => 60,
+            'difficulty' => 'sedang',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 300
+        ]);
+
+        $nasiUduk->ingredients()->attach([
+            4 => ['amount' => '2', 'unit' => 'gelas', 'is_primary' => true], // Nasi Putih
+            66 => ['amount' => '200', 'unit' => 'ml', 'is_primary' => true], // Santan
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+            33 => ['amount' => '1', 'unit' => 'batang', 'is_primary' => false], // Serai
+        ]);
+
+        $nasiUduk->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Cuci beras hingga bersih.'],
+            ['step_number' => 2, 'description' => 'Masak beras dengan santan, garam, daun salam, dan serai.'],
+            ['step_number' => 3, 'description' => 'Masak hingga nasi matang dan harum.'],
+        ]);
+
+        $nasiUduk->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 18: Es Teler
+        $esTeler = Recipe::create([
+            'name' => 'Es Teler',
+            'description' => 'Minuman segar khas Indonesia dengan potongan buah dan santan.',
+            'cooking_time' => 15,
+            'difficulty' => 'mudah',
+            'servings' => 2,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 3, // dessert
+            'views_count' => rand(5, 20),
+            'calories' => 150
+        ]);
+
+        $esTeler->ingredients()->attach([
+            37 => ['amount' => '100', 'unit' => 'gram', 'is_primary' => true], // Susu
+            66 => ['amount' => '100', 'unit' => 'ml', 'is_primary' => true], // Santan
+            67 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Belimbing Wuluh
+            68 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => false], // Kapulaga
+        ]);
+
+        $esTeler->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Campurkan semua bahan dalam mangkuk.'],
+            ['step_number' => 2, 'description' => 'Sajikan dingin dengan es batu.'],
+        ]);
+
+        $esTeler->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 19: Soto Lamongan
+        $sotoLamongan = Recipe::create([
+            'name' => 'Soto Lamongan',
+            'description' => 'Sup ayam khas Lamongan dengan kuah kuning yang gurih.',
+            'cooking_time' => 90,
+            'difficulty' => 'rumit',
+            'servings' => 5,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 250
+        ]);
+
+        $sotoLamongan->ingredients()->attach([
+            5 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Ayam
+            1 => ['amount' => '5', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            29 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Jahe
+            30 => ['amount' => '1', 'unit' => 'ruas', 'is_primary' => false], // Kunyit
+        ]);
+
+        $sotoLamongan->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus ayam hingga empuk.'],
+            ['step_number' => 2, 'description' => 'Tumis bumbu dan masukkan ke dalam kuah.'],
+            ['step_number' => 3, 'description' => 'Masak hingga bumbu meresap dan kuah mengental.'],
+        ]);
+
+        $sotoLamongan->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 20: Bubur Ayam
+        $buburAyam = Recipe::create([
+            'name' => 'Bubur Ayam',
+            'description' => 'Bubur nasi lembut dengan ayam suwir dan bumbu khas Indonesia.',
+            'cooking_time' => 60,
+            'difficulty' => 'sedang',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 200
+        ]);
+
+        $buburAyam->ingredients()->attach([
+            4 => ['amount' => '1', 'unit' => 'gelas', 'is_primary' => true], // Nasi Putih
+            5 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Ayam
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+            33 => ['amount' => '1', 'unit' => 'batang', 'is_primary' => false], // Serai
+        ]);
+
+        $buburAyam->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Masak nasi dengan air hingga menjadi bubur.'],
+            ['step_number' => 2, 'description' => 'Rebus ayam dan suwir-suwir.'],
+            ['step_number' => 3, 'description' => 'Sajikan bubur dengan ayam suwir dan bumbu pelengkap.'],
+        ]);
+
+        $buburAyam->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Recipe 21: Klepon
+        $klepon = Recipe::create([
+            'name' => 'Klepon',
+            'description' => 'Kue tradisional berbentuk bulat dari tepung ketan berisi gula merah.',
+            'cooking_time' => 30,
+            'difficulty' => 'mudah',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 3, // dessert
+            'views_count' => rand(5, 20),
+            'calories' => 180
+        ]);
+
+        $klepon->ingredients()->attach([
+            4 => ['amount' => '1', 'unit' => 'gelas', 'is_primary' => true], // Nasi Putih
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            66 => ['amount' => '100', 'unit' => 'ml', 'is_primary' => true], // Santan
+            69 => ['amount' => '50', 'unit' => 'gram', 'is_primary' => true], // Kelapa
+        ]);
+
+        $klepon->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Campur tepung ketan dengan santan dan garam.'],
+            ['step_number' => 2, 'description' => 'Bentuk bulat dan isi dengan gula merah.'],
+            ['step_number' => 3, 'description' => 'Rebus hingga matang dan gulingkan di kelapa parut.'],
+        ]);
+
+        $klepon->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Resep 22: Gudeg
+        $gudeg = Recipe::create([
+            'name' => 'Gudeg',
+            'description' => 'Hidangan khas Yogyakarta yang terbuat dari nangka muda.',
+            'cooking_time' => 120,
+            'difficulty' => 'sulit',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // hidangan utama
+            'views_count' => rand(5, 20),
+            'calories' => 350
+        ]);
+
+        $gudeg->ingredients()->attach([
+            70 => ['amount' => '500', 'unit' => 'gram', 'is_primary' => true], // Nangka Muda
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            31 => ['amount' => '2', 'unit' => 'lembar', 'is_primary' => false], // Daun Salam
+            66 => ['amount' => '200', 'unit' => 'ml', 'is_primary' => true], // Santan
+        ]);
+
+        $gudeg->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus nangka muda hingga empuk.'],
+            ['step_number' => 2, 'description' => 'Tambahkan santan dan bumbu, masak hingga meresap.'],
+            ['step_number' => 3, 'description' => 'Sajikan dengan nasi dan lauk pelengkap.'],
+        ]);
+
+        $gudeg->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Resep 23: Pempek
+        $pempek = Recipe::create([
+            'name' => 'Pempek',
+            'description' => 'Makanan khas Palembang yang terbuat dari ikan dan sagu.',
+            'cooking_time' => 90,
+            'difficulty' => 'sedang',
+            'servings' => 5,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // hidangan utama
+            'views_count' => rand(5, 20),
+            'calories' => 250
+        ]);
+
+        $pempek->ingredients()->attach([
+            7 => ['amount' => '300', 'unit' => 'gram', 'is_primary' => true], // Ikan
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            4 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Nasi Putih
+        ]);
+
+        $pempek->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Campur ikan dengan sagu dan bumbu.'],
+            ['step_number' => 2, 'description' => 'Bentuk adonan dan rebus hingga matang.'],
+            ['step_number' => 3, 'description' => 'Goreng pempek dan sajikan dengan cuko.'],
+        ]);
+
+        $pempek->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Resep 24: Ketoprak
+        $ketoprak = Recipe::create([
+            'name' => 'Ketoprak',
+            'description' => 'Hidangan khas Jakarta yang terdiri dari tahu, bihun, dan bumbu kacang.',
+            'cooking_time' => 30,
+            'difficulty' => 'mudah',
+            'servings' => 3,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 2, // hidangan utama
+            'views_count' => rand(5, 20),
+            'calories' => 300
+        ]);
+
+        $ketoprak->ingredients()->attach([
+            8 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Tahu
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            4 => ['amount' => '100', 'unit' => 'gram', 'is_primary' => true], // Nasi Putih
+        ]);
+
+        $ketoprak->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus bihun hingga matang.'],
+            ['step_number' => 2, 'description' => 'Goreng tahu dan campur dengan bihun.'],
+            ['step_number' => 3, 'description' => 'Sajikan dengan bumbu kacang dan kerupuk.'],
+        ]);
+
+        $ketoprak->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Resep 25: Rujak Cingur
+        $rujakCingur = Recipe::create([
+            'name' => 'Rujak Cingur',
+            'description' => 'Salad tradisional Jawa Timur dengan cingur sapi dan bumbu petis.',
+            'cooking_time' => 45,
+            'difficulty' => 'sedang',
+            'servings' => 4,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 1, // hidangan pembuka
+            'views_count' => rand(5, 20),
+            'calories' => 200
+        ]);
+
+        $rujakCingur->ingredients()->attach([
+            6 => ['amount' => '200', 'unit' => 'gram', 'is_primary' => true], // Daging Sapi
+            19 => ['amount' => '1', 'unit' => 'sdt', 'is_primary' => false], // Garam
+            4 => ['amount' => '100', 'unit' => 'gram', 'is_primary' => true], // Nasi Putih
+        ]);
+
+        $rujakCingur->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Rebus cingur sapi hingga empuk.'],
+            ['step_number' => 2, 'description' => 'Campur dengan sayuran dan bumbu petis.'],
+            ['step_number' => 3, 'description' => 'Sajikan dengan lontong dan kerupuk.'],
+        ]);
+
+        $rujakCingur->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
+        // Resep 26: Es Campur
+        $esCampur = Recipe::create([
+            'name' => 'Es Campur',
+            'description' => 'Minuman segar dengan campuran buah dan sirup.',
+            'cooking_time' => 15,
+            'difficulty' => 'mudah',
+            'servings' => 2,
+            'image' => null,
+            'user_id' => rand(1, 3),
+            'category_id' => 3, // hidangan penutup
+            'views_count' => rand(5, 20),
+            'calories' => 150
+        ]);
+
+        $esCampur->ingredients()->attach([
+            37 => ['amount' => '100', 'unit' => 'ml', 'is_primary' => true], // Susu
+            66 => ['amount' => '100', 'unit' => 'ml', 'is_primary' => true], // Santan
+            67 => ['amount' => '1', 'unit' => 'buah', 'is_primary' => true], // Belimbing Wuluh
+        ]);
+
+        $esCampur->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Campur semua bahan dalam mangkuk.'],
+            ['step_number' => 2, 'description' => 'Tambahkan es serut dan sirup.'],
+            ['step_number' => 3, 'description' => 'Sajikan dingin.'],
+        ]);
+
+        $esCampur->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
         ]);
     }
 }

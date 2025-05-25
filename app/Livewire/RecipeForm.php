@@ -42,9 +42,11 @@ class RecipeForm extends Component
         'gram',
         'kg',
         'ml',
+        'sdm',
         'sdt',
         'buah',
         'piring',
+        'gelas',
     ];
     public $searchIngredients = '';
 

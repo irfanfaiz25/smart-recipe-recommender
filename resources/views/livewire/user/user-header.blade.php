@@ -113,23 +113,47 @@
                 </button>
                 <div x-show="open" x-transition
                     class="absolute right-0 p-2 mt-6 w-52 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
-                    <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
-                        <div class="mx-1 pt-2 pb-2">
+                    @role('admin')
+                        <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
+                            <div class="mx-1 py-1">
+                                <a href="{{ route('admin-recipes.index') }}" wire:navigate
+                                    class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
+                                    <i class="fa-solid fa-user-shield text-base"></i>
+                                    <span>Admin Panel</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endrole
+                    @role('creators')
+                        <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
+                            <div class="mx-1 py-1">
+                                <a href="{{ route('recipes.index') }}" wire:navigate
+                                    class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
+                                    <i class="fa-solid fa-kitchen-set text-base"></i>
+                                    <span>Creators Panel</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endrole
+                    <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
+                        <div class="mx-1 py-1">
                             <a href="{{ route('bookmarks.index') }}" wire:navigate
-                                class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                <i class="ri-user-settings-line text-xl"></i>
-                                <span>Favorit</span>
+                                class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
+                                <i class="fa-solid fa-bookmark text-base"></i>
+                                <span>Favorit Saya</span>
                             </a>
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('auth.logout') }}">
-                        @csrf
-                        <button
-                            class="w-full block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800 text-start rounded-md">
-                            <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
-                            Logout
-                        </button>
-                    </form>
+                    <div class="mx-1 py-1">
+                        <form method="POST" action="{{ route('auth.logout') }}">
+                            @csrf
+                            <button
+                                class="w-full block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800 text-start rounded-md">
+                                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         @endif

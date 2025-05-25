@@ -290,7 +290,7 @@
                                 </div>
 
                                 <div class="w-full">
-                                    <a href="{{ route(auth()->user()->hasRole('admin') ? 'admin-recipes.edit' : 'recipes.edit', $recipe->id) }}"
+                                    <a href="{{ $rejectedRecipe ? route(auth()->user()->hasRole('admin') ? 'admin-recipes.edit' : 'recipes.edit', $rejectedRecipe->id) : '#' }}"
                                         class="block w-full text-center px-5 py-2.5 bg-gradient-to-br from-secondary to-secondary-light text-white rounded-lg text-base font-semibold shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300">
                                         Tinjau Kembali Resep
                                     </a>

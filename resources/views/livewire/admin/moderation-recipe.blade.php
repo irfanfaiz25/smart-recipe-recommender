@@ -128,7 +128,7 @@
                             </div>
                         </div>
 
-                        <p class="text-gray-700 mb-4 text-sm line-clamp-2">
+                        <p class="text-gray-700 mb-4 text-sm line-clamp-1">
                             {{ $recipe->description }}
                         </p>
 

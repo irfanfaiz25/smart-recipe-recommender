@@ -124,7 +124,7 @@ class ModerationRecipe extends Component
             })
             ->with('moderation')
             ->latest()
-            ->paginate(10);
+            ->paginate(9);
 
         return view('livewire.admin.moderation-recipe', [
             'recipes' => $recipes,
