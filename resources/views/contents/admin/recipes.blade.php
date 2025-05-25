@@ -7,7 +7,8 @@
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('dashboard.index') }}" wire:navigate
+                    <a href="{{ auth()->user()->hasRole('admin') ? route('admin-dashboard.index') : route('dashboard.index') }}"
+                        wire:navigate
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-secondary dark:text-gray-400 dark:hover:text-white">
                         <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -29,7 +30,8 @@
                                 Resep
                             </span>
                         @else
-                            <a href="{{ route('recipes.index') }}" wire:navigate
+                            <a href="{{ auth()->user()->hasRole('admin') ? route('admin-recipes.index') : route('recipes.index') }}"
+                                wire:navigate
                                 class="ms-1 text-sm font-medium text-gray-700 hover:text-secondary md:ms-2 dark:text-gray-400 dark:hover:text-white">
                                 Resep
                             </a>
@@ -54,15 +56,28 @@
         </nav>
 
 
-        <h1 class="text-3xl mt-3 mb-5">
-            @if ($content === 'create')
+        @if ($content === 'create')
+            <h1 class="text-3xl mt-3 mb-1">
                 Tambah Resep
-            @elseif ($content === 'edit')
+            </h1>
+            <p class="text-sm font-normal mb-5 text-gray-600">
+                Buat resep baru dengan mengisi formulir di bawah ini.
+            </p>
+        @elseif ($content === 'edit')
+            <h1 class="text-3xl mt-3 mb-1">
                 Edit Resep
-            @else
+            </h1>
+            <p class="text-sm font-normal mb-5 text-gray-600">
+                Ubah informasi resep dengan mengedit formulir di bawah ini.
+            </p>
+        @else
+            <h1 class="text-3xl mt-3 mb-1">
                 Resep
-            @endif
-        </h1>
+            </h1>
+            <p class="text-sm font-normal mb-5 text-gray-600">
+                Daftar semua resep yang telah dibuat.
+            </p>
+        @endif
     </div>
 
     @if ($content === 'table')

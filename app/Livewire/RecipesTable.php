@@ -15,33 +15,38 @@ class RecipesTable extends Component
     use WithPagination;
 
     public $search = '';
-    public $showDetailModal = false;
-    public $detailName = '';
-    public $detailContent = [];
 
     public $showDeleteConfirmationModal = false;
     public $deleteId = '';
     public $deleteName = '';
 
+    public $showDetailRejection = false;
+    public $rejectedRecipe = null;
 
-    public function handleShowDetailModal($name, $id)
+
+
+    public function handleOpenDetailRejection($id)
     {
-        $this->showDetailModal = true;
-        $this->detailName = $name;
-
+        $this->selectedRecipeIdRejection = $id;
         $recipe = Recipe::with([
-            'ingredients' => function ($query) {
-                $query->withPivot(['amount', 'unit']);
+            'moderation' => function ($moderation) {
+                $moderation->with('approver');
             }
-        ])->find($id);
-        $this->detailContent = $name === 'ingredient' ? $recipe->ingredients->toArray() : $recipe->steps->toArray();
+        ])->find($this->selectedRecipeIdRejection);
+        if (!$recipe) {
+            Toaster::error('Resep tidak ditemukan');
+            return;
+        }
+
+        $this->rejectedRecipe = $recipe;
+        $this->showDetailRejection = true;
     }
 
-    public function handleCloseDetailModal()
+    public function handleCloseDetailRejection()
     {
-        $this->showDetailModal = false;
-        $this->detailName = '';
-        $this->detailContent = [];
+        $this->selectedRecipeIdRejection = null;
+        $this->rejectedRecipe = null;
+        $this->showDetailRejection = false;
     }
 
     public function handleShowDeleteModal($id, $name)
@@ -81,7 +86,7 @@ class RecipesTable extends Component
             $recipes->where('user_id', $user->id);
         }
 
-        $recipes = $recipes->with(['user', 'ratings'])
+        $recipes = $recipes->with(['user', 'ratings', 'moderation'])
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', "%$this->search%");
             })->latest()->paginate(10);

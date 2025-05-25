@@ -322,10 +322,17 @@ class RecipeForm extends Component
             ]);
 
             // Create/update moderation based on published status
-            if ($this->recipe->is_published) {
+            if ((bool) $this->status) {
                 // Create moderation record if it doesn't exist and recipe is published
                 if (!$this->recipe->moderation()->exists()) {
                     $this->recipe->moderation()->create([
+                        'approver_id' => null,
+                        'status' => 'pending',
+                        'notes' => null
+                    ]);
+                } else {
+                    // Update moderation record if it exists and recipe is published
+                    $this->recipe->moderation()->update([
                         'approver_id' => null,
                         'status' => 'pending',
                         'notes' => null
@@ -405,7 +412,8 @@ class RecipeForm extends Component
         $this->selectedIngredients = [];
         $this->reset('name', 'recipeCategory', 'description', 'cookingTime', 'difficulty', 'servings', 'newImage', 'existingImagePath', 'status');
 
-        $this->redirect(route('recipes.index'), navigate: true);
+        $redirectUrl = auth()->user()->hasRole('admin') ? route('admin-recipes.index') : route('recipes.index');
+        $this->redirect($redirectUrl, navigate: true);
         Toaster::success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
         $this->recipe = null;
     }

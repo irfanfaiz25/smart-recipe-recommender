@@ -50,13 +50,13 @@
     @if (str_contains(request()->path(), 'creators/') || str_contains(request()->path(), 'admin/'))
         @livewire('header-layout')
 
-        <div x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 100)" class="relative bg-[#edf5e4] dark:bg-[#1c1c1c]">
+        <div x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 100)" class="relative bg-gray-100 dark:bg-[#1c1c1c]">
             <div class="flex gap-6 pt-16">
 
                 @livewire('sidebar-toggle')
 
                 <div
-                    class="flex-1 p-4 text-xl bg-[#edf5e4] dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
+                    class="flex-1 p-4 text-xl bg-gray-100 dark:bg-[#1c1c1c] text-gray-900 dark:text-gray-50 font-semibold overflow-auto relative min-h-screen duration-500 -ml-5 lg:ml-64">
 
                     @yield('content')
 

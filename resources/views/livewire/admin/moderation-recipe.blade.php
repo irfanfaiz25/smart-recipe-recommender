@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center mb-6">
         <div class="w-1/3">
             <div class="relative">
-                <input type="text" placeholder="Cari resep favorit..." wire:model.live.debounce.300ms="search"
+                <input type="text" placeholder="Cari resep ..." wire:model.live.debounce.300ms="search"
                     class="w-full bg-white dark:bg-bg-dark-primary placeholder:text-slate-400 text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full pl-10 pr-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
@@ -152,12 +152,12 @@
                         <div class="flex gap-2">
                             @if ($recipe->moderation->status === 'pending')
                                 <button wire:click='handleApproveRecipe({{ $recipe->id }})'
-                                    class="bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                                    class="flex-1 bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                     <i class="fa-solid fa-check mr-1"></i>
                                     Setujui
                                 </button>
                                 <button wire:click="handleOpenFormRejection({{ $recipe->id }})"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                                    class="flex-1 bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                     <i class="fa-solid fa-times mr-1"></i>
                                     Tolak
                                 </button>
@@ -337,4 +337,5 @@
                 </div>
             </div>
         </div>
+
     </div>

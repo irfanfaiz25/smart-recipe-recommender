@@ -10,7 +10,7 @@
 
     <!-- Sidebar -->
     <div :class="isSidebarVisible ? 'translate-x-0' : '-translate-x-full'"
-        class="bg-[#edf5e4] dark:bg-[#1c1c1c] fixed top-0 left-0 min-h-screen w-72 duration-500 text-gray-100 px-3 z-40 pt-20 lg:pt-10 transform lg:translate-x-0">
+        class="bg-gray-100 dark:bg-[#1c1c1c] fixed top-0 left-0 min-h-screen w-72 duration-500 text-gray-100 px-3 z-40 pt-20 lg:pt-10 transform lg:translate-x-0">
         <div class="flex lg:hidden items-center mt-2">
             <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
                 <i class="fa-solid fa-plate-wheat text-xl"></i>
