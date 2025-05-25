@@ -35,24 +35,36 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('contents.admin.ingredients');
     })->name('admin-ingredients.index');
 
-    Route::get('/recipes', function () {
+    Route::get('/recipes/list', function () {
         return view('contents.admin.recipes', [
             'content' => 'table'
         ]);
     })->name('admin-recipes.index');
 
-    Route::get('/recipes/create', function () {
+    Route::get('/recipes/list/create', function () {
         return view('contents.admin.recipes', [
             'content' => 'create'
         ]);
     })->name('admin-recipes.create');
 
-    Route::get('/recipes/edit/{id}', function ($id) {
+    Route::get('/recipes/list/edit/{id}', function ($id) {
         return view('contents.admin.recipes', [
             'content' => 'edit',
             'recipeId' => $id
         ]);
     })->name('admin-recipes.edit');
+
+    // moderation
+    Route::get('/recipes/moderation', function () {
+        return view('contents.admin.moderation');
+    })->name('admin-moderation.index');
+
+    // recipe detail
+    Route::get('/recipes/moderation/{id}', function ($id) {
+        return view('contents.admin.moderation', [
+            'recipeId' => $id
+        ]);
+    })->name('admin-moderation.show');
 });
 
 // creators dashboard

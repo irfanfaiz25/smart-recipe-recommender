@@ -75,8 +75,13 @@ class RecipesTable extends Component
     public function render()
     {
         $user = auth()->user();
-        $recipes = Recipe::where('user_id', $user->id)
-            ->with(['user', 'ratings'])
+        $recipes = Recipe::query();
+
+        if ($user->hasRole('creators')) {
+            $recipes->where('user_id', $user->id);
+        }
+
+        $recipes = $recipes->with(['user', 'ratings'])
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', "%$this->search%");
             })->latest()->paginate(10);

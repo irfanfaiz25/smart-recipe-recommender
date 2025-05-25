@@ -20,13 +20,35 @@
             </h1>
         </div>
         <div class="mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
-            {{-- @dd(request()->is('admin/recipes*')) --}}
             @foreach ($sidebarMenu as $menu)
-                <a href="{{ route($menu['route']) }}" wire:navigate
-                    class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
-                    <i class="{{ $menu['icon'] }} text-lg"></i>
-                    <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>
-                </a>
+                @if (isset($menu['submenu']))
+                    <div x-data="{ isOpen: false }" class="relative">
+                        <button @click="isOpen = !isOpen"
+                            class="w-full group relative flex items-center justify-between text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
+                            <div class="flex items-center gap-3.5">
+                                <i class="{{ $menu['icon'] }} text-lg"></i>
+                                <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>
+                            </div>
+                            <i class="fa fa-chevron-down transition-transform" :class="{ 'rotate-180': isOpen }"></i>
+                        </button>
+
+                        <div x-show="isOpen" x-transition class="pt-2 pl-4 space-y-1">
+                            @foreach ($menu['submenu'] as $submenu)
+                                <a href="{{ route($submenu['route']) }}" wire:navigate
+                                    class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($submenu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
+                                    <i class="{{ $submenu['icon'] }} text-lg"></i>
+                                    <h2 class="whitespace-pre duration-300 capitalize">{{ $submenu['name'] }}</h2>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route($menu['route']) }}" wire:navigate
+                        class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
+                        <i class="{{ $menu['icon'] }} text-lg"></i>
+                        <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>
+                    </a>
+                @endif
             @endforeach
         </div>
     </div>

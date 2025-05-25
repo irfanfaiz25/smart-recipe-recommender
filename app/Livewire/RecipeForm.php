@@ -321,6 +321,21 @@ class RecipeForm extends Component
                 'is_published' => (bool) $validated['status'],
             ]);
 
+            // Create/update moderation based on published status
+            if ($this->recipe->is_published) {
+                // Create moderation record if it doesn't exist and recipe is published
+                if (!$this->recipe->moderation()->exists()) {
+                    $this->recipe->moderation()->create([
+                        'approver_id' => null,
+                        'status' => 'pending',
+                        'notes' => null
+                    ]);
+                }
+            } else {
+                // Delete moderation record if recipe is unpublished
+                $this->recipe->moderation()->delete();
+            }
+
             // delete existing relationships
             $this->recipe->ingredients()->detach();
             $this->recipe->steps()->delete();
@@ -359,6 +374,15 @@ class RecipeForm extends Component
                 'calories' => $calories,
                 'is_published' => (bool) $validated['status'],
             ]);
+
+            // process recipe moderation if recipe is published
+            if ($recipe->is_published) {
+                $recipe->moderation()->create([
+                    'approver_id' => null,
+                    'status' => 'pending',
+                    'notes' => null
+                ]);
+            }
 
             foreach ($this->selectedIngredients as $ingredient) {
                 $recipe->ingredients()->attach($ingredient['id'], [

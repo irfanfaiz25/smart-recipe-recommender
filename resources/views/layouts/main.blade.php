@@ -50,7 +50,7 @@
     @if (str_contains(request()->path(), 'creators/') || str_contains(request()->path(), 'admin/'))
         @livewire('header-layout')
 
-        <div class="relative bg-[#edf5e4] dark:bg-[#1c1c1c] ">
+        <div x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 100)" class="relative bg-[#edf5e4] dark:bg-[#1c1c1c]">
             <div class="flex gap-6 pt-16">
 
                 @livewire('sidebar-toggle')

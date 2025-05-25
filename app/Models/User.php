@@ -84,4 +84,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Creator::class);
     }
+
+    public function moderations()
+    {
+        return $this->hasMany(RecipeModeration::class);
+    }
 }

@@ -57,4 +57,9 @@ class Recipe extends Model
     {
         return $this->bookmarkedBy()->where('user_id', $user->id)->exists();
     }
+
+    public function moderation()
+    {
+        return $this->hasOne(RecipeModeration::class);
+    }
 }

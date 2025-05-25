@@ -28,9 +28,23 @@ class SidebarToggle extends Component
                 ],
                 [
                     'name' => 'Resep',
-                    'route' => 'admin-recipes.index',
+                    'route' => '',
                     'icon' => 'fa-solid fa-utensils',
-                    'request' => 'admin/recipes*'
+                    'request' => 'admin/recipes*',
+                    'submenu' => [
+                        [
+                            'name' => 'Daftar Resep',
+                            'route' => 'admin-recipes.index',
+                            'icon' => 'fa-solid fa-list',
+                            'request' => 'admin/recipes/list*'
+                        ],
+                        [
+                            'name' => 'Moderasi Resep',
+                            'route' => 'admin-moderation.index',
+                            'icon' => 'fa-solid fa-user-shield',
+                            'request' => 'admin/recipes/moderation*'
+                        ]
+                    ]
                 ],
             ];
         } else {
