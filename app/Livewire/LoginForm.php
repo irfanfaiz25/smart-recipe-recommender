@@ -21,6 +21,7 @@ class LoginForm extends Component
 
     public function setIsLogin()
     {
+        $this->reset('name', 'email', 'password', 'avatar');
         $this->isLogin = !$this->isLogin;
     }
 
@@ -78,7 +79,12 @@ class LoginForm extends Component
         // login and redirect
         auth()->login($user);
         $this->reset('name', 'email', 'password', 'avatar');
-        $this->redirectRoute('home.index', navigate: true);
+
+        if ($user->hasRole('admin')) {
+            $this->redirectRoute('admin-dashboard.index', navigate: true);
+        } else {
+            $this->redirectRoute('home.index', navigate: true);
+        }
     }
 
 
