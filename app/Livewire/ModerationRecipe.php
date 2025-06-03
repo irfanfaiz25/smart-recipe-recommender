@@ -31,6 +31,7 @@ class ModerationRecipe extends Component
 
     public function handleCloseFormRejection()
     {
+        $this->reason = '';
         $this->selectedRecipeId = null;
         $this->showFormRejection = false;
     }

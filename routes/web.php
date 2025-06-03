@@ -54,12 +54,19 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         ]);
     })->name('admin-recipes.edit');
 
+    Route::get('/recipes/list/{id}', function ($id) {
+        return view('contents.admin.recipes', [
+            'content' => 'detail',
+            'recipeId' => $id
+        ]);
+    })->name('admin-recipes.detail');
+
     // moderation
     Route::get('/recipes/moderation', function () {
         return view('contents.admin.moderation');
     })->name('admin-moderation.index');
 
-    // recipe detail
+    // moderation recipe detail
     Route::get('/recipes/moderation/{id}', function ($id) {
         return view('contents.admin.moderation', [
             'recipeId' => $id
@@ -91,6 +98,13 @@ Route::prefix('creators')->middleware(['auth', 'creators'])->group(function () {
             'recipeId' => $id
         ]);
     })->name('recipes.edit');
+
+    Route::get('/recipes/{id}', function ($id) {
+        return view('contents.admin.recipes', [
+            'content' => 'detail',
+            'recipeId' => $id
+        ]);
+    })->name('recipes.detail');
 });
 
 Route::get('/', function () {

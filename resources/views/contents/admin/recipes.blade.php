@@ -84,6 +84,8 @@
         @livewire('recipes-table')
     @elseif ($content === 'edit')
         @livewire('recipe-form', ['recipeId' => $recipeId])
+    @elseif ($content === 'detail')
+        @livewire('admin-recipe-detail', ['recipeId' => $recipeId])
     @else
         @livewire('recipe-form')
     @endif

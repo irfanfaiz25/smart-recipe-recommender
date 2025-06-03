@@ -67,6 +67,45 @@ class RecipesSeeder extends Seeder
             'gado_gado.jpg'
         ));
 
+        $oseng = Recipe::create([
+            'name' => 'Oseng Telur Tempe',
+            'description' => 'Oseng telur dengan tempe dan kacang panjang.',
+            'cooking_time' => 20,
+            'difficulty' => 'sedang',
+            'servings' => 1,
+            'image' => null,
+            'user_id' => rand(2, 3),
+            'category_id' => 2, // main course
+            'views_count' => rand(5, 20),
+            'calories' => 450
+        ]);
+
+        $oseng->ingredients()->attach([
+            1 => ['amount' => '3', 'unit' => 'siung', 'is_primary' => false], // Bawang Merah
+            2 => ['amount' => '2', 'unit' => 'siung', 'is_primary' => false], // Bawang Putih
+            3 => ['amount' => '1', 'unit' => 'butir', 'is_primary' => true], // Telur
+            9 => ['amount' => '2', 'unit' => 'pcs', 'is_primary' => true], // Tempe
+            41 => ['amount' => '2', 'unit' => 'pcs', 'is_primary' => false], // Tomat
+            47 => ['amount' => '1', 'unit' => 'ikat', 'is_primary' => false], // Kacang Panjang
+            52 => ['amount' => '1', 'unit' => 'gram', 'is_primary' => false], // Kecambah
+            59 => ['amount' => '1', 'unit' => 'gram', 'is_primary' => false], // Cabai Rawit
+        ]);
+
+        $oseng->steps()->createMany([
+            ['step_number' => 1, 'description' => 'Siapkan bahan-bahan'],
+            ['step_number' => 2, 'description' => 'Tumis bumbu hingga harum'],
+            ['step_number' => 3, 'description' => 'Goreng telur bersama dengan bumbu'],
+            ['step_number' => 4, 'description' => 'Masukkan kacang panjang'],
+            ['step_number' => 5, 'description' => 'Berikan penyedap rasa secukupnya'],
+            ['step_number' => 6, 'description' => 'Sajikan ke dalam piring saji'],
+        ]);
+
+        $oseng->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 1: Nasi Goreng Spesial
         $nasiGoreng = Recipe::create([
             'name' => 'Nasi Goreng Spesial',
@@ -75,7 +114,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 1,
             'image' => Storage::url($nasiGorengImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 450
@@ -113,7 +152,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 2,
             'image' => Storage::url($ayamGorengImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 700
@@ -143,7 +182,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => Storage::url($sotoAyamImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 310
@@ -181,7 +220,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'rumit',
             'servings' => 6,
             'image' => Storage::url($rendangDagingImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 193
@@ -220,7 +259,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 2,
             'image' => Storage::url($tumisKangkungImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 1, // appertizer
             'views_count' => rand(5, 20),
             'calories' => 98
@@ -256,7 +295,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 2,
             'image' => Storage::url($mieGorengImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 229
@@ -293,7 +332,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => Storage::url($capcayImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 1, // appertizer
             'views_count' => rand(5, 20),
             'calories' => 120
@@ -330,7 +369,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'rumit',
             'servings' => 6,
             'image' => Storage::url($baksoImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 444
@@ -366,7 +405,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => Storage::url($gadogadoImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 396
@@ -403,7 +442,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => Storage::url($sateAyamImage),
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 340
@@ -438,7 +477,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'rumit',
             'servings' => 6,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 352
@@ -475,7 +514,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 6,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 468
@@ -511,7 +550,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'rumit',
             'servings' => 6,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 425
@@ -548,7 +587,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 2,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 285
@@ -584,7 +623,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 1, // appetizer
             'views_count' => rand(5, 20),
             'calories' => 125
@@ -620,7 +659,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'image' => null,
             'servings' => 4,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2,
             'views_count' => rand(5, 20),
             'calories' => 420
@@ -651,7 +690,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 300
@@ -685,7 +724,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 2,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 3, // dessert
             'views_count' => rand(5, 20),
             'calories' => 150
@@ -717,7 +756,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'rumit',
             'servings' => 5,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 250
@@ -751,7 +790,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // main course
             'views_count' => rand(5, 20),
             'calories' => 200
@@ -785,7 +824,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 3, // dessert
             'views_count' => rand(5, 20),
             'calories' => 180
@@ -818,7 +857,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sulit',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // hidangan utama
             'views_count' => rand(5, 20),
             'calories' => 350
@@ -851,7 +890,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 5,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // hidangan utama
             'views_count' => rand(5, 20),
             'calories' => 250
@@ -883,7 +922,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 3,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 2, // hidangan utama
             'views_count' => rand(5, 20),
             'calories' => 300
@@ -915,7 +954,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'sedang',
             'servings' => 4,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 1, // hidangan pembuka
             'views_count' => rand(5, 20),
             'calories' => 200
@@ -947,7 +986,7 @@ class RecipesSeeder extends Seeder
             'difficulty' => 'mudah',
             'servings' => 2,
             'image' => null,
-            'user_id' => rand(1, 3),
+            'user_id' => rand(2, 3),
             'category_id' => 3, // hidangan penutup
             'views_count' => rand(5, 20),
             'calories' => 150

@@ -62,15 +62,15 @@
                         @else
                             <div
                                 class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transform hover:scale-105 transition-transform duration-300">
-                                <i class="fa-solid fa-earth-americas text-gray-700 dark:text-gray-400"></i>
+                                <i class="fa-solid fa-box-archive text-gray-700 dark:text-gray-400"></i>
                                 <span class="font-medium">Draf</span>
                             </div>
                         @endif
-                        <button wire:click="handleShowDetailModal('ingredient', {{ $recipe->id }})"
+                        <a href="{{ auth()->user()->hasRole('admin') ? route('admin-recipes.detail', $recipe->id) : route('recipes.detail', $recipe->id) }}"
                             class="px-3.5 py-1.5 flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-hover text-text-dark-primary group-hover:shadow-md transition-all duration-300 text-xs font-medium hover:scale-105">
                             <i class="fa-solid fa-circle-info mr-1.5 group-hover:animate-pulse"></i>
                             <span>Lihat Detail</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="flex space-x-2.5 items-center">
                         <a href="{{ route(auth()->user()->hasRole('admin') ? 'admin-recipes.edit' : 'recipes.edit', $recipe->id) }}"

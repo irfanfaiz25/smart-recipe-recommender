@@ -10,16 +10,60 @@
                     <div class="flex flex-col items-center space-y-3">
                         <i class="fa-solid fa-utensils text-4xl text-gray-500"></i>
                         <p class="font-normal italic text-gray-500">
-                            {{ $recipe->title }}
+                            {{ $recipe->name }}
                         </p>
                     </div>
                 </div>
             @endif
-            <a href="{{ route('admin-moderation.index') }}" wire:navigate
+            <a href="{{ auth()->user()->hasRole('admin') ? route('admin-recipes.index') : route('recipes.index') }}"
+                wire:navigate
                 class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-white text-base font-semibold rounded-lg shadow-lg">
                 <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
                 Kembali ke Moderasi
             </a>
+            @if ($recipe->is_published)
+                @switch($recipe->moderation?->status)
+                    @case('approved')
+                        <div
+                            class="absolute top-3 right-3 flex justify-center items-center space-x-2 px-5 py-2.5 bg-green-100 bg-opacity-80 backdrop-blur-sm border border-green-300 text-green-700 text-sm rounded-full">
+                            <i class="fa-solid fa-earth-americas text-lg"></i>
+                            <span>
+                                Public
+                            </span>
+                        </div>
+                    @break
+
+                    @case('pending')
+                        <div
+                            class="absolute top-3 right-3 flex justify-center items-center space-x-2 px-5 py-2.5 bg-amber-100 bg-opacity-80 backdrop-blur-sm border border-amber-300 text-amber-700 text-sm rounded-full">
+                            <i class="fa fa-clock text-lg"></i>
+                            <span>
+                                Dalam Peninjauan
+                            </span>
+                        </div>
+                    @break
+
+                    @case('rejected')
+                        <div
+                            class="absolute top-3 right-3 flex justify-center items-center space-x-2 px-5 py-2.5 bg-red-100 bg-opacity-80 backdrop-blur-sm border border-red-300 text-red-700 text-sm rounded-full">
+                            <i class="fa-solid fa-ban text-lg"></i>
+                            <span>
+                                Publikasi Ditolak
+                            </span>
+                        </div>
+                    @break
+
+                    @default
+                @endswitch
+            @else
+                <div
+                    class="absolute top-3 right-3 flex justify-center items-center space-x-2 px-5 py-2.5 bg-gray-100 bg-opacity-80 backdrop-blur-sm border border-gray-300 text-gray-700 text-sm rounded-full">
+                    <i class="fa-solid fa-box-archive text-lg"></i>
+                    <span>
+                        Draf
+                    </span>
+                </div>
+            @endif
         </div>
         <div class="py-8 px-32">
             {{-- head details --}}
@@ -29,6 +73,14 @@
             <h1 class="mt-2 text-6xl font-bold font-display text-center">
                 {{ $recipe->name }}
             </h1>
+            <div class="mt-8 flex space-x-1 justify-center items-center text-secondary text-2xl">
+                @for ($i = 1; $i <= 5; $i++)
+                    <i class="fa-{{ $i <= (int) $averageRating ? 'solid' : 'regular' }} fa-star"></i>
+                @endfor
+                <p class="text-text-primary font-semibold text-2xl">
+                    /{{ $averageRating }}
+                </p>
+            </div>
             <div class="mt-8 flex items-center justify-center">
                 <div class="w-[60%] h-28 grid grid-cols-4">
                     <div class="border-t border-b border-gray-200 flex justify-center items-center space-x-2 text-lg">
@@ -78,50 +130,6 @@
             </div>
             {{-- end head details --}}
 
-            {{-- moderation status --}}
-            <div class="mt-10 flex justify-center items-center">
-                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 w-1/2">
-                    <div class="text-center">
-                        <div
-                            class="inline-flex items-center px-6 py-3 text-white rounded-full text-base font-semibold shadow-lg mb-4
-                            @if ($recipe->moderation->status === 'approved') bg-gradient-to-r from-green-700 to-green-500
-                            @elseif($recipe->moderation->status === 'rejected') 
-                                bg-gradient-to-r from-red-500 to-orange-600
-                            @else
-                                bg-gradient-to-r from-amber-400 to-orange-400 @endif
-                            ">
-                            <i class="fa-solid fa-clock mr-2"></i>
-                            Status: {{ ucfirst($recipe->moderation->status) }}
-                        </div>
-                        <p class="text-gray-600 text-base font-medium">
-                            Diajukan oleh: <span class="font-semibold text-gray-800">{{ $recipe->user->name }}</span>
-                        </p>
-                        @if ($recipe->moderation?->notes)
-                            <div class="mt-4 bg-white/70 p-4 rounded-xl border border-white/50">
-                                <p class="text-sm font-semibold text-gray-600 mb-2">Catatan Moderator:</p>
-                                <p class="text-gray-700 text-base leading-relaxed">{{ $recipe->moderation->notes }}</p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            {{-- end moderation status --}}
-
-            {{-- moderation buttons --}}
-            {{-- <div class="mt-8 flex justify-center items-center space-x-4">
-                <button wire:click="approveRecipe"
-                    class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                    <i class="fa-solid fa-check pe-2 text-base"></i>
-                    Setujui Resep
-                </button>
-                <button
-                    class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                    <i class="fa-solid fa-times pe-2 text-base"></i>
-                    Tolak Resep
-                </button>
-            </div> --}}
-            {{-- end moderation buttons --}}
-
             {{-- recipe ingredients & steps --}}
             <div class="mt-12 flex space-x-4">
                 <div class="w-[40%]">
@@ -157,6 +165,110 @@
                 </div>
             </div>
             {{-- end recipe ingredients & steps --}}
+            {{-- comment section --}}
+            <div class="mt-5">
+                <div class="flex justify-between items-end space-x-2 border-b border-gray-300 py-2 ">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">
+                            {{ $recipe->ratings->count() }} Reviews
+                        </h2>
+                        <div class="mt-1 flex space-x-1 items-center text-secondary text-xl">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fa-{{ $i <= (int) $averageRating ? 'solid' : 'regular' }} fa-star"></i>
+                            @endfor
+                            <p class="text-text-primary font-semibold text-lg">
+                                /{{ $averageRating }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end items-center space-x-2">
+                        <label for="sortby" class="text-sm text-gray-700 font-semibold">
+                            <i class="fa-solid fa-arrow-up-wide-short"></i>
+                            Urutkan
+                        </label>
+                        <select id="sortby" wire:model.live.debounce.300ms='sortBy'
+                            class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block min-w-32 p-2 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
+                            <option value="latest">Terbaru</option>
+                            <option value="higher">Tertinggi</option>
+                            <option value="lower">Terendah</option>
+                            <option value="likes">Disukai</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3">
+
+                    @foreach ($ratings as $item)
+                        <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
+                            @if ($item->user->avatar)
+                                <img class="h-9 w-9 rounded-full object-cover" src="{{ asset($item->user->avatar) }}"
+                                    alt="{{ $item->user->name }}">
+                            @else
+                                <i class="fa fa-circle-user text-4xl text-gray-500"></i>
+                            @endif
+                            <div class="w-full">
+                                <div class="flex justify-between w-full">
+                                    <div class="text-base font-semibold text-text-primary">
+                                        <p>{{ $item->user->name }}
+                                            <span class="text-base font-normal text-gray-500 ml-1">
+                                                21 Februari 2025
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="flex space-x-1 items-start text-lg text-secondary">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fa-{{ $i <= $item->rating ? 'solid' : 'regular' }} fa-star"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <p class="mt-1 text-sm font-normal text-gray-700">
+                                    {{ $item->comment }}
+                                </p>
+                                <div class="mt-2 flex space-x-2 items-center">
+                                    <i class="fa-solid fa-thumbs-up text-base text-secondary cursor-pointer"></i>
+                                    <p class="text-sm font-semibold text-gray-700">
+                                        {{ $item->likedBy->count() }} Likes
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
+                        <i class="fa fa-circle-user text-4xl text-gray-500"></i>
+                        <div>
+                            <div class="flex justify-between w-full">
+                                <div class="text-base font-semibold text-text-primary">
+                                    <p>Tomingse
+                                        <span class="text-base font-normal text-gray-500 ml-1">
+                                            21 Februari 2025
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="flex space-x-1 items-start text-lg text-secondary">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="mt-1 text-sm font-normal text-gray-700">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto aliquam doloribus
+                                ipsum nesciunt ab tenetur accusamus rem explicabo? Eum, maiores quae qui reiciendis
+                                saepe sapiente. Iusto quisquam fugiat veniam recusandae.
+                            </p>
+                            <div class="mt-2 flex space-x-2 items-center">
+                                <i class="fa-solid fa-thumbs-up text-base text-secondary cursor-pointer"></i>
+                                <p class="text-sm font-semibold text-gray-700">
+                                    1 Likes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{-- end comment section --}}
         </div>
     </div>
 </div>

@@ -35,6 +35,19 @@ class UsersSeeder extends Seeder
 
         $creators->assignRole('creators');
 
+        $creators2 = User::create([
+            'name' => 'creators 2',
+            'email' => 'creators2@gmail.com',
+            'password' => Hash::make('rahasia')
+        ]);
+
+        $creators2->creators()->create([
+            'phone_number' => '081234567870',
+            'city' => 'Bandung'
+        ]);
+
+        $creators2->assignRole('creators');
+
         $user = User::create([
             'name' => 'user',
             'email' => 'user@gmail.com',

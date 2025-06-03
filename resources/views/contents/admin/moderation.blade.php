@@ -53,7 +53,7 @@
     </div>
 
     @if (Route::current()->parameter('id'))
-        @livewire('admin-recipe-detail', ['recipeId' => $recipeId])
+        @livewire('moderation-recipe-detail', ['recipeId' => $recipeId])
     @else
         @livewire('moderation-recipe')
     @endif
