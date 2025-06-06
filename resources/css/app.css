@@ -24,3 +24,31 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.carousel-track {
+    will-change: transform;
+}
+
+.carousel-slide {
+    min-width: calc(100% / 3);
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .carousel-slide {
+        min-width: 50%;
+    }
+}
+
+.carousel-indicator.bg-primary {
+    box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+}
+
+.carousel-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+}

@@ -56,10 +56,9 @@
                                                         class="fa-{{ $i <= (int) $recipe['ratings'] ? 'solid' : 'regular' }} fa-star text-xs"></i>
                                                 @endfor
                                             @else
-                                                @for ($i = 1; $i <= 4; $i++)
-                                                    <i class="fa-solid fa-star text-xs"></i>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa-regular fa-star text-xs"></i>
                                                 @endfor
-                                                <i class="fa-regular fa-star text-xs"></i>
                                             @endif
                                         </div>
                                         <span class="text-xs font-semibold">{{ $recipe['ratings'] ?? '4.0' }}</span>

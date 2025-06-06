@@ -321,6 +321,6 @@ class SavoryRecipes extends Component
 
     public function render()
     {
-        return view('livewire.user.savory-recipes');
+        return view('livewire.user.savoryai.savory-recipes');
     }
 }

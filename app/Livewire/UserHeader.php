@@ -27,9 +27,9 @@ class UserHeader extends Component
                     'request' => 'savoryai*',
                 ],
                 [
-                    'name' => 'Resep Populer',
-                    'route' => 'recipes.index',
-                    'request' => 'ingredients*',
+                    'name' => 'Jelajahi Resep',
+                    'route' => 'popular-recipes.index',
+                    'request' => 'recipes*',
                 ]
             ]
         ],

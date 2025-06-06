@@ -146,6 +146,6 @@ class SavoryIngredients extends Component
             ->groupBy('category')
             ->toBase();
 
-        return view('livewire.user.savory-ingredients');
+        return view('livewire.user.savoryai.savory-ingredients');
     }
 }

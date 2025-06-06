@@ -113,6 +113,11 @@ Route::get('/', function () {
 
 // auth middleware
 Route::middleware('auth')->group(function () {
+    // popular recipes
+    Route::get('/recipes', function () {
+        return view('contents.user.recipes');
+    })->name('popular-recipes.index');
+
     // smart recommender
     Route::get('/savoryai', function () {
         return view('contents.user.savoryai', [

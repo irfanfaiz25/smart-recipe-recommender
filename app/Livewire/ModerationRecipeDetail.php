@@ -16,6 +16,6 @@ class ModerationRecipeDetail extends Component
 
     public function render()
     {
-        return view('livewire.moderation-recipe-detail');
+        return view('livewire.admin.moderation-recipe-detail');
     }
 }
