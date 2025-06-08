@@ -1,6 +1,6 @@
 <div>
     {{-- display all recipes here --}}
-    <div class="space-y-2 mb-10">
+    <div class="space-y-2 mb-10 text-center">
         <h1 class="text-4xl font-bold font-display text-secondary">
             Semua Resep Masakan
         </h1>
@@ -66,7 +66,7 @@
                     <div class="absolute top-4 left-4">
                         <span
                             class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-crown"></i> FEATURED
+                            <i class="fa-solid fa-crown"></i> TRENDING
                         </span>
                     </div>
                     <div class="absolute bottom-4 left-4 right-4">

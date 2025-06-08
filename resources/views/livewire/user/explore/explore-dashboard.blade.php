@@ -1,126 +1,248 @@
 <div>
     {{-- Featured Section --}}
+    {{-- Enhanced Featured Section with Interactive Elements --}}
     <div class="w-full grid grid-cols-4 gap-4 mb-12">
+        {{-- Main Featured Recipe Card with Stats --}}
         <div
-            class="h-64 col-span-2 bg-white shadow-md hover:shadow-xl flex group transition-all duration-500 overflow-hidden rounded-xl">
+            class="h-64 col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
             <div class="w-[40%] h-full relative">
-                <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="popular-images"
+                <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="featured-recipe"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 <div
-                    class="opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/50 to-transparent transition-opacity duration-500">
+                    class="opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-500">
+                </div>
+
+                {{-- Recipe Rating Badge --}}
+                <div
+                    class="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <i class="fa-solid fa-star"></i> 4.9
+                </div>
+
+                {{-- Quick Action Buttons --}}
+                <div
+                    class="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex gap-2">
+                    <button
+                        class="bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 rounded-full hover:bg-white/30 transition-all duration-300">
+                        <i class="fa-solid fa-bookmark text-sm"></i>
+                    </button>
                 </div>
             </div>
-            <div class="w-[60%] h-full px-6 py-6">
-                <div class="w-fit mb-4 p-2 bg-secondary text-sm font-medium text-white">
-                    Featured Recipes
+
+            <div class="w-[60%] h-full px-6 py-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="bg-gradient-to-r from-secondary to-orange-400 text-white px-3 py-1 rounded-full text-xs font-medium">
+                            🔥 Trending Now
+                        </div>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <i class="fa-solid fa-clock mr-1"></i> 25 min
+                        </div>
+                    </div>
+
+                    <h3
+                        class="mb-3 text-lg font-bold text-gray-800 group-hover:text-secondary transition-colors duration-300">
+                        Nasi Goreng Spesial Chef Rendang
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                        Resep nasi goreng dengan bumbu rahasia yang akan membuat lidah Anda bergoyang! Cocok untuk
+                        sarapan atau makan malam.
+                    </p>
                 </div>
-                <h3 class="mb-2 text-base font-semibold">
-                    Resep praktis 30 menit yang akan menyelamatkan anda dari masalah kelaparan
-                </h3>
-                <p class="text-sm font-normal text-gray-600">
-                    Berbagai resep masakan nusantara yang mudah dan praktis untuk anda coba. Tunggu apa lagi? coba
-                    sekarang!
-                </p>
+
+                {{-- Recipe Stats --}}
+                <div class="flex items-center justify-between text-xs">
+                    <div class="flex items-center gap-4">
+                        <span class="flex items-center text-gray-500">
+                            <i class="fa-solid fa-users mr-1 text-secondary"></i> 2.1k cooks
+                        </span>
+                        <span class="flex items-center text-gray-500">
+                            <i class="fa-solid fa-fire mr-1 text-orange-500"></i> 156 today
+                        </span>
+                    </div>
+                    <button
+                        class="bg-secondary text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105">
+                        Lihat Detail →
+                    </button>
+                </div>
             </div>
         </div>
+
+        {{-- Interactive Category Cards --}}
         <div
-            class="h-64 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
-            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="popular-images"
+            class="h-64 shadow-lg hover:shadow-2xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl border border-gray-100">
+            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="desserts-category"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+            {{-- Gradient Overlay --}}
             <div
-                class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/50 via-black/10 to-transparent group-hover:bg-black/50 transition-all duration-500">
+                class="absolute inset-0 bg-gradient-to-t from-pink-600/80 via-pink-400/40 to-transparent group-hover:from-pink-700/90 transition-all duration-500">
             </div>
+
+            {{-- Category Badge --}}
+            <div
+                class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
+                🍰 Manisss
+            </div>
+
+            {{-- Content --}}
             <div
                 class="absolute bottom-5 left-5 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500">
-                <h3 class="text-lg font-semibold text-white transition-all duration-500 group-hover:text-center">
-                    Desserts
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-center transition-all duration-500">
+                    Cemilan Manis
                 </h3>
-                <p class="hidden group-hover:block text-center text-sm font-medium text-gray-300">
-                    100+ Recipes
-                </p>
+                <div class="hidden group-hover:block text-center space-y-2">
+                    <p class="text-white/90 text-sm font-medium">127 Resep Manis-Manis</p>
+                    <div class="flex justify-center gap-2 text-xs text-white/80">
+                        <span class="bg-white/20 px-2 py-1 rounded-full">Kue-kue</span>
+                        <span class="bg-white/20 px-2 py-1 rounded-full">Kukis</span>
+                    </div>
+                    <button
+                        class="bg-white text-pink-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-pink-50 transition-all duration-300 mt-3">
+                        Yuk Lihat →
+                    </button>
+                </div>
+            </div>
+
+            {{-- Recipe Count Indicator --}}
+            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div
+                    class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-chart-line"></i> +15 minggu ini
+                </div>
             </div>
         </div>
+
         <div
-            class="h-64 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
-            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="popular-images"
+            class="h-64 shadow-lg hover:shadow-2xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl border border-gray-100">
+            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="main-course-category"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+            {{-- Gradient Overlay --}}
             <div
-                class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/50 via-black/10 to-transparent group-hover:bg-black/50 transition-all duration-500">
+                class="absolute inset-0 bg-gradient-to-t from-orange-600/80 via-orange-400/40 to-transparent group-hover:from-orange-700/90 transition-all duration-500">
             </div>
+
+            {{-- Category Badge --}}
+            <div
+                class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
+                🍖 Bikin Kenyang
+            </div>
+
+            {{-- Content --}}
             <div
                 class="absolute bottom-5 left-5 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500">
-                <h3 class="text-lg font-semibold text-white transition-all duration-500 group-hover:text-center">
-                    Main Course
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-center transition-all duration-500">
+                    Menu Utama
                 </h3>
-                <p class="hidden group-hover:block text-center text-sm font-medium text-gray-300">
-                    100+ Recipes
-                </p>
+                <div class="hidden group-hover:block text-center space-y-2">
+                    <p class="text-white/90 text-sm font-medium">89 Resep Bikin Kenyang</p>
+                    <div class="flex justify-center gap-2 text-xs text-white/80">
+                        <span class="bg-white/20 px-2 py-1 rounded-full">Daging</span>
+                        <span class="bg-white/20 px-2 py-1 rounded-full">Seafood</span>
+                    </div>
+                    <button
+                        class="bg-white text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-50 transition-all duration-300 mt-3">
+                        Yuk Coba →
+                    </button>
+                </div>
+            </div>
+
+            {{-- Difficulty Indicator --}}
+            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div
+                    class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-signal"></i> Gampang-Susah
+                </div>
             </div>
         </div>
     </div>
 
-    {{-- Quick Stats Section with Glassmorphism Effects --}}
-    <div
-        class="relative bg-primary/10 backdrop-blur-md backdrop-opacity-50 border-2 border-primary/60 rounded-xl p-8 overflow-hidden shadow-xl">
-        {{-- Glassmorphism Background Effects --}}
-        {{-- <div class="absolute inset-0 bg-gradient-to-r from-secondary/10 via-primary/10 to-secondary/10"></div>
-        <div class="absolute -top-32 -left-32 w-64 h-64 bg-secondary/30 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-primary/30 rounded-full blur-3xl"></div> --}}
-
-        {{-- Content Container --}}
-        <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="group cursor-pointer">
-                <div
-                    class="relative w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20 group-hover:bg-secondary/5 transition-all duration-500">
-                    <i
-                        class="fa-solid fa-utensils text-2xl text-secondary relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+    {{-- Quick Stats Dashboard --}}
+    <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-blue-600 text-xs font-medium uppercase tracking-wide">Total Resep</p>
+                    <p class="text-2xl font-bold text-blue-800">1,247</p>
                 </div>
-                <h4
-                    class="text-2xl font-bold text-secondary mb-1 group-hover:text-secondary/80 transition-colors duration-300">
-                    150+</h4>
-                <p class="text-gray-600 text-sm font-medium">Total Resep</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div
-                    class="relative w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20 group-hover:bg-primary/5 transition-all duration-500">
-                    <i
-                        class="fa-solid fa-users text-2xl text-primary relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+                <div class="bg-blue-500 text-white p-3 rounded-full">
+                    <i class="fa-solid fa-utensils"></i>
                 </div>
-                <h4
-                    class="text-2xl font-bold text-primary mb-1 group-hover:text-primary/80 transition-colors duration-300">
-                    25+</h4>
-                <p class="text-gray-600 text-sm font-medium">Creators</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div
-                    class="relative w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20 group-hover:bg-yellow-400/5 transition-all duration-500">
-                    <i
-                        class="fa-solid fa-star text-2xl text-yellow-400 relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-                </div>
-                <h4
-                    class="text-2xl font-bold text-yellow-500 mb-1 group-hover:text-yellow-400/80 transition-colors duration-300">
-                    4.8</h4>
-                <p class="text-gray-600 text-sm font-medium">Rating Rata-rata</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div
-                    class="relative w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20 group-hover:bg-green-500/5 transition-all duration-500">
-                    <i
-                        class="fa-solid fa-heart text-2xl text-rose-500 relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-                </div>
-                <h4
-                    class="text-2xl font-bold text-rose-500 mb-1 group-hover:text-rose-500/80 transition-colors duration-300">
-                    10K+</h4>
-                <p class="text-gray-600 text-sm font-medium">Resep Favorit</p>
             </div>
         </div>
 
-        {{-- Glassmorphism Light Effects --}}
-        <div
-            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-radial from-white/5 to-transparent rounded-full pointer-events-none">
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-green-600 text-xs font-medium uppercase tracking-wide">Creators</p>
+                    <p class="text-2xl font-bold text-green-800">3,456</p>
+                </div>
+                <div class="bg-green-500 text-white p-3 rounded-full">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-purple-600 text-xs font-medium uppercase tracking-wide">Resep Baru</p>
+                    <p class="text-2xl font-bold text-purple-800">23</p>
+                </div>
+                <div class="bg-purple-500 text-white p-3 rounded-full">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-orange-600 text-xs font-medium uppercase tracking-wide">Rating Rata-Rata</p>
+                    <p class="text-2xl font-bold text-orange-800">4.8</p>
+                </div>
+                <div class="bg-orange-500 text-white p-3 rounded-full">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Trending Topics Section --}}
+    <div class="bg-gradient-to-r from-indigo-50 via-white to-purple-50 p-6 rounded-xl border border-gray-200 mb-8">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                <i class="fa-solid fa-fire text-orange-500"></i>
+                Trending Minggu Ini
+            </h3>
+            <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                Lihat Semua →
+            </button>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <span
+                class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                #HealthyEating
+            </span>
+            <span
+                class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                #QuickMeals
+            </span>
+            <span
+                class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                #VeganRecipes
+            </span>
+            <span
+                class="bg-gradient-to-r from-purple-500 to-violet-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                #ComfortFood
+            </span>
+            <span
+                class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                #SpicyFood
+            </span>
         </div>
     </div>
 </div>

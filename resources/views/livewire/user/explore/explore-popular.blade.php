@@ -1,16 +1,16 @@
 <div>
     {{-- Popular Recipes Section --}}
-    <div class="space-y-2 mb-10">
+    {{-- <div class="space-y-2 mb-10">
         <h1 class="text-4xl font-bold font-display text-secondary">
             Apa Yang Lagi Nge-Trend Nih?
         </h1>
         <p class="text-primary text-sm">
             Resep yang sedang tren saat ini
         </p>
-    </div>
+    </div> --}}
 
     {{-- Popular Recipes Carousel Section --}}
-    <div class="relative w-full overflow-hidden">
+    <div class="relative w-full overflow-hidden mb-16">
         {{-- Carousel Container --}}
         <div class="carousel-container relative">
             <div class="carousel-track flex transition-transform duration-700 ease-in-out" id="popularCarousel">
