@@ -6,8 +6,14 @@
         <div
             class="h-64 col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
             <div class="w-[40%] h-full relative">
-                <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="featured-recipe"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                @if ($todayTrending['recipes']['image'])
+                    <img src="{{ asset($todayTrending['recipes']['image']) }}" alt="featured-recipe"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                @else
+                    <div class="w-full h-full bg-gray-200 flex justify-center items-center">
+                        <i class="fa fa-image text-gray-400"></i>
+                    </div>
+                @endif
                 <div
                     class="opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-500">
                 </div>
@@ -33,21 +39,20 @@
                     <div class="flex items-center justify-between mb-4">
                         <div
                             class="bg-gradient-to-r from-secondary to-orange-400 text-white px-3 py-1 rounded-full text-xs font-medium">
-                            🔥 Trending Now
+                            {{ $todayTrending['title'] }}
                         </div>
                         <div class="flex items-center text-xs text-gray-500">
-                            <i class="fa-solid fa-clock mr-1"></i> 25 min
+                            <i class="fa-solid fa-clock mr-1"></i> {{ $todayTrending['recipes']['cooking_time'] }} min
                         </div>
                     </div>
 
                     <h3
                         class="mb-3 text-lg font-bold text-gray-800 group-hover:text-secondary transition-colors duration-300">
-                        Nasi Goreng Spesial Chef Rendang
+                        {{ $todayTrending['recipes']['name'] }}
                     </h3>
 
                     <p class="text-sm text-gray-600 mb-4 leading-relaxed">
-                        Resep nasi goreng dengan bumbu rahasia yang akan membuat lidah Anda bergoyang! Cocok untuk
-                        sarapan atau makan malam.
+                        {{ $todayTrending['recipes']['description'] }}
                     </p>
                 </div>
 
@@ -55,16 +60,18 @@
                 <div class="flex items-center justify-between text-xs">
                     <div class="flex items-center gap-4">
                         <span class="flex items-center text-gray-500">
-                            <i class="fa-solid fa-users mr-1 text-secondary"></i> 2.1k cooks
+                            <i class="fa-solid fa-users mr-1 text-secondary"></i>
+                            {{ $todayTrending['recipes']['views_count'] }} pengunjung
                         </span>
                         <span class="flex items-center text-gray-500">
-                            <i class="fa-solid fa-fire mr-1 text-orange-500"></i> 156 today
+                            <i class="fa-solid fa-heart mr-1 text-orange-500"></i>
+                            {{ $todayTrending['recipes']['bookmarked_by_count'] ? $todayTrending['recipes']['bookmarked_by_count'] . ' tersimpan' : $todayTrending['recipes']['ratings_count'] . ' ulasan' }}
                         </span>
                     </div>
-                    <button
+                    <a href="{{ route('popular-recipes.show', $todayTrending['recipes']['id']) }}" wire:navigate
                         class="bg-secondary text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105">
                         Lihat Detail →
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -93,7 +100,7 @@
                     Cemilan Manis
                 </h3>
                 <div class="hidden group-hover:block text-center space-y-2">
-                    <p class="text-white/90 text-sm font-medium">127 Resep Manis-Manis</p>
+                    <p class="text-white/90 text-sm font-medium">{{ $totalDessert['total'] }}+ Resep Manis-Manis</p>
                     <div class="flex justify-center gap-2 text-xs text-white/80">
                         <span class="bg-white/20 px-2 py-1 rounded-full">Kue-kue</span>
                         <span class="bg-white/20 px-2 py-1 rounded-full">Kukis</span>
@@ -106,12 +113,14 @@
             </div>
 
             {{-- Recipe Count Indicator --}}
-            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                    <i class="fa-solid fa-chart-line"></i> +15 minggu ini
+            @if ($totalDessert['new'] > 0)
+                <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div
+                        class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                        <i class="fa-solid fa-chart-line"></i> +{{ $totalDessert['new'] }} minggu ini
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <div
@@ -127,7 +136,7 @@
             {{-- Category Badge --}}
             <div
                 class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
-                🍖 Bikin Kenyang
+                🍖 Mak Nyuss
             </div>
 
             {{-- Content --}}
@@ -137,7 +146,8 @@
                     Menu Utama
                 </h3>
                 <div class="hidden group-hover:block text-center space-y-2">
-                    <p class="text-white/90 text-sm font-medium">89 Resep Bikin Kenyang</p>
+                    <p class="text-white/90 text-sm font-medium">{{ $totalMainCourse['total'] }}+ Resep Mak Nyuss
+                    </p>
                     <div class="flex justify-center gap-2 text-xs text-white/80">
                         <span class="bg-white/20 px-2 py-1 rounded-full">Daging</span>
                         <span class="bg-white/20 px-2 py-1 rounded-full">Seafood</span>
@@ -149,13 +159,15 @@
                 </div>
             </div>
 
-            {{-- Difficulty Indicator --}}
-            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                    <i class="fa-solid fa-signal"></i> Gampang-Susah
+            {{-- Recipe Count Indicator --}}
+            @if ($totalMainCourse['new'] > 0)
+                <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div
+                        class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                        <i class="fa-solid fa-chart-line"></i> +{{ $totalMainCourse['new'] }} minggu ini
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 
@@ -165,7 +177,9 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-blue-600 text-xs font-medium uppercase tracking-wide">Total Resep</p>
-                    <p class="text-2xl font-bold text-blue-800">1,247</p>
+                    <p class="text-2xl font-bold text-blue-800">
+                        {{ $totalRecipe }}
+                    </p>
                 </div>
                 <div class="bg-blue-500 text-white p-3 rounded-full">
                     <i class="fa-solid fa-utensils"></i>
@@ -177,7 +191,9 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-green-600 text-xs font-medium uppercase tracking-wide">Creators</p>
-                    <p class="text-2xl font-bold text-green-800">3,456</p>
+                    <p class="text-2xl font-bold text-green-800">
+                        {{ $totalCreators }}
+                    </p>
                 </div>
                 <div class="bg-green-500 text-white p-3 rounded-full">
                     <i class="fa-solid fa-users"></i>
@@ -189,10 +205,12 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-purple-600 text-xs font-medium uppercase tracking-wide">Resep Baru</p>
-                    <p class="text-2xl font-bold text-purple-800">23</p>
+                    <p class="text-2xl font-bold text-purple-800">
+                        {{ $totalNewRecipeInWeek }}
+                    </p>
                 </div>
                 <div class="bg-purple-500 text-white p-3 rounded-full">
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa fa-chart-line"></i>
                 </div>
             </div>
         </div>
@@ -201,7 +219,9 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-orange-600 text-xs font-medium uppercase tracking-wide">Rating Rata-Rata</p>
-                    <p class="text-2xl font-bold text-orange-800">4.8</p>
+                    <p class="text-2xl font-bold text-orange-800">
+                        {{ $averageRating }}
+                    </p>
                 </div>
                 <div class="bg-orange-500 text-white p-3 rounded-full">
                     <i class="fa-solid fa-star"></i>
@@ -223,26 +243,31 @@
         </div>
 
         <div class="flex flex-wrap gap-2">
-            <span
-                class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                #HealthyEating
-            </span>
-            <span
-                class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                #QuickMeals
-            </span>
-            <span
-                class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                #VeganRecipes
-            </span>
-            <span
-                class="bg-gradient-to-r from-purple-500 to-violet-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                #ComfortFood
-            </span>
-            <span
-                class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                #SpicyFood
-            </span>
+            @foreach ($this->getTrendingCategories() as $category)
+                <span
+                    class="bg-gradient-to-r {{ $category['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer"
+                    wire:click="filterByIngredient('{{ str_replace('#', '', $category['name']) }}')">
+                    {{ $category['name'] }}
+                    <span class="ml-1 text-xs opacity-75">({{ $category['count'] }})</span>
+                </span>
+            @endforeach
+
+            @foreach ($this->getTrendingIngredients() as $ingredient)
+                <span
+                    class="bg-gradient-to-r {{ $ingredient['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer"
+                    wire:click="filterByIngredient('{{ str_replace('#', '', $ingredient['name']) }}')">
+                    {{ $ingredient['name'] }}
+                    <span class="ml-1 text-xs opacity-75">({{ $ingredient['count'] }})</span>
+                </span>
+            @endforeach
+
+            @foreach ($this->getTrendingCookingTime() as $timeCategory)
+                <span
+                    class="bg-gradient-to-r {{ $timeCategory['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer">
+                    {{ $timeCategory['name'] }}
+                    <span class="ml-1 text-xs opacity-75">({{ $timeCategory['count'] }})</span>
+                </span>
+            @endforeach
         </div>
     </div>
 </div>

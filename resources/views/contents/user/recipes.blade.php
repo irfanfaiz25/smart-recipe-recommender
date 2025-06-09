@@ -16,20 +16,24 @@
 
             <div class="mt-10 w-full space-y-4">
 
-                {{-- Dashboard --}}
-                <div class="mb-10">
-                    @livewire('explore-dashboard')
-                </div>
+                @if (Route::current()->parameter('id'))
+                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id'), 'previousPage' => 'exploreRecipe'])
+                @else
+                    {{-- Dashboard --}}
+                    <div class="mb-10">
+                        @livewire('explore-dashboard')
+                    </div>
 
-                {{-- Popular Recipes --}}
-                <div class="mb-12">
-                    @livewire('explore-popular')
-                </div>
+                    {{-- Popular Recipes --}}
+                    <div class="mb-12">
+                        @livewire('explore-popular')
+                    </div>
 
-                {{-- Recipe List --}}
-                <div>
-                    @livewire('explore-list')
-                </div>
+                    {{-- Recipe List --}}
+                    <div>
+                        @livewire('explore-list')
+                    </div>
+                @endif
 
             </div>
         </div>

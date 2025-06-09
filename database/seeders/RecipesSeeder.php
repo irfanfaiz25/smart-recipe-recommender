@@ -174,6 +174,12 @@ class RecipesSeeder extends Seeder
             ['step_number' => 5, 'description' => 'Sajikan dengan sambal dan nasi'],
         ]);
 
+        $ayamGoreng->moderation()->create([
+            'approver_id' => 1,
+            'status' => 'approved',
+            'notes' => '',
+        ]);
+
         // Recipe 3: Soto Ayam
         $sotoAyam = Recipe::create([
             'name' => 'Soto Ayam',

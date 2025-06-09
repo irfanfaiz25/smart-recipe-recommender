@@ -62,4 +62,12 @@ class Recipe extends Model
     {
         return $this->hasOne(RecipeModeration::class);
     }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_published', true)
+            ->whereHas('moderation', function ($subQuery) {
+                $subQuery->where('status', 'approved');
+            });
+    }
 }

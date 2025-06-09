@@ -27,6 +27,8 @@ class RecipeDetail extends Component
         $this->recipeId = $recipeId;
         if ($previousPage === 'savoryai') {
             $this->previousRoute = 'savoryai.index';
+        } elseif ($previousPage === 'exploreRecipe') {
+            $this->previousRoute = 'popular-recipes.index';
         } else {
             $this->previousRoute = 'bookmarks.index';
         }
