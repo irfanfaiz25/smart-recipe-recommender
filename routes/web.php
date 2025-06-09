@@ -28,7 +28,7 @@ Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logo
 // admin dashboard
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('layouts.main');
+        return view('contents.admin.dashboard');
     })->name('admin-dashboard.index');
 
     Route::get('/ingredients', function () {

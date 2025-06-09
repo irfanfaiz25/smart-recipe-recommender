@@ -25,6 +25,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     overflow: hidden;
 }
 
+/* explore dashboard */
 .carousel-track {
     will-change: transform;
 }
@@ -51,4 +52,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 .carousel-btn:hover {
     transform: translateY(-50%) scale(1.1);
+}
+
+/* admin dashboard */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }

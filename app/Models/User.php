@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function recipes()
     {
-        $this->hasMany(Recipe::class);
+        return $this->hasMany(Recipe::class);
     }
 
     public function ingredients()
@@ -65,6 +65,11 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
+        // Return null if no avatar is set
+        if (empty($this->avatar)) {
+            return null;
+        }
+
         return Str::startsWith($this->avatar, 'http')
             ? $this->avatar
             : asset($this->avatar);
