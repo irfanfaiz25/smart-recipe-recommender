@@ -21,7 +21,7 @@
                     yang istimewa
                 </p>
                 <div class="flex gap-4">
-                    <a href="{{ route('creators.index') }}"
+                    <a href="{{ route('dashboard.index') }}"
                         class="px-8 py-4 bg-secondary hover:bg-secondary-hover text-white rounded-full text-xl font-semibold transition-all transform hover:scale-105 hover:shadow-lg inline-flex items-center">
                         <i class="fa-solid fa-chart-line mr-2"></i>
                         Lihat Dashboard

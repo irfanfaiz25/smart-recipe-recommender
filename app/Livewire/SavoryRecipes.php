@@ -160,6 +160,9 @@ class SavoryRecipes extends Component
             // Calculate cosine similarity between user vector and recipe vector
             $similarity = $this->calculateCosineSimilarity($userVector, $recipeVector);
 
+            // Scale similarity to 0-100 for consistent calculation
+            $similarityScore = $similarity * 100;
+
             // Calculate complexity score for the recipe
             $complexityFactor = 100 - min(($totalIngredientsInRecipe / 20) * 100, 100);
 
@@ -169,7 +172,7 @@ class SavoryRecipes extends Component
             $popularityScore = ($viewsScore * 0.6) + ($ratingScore * 0.4);
 
             // Calculate final score for the recipe
-            $finalScore = ($similarity * 0.6) + ($complexityFactor * 0.2) + ($popularityScore * 0.2);
+            $finalScore = ($similarityScore * 0.6) + ($complexityFactor * 0.2) + ($popularityScore * 0.2);
 
             // Calculate missing ingredients for the recipe
             $missingIngredients = $recipe->ingredients->whereNotIn('id', $this->selectedIngredientsId);
@@ -180,10 +183,10 @@ class SavoryRecipes extends Component
                 'cosine_similarity' => $similarity,
                 'missing_ingredients' => $missingIngredients,
                 'ratings' => number_format($recipe->ratings->avg('rating'), 1),
-                // 'complexity_factor' => $complexityFactor,
-                // 'popularity_score' => $popularityScore,
-                // 'rating_score' => $ratingScore,
-                // 'views_score' => $viewsScore,
+                'complexity_factor' => $complexityFactor,
+                'popularity_score' => $popularityScore,
+                'rating_score' => $ratingScore,
+                'views_score' => $viewsScore,
             ];
         });
 
@@ -231,7 +234,7 @@ class SavoryRecipes extends Component
         }
 
         // Return the cosine similarity
-        return ($dotProduct / ($magnitudeA * $magnitudeB)) * 100;
+        return ($dotProduct / ($magnitudeA * $magnitudeB));
     }
 
     #[On('remove-selected-ingredient')]
@@ -305,6 +308,7 @@ class SavoryRecipes extends Component
             return [
                 'recipe' => $recipe,
                 'matching_percentage' => false,
+                'cosine_similarity' => false,
                 'ratings' => number_format($recipe->ratings->avg('rating'), 1),
             ];
         });

@@ -73,6 +73,12 @@
                                             </span>
                                         </div>
                                     @endif
+
+                                    @if ($recipe['cosine_similarity'])
+                                        <p class="text-sm text-black">
+                                            {{ $recipe['cosine_similarity'] }} Similarity
+                                        </p>
+                                    @endif
                                 </div>
 
                                 {{-- Bookmark Button --}}

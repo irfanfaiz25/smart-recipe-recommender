@@ -4,14 +4,15 @@
         <div class="px-6 py-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold font-display text-gray-900">Welcome back!</h1>
-                    <p class="text-gray-600 text-base font-medium mt-1">Here's what's happening with your recipe
-                        platform.
+                    <h1 class="text-3xl font-bold font-display text-gray-900 capitalize">Welcome Back,
+                        {{ auth()->user()->name }}!
+                    </h1>
+                    <p class="text-gray-600 text-base font-medium mt-1">Ini dia yang lagi terjadi di platform resep kamu.
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="text-right">
-                        <p class="text-sm text-gray-500">Last updated</p>
+                        <p class="text-sm text-gray-500">Terakhir diupdate</p>
                         <p class="text-sm font-medium text-gray-900">{{ now()->format('M d, Y H:i') }}</p>
                     </div>
                     <div
@@ -35,9 +36,9 @@
                 class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-blue-100 text-sm font-medium">Total Recipes</p>
+                        <p class="text-blue-100 text-sm font-medium">Total Resep</p>
                         <p class="text-3xl font-bold">{{ number_format($metrics['total_recipes']) }}</p>
-                        <p class="text-blue-100 text-xs mt-1">+{{ $metrics['recipes_this_month'] }} this month</p>
+                        <p class="text-blue-100 text-xs mt-1">+{{ $metrics['recipes_this_month'] }} bulan ini</p>
                     </div>
                     <div class="bg-blue-400 bg-opacity-30 rounded-full p-3">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,9 +55,9 @@
                 class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-orange-100 text-sm font-medium">Pending Review</p>
+                        <p class="text-orange-100 text-sm font-medium">Menunggu Review</p>
                         <p class="text-3xl font-bold">{{ $metrics['pending_moderation'] }}</p>
-                        <p class="text-orange-100 text-xs mt-1">Needs attention</p>
+                        <p class="text-orange-100 text-xs mt-1">Perlu dicek nih</p>
                     </div>
                     <div class="bg-orange-400 bg-opacity-30 rounded-full p-3">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,9 +73,9 @@
                 class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-green-100 text-sm font-medium">Total Users</p>
+                        <p class="text-green-100 text-sm font-medium">Total Pengguna</p>
                         <p class="text-3xl font-bold">{{ number_format($metrics['total_users']) }}</p>
-                        <p class="text-green-100 text-xs mt-1">{{ $metrics['total_creators'] }} creators</p>
+                        <p class="text-green-100 text-xs mt-1">{{ $metrics['total_creators'] }} Creators</p>
                     </div>
                     <div class="bg-green-400 bg-opacity-30 rounded-full p-3">
                         <i class="fa fa-users"></i>
@@ -87,7 +88,7 @@
                 class="bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-purple-100 text-sm font-medium">Average Rating</p>
+                        <p class="text-purple-100 text-sm font-medium">Rata-rata Rating</p>
                         <p class="text-3xl font-bold">{{ $metrics['avg_rating'] }}/5</p>
                         <div class="flex items-center mt-1">
                             @for ($i = 1; $i <= 5; $i++)
@@ -117,9 +118,9 @@
                 class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-orange-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-orange-600">Review Recipes</h3>
-                        <p class="text-gray-600 text-sm mt-1">{{ $metrics['pending_moderation'] }} recipes waiting for
-                            approval</p>
+                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-orange-600">Review Resep</h3>
+                        <p class="text-gray-600 text-sm mt-1">{{ $metrics['pending_moderation'] }} resep nunggu
+                            disetujui</p>
                     </div>
                     <div
                         class="bg-orange-100 group-hover:bg-orange-200 rounded-full p-3 transition-colors duration-200">
@@ -135,8 +136,9 @@
                 class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-green-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-600">Add New Recipe</h3>
-                        <p class="text-gray-600 text-sm mt-1">Create and publish a new recipe</p>
+                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-600">Tambah Resep Baru
+                        </h3>
+                        <p class="text-gray-600 text-sm mt-1">Bikin dan terbitin resep baru</p>
                     </div>
                     <div class="bg-green-100 group-hover:bg-green-200 rounded-full p-3 transition-colors duration-200">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,9 +153,9 @@
                 class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-blue-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600">Manage Ingredients
+                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600">Kelola Bahan-bahan
                         </h3>
-                        <p class="text-gray-600 text-sm mt-1">Add or edit recipe ingredients</p>
+                        <p class="text-gray-600 text-sm mt-1">Tambah atau ubah bahan resep</p>
                     </div>
                     <div class="bg-blue-100 group-hover:bg-blue-200 rounded-full p-3 transition-colors duration-200">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,7 +172,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Recipe Categories Chart -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Recipe Categories Distribution</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Kategori Resep</h3>
                 <div class="relative h-64">
                     <canvas id="categoriesChart"></canvas>
                 </div>
@@ -190,13 +192,13 @@
 
             <!-- Monthly Recipe Submissions Chart -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Recipe Submissions Trend</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Statistik Publikasi Resep</h3>
                 <div class="relative h-64">
                     <canvas id="monthlyChart"></canvas>
                 </div>
                 <div class="mt-4 text-center">
-                    <p class="text-sm text-gray-600">Total submissions in last 6 months: <span
-                            class="font-semibold text-gray-900">{{ collect($monthlyStats)->sum('recipes') }}</span>
+                    <p class="text-sm text-gray-600">Total resep 6 bulan terakhir:
+                        <span class="font-semibold text-gray-900">{{ collect($monthlyStats)->sum('recipes') }}</span>
                     </p>
                 </div>
             </div>
@@ -206,7 +208,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Recipe Ratings Distribution -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Recipe Ratings Distribution</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Statistik Rating Resep</h3>
                 <div class="relative h-64">
                     <canvas id="ratingsChart"></canvas>
                 </div>
@@ -214,7 +216,7 @@
 
             <!-- User Engagement Metrics -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">User Engagement</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Interaksi Pengguna</h3>
                 <div class="relative h-64">
                     <canvas id="engagementChart"></canvas>
                 </div>
@@ -226,9 +228,9 @@
             <!-- Recent Recipes -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900">Recent Recipes</h3>
+                    <h3 class="text-xl font-semibold text-gray-900">Resep Terbaru</h3>
                     <a href="{{ route('admin-recipes.index') }}"
-                        class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</a>
+                        class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat Semua</a>
                 </div>
                 <div class="space-y-4">
                     @forelse($recentRecipes as $recipe)
@@ -246,7 +248,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate">{{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500">by {{ $recipe->user->name }} •
+                                <p class="text-xs text-gray-500">oleh {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-100 text-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-800">
@@ -254,11 +256,11 @@
                                 </span>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm font-medium text-gray-900">{{ $recipe->views_count }} views</p>
+                                <p class="text-sm font-medium text-gray-900">{{ $recipe->views_count }} dilihat</p>
                             </div>
                         </div>
                     @empty
-                        <p class="text-gray-500 text-center py-4">No recent recipes found.</p>
+                        <p class="text-gray-500 text-center py-4">Belum ada resep terbaru nih.</p>
                     @endforelse
                 </div>
             </div>
@@ -266,9 +268,9 @@
             <!-- Pending Moderations -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900">Pending Moderations</h3>
+                    <h3 class="text-xl font-semibold text-gray-900">Menunggu Review</h3>
                     <a href="{{ route('admin-moderation.index') }}"
-                        class="text-orange-600 hover:text-orange-800 text-sm font-medium">Review All</a>
+                        class="text-orange-600 hover:text-orange-800 text-sm font-medium">Review Semua</a>
                 </div>
                 <div class="space-y-4">
                     @forelse($pendingModerations as $recipe)
@@ -286,11 +288,11 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate">{{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500">by {{ $recipe->user->name }} •
+                                <p class="text-xs text-gray-500">oleh {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                                    Pending Review
+                                    Nunggu Review
                                 </span>
                             </div>
                             <a href="{{ route('admin-moderation.show', $recipe->id) }}"
@@ -308,7 +310,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <p class="text-gray-500">All caught up! No pending moderations.</p>
+                            <p class="text-gray-500">Mantap! Semua resep udah direview.</p>
                         </div>
                     @endforelse
                 </div>
@@ -328,9 +330,8 @@
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-6">
                             <div>
-                                <h3 class="text-2xl font-bold text-white mb-2">🌟 Top Creators</h3>
-                                <p class="text-blue-100 text-sm font-medium">Our most talented recipe creators this
-                                    month</p>
+                                <h3 class="text-2xl font-bold text-white mb-2">🌟 Creators Terbaik</h3>
+                                <p class="text-blue-100 text-sm font-medium">Creators paling keren bulan ini</p>
                             </div>
                             <div class="hidden md:flex items-center space-x-2 text-blue-100">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -371,7 +372,7 @@
                                                     <h4
                                                         class="font-bold text-white text-lg group-hover:text-yellow-200 transition-colors duration-300">
                                                         {{ $creator->name }}</h4>
-                                                    <p class="text-blue-100 text-sm">Recipe Creator</p>
+                                                    <p class="text-blue-100 text-sm">Pembuat Resep</p>
                                                 </div>
                                             </div>
                                             <!-- Rank number -->
@@ -386,13 +387,14 @@
                                             <div class="bg-white/10 rounded-lg p-3 text-center">
                                                 <div class="text-2xl font-bold text-white">
                                                     {{ $creator->recipes_count }}</div>
-                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Recipes
+                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Resep
                                                 </div>
                                             </div>
                                             <div class="bg-white/10 rounded-lg p-3 text-center">
                                                 <div class="text-2xl font-bold text-white">
                                                     {{ number_format($creator->recipes_avg_views_count ?? 0) }}</div>
-                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Avg Views
+                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Rata-rata
+                                                    Dilihat
                                                 </div>
                                             </div>
                                         </div>
@@ -401,7 +403,7 @@
                                         <div class="mt-4">
                                             <button
                                                 class="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 text-sm border border-white/30 hover:border-white/50">
-                                                View Profile
+                                                Lihat Profil
                                             </button>
                                         </div>
                                     </div>
@@ -416,24 +418,12 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
                                 </svg>
-                                Swipe to see more creators
+                                Geser untuk lihat koki lainnya
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Custom scrollbar styles -->
-            <style>
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-            </style>
         @endif
     </div>
 </div>
@@ -539,8 +529,8 @@
                 data: {
                     labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
                     datasets: [{
-                        label: 'Number of Ratings',
-                        data: [5, 12, 25, 45, 78], // Replace with actual data
+                        label: 'Total Rating',
+                        data: {!! json_encode($ratingsDistribution->pluck('count')) !!},
                         backgroundColor: [
                             '#EF4444',
                             '#F59E0B',
@@ -584,7 +574,12 @@
                     labels: ['Views', 'Bookmarks', 'Ratings', 'Comments'],
                     datasets: [{
                         label: 'Engagement Metrics',
-                        data: [85, 70, 90, 65], // Replace with actual engagement data
+                        data: [
+                            {{ $engagementMetrics['views'] }},
+                            {{ $engagementMetrics['bookmarks'] }},
+                            {{ $engagementMetrics['ratings'] }},
+                            {{ $engagementMetrics['comments'] }}
+                        ],
                         backgroundColor: 'rgba(139, 92, 246, 0.2)',
                         borderColor: '#8B5CF6',
                         borderWidth: 2,

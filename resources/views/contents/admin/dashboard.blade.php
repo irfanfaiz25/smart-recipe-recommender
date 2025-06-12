@@ -1,9 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="mt-2 mb-7">
+    {{-- <div class="mt-2 mb-7">
 
-        {{-- breadcumbs --}}
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
@@ -23,7 +22,11 @@
         <h1 class="text-3xl mt-3 mb-5">
             Dashboard
         </h1>
-    </div>
+    </div> --}}
 
-    @livewire('admin-dashboard')
+    @if (auth()->user()->hasRole('admin'))
+        @livewire('admin-dashboard')
+    @elseif (auth()->user()->hasRole('creators'))
+        @livewire('creators-dashboard')
+    @endif
 @endsection

@@ -77,7 +77,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 // creators dashboard
 Route::prefix('creators')->middleware(['auth', 'creators'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('layouts.main');
+        return view('contents.admin.dashboard');
     })->name('dashboard.index');
 
     Route::get('/recipes', function () {
