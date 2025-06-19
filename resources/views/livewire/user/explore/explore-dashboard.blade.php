@@ -173,7 +173,7 @@
 
     {{-- Quick Stats Dashboard --}}
     <div class="grid grid-cols-4 gap-4 mb-8">
-        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200 shadow-lg">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-blue-600 text-xs font-medium uppercase tracking-wide">Total Resep</p>
@@ -187,7 +187,7 @@
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200 shadow-lg">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-green-600 text-xs font-medium uppercase tracking-wide">Creators</p>
@@ -201,7 +201,7 @@
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200 shadow-lg">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-purple-600 text-xs font-medium uppercase tracking-wide">Resep Baru</p>
@@ -215,7 +215,7 @@
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200 shadow-lg">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-orange-600 text-xs font-medium uppercase tracking-wide">Rating Rata-Rata</p>
@@ -231,15 +231,16 @@
     </div>
 
     {{-- Trending Topics Section --}}
-    <div class="bg-gradient-to-r from-indigo-50 via-white to-purple-50 p-6 rounded-xl border border-gray-200 mb-8">
+    <div
+        class="bg-gradient-to-r from-indigo-50 via-white to-purple-50 p-6 rounded-xl border border-gray-200 mb-8 shadow-lg">
         <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
                 <i class="fa-solid fa-fire text-orange-500"></i>
-                Trending Minggu Ini
+                {{ $isAnyRecipesInWeek ? 'Trending Minggu Ini' : 'Trending' }}
             </h3>
-            <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+            {{-- <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
                 Lihat Semua →
-            </button>
+            </button> --}}
         </div>
 
         <div class="flex flex-wrap gap-2">

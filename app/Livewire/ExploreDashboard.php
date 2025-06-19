@@ -17,6 +17,7 @@ class ExploreDashboard extends Component
     public $totalCreators;
     public $averageRating;
     public $totalNewRecipeInWeek;
+    public $isAnyRecipesInWeek;
 
 
     public function mount()
@@ -49,14 +50,13 @@ class ExploreDashboard extends Component
             ->where('created_at', '>=', now()->subDays(7))
             ->count();
 
+        // check is there any recipe in the week
+        $this->isAnyRecipesInWeek = $totalNewRecipeInWeek > 0;
+
         $this->totalRecipe = $totalRecipe;
         $this->totalCreators = $totalCreators;
         $this->averageRating = $averageRating;
         $this->totalNewRecipeInWeek = $totalNewRecipeInWeek;
-
-
-
-        // dd($todayTrending);
     }
 
     public function getTodayTrendingRecipe()
@@ -147,7 +147,7 @@ class ExploreDashboard extends Component
 
     public function getTrendingCategories()
     {
-        return RecipeCategory::withCount([
+        $trendingCategories = RecipeCategory::withCount([
             'recipes' => function ($query) {
                 $query->approved()
                     ->where('created_at', '>=', now()->subWeek());
@@ -163,6 +163,30 @@ class ExploreDashboard extends Component
                     'color' => $this->getCategoryColor($category->name)
                 ];
             });
+
+        // check is there any trending categories in a week
+        if ($trendingCategories->count() > 0) {
+            return $trendingCategories;
+        }
+
+        // Fallback: all time trending
+        $allTimeTrending = RecipeCategory::withCount([
+            'recipes' => function ($query) {
+                $query->approved();
+            }
+        ])
+            ->having('recipes_count', '>', 0)
+            ->orderBy('recipes_count', 'desc')
+            ->get()
+            ->map(function ($category) {
+                return [
+                    'name' => $category->name,
+                    'count' => $category->recipes_count,
+                    'color' => $this->getCategoryColor($category->name)
+                ];
+            });
+
+        return $allTimeTrending;
     }
 
     private function getCategoryColor($categoryName)
@@ -177,7 +201,7 @@ class ExploreDashboard extends Component
 
     public function getTrendingIngredients()
     {
-        return Ingredient::whereHas('recipes', function ($query) {
+        $trendingIngredients = Ingredient::whereHas('recipes', function ($query) {
             $query->approved()
                 ->where('created_at', '>=', now()->subWeek())
                 ->where('is_primary', true);  // Check if THIS ingredient is primary in the recipe
@@ -199,6 +223,35 @@ class ExploreDashboard extends Component
                     'color' => $this->getIngredientColor($ingredient->category)
                 ];
             });
+
+        // check is there any trending ingredients in a week
+        if ($trendingIngredients->count() > 0) {
+            return $trendingIngredients;
+        }
+
+        // Fallback: all time trending
+        $allTimeTrending = Ingredient::whereHas('recipes', function ($query) {
+            $query->approved()
+                ->where('is_primary', true);
+        })
+            ->withCount([
+                'recipes' => function ($query) {
+                    $query->approved()
+                        ->where('is_primary', true);
+                }
+            ])
+            ->orderBy('recipes_count', 'desc')
+            ->limit(8)
+            ->get()
+            ->map(function ($ingredient) {
+                return [
+                    'name' => '#' . str_replace(' ', '', $ingredient->name),
+                    'count' => $ingredient->recipes_count,
+                    'color' => $this->getIngredientColor($ingredient->category)
+                ];
+            });
+
+        return $allTimeTrending;
     }
 
     private function getIngredientColor($category)
@@ -215,7 +268,7 @@ class ExploreDashboard extends Component
 
     public function getTrendingCookingTime()
     {
-        return Recipe::approved()
+        $trendingCookingTIme = Recipe::approved()
             ->where('created_at', '>=', now()->subWeek())
             ->get()
             ->groupBy(function ($recipe) {
@@ -240,6 +293,39 @@ class ExploreDashboard extends Component
             })
             ->sortByDesc('count')
             ->take(4);
+
+        // check is there any trending cooking time in a week
+        if ($trendingCookingTIme->count() > 0) {
+            return $trendingCookingTIme;
+        }
+
+        // Fallback: all time trending
+        $allTimeTrending = Recipe::approved()
+            ->get()
+            ->groupBy(function ($recipe) {
+                return match (true) {
+                    $recipe->cooking_time <= 15 => 'QuickMeals',
+                    $recipe->cooking_time <= 30 => '30MinuteMeals',
+                    $recipe->cooking_time <= 60 => 'HourlyMeals',
+                    default => 'SlowCooking'
+                };
+            })
+            ->map(function ($recipes, $timeCategory) {
+                return [
+                    'name' => '#' . $timeCategory,
+                    'count' => $recipes->count(),
+                    'color' => match ($timeCategory) {
+                        'QuickMeals' => 'from-green-500 to-emerald-500',
+                        '30MinuteMeals' => 'from-blue-500 to-cyan-500',
+                        'HourlyMeals' => 'from-orange-500 to-amber-500',
+                        'SlowCooking' => 'from-purple-500 to-violet-500'
+                    }
+                ];
+            })
+            ->sortByDesc('count')
+            ->take(4);
+
+        return $allTimeTrending;
     }
 
     public function render()

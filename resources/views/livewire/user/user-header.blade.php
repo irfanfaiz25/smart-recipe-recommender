@@ -40,7 +40,8 @@
                         <div x-show="open" x-transition
                             class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
                             @foreach ($menu['dropdown'] as $item)
-                                <a href="{{ route($item['route']) }}" wire:navigate
+                                <a href="{{ route($item['route']) }}"
+                                    {{ $item['route'] != 'popular-recipes.index' ? 'wire:navigate' : '' }}
                                     class="block px-4 py-2.5 text-sm
                                     {{ request()->is($item['request']) ? 'text-secondary font-semibold bg-gray-100' : 'text-text-primary dark:text-text-dark-primary' }}  hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800">
                                     {{ $item['name'] }}
