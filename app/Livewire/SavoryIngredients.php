@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Ingredient;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Masmerise\Toaster\Toaster;
 use OpenAI;
 
 class SavoryIngredients extends Component
@@ -85,6 +86,18 @@ class SavoryIngredients extends Component
 
         $detectedIngredients = explode(', ', $response['choices'][0]['message']['content']);
 
+        // Handle when no ingredients are detected
+        if (empty($detectedIngredients)) {
+            Toaster::error('Tidak ada bahan yang terdeteksi dalam gambar. Silakan coba lagi.');
+            return [];
+        }
+
+        // Validate the detected ingredients
+        $detectedIngredients = array_filter($detectedIngredients, function ($ingredient) use ($availableIngredients) {
+            return in_array($ingredient, $availableIngredients);
+        });
+
+        // Match detected ingredients with available ingredients
         $matchedIngredients = Ingredient::select('id', 'name', 'image')
             ->whereIn('name', $detectedIngredients)
             ->get()

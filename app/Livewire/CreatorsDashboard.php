@@ -37,19 +37,19 @@ class CreatorsDashboard extends Component
         $userId = Auth::id();
 
         $this->totalRecipes = Recipe::where('user_id', $userId)->count();
-        $this->publishedRecipes = Recipe::where('user_id', $userId)->where('is_published', true)->count();
+        $this->publishedRecipes = Recipe::approved()->where('user_id', $userId)->where('is_published', true)->count();
         $this->pendingRecipes = Recipe::where('user_id', $userId)
             ->whereHas('moderation', function ($query) {
                 $query->where('status', 'pending');
             })->count();
 
-        $this->totalViews = Recipe::where('user_id', $userId)->sum('views_count');
-        $this->totalBookmarks = Recipe::where('user_id', $userId)
+        $this->totalViews = Recipe::approved()->where('user_id', $userId)->sum('views_count');
+        $this->totalBookmarks = Recipe::approved()->where('user_id', $userId)
             ->withCount('bookmarkedBy')
             ->get()
             ->sum('bookmarked_by_count');
 
-        $this->averageRating = Recipe::where('user_id', $userId)
+        $this->averageRating = Recipe::approved()->where('user_id', $userId)
             ->withAvg('ratings', 'rating')
             ->get()
             ->avg('ratings_avg_rating') ?? 0;

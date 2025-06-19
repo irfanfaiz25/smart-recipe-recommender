@@ -73,12 +73,6 @@
                                             </span>
                                         </div>
                                     @endif
-
-                                    @if ($recipe['cosine_similarity'])
-                                        <p class="text-sm text-black">
-                                            {{ $recipe['cosine_similarity'] }} Similarity
-                                        </p>
-                                    @endif
                                 </div>
 
                                 {{-- Bookmark Button --}}
@@ -133,7 +127,7 @@
                                     {{-- Ingredients Section --}}
                                     <div class="mb-3">
                                         <h4 class="text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wide">
-                                            Available Ingredients</h4>
+                                            Bahan Makanan</h4>
                                         <div class="flex flex-wrap gap-1">
                                             @foreach ($recipe['recipe']['ingredients'] as $key => $ingredient)
                                                 @if ($key < 3)

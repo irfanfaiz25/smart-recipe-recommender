@@ -38,7 +38,7 @@ class SavoryRecipes extends Component
     {
         // give condition here if the ingredient array doesnt have id
         if (empty($ingredients)) {
-            Toaster::error('Tidak ada bahan yang terdeteksi');
+            Toaster::error('Tidak ada bahan yang terdeteksi. Silakan coba lagi.');
             return;
         }
 
@@ -75,7 +75,7 @@ class SavoryRecipes extends Component
     {
         // Collect all ingredients in the database
         $allIngredients = Ingredient::all();
-        $totalRecipes = Recipe::count();
+        $totalRecipes = Recipe::approved()->count();
 
         // Count IDF for each ingredient
         $ingredientIdf = [];
@@ -88,11 +88,6 @@ class SavoryRecipes extends Component
 
             // Calculate IDF using the formula: log(total_recipes / recipes_with_ingredient)
             $idf = log(($totalRecipes + 1) / ($recipesWithIngredient + 1));
-
-            // Apply weight to IDF for primary ingredients
-            if ($ingredient->is_primary) {
-                $idf *= 2;
-            }
 
             $ingredientIdf[$ingredient->id] = $idf;
         }
@@ -107,7 +102,7 @@ class SavoryRecipes extends Component
             $caloriesRange = $caloriesCategory[$category];
             [$minCalories, $maxCalories] = explode('-', $caloriesRange);
 
-            $query = Recipe::query()
+            $query = Recipe::approved()->query()
                 ->where(DB::raw('calories / servings'), '>=', $minCalories)
                 ->where(DB::raw('calories / servings'), '<=', $maxCalories)
                 ->whereHas('ingredients', function ($query) {
@@ -118,7 +113,7 @@ class SavoryRecipes extends Component
             $recipes = $query->get();
         } else {
             // Get recipes that contain at least one of the selected ingredients
-            $recipes = Recipe::whereHas('ingredients', function ($query) {
+            $recipes = Recipe::approved()->whereHas('ingredients', function ($query) {
                 $query->whereIn('ingredients.id', $this->selectedIngredientsId);
             })->with(['ingredients', 'bookmarkedBy'])->get();
         }
@@ -126,15 +121,6 @@ class SavoryRecipes extends Component
 
         $userVector = [];
         foreach ($this->selectedIngredientsId as $ingredientId) {
-            // Default weight for ingredient
-            $weight = 1;
-
-            // Check if the ingredient is primary
-            $ingredient = $allIngredients->firstWhere('id', $ingredientId);
-            if ($ingredient && $ingredient->is_primary) {
-                $weight = 2;
-            }
-
             // Calculate TF-IDF for the ingredient
             $tf = 1 / count($this->selectedIngredientsId);
             $userVector[$ingredientId] = $tf * $ingredientIdf[$ingredientId];
@@ -258,7 +244,7 @@ class SavoryRecipes extends Component
 
     public function viewRecipeDetail($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::approved()->find($id);
         $recipe->views_count += 1;
         $recipe->save();
 
@@ -267,7 +253,7 @@ class SavoryRecipes extends Component
 
     public function toggleBookmark($recipeId)
     {
-        $recipe = Recipe::find($recipeId);
+        $recipe = Recipe::approved()->find($recipeId);
         $user = auth()->user();
 
         if ($recipe->bookmarkedBy->contains($user)) {
@@ -295,13 +281,13 @@ class SavoryRecipes extends Component
             $caloriesRange = $caloriesCategory[$category];
             [$minCalories, $maxCalories] = array_map('intval', explode('-', $caloriesRange));
 
-            $query = Recipe::where(DB::raw('calories / servings'), '>=', $minCalories)
+            $query = Recipe::approved()->where(DB::raw('calories / servings'), '>=', $minCalories)
                 ->where(DB::raw('calories / servings'), '<=', $maxCalories)
                 ->with(['ingredients', 'bookmarkedBy', 'ratings']);
 
             $recipes = $query->get();
         } else {
-            $recipes = Recipe::with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
+            $recipes = Recipe::approved()->with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
         }
 
         $this->matchedRecipes = $recipes->map(function ($recipe) {

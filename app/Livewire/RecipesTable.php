@@ -80,7 +80,7 @@ class RecipesTable extends Component
     public function render()
     {
         $user = auth()->user();
-        $recipes = Recipe::query();
+        $recipes = Recipe::approved();
 
         if ($user->hasRole('creators')) {
             $recipes->where('user_id', $user->id);

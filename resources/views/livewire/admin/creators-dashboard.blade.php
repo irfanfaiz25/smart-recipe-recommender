@@ -34,10 +34,8 @@
                         <p class="text-3xl font-bold">{{ $publishedRecipes }}</p>
                         <p class="text-green-100 text-xs mt-1">Aktif</p>
                     </div>
-                    <div class="bg-white/20 rounded-full p-3">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <div class="bg-white/20 rounded-full px-3 py-3">
+                        <i class="fa fa-check text-xl"></i>
                     </div>
                 </div>
             </div>
@@ -266,8 +264,15 @@
                         <div class="border-l-4 border-indigo-500 pl-4 py-2">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-3">
-                                    <img src="{{ $rating->user->avatar_url }}" alt="{{ $rating->user->name }}"
-                                        class="w-8 h-8 rounded-full">
+                                    @if ($rating->user->avatar_url)
+                                        <img src="{{ $rating->user->avatar_url }}" alt="{{ $rating->user->name }}"
+                                            class="w-8 h-8 rounded-full object-cover">
+                                    @else
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base">
+                                            {{ implode('',array_map(function ($word) {return ucfirst(substr($word, 0, 1));}, explode(' ', $rating->user->name))) }}
+                                        </div>
+                                    @endif
                                     <div>
                                         <p class="font-medium text-gray-900">{{ $rating->user->name }}</p>
                                         <p class="text-sm text-gray-500">{{ $rating->recipe->name }}</p>
