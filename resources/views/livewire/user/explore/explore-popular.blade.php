@@ -14,13 +14,19 @@
         {{-- Carousel Container --}}
         <div class="carousel-container relative">
             <div class="carousel-track flex transition-transform duration-700 ease-in-out" id="popularCarousel">
-                @for ($i = 0; $i < 8; $i++)
+                @foreach ($popularRecipes as $index => $recipe)
                     <div class="carousel-slide flex-none w-1/3 px-2">
                         <div
                             class="h-72 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
-                            <img src="{{ asset('storage/img/main/secondary-background.jpg') }}"
-                                alt="popular-recipe-{{ $i + 1 }}"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            {{-- Recipe Image --}}
+                            @if ($recipe->image)
+                                <img src="{{ asset($recipe['image']) }}" alt="{{ $recipe['name'] }}"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full bg-gray-100 flex justify-center items-center">
+                                    <i class="fa fa-utensils text-3xl text-gray-300"></i>
+                                </div>
+                            @endif
 
                             {{-- Gradient Overlay --}}
                             <div
@@ -33,33 +39,44 @@
                                 {{-- Recipe Name --}}
                                 <h3
                                     class="text-lg font-semibold text-white transition-all duration-500 group-hover:text-center mb-2">
-                                    {{ ['Steak Daging', 'Nasi Goreng', 'Ayam Bakar', 'Soto Ayam', 'Rendang Padang', 'Gado-Gado', 'Bakso Malang', 'Gudeg Jogja'][$i] }}
+                                    {{ $recipe['name'] }}
                                 </h3>
 
                                 {{-- Recipe Rating --}}
                                 <div class="group-hover:hidden text-sm font-medium text-gray-300">
-                                    @for ($star = 1; $star <= 5; $star++)
+                                    @if ($recipe->ratings->count() > 0)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i
+                                                class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-500"></i>
+                                        @endfor
+                                    @else
                                         <i
-                                            class="fa-{{ $star <= 4 ? 'solid' : 'regular' }} fa-star text-xs text-yellow-400"></i>
-                                    @endfor
+                                            class="fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                        <i
+                                            class="fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                        <i
+                                            class="fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                        <i
+                                            class="fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                        <i
+                                            class="fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                    @endif
                                 </div>
 
                                 {{-- Recipe Description --}}
                                 <p class="hidden group-hover:block text-sm text-center font-medium text-gray-300">
-                                    Resep
-                                    {{ ['Steak Daging', 'Nasi Goreng', 'Ayam Bakar', 'Soto Ayam', 'Rendang Padang', 'Gado-Gado', 'Bakso Malang', 'Gudeg Jogja'][$i] }}
-                                    yang lezat dan mudah dibuat dengan bahan-bahan pilihan terbaik.
+                                    {{ $recipe['description'] }}
                                 </p>
                             </div>
 
                             {{-- Recipe Badge --}}
                             <div
                                 class="absolute top-4 left-4 bg-white text-secondary text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                                #{{ $i + 1 }}
+                                #{{ $index + 1 }}
                             </div>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
 
