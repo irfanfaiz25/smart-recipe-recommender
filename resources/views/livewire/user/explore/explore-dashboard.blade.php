@@ -68,7 +68,7 @@
                             {{ $todayTrending['recipes']['bookmarked_by_count'] ? $todayTrending['recipes']['bookmarked_by_count'] . ' tersimpan' : $todayTrending['recipes']['ratings_count'] . ' ulasan' }}
                         </span>
                     </div>
-                    <a href="{{ route('popular-recipes.show', $todayTrending['recipes']['id']) }}" wire:navigate
+                    <a href="{{ route('explore-recipes.show', $todayTrending['recipes']['id']) }}" wire:navigate
                         class="bg-secondary text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105">
                         Lihat Detail →
                     </a>

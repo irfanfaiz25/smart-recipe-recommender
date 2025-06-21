@@ -158,7 +158,7 @@
                     menyimpan
                     resep
                     favorit. Jelajahi resep-resep menarik dan simpan untuk referensi nanti.</p>
-                <a href="{{ route('savoryai.index') }}"
+                <a href="{{ route('popular-recipes.index') }}"
                     class="px-6 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-full shadow-md transition-all duration-200">
                     <i class="fa-solid fa-magnifying-glass mr-2"></i>Jelajahi Resep
                 </a>

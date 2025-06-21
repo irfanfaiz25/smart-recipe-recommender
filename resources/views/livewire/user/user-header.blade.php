@@ -29,7 +29,7 @@
                 @if (isset($menu['dropdown']))
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" @click.away="open = false"
-                            class="flex items-center text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : '' }}"
+                            class="flex items-center text-sm font-normal cursor-pointer hover:scale-110 transition-all duration-300 hover:text-secondary {{ request()->is($menu['request']) ||collect($menu['dropdown'])->contains(function ($item) {return request()->is($item['request']);})? 'text-secondary font-semibold': '' }}"
                             :class="{
                                 'text-white': !isScrolled,
                                 'text-text-primary dark:text-text-dark-primary': isScrolled

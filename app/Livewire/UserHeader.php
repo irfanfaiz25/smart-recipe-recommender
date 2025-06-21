@@ -18,8 +18,8 @@ class UserHeader extends Component
         ],
         [
             'name' => 'Resep Masakan',
-            'route' => 'savoryai.index',
-            'request' => 'savoryai*',
+            'route' => 'recipes.index',
+            'request' => 'recipes*',
             'dropdown' => [
                 [
                     'name' => 'Rekomendasi Cerdas',
@@ -29,7 +29,7 @@ class UserHeader extends Component
                 [
                     'name' => 'Jelajahi Resep',
                     'route' => 'popular-recipes.index',
-                    'request' => 'recipes*',
+                    'request' => 'explore*',
                 ]
             ]
         ],

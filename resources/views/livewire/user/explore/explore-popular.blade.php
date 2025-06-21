@@ -74,6 +74,12 @@
                                 class="absolute top-4 left-4 bg-white text-secondary text-xs font-bold px-3 py-1 rounded-full shadow-lg">
                                 #{{ $index + 1 }}
                             </div>
+                            <div class="absolute top-4 right-4 text-xs font-normal">
+                                <a href="{{ route('explore-recipes.show', $recipe->id) }}"
+                                    class="bg-yellow-400 text-black px-3 py-1 rounded-full flex items-center gap-1">
+                                    <i class="fa fa-up-right-from-square"></i> Lihat Detail
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach

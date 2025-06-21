@@ -114,14 +114,14 @@ Route::get('/', function () {
 // auth middleware
 Route::middleware('auth')->group(function () {
     // explore recipes
-    Route::get('/recipes', function () {
+    Route::get('/explore', function () {
         return view('contents.user.recipes');
     })->name('popular-recipes.index');
 
     // explore recipes detail
-    Route::get('/recipes/{id}', function () {
+    Route::get('/explore/{id}', function () {
         return view('contents.user.recipes');
-    })->name('popular-recipes.show');
+    })->name('explore-recipes.show');
 
     // smart recommender
     Route::get('/savoryai', function () {
