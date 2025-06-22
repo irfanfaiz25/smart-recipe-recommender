@@ -14,10 +14,24 @@ class SavoryRecipes extends Component
     public $selectedIngredientsId = [];
     public $matchedRecipes = [];
     public $caloriesCategory;
+    public $perPage = 6;
+    public $totalRecipes = 0;
+    public $hasMoreRecipes = false;
+
+    protected $queryString = [
+        'caloriesCategory' => ['except' => ''],
+    ];
+
 
     public function mount()
     {
         $this->initializeRecipes();
+    }
+
+    public function loadMoreRecipes()
+    {
+        $this->perPage += 6;
+        $this->updateMatchedRecipes($this->caloriesCategory);
     }
 
     #[On('selected-ingredient')]
@@ -276,10 +290,14 @@ class SavoryRecipes extends Component
                 ->where(DB::raw('calories / servings'), '<=', $maxCalories)
                 ->with(['ingredients', 'bookmarkedBy', 'ratings']);
 
-            $recipes = $query->get();
+            $allRecipes = $query->get();
         } else {
-            $recipes = Recipe::approved()->with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
+            $allRecipes = Recipe::approved()->with(['ingredients', 'bookmarkedBy', 'ratings'])->get();
         }
+
+        $this->totalRecipes = $allRecipes->count();
+        $recipes = $allRecipes->take($this->perPage);
+        $this->hasMoreRecipes = $this->totalRecipes > $this->perPage;
 
         $this->matchedRecipes = $recipes->map(function ($recipe) {
             return [
@@ -296,7 +314,10 @@ class SavoryRecipes extends Component
         if (empty($this->selectedIngredientsId)) {
             $this->initializeRecipes($category);
         } else {
-            $this->matchedRecipes = $this->getRecipesWithCosineSimilarity($category);
+            $allMatchedRecipes = $this->getRecipesWithCosineSimilarity($category);
+            $this->totalRecipes = $allMatchedRecipes->count();
+            $this->matchedRecipes = $allMatchedRecipes->take($this->perPage);
+            $this->hasMoreRecipes = $this->totalRecipes > $this->perPage;
         }
     }
 

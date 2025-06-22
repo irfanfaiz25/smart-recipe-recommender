@@ -23,6 +23,12 @@ class ExploreList extends Component
         'dessert' => 3,
     ];
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'category' => ['except' => ''],
+        'sortBy' => ['except' => 'latest'],
+    ];
+
     public function updatedSearch()
     {
         $this->resetPage();
