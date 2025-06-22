@@ -62,3 +62,31 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
+
+@keyframes animate-shine {
+    0% {
+        background-position: -200% center;
+    }
+
+    75% {
+        background-position: 200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
