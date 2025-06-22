@@ -23,6 +23,12 @@ class RecipeBookmark extends Component
         'tinggi' => '801-9999'
     ];
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'category' => ['except' => ''],
+        'sortBy' => ['except' => 'latest'],
+    ];
+
 
     public function updatedSearch()
     {
@@ -53,12 +59,6 @@ class RecipeBookmark extends Component
         }
 
         $this->dispatch('updated-bookmarks');
-    }
-
-    #[On('reload-recipes')]
-    public function reload()
-    {
-        dd('oke');
     }
 
     public function render()
