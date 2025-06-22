@@ -116,12 +116,36 @@ Route::middleware('auth')->group(function () {
     // explore recipes
     Route::get('/explore', function () {
         return view('contents.user.recipes');
-    })->name('popular-recipes.index');
+    })->name('explore-recipes.index');
 
     // explore recipes detail
     Route::get('/explore/{id}', function () {
         return view('contents.user.recipes');
     })->name('explore-recipes.show');
+
+    // explore by category (dessert/main course)
+    Route::get('/explore/category/{categoryId}', function ($categoryId) {
+        return view('contents.user.recipes', [
+            'filterType' => 'category',
+            'filterValue' => $categoryId
+        ]);
+    })->name('explore.category');
+
+    // explore by ingredient
+    Route::get('/explore/ingredient/{ingredient}', function ($ingredient) {
+        return view('contents.user.recipes', [
+            'filterType' => 'ingredient',
+            'filterValue' => $ingredient
+        ]);
+    })->name('explore.ingredient');
+
+    // explore by cooking time
+    Route::get('/explore/time/{timeCategory}', function ($timeCategory) {
+        return view('contents.user.recipes', [
+            'filterType' => 'cooking_time',
+            'filterValue' => $timeCategory
+        ]);
+    })->name('explore.time');
 
     // smart recommender
     Route::get('/savoryai', function () {

@@ -133,10 +133,10 @@
 
                     <!-- View Recipe Button -->
                     <div class="mt-4 flex space-x-2">
-                        <button wire:click="viewRecipeDetail({{ $recipe->id }})"
+                        <a href="{{ route('explore-recipes.show', $recipe->id) }}"
                             class="block text-lg font-semibold w-full py-2 bg-gradient-to-r from-primary to-primary-light text-center text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
                             Lihat Resep
-                        </button>
+                        </a>
                         <!-- Bookmark Icon (for removal) -->
                         <button wire:click='toggleBookmark({{ $recipe->id }})'
                             class="w-[20%] p-1.5 bg-white/80 hover:bg-white border border-secondary/30 hover:border-secondary text-secondary hover:text-rose-500 rounded-md shadow-md transition-all duration-200 z-10">
@@ -158,7 +158,7 @@
                     menyimpan
                     resep
                     favorit. Jelajahi resep-resep menarik dan simpan untuk referensi nanti.</p>
-                <a href="{{ route('popular-recipes.index') }}"
+                <a href="{{ route('explore-recipes.index') }}"
                     class="px-6 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-full shadow-md transition-all duration-200">
                     <i class="fa-solid fa-magnifying-glass mr-2"></i>Jelajahi Resep
                 </a>

@@ -242,15 +242,6 @@ class SavoryRecipes extends Component
         $this->updateMatchedRecipes();
     }
 
-    public function viewRecipeDetail($id)
-    {
-        $recipe = Recipe::approved()->find($id);
-        $recipe->views_count += 1;
-        $recipe->save();
-
-        $this->redirectRoute('savoryai.show', ['id' => $id], navigate: true);
-    }
-
     public function toggleBookmark($recipeId)
     {
         $recipe = Recipe::approved()->find($recipeId);

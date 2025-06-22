@@ -23,12 +23,20 @@ class RecipeDetail extends Component
 
     public function mount($recipeId, $previousPage)
     {
-        $this->recipe = Recipe::with(['ingredients', 'ratings'])->find($recipeId);
+        $recipe = Recipe::with(['ingredients', 'ratings'])->find($recipeId);
+        if (!$recipe) {
+            abort(404);
+        }
+
+        $recipe->views_count += 1;
+        $recipe->save();
+        $this->recipe = $recipe;
         $this->recipeId = $recipeId;
+
         if ($previousPage === 'savoryai') {
             $this->previousRoute = 'savoryai.index';
         } elseif ($previousPage === 'exploreRecipe') {
-            $this->previousRoute = 'popular-recipes.index';
+            $this->previousRoute = 'explore-recipes.index';
         } else {
             $this->previousRoute = 'bookmarks.index';
         }

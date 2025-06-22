@@ -105,10 +105,10 @@
                         <span class="bg-white/20 px-2 py-1 rounded-full">Kue-kue</span>
                         <span class="bg-white/20 px-2 py-1 rounded-full">Kukis</span>
                     </div>
-                    <button
+                    <a href="{{ route('explore.category', ['categoryId' => 3]) }}" wire:navigate
                         class="bg-white text-pink-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-pink-50 transition-all duration-300 mt-3">
                         Yuk Lihat →
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -152,10 +152,10 @@
                         <span class="bg-white/20 px-2 py-1 rounded-full">Daging</span>
                         <span class="bg-white/20 px-2 py-1 rounded-full">Seafood</span>
                     </div>
-                    <button
+                    <a href="{{ route('explore.category', ['categoryId' => 2]) }}" wire:navigate
                         class="bg-white text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-50 transition-all duration-300 mt-3">
                         Yuk Coba →
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -238,36 +238,32 @@
                 <i class="fa-solid fa-fire text-orange-500"></i>
                 {{ $isAnyRecipesInWeek ? 'Trending Minggu Ini' : 'Trending' }}
             </h3>
-            {{-- <button class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
-                Lihat Semua →
-            </button> --}}
         </div>
 
         <div class="flex flex-wrap gap-2">
             @foreach ($this->getTrendingCategories() as $category)
-                <span
-                    class="bg-gradient-to-r {{ $category['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer"
-                    wire:click="filterByIngredient('{{ str_replace('#', '', $category['name']) }}')">
+                <a href="{{ route('explore.category', ['categoryId' => $category['id']]) }}" wire:navigate
+                    class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer">
                     {{ $category['name'] }}
                     <span class="ml-1 text-xs opacity-75">({{ $category['count'] }})</span>
-                </span>
+                </a>
             @endforeach
 
             @foreach ($this->getTrendingIngredients() as $ingredient)
-                <span
-                    class="bg-gradient-to-r {{ $ingredient['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer"
-                    wire:click="filterByIngredient('{{ str_replace('#', '', $ingredient['name']) }}')">
+                <a href="{{ route('explore.ingredient', ['ingredient' => $ingredient['id']]) }}" wire:navigate
+                    class="bg-gradient-to-r from-gray-500 to-neutral-400 text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer">
                     {{ $ingredient['name'] }}
                     <span class="ml-1 text-xs opacity-75">({{ $ingredient['count'] }})</span>
-                </span>
+                </a>
             @endforeach
 
             @foreach ($this->getTrendingCookingTime() as $timeCategory)
-                <span
-                    class="bg-gradient-to-r {{ $timeCategory['color'] }} text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer">
+                <a href="{{ route('explore.time', ['timeCategory' => str_replace('#', '', $timeCategory['name'])]) }}"
+                    wire:navigate
+                    class="bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer">
                     {{ $timeCategory['name'] }}
                     <span class="ml-1 text-xs opacity-75">({{ $timeCategory['count'] }})</span>
-                </span>
+                </a>
             @endforeach
         </div>
     </div>

@@ -215,12 +215,12 @@
 
                         {{-- Action Button --}}
                         <div class="relative px-4 pb-4">
-                            <button wire:click="viewRecipeDetail({{ $recipe['recipe']['id'] }})"
-                                class="w-full text-white text-base font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                            <a href="{{ route('explore-recipes.show', $recipe['recipe']['id']) }}"
+                                class="block w-full text-white text-base text-center font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
                                 style="background: linear-gradient(135deg, #DD5C36 0%, #FF8C4B 100%);
                                        transition: all 0.3s ease-in-out;">
                                 Lihat Detail Resep
-                            </button>
+                            </a>
                         </div>
 
                         {{-- Hover Effect Overlay --}}

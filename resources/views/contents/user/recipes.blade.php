@@ -19,9 +19,17 @@
             <div class="mt-10 w-full space-y-4">
 
                 @if (Route::current()->parameter('id'))
+                    {{-- Recipe Detail View --}}
                     @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id'), 'previousPage' => 'exploreRecipe'])
+                @elseif (isset($filterType) && isset($filterValue))
+                    {{-- Category/Filter View --}}
+                    @livewire('explore-category', [
+                        'type' => $filterType,
+                        'value' => $filterValue,
+                        'name' => $filterType === 'category' ? ($filterValue == '3' ? 'Cemilan Manis' : 'Menu Utama') : null,
+                    ])
                 @else
-                    {{-- Dashboard --}}
+                    {{-- Default Explore Dashboard --}}
                     <div class="mb-10">
                         @livewire('explore-dashboard')
                     </div>

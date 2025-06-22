@@ -28,7 +28,7 @@ class UserHeader extends Component
                 ],
                 [
                     'name' => 'Jelajahi Resep',
-                    'route' => 'popular-recipes.index',
+                    'route' => 'explore-recipes.index',
                     'request' => 'explore*',
                 ]
             ]

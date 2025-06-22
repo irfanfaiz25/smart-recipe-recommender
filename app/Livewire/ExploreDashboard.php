@@ -158,9 +158,10 @@ class ExploreDashboard extends Component
             ->get()
             ->map(function ($category) {
                 return [
+                    'id' => $category->id,
                     'name' => $category->name,
                     'count' => $category->recipes_count,
-                    'color' => $this->getCategoryColor($category->name)
+                    // 'color' => $this->getCategoryColor($category->name)
                 ];
             });
 
@@ -180,9 +181,10 @@ class ExploreDashboard extends Component
             ->get()
             ->map(function ($category) {
                 return [
+                    'id' => $category->id,
                     'name' => $category->name,
                     'count' => $category->recipes_count,
-                    'color' => $this->getCategoryColor($category->name)
+                    // 'color' => $this->getCategoryColor($category->name)
                 ];
             });
 
@@ -218,9 +220,10 @@ class ExploreDashboard extends Component
             ->get()
             ->map(function ($ingredient) {
                 return [
+                    'id' => $ingredient->id,
                     'name' => '#' . str_replace(' ', '', $ingredient->name),
                     'count' => $ingredient->recipes_count,
-                    'color' => $this->getIngredientColor($ingredient->category)
+                    // 'color' => $this->getIngredientColor($ingredient->category)
                 ];
             });
 
@@ -245,9 +248,10 @@ class ExploreDashboard extends Component
             ->get()
             ->map(function ($ingredient) {
                 return [
+                    'id' => $ingredient->id,
                     'name' => '#' . str_replace(' ', '', $ingredient->name),
                     'count' => $ingredient->recipes_count,
-                    'color' => $this->getIngredientColor($ingredient->category)
+                    // 'color' => $this->getIngredientColor($ingredient->category)
                 ];
             });
 
@@ -257,12 +261,12 @@ class ExploreDashboard extends Component
     private function getIngredientColor($category)
     {
         return match ($category) {
-            'protein' => 'from-red-500 to-pink-500',
-            'sayuran' => 'from-green-500 to-emerald-500',
-            'karbohidrat' => 'from-yellow-500 to-orange-500',
-            'bumbu' => 'from-purple-500 to-violet-500',
-            'produk susu' => 'from-blue-500 to-cyan-500',
-            default => 'from-gray-500 to-slate-500'
+            'protein' => 'bg-red-500',
+            'sayuran' => 'bg-green-500',
+            'karbohidrat' => 'bg-yellow-500',
+            'bumbu' => 'bg-orange-500',
+            'produk susu' => 'bg-blue-500',
+            default => 'bg-gray-500'
         };
     }
 
@@ -283,12 +287,12 @@ class ExploreDashboard extends Component
                 return [
                     'name' => '#' . $timeCategory,
                     'count' => $recipes->count(),
-                    'color' => match ($timeCategory) {
-                        'QuickMeals' => 'from-green-500 to-emerald-500',
-                        '30MinuteMeals' => 'from-blue-500 to-cyan-500',
-                        'HourlyMeals' => 'from-orange-500 to-amber-500',
-                        'SlowCooking' => 'from-purple-500 to-violet-500'
-                    }
+                    // 'color' => match ($timeCategory) {
+                    //     'QuickMeals' => 'bg-green-500',
+                    //     '30MinuteMeals' => 'bg-blue-500',
+                    //     'HourlyMeals' => 'bg-cyan-500',
+                    //     'SlowCooking' => 'bg-rose-500'
+                    // }
                 ];
             })
             ->sortByDesc('count')
@@ -314,12 +318,12 @@ class ExploreDashboard extends Component
                 return [
                     'name' => '#' . $timeCategory,
                     'count' => $recipes->count(),
-                    'color' => match ($timeCategory) {
-                        'QuickMeals' => 'from-green-500 to-emerald-500',
-                        '30MinuteMeals' => 'from-blue-500 to-cyan-500',
-                        'HourlyMeals' => 'from-orange-500 to-amber-500',
-                        'SlowCooking' => 'from-purple-500 to-violet-500'
-                    }
+                    // 'color' => match ($timeCategory) {
+                    //     'QuickMeals' => 'bg-green-500',
+                    //     '30MinuteMeals' => 'bg-blue-500',
+                    //     'HourlyMeals' => 'bg-cyan-500',
+                    //     'SlowCooking' => 'bg-rose-500'
+                    // }
                 ];
             })
             ->sortByDesc('count')

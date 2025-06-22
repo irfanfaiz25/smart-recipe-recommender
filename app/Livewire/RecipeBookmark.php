@@ -61,15 +61,6 @@ class RecipeBookmark extends Component
         dd('oke');
     }
 
-    public function viewRecipeDetail($id)
-    {
-        $recipe = Recipe::find($id);
-        $recipe->views_count += 1;
-        $recipe->save();
-
-        $this->redirectRoute('bookmarks.show', ['id' => $id], navigate: true);
-    }
-
     public function render()
     {
         $recipes = auth()->user()->bookmarkedRecipes()
