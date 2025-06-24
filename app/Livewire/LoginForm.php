@@ -81,9 +81,9 @@ class LoginForm extends Component
         $this->reset('name', 'email', 'password', 'avatar');
 
         if ($user->hasRole('admin')) {
-            $this->redirectRoute('admin-dashboard.index', navigate: true);
+            $this->redirectRoute('admin-dashboard.index');
         } else {
-            $this->redirectRoute('home.index', navigate: true);
+            $this->redirectRoute('home.index');
         }
     }
 

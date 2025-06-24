@@ -21,7 +21,7 @@ class SidebarToggle extends Component
                     'request' => 'admin/dashboard*'
                 ],
                 [
-                    'name' => 'Ingredient',
+                    'name' => 'Bahan Makanan',
                     'route' => 'admin-ingredients.index',
                     'icon' => 'fa-solid fa-wheat-awn',
                     'request' => 'admin/ingredients*'
@@ -45,6 +45,12 @@ class SidebarToggle extends Component
                             'request' => 'admin/recipes/moderation*'
                         ]
                     ]
+                ],
+                [
+                    'name' => 'Manajemen User',
+                    'route' => 'user-management.index',
+                    'icon' => 'fa-solid fa-users',
+                    'request' => 'admin/user-management*'
                 ],
             ];
         } else {

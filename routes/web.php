@@ -72,6 +72,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'recipeId' => $id
         ]);
     })->name('admin-moderation.show');
+
+    // User management
+    Route::get('/users', function () {
+        return view('contents.admin.users');
+    })->name('user-management.index');
 });
 
 // creators dashboard

@@ -44,6 +44,8 @@ class GoogleAuthController extends Controller
                 'email_verified_at' => now(),
                 'avatar' => $user->avatar,
             ]);
+
+            $newUser->assignRole('user');
             Auth::login($newUser);
         }
 

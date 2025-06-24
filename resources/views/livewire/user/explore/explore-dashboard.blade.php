@@ -5,7 +5,7 @@
         {{-- Main Featured Recipe Card with Stats --}}
         <div
             class="h-64 col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
-            <div class="w-[40%] h-full relative">
+            <div class="w-[40%] h-full relative overflow-hidden">
                 @if ($todayTrending['recipes']['image'])
                     <img src="{{ asset($todayTrending['recipes']['image']) }}" alt="featured-recipe"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -15,13 +15,33 @@
                     </div>
                 @endif
                 <div
-                    class="opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-500">
+                    class="opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/60 to-transparent transition-opacity duration-500">
                 </div>
 
                 {{-- Recipe Rating Badge --}}
                 <div
-                    class="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                    <i class="fa-solid fa-star"></i> 4.9
+                    class="absolute top-3 left-3 text-black px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <div class="flex items-center gap-1 text-xs">
+                        @if ($todayTrending['recipes']['ratings_count'] > 0)
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i
+                                    class="fa-{{ $i <= (int) number_format($todayTrending['recipes']['ratings_avg_rating']) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-500"></i>
+                            @endfor
+                        @else
+                            <i
+                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            <i
+                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            <i
+                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            <i
+                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            <i
+                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                        @endif
+                        <span
+                            class="text-white text-sm">({{ $todayTrending['recipes']['ratings_avg_rating'] ? (int) $todayTrending['recipes']['ratings_avg_rating'] : '0' }})</span>
+                    </div>
                 </div>
 
                 {{-- Quick Action Buttons --}}
@@ -220,7 +240,7 @@
                 <div>
                     <p class="text-orange-600 text-xs font-medium uppercase tracking-wide">Rating Rata-Rata</p>
                     <p class="text-2xl font-bold text-orange-800">
-                        {{ $averageRating }}
+                        {{ round($averageRating, 1) }}
                     </p>
                 </div>
                 <div class="bg-orange-500 text-white p-3 rounded-full">

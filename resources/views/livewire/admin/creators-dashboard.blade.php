@@ -34,7 +34,7 @@
                         <p class="text-3xl font-bold">{{ $publishedRecipes }}</p>
                         <p class="text-green-100 text-xs mt-1">Aktif</p>
                     </div>
-                    <div class="bg-white/20 rounded-full px-3 py-3">
+                    <div class="bg-white/20 rounded-full px-3 py-2">
                         <i class="fa fa-check text-xl"></i>
                     </div>
                 </div>
@@ -49,10 +49,8 @@
                         <p class="text-3xl font-bold">{{ $pendingRecipes }}</p>
                         <p class="text-yellow-100 text-xs mt-1">Sedang Direview</p>
                     </div>
-                    <div class="bg-white/20 rounded-full p-3">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2L3 7v11a1 1 0 001 1h3v-8h6v8h3a1 1 0 001-1V7l-7-5z" />
-                        </svg>
+                    <div class="bg-white/20 rounded-full px-3 py-2">
+                        <i class="fa fa-clock"></i>
                     </div>
                 </div>
             </div>
@@ -66,10 +64,8 @@
                         <p class="text-3xl font-bold">{{ number_format($totalBookmarks) }}</p>
                         <p class="text-purple-100 text-xs mt-1">Disimpan Pengguna</p>
                     </div>
-                    <div class="bg-white/20 rounded-full p-3">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
-                        </svg>
+                    <div class="bg-white/20 rounded-full px-4 py-2">
+                        <i class="fa fa-bookmark text-base"></i>
                     </div>
                 </div>
             </div>
@@ -91,11 +87,8 @@
                             @endfor
                         </div>
                     </div>
-                    <div class="bg-white/20 rounded-full p-3">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
+                    <div class="bg-white/20 rounded-full px-3 py-2">
+                        <i class="fa fa-star text-base"></i>
                     </div>
                 </div>
             </div>
@@ -103,7 +96,7 @@
 
         <!-- Quick Actions -->
         <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">🚀 Menu Cepat</h3>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">🚀 Quick Actions</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <a href="{{ route('recipes.create') }}"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl p-4 text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
@@ -152,11 +145,10 @@
                     </div>
                     <div class="space-y-1">
                         @forelse($recentRecipes as $recipe)
-                            <div
-                                class="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200">
+                            <div class="flex space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200">
                                 <div class="w-[20%] h-24">
                                     @if ($recipe->image)
-                                        <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
+                                        <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
                                             class="w-full h-full rounded-lg object-cover">
                                     @else
                                         <div

@@ -25,7 +25,7 @@
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-                            Bahan Makanan
+                            Manajemen User
                         </span>
                     </div>
                 </li>
@@ -33,9 +33,9 @@
         </nav>
 
         <h1 class="text-3xl mt-3 mb-5">
-            Bahan Makanan
+            Manajemen User
         </h1>
     </div>
 
-    @livewire('ingredients-table')
+    @livewire('user-management')
 @endsection
