@@ -18,10 +18,8 @@ class RecipeDetail extends Component
     public $comment;
     public $rating;
 
-    public $previousRoute;
 
-
-    public function mount($recipeId, $previousPage)
+    public function mount($recipeId)
     {
         $recipe = Recipe::with(['ingredients', 'ratings'])->find($recipeId);
         if (!$recipe) {
@@ -32,14 +30,6 @@ class RecipeDetail extends Component
         $recipe->save();
         $this->recipe = $recipe;
         $this->recipeId = $recipeId;
-
-        if ($previousPage === 'savoryai') {
-            $this->previousRoute = 'savoryai.index';
-        } elseif ($previousPage === 'exploreRecipe') {
-            $this->previousRoute = 'explore-recipes.index';
-        } else {
-            $this->previousRoute = 'bookmarks.index';
-        }
 
         $this->updateAvgRating();
     }

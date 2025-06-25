@@ -20,7 +20,7 @@
 
                 @if (Route::current()->parameter('id'))
                     {{-- Recipe Detail View --}}
-                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id'), 'previousPage' => 'exploreRecipe'])
+                    @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id')])
                 @elseif (isset($filterType) && isset($filterValue))
                     {{-- Category/Filter View --}}
                     @livewire('explore-category', [

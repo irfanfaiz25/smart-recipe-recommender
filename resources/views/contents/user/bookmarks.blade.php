@@ -17,7 +17,7 @@
 
             @if (Route::current()->parameter('id'))
                 {{-- detail page --}}
-                @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id'), 'previousPage' => 'bookmarks'])
+                @livewire('recipe-detail', ['recipeId' => Route::current()->parameter('id')])
             @else
                 {{-- list page --}}
                 @livewire('recipe-bookmark')

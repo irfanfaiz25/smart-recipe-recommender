@@ -15,11 +15,11 @@
                     </div>
                 </div>
             @endif
-            <a href="{{ route($previousRoute) }}" wire:navigate
+            <button onclick="history.back()"
                 class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-text-dark-primary text-base font-semibold rounded-lg shadow-lg">
                 <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
                 Kembali
-            </a>
+            </button>
         </div>
         <div class="py-8 px-32">
             {{-- head details --}}

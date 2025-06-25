@@ -70,7 +70,7 @@
     </div>
 
     {{-- Loading State --}}
-    <div wire:loading class="w-full flex justify-center py-8">
+    <div wire:loading wire:target='sortBy, searchTerm, loadMore' class="w-full flex justify-center py-8">
         <div class="flex text-lg justify-center items-center gap-2 text-gray-600">
             <i class="fa-solid fa-spinner fa-spin"></i>
             Memuat resep...
@@ -206,26 +206,17 @@
                     @endforeach
                 </div>
 
-                {{-- Load More with Animation --}}
-                @if ($recipes->count() >= $perPage)
-                    <div class="flex flex-col items-center mt-12">
+                {{-- Load More Button --}}
+                @if ($recipes->hasMorePages())
+                    <div class="flex justify-center text-center mt-12">
                         <button wire:click="loadMore" wire:loading.attr="disabled"
-                            class="group px-8 py-4 text-sm bg-secondary/10 border-2 border-secondary/50 backdrop-blur-sm backdrop-opacity-50 bg-size-200 bg-pos-0 hover:bg-pos-100 text-secondary font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-500 flex items-center gap-3 disabled:opacity-50 disabled:cur    sor-not-allowed">
-                            <span wire:loading.remove wire:target="loadMore">Jelajahi Resep Lainnya</span>
+                            class="group px-8 py-4 text-sm bg-secondary/10 border-2 border-secondary/50 backdrop-blur-sm backdrop-opacity-50 bg-size-200 bg-pos-0 hover:bg-pos-100 text-secondary font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-500 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span wire:loading.remove wire:target="loadMore">Muat Lebih Banyak</span>
                             <span wire:loading wire:target="loadMore">Memuat...</span>
                             <i class="fa-solid fa-arrow-down group-hover:translate-y-1 transition-transform duration-300"
                                 wire:loading.remove wire:target="loadMore"></i>
                             <i class="fa-solid fa-spinner fa-spin" wire:loading wire:target="loadMore"></i>
                         </button>
-                        <p class="text-gray-500 text-sm font-medium mt-3">Menampilkan {{ $recipes->count() }} dari
-                            {{ $recipes->total() }} resep
-                            tersedia</p>
-                    </div>
-                @else
-                    <div class="text-center mt-12">
-                        <p class="text-gray-500 text-sm font-medium">Semua resep telah ditampilkan
-                            ({{ $recipes->count() }} resep)
-                        </p>
                     </div>
                 @endif
             @else

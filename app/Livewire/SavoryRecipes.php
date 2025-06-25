@@ -7,16 +7,21 @@ use App\Models\Recipe;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
 
 class SavoryRecipes extends Component
 {
+    use WithPagination;
+
     public $selectedIngredientsId = [];
-    public $matchedRecipes = [];
     public $caloriesCategory;
     public $perPage = 6;
-    public $totalRecipes = 0;
-    public $hasMoreRecipes = false;
+
+    // Remove these manual pagination properties
+    // public $matchedRecipes = [];
+    // public $totalRecipes = 0;
+    // public $hasMoreRecipes = false;
 
     protected $queryString = [
         'caloriesCategory' => ['except' => ''],
@@ -31,26 +36,25 @@ class SavoryRecipes extends Component
     public function loadMoreRecipes()
     {
         $this->perPage += 6;
-        $this->updateMatchedRecipes($this->caloriesCategory);
     }
 
     #[On('selected-ingredient')]
     public function updateSelectedIngredients($ingredient)
     {
         $this->selectedIngredientsId[] = $ingredient['id'];
-
-        $this->updateMatchedRecipes();
+        $this->resetPage(); // Reset pagination when ingredients change
+        $this->perPage = 6; // Reset perPage
     }
 
     public function updatedCaloriesCategory($category)
     {
-        $this->updateMatchedRecipes($category);
+        $this->resetPage(); // Reset pagination when category changes
+        $this->perPage = 6; // Reset perPage
     }
 
     #[On('detected-ingredient')]
     public function updateDetectedIngredeints($ingredients)
     {
-        // give condition here if the ingredient array doesnt have id
         if (empty($ingredients)) {
             Toaster::error('Tidak ada bahan yang terdeteksi. Silakan coba lagi.');
             return;
@@ -60,7 +64,8 @@ class SavoryRecipes extends Component
             $this->selectedIngredientsId[] = $ingredient['id'];
         }
 
-        $this->updateMatchedRecipes();
+        $this->resetPage(); // Reset pagination
+        $this->perPage = 6; // Reset perPage
     }
 
     // public function getRecipesWithPartialMatch()
@@ -245,15 +250,16 @@ class SavoryRecipes extends Component
             ->values()
             ->toArray();
 
-        $this->updateMatchedRecipes();
+        $this->resetPage(); // Reset pagination
+        $this->perPage = 6; // Reset perPage
     }
 
     #[On('reset-ingredients')]
     public function resetIngredients()
     {
         $this->selectedIngredientsId = [];
-
-        $this->updateMatchedRecipes();
+        $this->resetPage(); // Reset pagination
+        $this->perPage = 6; // Reset perPage
     }
 
     public function toggleBookmark($recipeId)
@@ -269,8 +275,8 @@ class SavoryRecipes extends Component
             Toaster::success('Resep berhasil ditambahkan ke daftar favorit');
         }
 
-        $this->updateMatchedRecipes();
         $this->dispatch('updated-bookmarks');
+        // Don't reset pagination for bookmark toggle
     }
 
 
@@ -321,8 +327,66 @@ class SavoryRecipes extends Component
         }
     }
 
+    private function getRecipesQuery($caloriesCategory = null)
+    {
+        $query = Recipe::approved()->with(['user', 'ratings', 'ingredients', 'category'])
+        ;
+
+        if ($caloriesCategory) {
+            $query->where('calories_category', $caloriesCategory);
+        }
+
+        // If ingredients are selected, we'll handle the filtering differently
+        if (!empty($this->selectedIngredientsId)) {
+            // For ingredient-based filtering, we'll use the similarity algorithm
+            // but still return a query builder for pagination
+            $allMatchedRecipes = $this->getRecipesWithCosineSimilarity($caloriesCategory);
+            $recipeIds = $allMatchedRecipes->pluck('recipe.id')->toArray();
+
+            if (!empty($recipeIds)) {
+                $query->whereIn('id', $recipeIds)
+                    ->orderByRaw('FIELD(id, ' . implode(',', $recipeIds) . ')');
+            } else {
+                // No matching recipes found
+                $query->whereRaw('1 = 0'); // Return empty result
+            }
+        } else {
+            // Default ordering for recipes without ingredient filtering
+            $query->orderBy('created_at', 'desc');
+        }
+
+        return $query;
+    }
+
     public function render()
     {
-        return view('livewire.user.savoryai.savory-recipes');
+        $recipes = $this->getRecipesQuery($this->caloriesCategory)->paginate($this->perPage);
+
+        // If using matched recipes, add similarity data
+        if (!empty($this->selectedIngredientsId)) {
+            $allMatchedRecipes = $this->getRecipesWithCosineSimilarity($this->caloriesCategory);
+            $similarityData = $allMatchedRecipes->keyBy('recipe.id');
+
+            $recipes->getCollection()->transform(function ($recipe) use ($similarityData) {
+                $recipe->similarity_data = $similarityData->get($recipe->id, [
+                    'matching_percentage' => false,
+                    'cosine_similarity' => false,
+                    'ratings' => number_format($recipe->ratings->avg('rating'), 1),
+                ]);
+                return $recipe;
+            });
+        } else {
+            // For initial recipes without similarity
+            $recipes->getCollection()->transform(function ($recipe) {
+                $recipe->similarity_data = [
+                    'matching_percentage' => false,
+                    'cosine_similarity' => false,
+                    'ratings' => number_format($recipe->ratings->avg('rating'), 1),
+                ];
+                return $recipe;
+            });
+        }
+
+        return view('livewire.user.savoryai.savory-recipes', compact('recipes'));
     }
 }
