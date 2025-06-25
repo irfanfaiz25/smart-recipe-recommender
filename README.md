@@ -267,5 +267,3 @@ For general inquiries, suggestions, or collaborations:
 -   📧 Email : [ahmadirfanfaiz13@gmail.com](mailto:ahmadirfanfaiz13@gmail.com)
 
 Made with ❤️ by [Irfan Faiz](https://irfanfaiz.my.id)
-
-<a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position: fixed; bottom: 20px; right: 20px; padding: 10px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">⬆️ Back to Top</a>

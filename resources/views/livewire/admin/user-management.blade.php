@@ -146,7 +146,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200" wire:loading.remove>
                     @forelse($this->users as $user)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -221,6 +221,14 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="w-full flex justify-center items-center">
+                <div wire:loading class="py-6">
+                    <div class="flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-spinner fa-spin text-xl text-gray-500"></i>
+                        <span class="text-sm text-gray-500">Memuat...</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Pagination -->
