@@ -98,96 +98,69 @@
 
         {{-- Interactive Category Cards --}}
         <div
-            class="h-64 shadow-lg hover:shadow-2xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl border border-gray-100">
-            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="desserts-category"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-            {{-- Gradient Overlay --}}
-            <div
-                class="absolute inset-0 bg-gradient-to-t from-pink-600/80 via-pink-400/40 to-transparent group-hover:from-pink-700/90 transition-all duration-500">
-            </div>
-
-            {{-- Category Badge --}}
-            <div
-                class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
-                🍰 Manisss
-            </div>
-
-            {{-- Content --}}
-            <div
-                class="absolute bottom-5 left-5 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500">
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-center transition-all duration-500">
-                    Cemilan Manis
-                </h3>
-                <div class="hidden group-hover:block text-center space-y-2">
-                    <p class="text-white/90 text-sm font-medium">{{ $totalDessert['total'] }}+ Resep Manis-Manis</p>
-                    <div class="flex justify-center gap-2 text-xs text-white/80">
-                        <span class="bg-white/20 px-2 py-1 rounded-full">Kue-kue</span>
-                        <span class="bg-white/20 px-2 py-1 rounded-full">Kukis</span>
-                    </div>
-                    <a href="{{ route('explore.category', ['categoryId' => 3]) }}" wire:navigate
-                        class="bg-white text-pink-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-pink-50 transition-all duration-300 mt-3">
-                        Yuk Lihat →
-                    </a>
+            class="h-64 flex flex-col bg-white shadow-lg hover:shadow-2xl transition-all duration-500 rounded-xl border border-gray-100 overflow-hidden group">
+            <div class="h-1/2 relative">
+                <img src="{{ asset('storage/img/main/dessert-image.jpg') }}" alt="desserts-category"
+                    class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-b from-pink-500/20 to-pink-600/50"></div>
+                <div
+                    class="absolute top-3 left-3 bg-white/90 backdrop-blur text-pink-600 px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2">
+                    🍰 Cemilan Manis
+                    @if ($totalDessert['new'] > 0)
+                        <span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">
+                            +{{ $totalDessert['new'] }}
+                        </span>
+                    @endif
                 </div>
             </div>
-
-            {{-- Recipe Count Indicator --}}
-            @if ($totalDessert['new'] > 0)
-                <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div
-                        class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                        <i class="fa-solid fa-chart-line"></i> +{{ $totalDessert['new'] }} minggu ini
+            <div
+                class="h-1/2 p-4 bg-gradient-to-br from-pink-50 to-white flex flex-col justify-between group-hover:bg-pink-100/50 transition-all duration-500">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">{{ $totalDessert['total'] }}+ Resep Manis</h3>
+                    <div class="flex gap-2 text-xs">
+                        <span class="bg-pink-100 text-pink-700 px-2 py-1 rounded">Kue-kue</span>
+                        <span class="bg-pink-100 text-pink-700 px-2 py-1 rounded">Kukis</span>
                     </div>
                 </div>
-            @endif
+                <a href="{{ route('explore.category', ['categoryId' => 3]) }}" wire:navigate
+                    class="mt-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-pink-600 hover:to-pink-700 transition-all duration-300 flex items-center justify-between group">
+                    <span>Jelajahi</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
         </div>
 
         <div
-            class="h-64 shadow-lg hover:shadow-2xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl border border-gray-100">
-            <img src="{{ asset('storage/img/main/main-background.jpg') }}" alt="main-course-category"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-            {{-- Gradient Overlay --}}
-            <div
-                class="absolute inset-0 bg-gradient-to-t from-orange-600/80 via-orange-400/40 to-transparent group-hover:from-orange-700/90 transition-all duration-500">
-            </div>
-
-            {{-- Category Badge --}}
-            <div
-                class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
-                🍖 Mak Nyuss
-            </div>
-
-            {{-- Content --}}
-            <div
-                class="absolute bottom-5 left-5 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500">
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-center transition-all duration-500">
-                    Menu Utama
-                </h3>
-                <div class="hidden group-hover:block text-center space-y-2">
-                    <p class="text-white/90 text-sm font-medium">{{ $totalMainCourse['total'] }}+ Resep Mak Nyuss
-                    </p>
-                    <div class="flex justify-center gap-2 text-xs text-white/80">
-                        <span class="bg-white/20 px-2 py-1 rounded-full">Daging</span>
-                        <span class="bg-white/20 px-2 py-1 rounded-full">Seafood</span>
-                    </div>
-                    <a href="{{ route('explore.category', ['categoryId' => 2]) }}" wire:navigate
-                        class="bg-white text-orange-600 px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-50 transition-all duration-300 mt-3">
-                        Yuk Coba →
-                    </a>
+            class="h-64 flex flex-col bg-white shadow-lg hover:shadow-2xl transition-all duration-500 rounded-xl border border-gray-100 overflow-hidden group">
+            <div class="h-1/2 relative">
+                <img src="{{ asset('storage/img/main/maincourse-image.jpg') }}" alt="main-course-category"
+                    class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-b from-orange-500/20 to-orange-600/50"></div>
+                <div
+                    class="absolute top-3 left-3 bg-white/90 backdrop-blur text-orange-600 px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2">
+                    🍖 Menu Utama
+                    @if ($totalMainCourse['new'] > 0)
+                        <span class="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs">
+                            +{{ $totalMainCourse['new'] }}
+                        </span>
+                    @endif
                 </div>
             </div>
-
-            {{-- Recipe Count Indicator --}}
-            @if ($totalMainCourse['new'] > 0)
-                <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div
-                        class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                        <i class="fa-solid fa-chart-line"></i> +{{ $totalMainCourse['new'] }} minggu ini
+            <div
+                class="h-1/2 p-4 bg-gradient-to-br from-orange-50 to-white flex flex-col justify-between group-hover:bg-orange-100/50 transition-all duration-500">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">{{ $totalMainCourse['total'] }}+ Resep Utama</h3>
+                    <div class="flex gap-2 text-xs">
+                        <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">Daging</span>
+                        <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">Seafood</span>
                     </div>
                 </div>
-            @endif
+                <a href="{{ route('explore.category', ['categoryId' => 2]) }}" wire:navigate
+                    class="mt-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 flex items-center justify-between group">
+                    <span>Jelajahi</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
+                </a>
+            </div>
         </div>
     </div>
 
