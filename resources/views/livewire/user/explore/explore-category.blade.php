@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 rounded-lg">
+<div class="min-h-screen card-background rounded-lg">
     {{-- Header Section --}}
     <div class="bg-gradient-to-r {{ $this->getFilterColor() }} text-white py-16 px-4 rounded-t-lg relative">
         <div class="max-w-6xl mx-auto">

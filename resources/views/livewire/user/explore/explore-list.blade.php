@@ -52,9 +52,19 @@
         </div>
     </div>
 
+    {{-- loading state --}}
+    <div class="w-full flex justify-center items-center">
+        <div wire:loading class="py-6">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
+                <span class="text-base text-secondary">Memuat...</span>
+            </div>
+        </div>
+    </div>
+
     {{-- Masonry-Style Recipe Grid --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
-        @foreach ($recipes as $recipe)
+    <div wire:loading.remove class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
+        @forelse ($recipes as $recipe)
             {{-- Featured Large Card --}}
             <div
                 class="break-inside-avoid bg-gradient-to-br from-secondary to-primary overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group mb-6 rounded-xl">
@@ -114,7 +124,16 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-span-full text-center py-12">
+                <div class="text-gray-400 mb-4">
+                    <i class="fa-solid fa-search text-6xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">Tidak ada resep ditemukan</h3>
+                <p class="text-base font-medium text-gray-500">Coba ubah kata kunci pencarian atau filter yang digunakan
+                </p>
+            </div>
+        @endforelse
 
     </div>
 

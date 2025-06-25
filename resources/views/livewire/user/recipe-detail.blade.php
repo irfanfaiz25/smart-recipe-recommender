@@ -23,6 +23,17 @@
         </div>
         <div class="py-8 px-32">
             {{-- head details --}}
+            {{-- user avatar --}}
+            <div class="flex justify-center items-center mb-2">
+                @if ($recipe->user->avatar_url)
+                    <img class="w-12 h-12 rounded-full" src="{{ $recipe->user->avatar_url }}"
+                        alt="{{ $recipe->user->name }}">
+                @else
+                    <div class="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center">
+                        <i class="fa-solid fa-user text-2xl text-gray-500"></i>
+                    </div>
+                @endif
+            </div>
             <h3 class="text-lg font-medium text-text-primary text-center uppercase">
                 recipe by {{ $recipe->user->name }}
             </h3>
@@ -82,10 +93,6 @@
             <div class="mt-6 flex justify-center items-center">
                 <p class="w-1/2 text-base text-center font-medium text-text-primary italic">
                     {{ $recipe->description }}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, ducimus. Molestias inventore et
-                    corporis
-                    sit eligendi laudantium magni quam consectetur odio ad delectus ipsam, qui illo, iusto quod, vitae
-                    labore!
                 </p>
             </div>
             {{-- end head details --}}
@@ -230,8 +237,8 @@
                                 <div class="flex justify-between w-full">
                                     <div class="text-base font-semibold text-text-primary">
                                         <p>{{ $item->user->name }}
-                                            <span class="text-base font-normal text-gray-500 ml-1">
-                                                21 Februari 2025
+                                            <span class="text-sm font-normal text-gray-500 ml-1">
+                                                {{ $item->created_at->diffForHumans() }}
                                             </span>
                                         </p>
                                     </div>
@@ -259,39 +266,6 @@
                             </div>
                         </div>
                     @endforeach
-
-                    <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
-                        <i class="fa fa-circle-user text-4xl text-gray-500"></i>
-                        <div>
-                            <div class="flex justify-between w-full">
-                                <div class="text-base font-semibold text-text-primary">
-                                    <p>Tomingse
-                                        <span class="text-base font-normal text-gray-500 ml-1">
-                                            21 Februari 2025
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="flex space-x-1 items-start text-lg text-secondary">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </div>
-                            </div>
-                            <p class="mt-1 text-sm font-normal text-gray-700">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto aliquam doloribus
-                                ipsum nesciunt ab tenetur accusamus rem explicabo? Eum, maiores quae qui reiciendis
-                                saepe sapiente. Iusto quisquam fugiat veniam recusandae.
-                            </p>
-                            <div class="mt-2 flex space-x-2 items-center">
-                                <i class="fa-solid fa-thumbs-up text-base text-secondary"></i>
-                                <p class="text-sm font-semibold text-gray-700">
-                                    1 Like
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
