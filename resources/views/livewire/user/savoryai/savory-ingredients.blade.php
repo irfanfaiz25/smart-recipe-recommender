@@ -35,10 +35,9 @@
                             style="display: none;">
                             <div
                                 class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
-                                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                                </div>
-                                <div class="relative inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                                <div class="fixed inset-0 transition-opacity bg-black bg-opacity-60 backdrop-blur-sm"
+                                    aria-hidden="true"></div>
+                                <div class="relative inline-block overflow-hidden text-left align-bottom transition-all transform bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-100 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                                     @click.away="$wire.isImageRecognitionOpen = false"
                                     x-transition:enter="transform ease-out duration-300"
                                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -46,52 +45,79 @@
                                     x-transition:leave="transform ease-in duration-200"
                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                                    <form wire:submit.prevent='recognizeImage' class="flex flex-col p-6">
-                                        <div class=" mb-5">
-                                            <h2 class="text-lg font-semibold">Analisa Gambar Bahan Makanan</h2>
-                                            <p class="text-xs text-gray-500 font-normal">
-                                                Upload gambar bahan makanan yang tersedia di rumah Anda. Detail dari
-                                                gambar
-                                                yang diupload akan mempengaruhi hasil deteksi bahan makanan. </p>
+
+                                    <div class="absolute top-0 right-0 pt-4 pr-4">
+                                        <button type="button" @click="$wire.isImageRecognitionOpen = false"
+                                            class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                                            <i class="fa-solid fa-xmark text-lg"></i>
+                                        </button>
+                                    </div>
+
+                                    <form wire:submit.prevent='recognizeImage' class="flex flex-col p-8">
+                                        <div class="mb-6 text-center">
+                                            <div
+                                                class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/20 mb-4">
+                                                <i class="fa-solid fa-camera text-2xl text-secondary"></i>
+                                            </div>
+                                            <h2 class="text-xl font-bold text-gray-900 mb-2">Analisa Gambar Bahan
+                                                Makanan</h2>
+                                            <p class="text-sm text-gray-600 leading-relaxed">
+                                                Upload gambar bahan makanan yang tersedia di rumah Anda. Pastikan gambar
+                                                jelas dan detail untuk hasil deteksi yang lebih akurat.
+                                            </p>
                                         </div>
 
-                                        <div class="flex w-full space-x-2 mb-6">
+                                        <div class="flex flex-col items-center space-y-4 mb-8">
                                             @if ($image)
-                                                <img class="w-40 h-28 rounded-lg shadow-md object-cover"
-                                                    src="{{ $image->temporaryUrl() }}" alt="image recognition">
+                                                <div class="relative group">
+                                                    <img class="w-64 h-48 rounded-xl shadow-lg object-cover transition-transform group-hover:scale-[1.02]"
+                                                        src="{{ $image->temporaryUrl() }}" alt="Preview">
+                                                    <div
+                                                        class="absolute inset-0 bg-black/40 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                        <i class="fa-solid fa-eye text-white text-xl"></i>
+                                                    </div>
+                                                </div>
                                             @else
                                                 <div
-                                                    class="w-40 h-28 bg-gray-100 flex justify-center items-center rounded-lg shadow-md">
-                                                    <i class="fa-regular fa-image text-lg text-gray-400"></i>
+                                                    class="w-64 h-48 bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl flex flex-col justify-center items-center transition-colors hover:bg-gray-100">
+                                                    <i class="fa-regular fa-image text-3xl text-gray-400 mb-2"></i>
+                                                    <p class="text-sm text-gray-500">Klik untuk memilih gambar</p>
                                                 </div>
                                             @endif
-                                            <div>
+
+                                            <div class="w-full">
                                                 <input type="file" wire:model='image'
-                                                    class="w-full block text-sm text-text-primary file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-secondary/80 file:text-text-dark-primary hover:file:bg-secondary transition-all cursor-pointer">
+                                                    class="w-full block text-sm text-gray-600 file:mr-4 file:py-3 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-secondary/10 file:text-secondary hover:file:bg-secondary/20 transition-all cursor-pointer">
                                                 @error('image')
-                                                    <p class="text-xs text-red-500">
+                                                    <p class="mt-2 text-xs text-red-500 flex items-center">
+                                                        <i class="fa-solid fa-circle-exclamation mr-1"></i>
                                                         {{ $message }}
                                                     </p>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="flex justify-between items-center space-x-3">
-                                            <h3 class="text-sm font-medium text-text-primary">
-                                                Credits: 3
-                                            </h3>
+
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-2">
+                                                <i class="fa-solid fa-coins text-yellow-500"></i>
+                                                <h3 class="text-sm font-semibold text-gray-700">
+                                                    Credits: <span class="text-secondary">3</span>
+                                                </h3>
+                                            </div>
                                             <div class="flex justify-end space-x-3">
                                                 <button type="button"
                                                     wire:click="$set('isImageRecognitionOpen', false)"
-                                                    class="px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-text-primary font-medium rounded-lg shadow-md transition-all duration-200 ease-in-out text-sm">
+                                                    class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-full transition-all duration-200 ease-in-out text-sm">
                                                     Batal
                                                 </button>
                                                 <button type="submit" wire:loading.attr="disabled"
                                                     wire:target='recognizeImage'
-                                                    class="px-4 py-2.5 flex justify-center items-center bg-secondary hover:bg-secondary-dark text-text-dark-primary font-medium rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98] text-sm">
+                                                    class="px-5 py-2.5 flex justify-center items-center bg-secondary hover:bg-secondary-dark text-white font-medium rounded-full shadow-md transition-all duration-200 ease-in-out hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed text-sm">
+                                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
                                                     Analisa
                                                     <div role="status" wire:loading wire:target='recognizeImage'>
                                                         <svg aria-hidden="true"
-                                                            class="ml-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white"
+                                                            class="ml-2 w-5 h-5 text-white/70 animate-spin fill-white"
                                                             viewBox="0 0 100 101" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -137,7 +163,8 @@
                                         @if ($ingredient->image)
                                             <div class="w-12 h-full">
                                                 <img class="w-12 h-full object-cover rounded-md shadow-md"
-                                                    src="{{ asset($ingredient->image) }}" alt="{{ $ingredient->name }}">
+                                                    src="{{ asset($ingredient->image) }}"
+                                                    alt="{{ $ingredient->name }}">
                                             </div>
                                         @else
                                             <div
