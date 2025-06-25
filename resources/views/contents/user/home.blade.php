@@ -26,7 +26,7 @@
             x-transition:enter="transform transition-all duration-1000 ease-out"
             x-transition:enter-start="opacity-0 translate-y-12 scale-90"
             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-            class="relative z-10 w-full h-full py-24 md:py-36 px-4 text-center">
+            class="relative z-10 w-full h-full py-24 md:py-36 px-4 text-center">Add commentMore actions
 
             <div class="max-w-4xl mx-auto">
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold leading-tight">
@@ -34,7 +34,7 @@
                             class="bg-gradient-to-r from-[#FF564E] via-[#ff834e] to-[#FAD126] text-transparent bg-clip-text">SavoryAI</span>,</span>
                     <span class="block text-white mt-1 sm:mt-2">Your Personal <span class="relative inline-block">
                             <span class="relative z-10">Chef</span>
-                            <svg class="absolute left-0 top-1/2 transform -translate-y-0 w-full h-8 sm:h-10 md:h-12 text-[#FAD126] -z-0"
+                            <svg class="absolute left-0 top-[70%] transform -translate-y-0 w-full h-8 sm:h-10 md:h-12 text-[#FAD126] -z-0"
                                 viewBox="0 0 196 32" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 preserveAspectRatio="none">
                                 <path
@@ -93,14 +93,24 @@
     </div>
 
     <!-- How It Works Section -->
-    <section
-        class="py-20 lg:py-32 flex flex-col justify-center bg-gradient-to-br from-gray-50 to-slate-100 overflow-hidden relative">
-        <!-- Background decorative elements -->
-        <div
-            class="absolute top-10 left-10 w-40 h-40 bg-gradient-to-r from-[#FF564E]/10 to-[#ff834e]/10 rounded-full blur-3xl animate-blob">
-        </div>
-        <div
-            class="absolute bottom-10 right-10 w-52 h-52 bg-gradient-to-r from-[#43c8a9]/10 to-[#64e9d1]/10 rounded-full blur-3xl animate-blob animation-delay-2000">
+    <section class="py-20 lg:py-32 flex flex-col justify-center bg-white overflow-hidden relative">
+        <div class="absolute inset-0">
+            <!-- Floating circles -->
+            <div
+                class="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-[#FF564E]/30 to-[#ff834e]/30 rounded-full blur-xl animate-float">
+            </div>
+            <div
+                class="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-br from-[#43c8a9]/30 to-[#64e9d1]/30 rounded-full blur-xl animate-float-delayed">
+            </div>
+
+            <!-- Geometric patterns -->
+            <div class="absolute top-1/4 right-1/4 w-24 h-24 border-8 border-[#FAD126]/20 rounded-lg rotate-45"></div>
+            <div class="absolute bottom-1/3 left-1/3 w-16 h-16 border-4 border-[#FF564E]/20 rounded-full"></div>
+
+            <!-- Dotted grid pattern -->
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#43c8a9_1px,transparent_1px)] bg-[size:30px_30px] opacity-10">
+            </div>
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
@@ -543,18 +553,49 @@
     <section
         class="py-20 lg:py-32 min-h-screen flex flex-col justify-center bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white overflow-hidden relative">
         <!-- Abstract background shapes -->
-        <div class="absolute top-0 left-0 w-1/2 h-full opacity-10 overflow-hidden">
-            <svg class="absolute -left-1/4 top-0 w-[150%] h-[150%]" viewBox="0 0 800 800" fill="none"
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 overflow-hidden">
+            <svg class="absolute -left-1/4 top-0 w-[150%] h-[150%]" viewBox="0 0 1000 1000" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <circle cx="400" cy="400" r="300" stroke="white" stroke-width="80"
-                    stroke-dasharray="20 40" />
+                <!-- Hexagonal pattern -->
+                <pattern id="hexagonPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <path d="M50 5L92.7 30V80L50 105L7.3 80V30L50 5Z" stroke="white" stroke-width="2" fill="none" />
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#hexagonPattern)" />
+
+                <!-- Flowing curves -->
+                <path d="M0 300 Q 250 200, 500 300 T 1000 300" stroke="white" stroke-width="3" fill="none">
+                    <animate attributeName="d" dur="10s" repeatCount="indefinite"
+                        values="M0 300 Q 250 200, 500 300 T 1000 300;
+                                M0 300 Q 250 400, 500 300 T 1000 300;
+                                M0 300 Q 250 200, 500 300 T 1000 300" />
+                </path>
+
+                <!-- Animated circles -->
+                <circle cx="200" cy="200" r="50" stroke="white" stroke-width="2" fill="none">
+                    <animate attributeName="r" values="50;70;50" dur="4s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="800" cy="600" r="80" stroke="white" stroke-width="2" fill="none">
+                    <animate attributeName="r" values="80;100;80" dur="6s" repeatCount="indefinite" />
+                </circle>
             </svg>
         </div>
-        <div class="absolute bottom-0 right-0 w-1/2 h-full opacity-10 overflow-hidden">
-            <svg class="absolute -right-1/4 bottom-0 w-[150%] h-[150%]" viewBox="0 0 800 800" fill="none"
+        <div class="absolute bottom-0 right-0 w-full h-full opacity-10 overflow-hidden">
+            <svg class="absolute right-0 bottom-0 w-[150%] h-[150%]" viewBox="0 0 1000 1000" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <rect x="100" y="100" width="600" height="600" rx="100" stroke="white" stroke-width="60"
-                    stroke-dasharray="30 30" transform="rotate(15 400 400)" />
+                <!-- Dotted grid -->
+                <pattern id="dotPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="2" fill="white" />
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#dotPattern)" />
+
+                <!-- Animated waves -->
+                <path d="M0 700 C 200 650, 400 750, 600 700 S 800 650, 1000 700" stroke="white" stroke-width="2"
+                    fill="none">
+                    <animate attributeName="d" dur="8s" repeatCount="indefinite"
+                        values="M0 700 C 200 650, 400 750, 600 700 S 800 650, 1000 700;
+                                M0 700 C 200 750, 400 650, 600 700 S 800 750, 1000 700;
+                                M0 700 C 200 650, 400 750, 600 700 S 800 650, 1000 700" />
+                </path>
             </svg>
         </div>
 
@@ -716,7 +757,7 @@
                     </a>
 
                     <a href="{{ route('explore-recipes.index') }}" wire:navigate
-                        class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
+                        class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-lg text-gray-700 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
                         Jelajahi Resep <i class="fas fa-search ml-2"></i>
                     </a>
                 </div>
