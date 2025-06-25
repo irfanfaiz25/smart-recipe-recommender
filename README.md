@@ -1,66 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍳 SavoryAI - Intelligent Recipe Recommendation System
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-11.x-red?style=for-the-badge&logo=laravel" alt="Laravel">
+  <img src="https://img.shields.io/badge/Livewire-3.x-blue?style=for-the-badge&logo=livewire" alt="Livewire">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.x-cyan?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/OpenAI-GPT--4-green?style=for-the-badge&logo=openai" alt="OpenAI">
+  <img src="https://img.shields.io/badge/PHP-8.2+-purple?style=for-the-badge&logo=php" alt="PHP">
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>An AI-powered recipe recommendation platform that uses advanced machine learning algorithms to suggest personalized recipes based on available ingredients and user preferences.</strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🤖 **AI-Powered Intelligence**
 
-## Learning Laravel
+-   **Smart Ingredient Recognition**: Upload photos of ingredients and let GPT-4 Vision identify them automatically
+-   **Advanced Recipe Matching**: Uses TF-IDF and Cosine Similarity algorithms for precise recipe recommendations
+-   **Personalized Suggestions**: AI learns from user preferences and cooking patterns
+-   **Dynamic Scoring System**: Combines ingredient matching, recipe complexity, and popularity metrics
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔍 **Smart Recipe Discovery**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   **Ingredient-Based Search**: Find recipes based on what you have in your kitchen
+-   **Calorie Categorization**: Filter recipes by calorie ranges (Low: 0-400, Medium: 401-800, High: 801+)
+-   **Advanced Filtering**: Sort by rating, popularity, cooking time, and difficulty
+-   **Real-time Matching**: See percentage match scores for each recipe based on your ingredients
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 👥 **User Experience**
 
-## Laravel Sponsors
+-   **Interactive Dashboard**: Beautiful, responsive interface with trending recipes and statistics
+-   **Recipe Bookmarking**: Save favorite recipes for quick access
+-   **User Ratings & Reviews**: Community-driven recipe evaluation system
+-   **Social Features**: Follow creators and discover popular recipes
+-   **Mobile-Responsive**: Seamless experience across all devices
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🛡️ **Content Management**
 
-### Premium Partners
+-   **Role-Based Access Control**: Admin, Creator, and User roles with specific permissions
+-   **Recipe Moderation**: Admin approval system for quality control
+-   **User Management**: Comprehensive user administration tools
+-   **Content Analytics**: Track recipe views, ratings, and user engagement
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 📊 **Analytics & Insights**
 
-## Contributing
+-   **Trending Recipes**: Weekly and daily trending recipe tracking
+-   **User Statistics**: Creator metrics and recipe performance analytics
+-   **Ingredient Database**: 500+ recognized ingredients with smart categorization
+-   **Performance Metrics**: Recipe views, ratings, and popularity scoring
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🛠️ Technology Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### **Backend**
 
-## Security Vulnerabilities
+-   **Laravel 11.x** - Modern PHP framework with elegant syntax
+-   **Livewire 3.x** - Full-stack framework for dynamic interfaces
+-   **MySQL** - Robust relational database management
+-   **Spatie Laravel Permission** - Role and permission management
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### **Frontend**
 
-## License
+-   **TailwindCSS 3.x** - Utility-first CSS framework
+-   **Alpine.js** - Lightweight JavaScript framework
+-   **Font Awesome** - Comprehensive icon library
+-   **Responsive Design** - Mobile-first approach
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **AI & Machine Learning**
+
+-   **OpenAI GPT-4 Vision** - Advanced image recognition for ingredients
+-   **TF-IDF Algorithm** - Term frequency-inverse document frequency for content analysis
+-   **Cosine Similarity** - Vector space model for recipe matching
+-   **Custom Scoring Algorithm** - Multi-factor recipe recommendation system
+
+### **Development Tools**
+
+-   **Vite** - Fast build tool and development server
+-   **Composer** - PHP dependency management
+-   **NPM** - Node.js package management
+-   **Laravel Socialite** - Social authentication integration
+
+---
+
+## 🚀 Installation
+
+### Prerequisites
+
+-   PHP 8.2 or higher
+-   Composer
+-   Node.js & NPM
+-   MySQL 8.0+
+-   OpenAI API Key
+
+### Step-by-Step Setup
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/savoryai.git
+cd savoryai
+```
