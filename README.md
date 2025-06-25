@@ -258,7 +258,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 If you encounter any issues or have questions:
 
--   🐛 Bug Reports : [Submit an issue](https://github.com/yourusername/savoryai/issues/new?template=bug_report.md)
+-   🐛 Bug Reports : [Submit an issue](https://github.com/irfanfaiz25/smart-recipe-recommender/issues/new?template=bug_report.md)
 
 ## Contact
 
