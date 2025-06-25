@@ -264,7 +264,7 @@ If you encounter any issues or have questions:
 
 For general inquiries, suggestions, or collaborations:
 
--   📧 Email : [your@email.com](mailto:your@email.com)
+-   📧 Email : [ahmadirfanfaiz13@gmail.com](mailto:ahmadirfanfaiz13@gmail.com)
 
 Made with ❤️ by [Irfan Faiz](https://irfanfaiz.my.id)
 
