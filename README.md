@@ -104,20 +104,28 @@
 git clone https://github.com/yourusername/savoryai.git
 cd savoryai
 ```
+
 2. Install PHP dependencies
+
 ```
 composer install
 ```
+
 3. Install Node.js dependencies
+
 ```
 npm install
 ```
+
 4. Environment setup
+
 ```
 cp .env.example .env
 php artisan key:generate
 ```
+
 5. Configure your .env file
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -129,55 +137,77 @@ DB_PASSWORD=your_password
 OPENAI_API_KEY=your_openai_api_key
 OPENAI_ORGANIZATION=your_openai_organization_id
 ```
+
 6. Database setup
+
 ```
 php artisan migrate
 php artisan db:seed
 ```
+
 7. Build assets
+
 ```
 npm run build
 ```
+
 8. Start the development server
+
 ```
 php artisan serve
 ```
+
 9. Start the asset watcher (in a new terminal)
+
 ```
 npm run dev
 ```
+
 Visit http://localhost:8000 to access the application.
 
 ## 📱 Usage
+
 ### For Users
+
 1. Register/Login to access personalized features
 2. Upload ingredient photos or manually select ingredients
 3. Browse AI-recommended recipes based on your ingredients
 4. Filter by calories, difficulty, or cooking time
 5. Bookmark favorite recipes for easy access
 6. Rate and review recipes to help the community
+
 ### For Recipe Creators
+
 1. Create detailed recipes with ingredients, instructions, and photos
 2. Submit for moderation to ensure quality standards
 3. Track recipe performance with built-in analytics
 4. Engage with the community through ratings and feedback
+
 ### For Administrators
+
 1. Moderate recipe submissions for quality control
 2. Manage user accounts and permissions
 3. Monitor platform analytics and user engagement
 4. Maintain ingredient database and categorizations
+
 ## 🧠 AI Algorithm Details
+
 ### Ingredient Recognition
-- Uses OpenAI's GPT-4 Vision model to analyze uploaded images
-- Identifies multiple ingredients with confidence scores
-- Automatically maps to internal ingredient database
+
+-   Uses OpenAI's GPT-4 Vision model to analyze uploaded images
+-   Identifies multiple ingredients with confidence scores
+-   Automatically maps to internal ingredient database
+
 ### Recipe Recommendation Engine
+
 1. TF-IDF Calculation : Analyzes ingredient frequency across recipe database
 2. Vector Space Modeling : Creates mathematical representations of recipes and user preferences
 3. Cosine Similarity : Measures similarity between user ingredients and recipe ingredients
 4. Multi-factor Scoring : Combines similarity, complexity, and popularity metrics
 5. Dynamic Thresholding : Adjusts recommendation sensitivity based on ingredient count
+
 ### Scoring Formula
+
 ```
 Final Score = (Similarity × 0.4) + (Complexity × 
 0.3) + (Popularity × 0.3)
@@ -189,10 +219,13 @@ recipe ingredient vectors
 ingredients = higher score)
 - Popularity: Combination of views and ratings
 ```
+
 ## 🤝 Contributing
+
 We welcome contributions to SavoryAI! Here's how you can help:
 
 ### Development Setup
+
 1. Fork the repository
 2. Create a feature branch ( git checkout -b feature/amazing-feature )
 3. Make your changes
@@ -200,28 +233,39 @@ We welcome contributions to SavoryAI! Here's how you can help:
 5. Commit your changes ( git commit -m 'Add amazing feature' )
 6. Push to the branch ( git push origin feature/amazing-feature )
 7. Open a Pull Request
+
 ### Contribution Guidelines
-- Follow PSR-12 coding standards
-- Write comprehensive tests for new features
-- Update documentation for any API changes
-- Ensure responsive design compatibility
-- Test AI features with various ingredient combinations
+
+-   Follow PSR-12 coding standards
+-   Write comprehensive tests for new features
+-   Update documentation for any API changes
+-   Ensure responsive design compatibility
+-   Test AI features with various ingredient combinations
+
 ## 📄 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
-- OpenAI for providing advanced AI capabilities
-- Laravel Community for the excellent framework and ecosystem
-- Livewire Team for making reactive interfaces simple
-- TailwindCSS for the utility-first CSS framework
-- Spatie for the permission management package
+
+-   OpenAI for providing advanced AI capabilities
+-   Laravel Community for the excellent framework and ecosystem
+-   Livewire Team for making reactive interfaces simple
+-   TailwindCSS for the utility-first CSS framework
+-   Spatie for the permission management package
+
 ## 📞 Support
+
 If you encounter any issues or have questions:
 
-- 🐛 Bug Reports : GitHub Issues
-- 💬 Discussions : GitHub Discussions
-- 📖 Documentation : Wiki
-Made with ❤️ for food lovers and cooking enthusiasts
+-   🐛 Bug Reports : [Submit an issue](https://github.com/yourusername/savoryai/issues/new?template=bug_report.md)
 
-⬆️ Back to Top
- ```
+## Contact
+
+For general inquiries, suggestions, or collaborations:
+
+-   📧 Email : [your@email.com](mailto:your@email.com)
+
+Made with ❤️ by [Irfan Faiz](https://irfanfaiz.my.id)
+
+<a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position: fixed; bottom: 20px; right: 20px; padding: 10px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">⬆️ Back to Top</a>
