@@ -95,8 +95,8 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">🚀 Quick Actions</h3>
+        <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4">🚀 Quick Actions</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <a href="{{ route('recipes.create') }}"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl p-4 text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
@@ -137,11 +137,13 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             <!-- Recent Recipes -->
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900">📝 Resep Terbaru</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">📝 Resep Terbaru
+                        </h3>
                         <a href="{{ route('recipes.index') }}"
-                            class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Lihat Semua</a>
+                            class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300 text-sm font-medium">Lihat
+                            Semua</a>
                     </div>
                     <div class="space-y-1">
                         @forelse($recentRecipes as $recipe)
@@ -149,7 +151,7 @@
                                 <div class="w-[20%] h-24">
                                     @if ($recipe->image)
                                         <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
-                                            class="w-full h-full rounded-lg object-cover">
+                                            class="w-full h-full rounded-lg object-cover shadow-md">
                                     @else
                                         <div
                                             class="w-full h-full bg-gray-300 text-gray-400 flex justify-center items-center rounded-lg">
@@ -158,10 +160,14 @@
                                     @endif
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900">{{ $recipe->name }}</h4>
-                                    <p class="text-sm text-gray-500">{{ $recipe->category->name }} •
+                                    <h4 class="font-medium text-gray-900 dark:text-text-dark-primary">
+                                        {{ $recipe->name }}</h4>
+                                    <p class="text-sm font-normal text-gray-500 dark:text-gray-200">
+                                        {{ $recipe->category->name }}
+                                        •
                                         {{ $recipe->views_count }} kali dilihat</p>
-                                    <p class="text-xs text-gray-400">{{ $recipe->created_at->diffForHumans() }}</p>
+                                    <p class="text-xs font-normal text-gray-400">
+                                        {{ $recipe->created_at->diffForHumans() }}</p>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     @if ($recipe->moderation)
@@ -176,7 +182,7 @@
                                         </span>
                                     @endif
                                     <a href="{{ route('recipes.edit', $recipe) }}"
-                                        class="text-indigo-600 hover:text-indigo-800">
+                                        class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -187,12 +193,13 @@
                             </div>
                         @empty
                             <div class="text-center py-8">
-                                <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none"
+                                <svg class="w-16 h-16 mx-auto text-gray-300 dark:text-gray-200 mb-4" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <p class="text-gray-500">Belum ada resep nih. Yuk bikin resep pertamamu!</p>
+                                <p class="text-gray-500 dark:text-gray-300">Belum ada resep nih. Yuk bikin resep
+                                    pertamamu!</p>
                                 <a href="{{ route('recipes.create') }}"
                                     class="mt-2 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Buat
                                     Resep</a>
@@ -204,8 +211,9 @@
 
             <!-- Top Performing Recipes -->
             <div>
-                <div class="bg-white rounded-2xl shadow-xl p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-6">🏆 Resep Terpopuler</h3>
+                <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">🏆 Resep
+                        Terpopuler</h3>
                     <div class="space-y-4">
                         @forelse($topRecipes as $index => $recipe)
                             <div class="flex items-center space-x-3">
@@ -214,8 +222,10 @@
                                     {{ $index + 1 }}
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900 truncate">{{ $recipe->name }}</p>
-                                    <p class="text-xs text-gray-500">{{ number_format($recipe->views_count) }} kali
+                                    <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
+                                        {{ $recipe->name }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-200">
+                                        {{ number_format($recipe->views_count) }} kali
                                         dilihat
                                     </p>
                                 </div>
@@ -231,16 +241,17 @@
         <!-- Analytics Section -->
         <div id="analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Category Distribution -->
-            <div class="bg-white rounded-2xl shadow-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-6">📊 Kategori Resep</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">📊 Kategori Resep</h3>
                 <div class="h-80">
                     <canvas id="categoryChart"></canvas>
                 </div>
             </div>
 
             <!-- Monthly Views Trend -->
-            <div class="bg-white rounded-2xl shadow-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-6">📈 Statistik Total Resep Dibuat</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">📈 Statistik Total
+                    Resep Dibuat</h3>
                 <div class="h-80">
                     <canvas id="viewsChart"></canvas>
                 </div>
@@ -249,8 +260,9 @@
 
         <!-- Recent Ratings -->
         @if ($recentRatings->count() > 0)
-            <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
-                <h3 class="text-xl font-semibold text-gray-900 mb-6">⭐ Rating & Ulasan Terbaru</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">⭐ Rating & Ulasan
+                    Terbaru</h3>
                 <div class="space-y-4">
                     @foreach ($recentRatings as $rating)
                         <div class="border-l-4 border-indigo-500 pl-4 py-2">
@@ -258,7 +270,7 @@
                                 <div class="flex items-center space-x-3">
                                     @if ($rating->user->avatar_url)
                                         <img src="{{ $rating->user->avatar_url }}" alt="{{ $rating->user->name }}"
-                                            class="w-8 h-8 rounded-full object-cover">
+                                            class="w-8 h-8 rounded-full object-cover shadow-md">
                                     @else
                                         <div
                                             class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base">
@@ -266,8 +278,12 @@
                                         </div>
                                     @endif
                                     <div>
-                                        <p class="font-medium text-gray-900">{{ $rating->user->name }}</p>
-                                        <p class="text-sm text-gray-500">{{ $rating->recipe->name }}</p>
+                                        <p
+                                            class="font-semibold text-sm text-gray-900 dark:text-text-dark-primary capitalize">
+                                            {{ $rating->user->name }}
+                                        </p>
+                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-200">
+                                            {{ $rating->recipe->name }}</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-2">
@@ -281,11 +297,11 @@
                                         @endfor
                                     </div>
                                     <span
-                                        class="text-sm text-gray-500">{{ $rating->created_at->diffForHumans() }}</span>
+                                        class="text-sm text-gray-500 dark:text-gray-200">{{ $rating->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                             @if ($rating->comment)
-                                <p class="text-gray-700 mt-2 text-sm">"{{ $rating->comment }}"</p>
+                                <p class="text-gray-700 dark:text-gray-200 mt-2 text-sm">"{{ $rating->comment }}"</p>
                             @endif
                         </div>
                     @endforeach
