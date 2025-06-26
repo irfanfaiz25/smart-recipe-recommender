@@ -2,73 +2,78 @@
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <!-- Total Users -->
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+        <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 border-l-4 border-blue-500">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <i class="fas fa-users text-3xl text-blue-500"></i>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Users</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalUsers) }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-text-dark-primary">Total Users</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary">
+                        {{ number_format($totalUsers) }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Active Users -->
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+        <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 border-l-4 border-green-500">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <i class="fas fa-user-check text-3xl text-green-500"></i>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Active Users (30d)</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($activeUsers) }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-text-dark-primary">Active Users (30d)</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary">
+                        {{ number_format($activeUsers) }}</p>
                 </div>
             </div>
         </div>
 
         <!-- New Users This Month -->
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
+        <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <i class="fas fa-user-plus text-3xl text-yellow-500"></i>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">New This Month</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($newUsersThisMonth) }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-text-dark-primary">New This Month</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary">
+                        {{ number_format($newUsersThisMonth) }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Total Creators -->
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+        <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 border-l-4 border-purple-500">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <i class="fas fa-chef-hat text-3xl text-purple-500"></i>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Creators</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalCreators) }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-text-dark-primary">Total Creators</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary">
+                        {{ number_format($totalCreators) }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Total Recipes -->
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+        <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 border-l-4 border-red-500">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <i class="fas fa-utensils text-3xl text-red-500"></i>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Recipes</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalRecipes) }}</p>
+                    <p class="text-sm font-medium text-gray-600 dark:text-text-dark-primary">Total Recipes</p>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary">
+                        {{ number_format($totalRecipes) }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Search and Filter Section -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md p-6 mb-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 md:space-x-4">
             <!-- Search Input -->
             <div class="flex-1">
@@ -77,7 +82,7 @@
                         <i class="fas fa-search text-lg text-gray-400"></i>
                     </div>
                     <input type="text" wire:model.live.debounce.300ms="search"
-                        class="block w-full text-sm font-medium pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        class="block w-full text-sm font-medium pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md leading-5 bg-white dark:bg-bg-dark-secondary placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Cari berdasarkan nama atau email...">
                 </div>
             </div>
@@ -85,7 +90,7 @@
             <!-- Role Filter -->
             <div class="w-full md:w-48">
                 <select wire:model.live="roleFilter"
-                    class="block text-sm font-medium w-full px-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                    class="block text-sm font-medium w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md leading-5 bg-white dark:bg-bg-dark-secondary focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Role</option>
                     @foreach ($this->roles as $role)
                         <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
@@ -95,7 +100,7 @@
 
             <!-- Refresh Button -->
             <button wire:click="loadStatistics"
-                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-text-dark-primary bg-white dark:bg-bg-dark-secondary hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <i class="fas fa-sync-alt mr-2"></i>
                 Refresh
             </button>
@@ -103,13 +108,13 @@
     </div>
 
     <!-- Users Table -->
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-md overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-neutral-700">
                     <tr>
                         <th wire:click="sortBy('name')"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider cursor-pointer ">
                             <div class="flex items-center space-x-1">
                                 <span>Nama</span>
                                 @if ($sortBy === 'name')
@@ -120,14 +125,16 @@
                                 @endif
                             </div>
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                             Email
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                             Role
                         </th>
                         <th wire:click="sortBy('created_at')"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider cursor-pointer">
                             <div class="flex items-center space-x-1">
                                 <span>Bergabung</span>
                                 @if ($sortBy === 'created_at')
@@ -138,17 +145,20 @@
                                 @endif
                             </div>
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                             Terakhir Login
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                             Aksi
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200" wire:loading.remove>
+                <tbody class="bg-white dark:bg-bg-dark-primary divide-y divide-gray-200 dark:divide-neutral-700"
+                    wire:loading.remove>
                     @forelse($this->users as $user)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-neutral-600">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
@@ -157,13 +167,14 @@
                                                 src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
                                         @else
                                             <div
-                                                class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
-                                                <i class="fas fa-user text-gray-600"></i>
+                                                class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center dark:bg-neutral-700">
+                                                <i class="fas fa-user text-sm text-gray-600 dark:text-neutral-200"></i>
                                             </div>
                                         @endif
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
+                                        <div class="text-sm font-medium text-gray-900 dark:text-neutral-200">
+                                            {{ $user->name }}</div>
                                         @if ($user->creators)
                                             <div class="text-xs text-purple-600 font-medium">
                                                 <i class="fa fa-cookie-bite mr-1"></i>Creator
@@ -173,7 +184,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $user->email }}</div>
+                                <div class="text-sm text-gray-900 dark:text-neutral-200">{{ $user->email }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
@@ -184,10 +195,10 @@
                                     {{ ucfirst($user->getRoleNames()->first()) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-200">
                                 {{ $user->created_at->format('d M Y') }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-200">
                                 @if ($user->last_login_at)
                                     {{ $user->last_login_at->diffForHumans() }}
                                 @else

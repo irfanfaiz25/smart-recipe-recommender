@@ -83,6 +83,7 @@ class UserManagement extends Component
 
     public function sortBy($field)
     {
+        dd($field);
         if ($this->sortBy === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
