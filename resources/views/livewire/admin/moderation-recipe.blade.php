@@ -26,7 +26,7 @@
     <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
         @forelse ($recipes as $recipe)
             <div
-                class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-lg border border-gray-100 dark:border-[#393939] overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <div class="flex flex-col">
                     <!-- Recipe Image -->
                     <div class="h-52 relative overflow-hidden">
@@ -34,8 +34,8 @@
                             <img src="{{ asset($recipe->image) }}" alt="Nasi Goreng Special"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
-                            <div class="w-full h-full bg-gray-100 flex justify-center items-center">
-                                <i class="fa fa-utensils text-base text-gray-500"></i>
+                            <div class="w-full h-full bg-gray-100 dark:bg-[#2b2b2b] flex justify-center items-center">
+                                <i class="fa fa-utensils text-base text-gray-500 dark:text-gray-400"></i>
                             </div>
                         @endif
                         <div
@@ -80,7 +80,7 @@
                             </span>
                         </div>
                         <a href="{{ route('admin-moderation.show', $recipe->id) }}" wire:navigate
-                            class="opacity-0 group-hover:opacity-100 absolute bottom-3 left-4 bg-gray-50 hover:bg-gray-100 text-secondary px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-500">
+                            class="opacity-0 group-hover:opacity-100 absolute bottom-3 left-4 bg-gray-50 dark:bg-[#2b2b2b] hover:bg-gray-100 dark:hover:bg-[#3b3b3b] text-secondary px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-500">
                             <i class="fa-solid fa-eye mr-1"></i>
                             Detail
                         </a>
@@ -89,10 +89,10 @@
                     <!-- Recipe Details -->
                     <div class="p-5">
                         <div class="mb-3">
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-text-dark-primary mb-2">
                                 {{ $recipe->name }}
                             </h3>
-                            <div class="flex items-center text-gray-600 text-sm">
+                            <div class="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                                 <i class="fa-solid fa-user mr-2"></i>
                                 <span class="font-medium">
                                     {{ $recipe->user->name }}
@@ -104,7 +104,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-3 text-xs font-medium text-gray-600 mb-3">
+                        <div class="flex items-center gap-3 text-xs font-medium text-gray-600 dark:text-gray-400 mb-3">
                             <div class="flex items-center">
                                 <i class="fa-solid fa-clock mr-1 text-secondary"></i>
                                 <span>{{ $recipe->cooking_time }} menit</span>
@@ -127,25 +127,9 @@
                             </div>
                         </div>
 
-                        <p class="text-gray-700 mb-4 text-sm line-clamp-1">
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 text-sm line-clamp-1">
                             {{ $recipe->description }}
                         </p>
-
-                        <!-- Recipe Stats -->
-                        {{-- <div class="grid grid-cols-3 gap-2 mb-4">
-                        <div class="bg-blue-50 rounded-lg p-2 text-center">
-                            <div class="text-sm font-bold text-blue-600">12</div>
-                            <div class="text-xs text-blue-500">Bahan</div>
-                        </div>
-                        <div class="bg-green-50 rounded-lg p-2 text-center">
-                            <div class="text-sm font-bold text-green-600">8</div>
-                            <div class="text-xs text-green-500">Langkah</div>
-                        </div>
-                        <div class="bg-orange-50 rounded-lg p-2 text-center">
-                            <div class="text-sm font-bold text-orange-600">450</div>
-                            <div class="text-xs text-orange-500">Kalori</div>
-                        </div>
-                    </div> --}}
 
                         <!-- Action Buttons -->
                         <div class="flex gap-2">
@@ -162,7 +146,7 @@
                                 </button>
                             @elseif ($recipe->moderation->status === 'rejected')
                                 <button wire:click="handleOpenDetailRejection({{ $recipe->id }})"
-                                    class="flex-1 bg-red-50 hover:bg-red-100 border border-red-100 hover:border-red-200 text-red-700 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                                    class="flex-1 bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 border border-red-100 dark:border-red-500/20 hover:border-red-200 dark:hover:border-red-500/30 text-red-700 dark:text-red-400 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                     <i class="fa-solid fa-circle-info mr-1"></i>
                                     Detail Penolakan
                                 </button>
@@ -173,7 +157,7 @@
                                 </button>
                             @elseif ($recipe->moderation->status === 'approved')
                                 <button
-                                    class="flex-1 bg-green-50 border border-green-100 text-green-700 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
+                                    class="flex-1 bg-green-50 dark:bg-green-500/10 border border-green-100 dark:border-green-500/20 text-green-700 dark:text-green-400 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
                                     disabled>
                                     <i class="fa-solid fa-circle-check mr-1"></i>
                                     Disetujui
@@ -190,8 +174,9 @@
             </div>
             @empty
                 <div class="col-span-3 text-center">
-                    <i class="fa-solid fa-circle-info text-5xl text-gray-400 mb-3"></i>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Tidak ada resep yang perlu moderasi</h3>
+                    <i class="fa-solid fa-circle-info text-5xl text-gray-400 dark:text-gray-500 mb-3"></i>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-text-dark-primary mb-2">Tidak ada resep yang perlu
+                        moderasi</h3>
                 </div>
             @endforelse
         </div>
@@ -236,10 +221,11 @@
                             <div class="p-4">
                                 <form wire:submit.prevent='handleRejectRecipe'>
                                     <div class="mb-4">
-                                        <label for="reason" class="block text-sm font-medium text-gray-700">Alasan
+                                        <label for="reason"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-200">Alasan
                                             Penolakan</label>
                                         <textarea wire:model='reason' id="reason" rows="4"
-                                            class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-secondary focus:border-secondary text-sm font-normal"
+                                            class="mt-1 p-2 block w-full border bg-bg-primary dark:bg-bg-dark-primary border-gray-300 rounded-md shadow-sm focus:ring-secondary focus:border-secondary text-sm font-normal"
                                             placeholder="Masukkan alasan penolakan resep"></textarea>
                                         @error('reason')
                                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
