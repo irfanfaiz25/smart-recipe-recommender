@@ -1,15 +1,16 @@
 <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
     x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
     class="w-full">
-    <div class="mt-3 w-full bg-white rounded-lg shadow-lg h-fit">
+    <div class="mt-3 w-full bg-white dark:bg-bg-dark-primary rounded-lg shadow-lg h-fit">
         <div class="relative w-full rounded-t-lg">
             @if ($recipe->image)
                 <img class="w-full h-[30rem] rounded-t-lg object-cover" src="{{ asset($recipe->image) }}">
             @else
-                <div class="w-full h-[30rem] rounded-t-lg bg-gray-200 flex justify-center items-center">
+                <div
+                    class="w-full h-[30rem] rounded-t-lg bg-gray-200 dark:bg-bg-dark-primary flex justify-center items-center">
                     <div class="flex flex-col items-center space-y-3">
-                        <i class="fa-solid fa-utensils text-4xl text-gray-500"></i>
-                        <p class="font-normal italic text-gray-500">
+                        <i class="fa-solid fa-utensils text-4xl text-gray-500 dark:text-text-dark-primary"></i>
+                        <p class="font-normal italic text-gray-500 dark:text-text-dark-primary">
                             {{ $recipe->name }}
                         </p>
                     </div>
@@ -23,56 +24,64 @@
         </div>
         <div class="py-8 px-32">
             {{-- head details --}}
-            <h3 class="text-lg font-medium text-gray-600 text-center uppercase">
+            <h3 class="text-lg font-medium text-gray-600 dark:text-text-dark-primary text-center uppercase">
                 recipe by {{ $recipe->user->name }}
             </h3>
-            <h1 class="mt-2 text-6xl font-bold font-display text-center">
+            <h1 class="mt-2 text-6xl font-bold font-display text-center dark:text-text-dark-primary">
                 {{ $recipe->name }}
             </h1>
             <div class="mt-8 flex items-center justify-center">
                 <div class="w-[60%] h-28 grid grid-cols-4">
-                    <div class="border-t border-b border-gray-200 flex justify-center items-center space-x-2 text-lg">
+                    <div
+                        class="border-t border-b border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
                         <div class="text-center">
                             <i class="fa-solid fa-sliders text-yellow-500"></i>
-                            <p class="font-medium capitalize">{{ $recipe->difficulty }}</p>
+                            <p class="font-medium capitalize dark:text-text-dark-primary">{{ $recipe->difficulty }}</p>
                         </div>
                     </div>
-                    <div class="border border-gray-200 flex justify-center items-center space-x-2 text-lg">
+                    <div
+                        class="border border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
                         <div class="text-center">
                             <i class="fa-regular fa-clock text-blue-500"></i>
-                            <p class="font-medium">{{ $recipe->cooking_time }} min</p>
+                            <p class="font-medium dark:text-text-dark-primary">{{ $recipe->cooking_time }} min</p>
                         </div>
                     </div>
-                    <div class="border border-gray-200 flex justify-center items-center text-lg">
+                    <div class="border border-gray-200 dark:border-gray-700 flex justify-center items-center text-lg">
                         <div class="text-center py-2">
                             <i class="fa-solid fa-fire-flame-curved text-orange-500 text-xl mb-2"></i>
                             @if ($recipe->calories)
                                 <div class="flex">
-                                    <div class="px-1.5 flex flex-col border-r border-gray-200">
-                                        <span class="font-bold text-lg text-primary">{{ $recipe->calories }}</span>
-                                        <span class="text-xs text-gray-600 font-medium">Total Kkal</span>
+                                    <div class="px-1.5 flex flex-col border-r border-gray-200 dark:border-gray-700">
+                                        <span
+                                            class="font-bold text-lg text-primary dark:text-text-dark-primary">{{ $recipe->calories }}</span>
+                                        <span
+                                            class="text-xs text-gray-600 dark:text-text-dark-primary font-medium">Total
+                                            Kkal</span>
                                     </div>
                                     <div class="px-1.5 flex flex-col">
                                         <span
-                                            class="font-bold text-lg text-primary">{{ floor($recipe->calories / $recipe->servings) }}</span>
-                                        <span class="text-xs text-gray-600 font-medium">Kkal/Porsi</span>
+                                            class="font-bold text-lg text-primary dark:text-text-dark-primary">{{ floor($recipe->calories / $recipe->servings) }}</span>
+                                        <span
+                                            class="text-xs text-gray-600 dark:text-text-dark-primary font-medium">Kkal/Porsi</span>
                                     </div>
                                 </div>
                             @else
-                                <span class="text-sm text-gray-400 font-medium">Tidak ada info kalori</span>
+                                <span class="text-sm text-gray-400 dark:text-text-dark-primary font-medium">Tidak ada
+                                    info kalori</span>
                             @endif
                         </div>
                     </div>
-                    <div class="border-t border-b border-gray-200 flex justify-center items-center space-x-2 text-lg">
+                    <div
+                        class="border-t border-b border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
                         <div class="text-center">
                             <i class="fa-solid fa-bowl-food text-orange-500"></i>
-                            <p class="font-medium">{{ $recipe->servings }} porsi</p>
+                            <p class="font-medium dark:text-text-dark-primary">{{ $recipe->servings }} porsi</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="mt-6 flex justify-center items-center">
-                <p class="w-1/2 text-base text-center font-medium text-gray-700 italic">
+                <p class="w-1/2 text-base text-center font-medium text-gray-700 dark:text-text-dark-primary italic">
                     {{ $recipe->description ?? 'Resep lezat yang siap untuk dimoderasi dan dinikmati oleh semua pengguna.' }}
                 </p>
             </div>
@@ -80,7 +89,8 @@
 
             {{-- moderation status --}}
             <div class="mt-10 flex justify-center items-center">
-                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 w-1/2">
+                <div
+                    class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-700 dark:to-orange-700 border-amber-200 dark:border-gray-700 rounded-2xl p-6 w-1/2">
                     <div class="text-center">
                         <div
                             class="inline-flex items-center px-6 py-3 text-white rounded-full text-base font-semibold shadow-lg mb-4
@@ -93,13 +103,16 @@
                             <i class="fa-solid fa-clock mr-2"></i>
                             Status: {{ ucfirst($recipe->moderation->status) }}
                         </div>
-                        <p class="text-gray-600 text-base font-medium">
-                            Diajukan oleh: <span class="font-semibold text-gray-800">{{ $recipe->user->name }}</span>
+                        <p class="text-gray-600 dark:text-text-dark-primary text-base font-medium">
+                            Diajukan oleh: <span
+                                class="font-semibold text-gray-800 dark:text-text-dark-primary">{{ $recipe->user->name }}</span>
                         </p>
                         @if ($recipe->moderation?->notes)
                             <div class="mt-4 bg-white/70 p-4 rounded-xl border border-white/50">
-                                <p class="text-sm font-semibold text-gray-600 mb-2">Catatan Moderator:</p>
-                                <p class="text-gray-700 text-base leading-relaxed">{{ $recipe->moderation->notes }}</p>
+                                <p class="text-sm font-semibold text-gray-600 mb-2">Catatan
+                                    Moderator:</p>
+                                <p class="text-gray-700 text-base leading-relaxed">
+                                    {{ $recipe->moderation->notes }}</p>
                             </div>
                         @endif
                     </div>
@@ -143,18 +156,17 @@
                     </button>
                 </div>
             @endif
-
             {{-- end moderation buttons --}}
 
             {{-- recipe ingredients & steps --}}
             <div class="mt-12 flex space-x-4">
                 <div class="w-[40%]">
-                    <h2 class="text-2xl font-display font-medium text-gray-800">
+                    <h2 class="text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
                         Bahan Masakan
                     </h2>
-                    <ul class="mt-3 w-[80%] text-lg text-gray-700 space-y-3 font-normal">
+                    <ul class="mt-3 w-[80%] text-lg text-gray-700 dark:text-text-dark-primary space-y-3 font-normal">
                         @foreach ($recipe->ingredients as $ingredient)
-                            <li class="pb-2 border-b border-gray-200"><i
+                            <li class="pb-2 border-b border-gray-200 dark:border-gray-700"><i
                                     class="fa-solid fa-circle-check pe-2 text-sm"></i>
                                 {{ $ingredient->pivot->amount . ' ' . $ingredient->pivot->unit . ' ' . $ingredient->name }}
                             </li>
@@ -162,15 +174,15 @@
                     </ul>
                 </div>
                 <div class="w-[60%]">
-                    <h2 class="text-2xl font-display font-medium text-gray-800">
+                    <h2 class="text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
                         Langkah Pembuatan
                     </h2>
-                    <ul class="mt-3 text-lg text-gray-700 space-y-4 font-normal">
+                    <ul class="mt-3 text-lg text-gray-700 dark:text-text-dark-primary space-y-4 font-normal">
                         @foreach ($recipe->steps as $step)
-                            <li class="pb-3 flex space-x-2 border-b border-gray-200">
+                            <li class="pb-3 flex space-x-2 border-b border-gray-200 dark:border-gray-700">
                                 <p class="text-base font-normal pt-1 flex items-start">
                                     <span
-                                        class="text-5xl font-display font pe-3 text-gray-800">{{ $loop->iteration }}</span>
+                                        class="text-5xl font-display font pe-3 text-gray-800 dark:text-text-dark-primary">{{ $loop->iteration }}</span>
                                     <span class="pt-1">
                                         {{ $step->description }}
                                     </span>
@@ -196,12 +208,12 @@
                     <div class="bg-white dark:bg-bg-dark-primary">
                         <div
                             class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">
+                            <h3 class="text-lg font-semibold dark:text-text-dark-primary">
                                 Form Penolakan Resep
                             </h3>
                             <i wire:click='handleCloseFormRejection' wire:loading.remove
                                 wire:target='handleCloseFormRejection'
-                                class="fa fa-solid fa-xmark text-base font-medium cursor-pointer"></i>
+                                class="fa fa-solid fa-xmark text-base font-medium cursor-pointer dark:text-text-dark-primary"></i>
                             <div role="status" wire:loading wire:target="handleCloseFormRejection">
                                 <svg aria-hidden="true"
                                     class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-primary-light"
@@ -219,10 +231,11 @@
                         <div class="p-4">
                             <form wire:submit.prevent='handleRejectRecipe'>
                                 <div class="mb-4">
-                                    <label for="reason" class="block text-sm font-medium text-gray-700">Alasan
+                                    <label for="reason"
+                                        class="block text-sm font-medium text-gray-700 dark:text-text-dark-primary">Alasan
                                         Penolakan</label>
                                     <textarea wire:model='reason' id="reason" rows="4"
-                                        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-secondary focus:border-secondary text-sm font-normal"
+                                        class="mt-1 p-2 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:ring-secondary focus:border-secondary text-sm font-normal dark:bg-bg-dark-primary dark:text-text-dark-primary"
                                         placeholder="Masukkan alasan penolakan resep"></textarea>
                                     @error('reason')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -258,12 +271,12 @@
                     <div class="bg-white dark:bg-bg-dark-primary">
                         <div
                             class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
-                            <h3 class="text-lg font-semibold">
+                            <h3 class="text-lg font-semibold dark:text-text-dark-primary">
                                 Detail Penolakan Resep
                             </h3>
                             <i wire:click='handleCloseDetailRejection' wire:loading.remove
                                 wire:target='handleCloseDetailRejection'
-                                class="fa fa-solid fa-xmark text-base font-medium cursor-pointer"></i>
+                                class="fa fa-solid fa-xmark text-base font-medium cursor-pointer dark:text-text-dark-primary"></i>
                             <div role="status" wire:loading wire:target="handleCloseDetailRejection">
                                 <svg aria-hidden="true"
                                     class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-primary-light"
@@ -281,34 +294,42 @@
 
                         <div class="p-6 space-y-6">
                             <!-- Rejection Reason -->
-                            <div class="bg-red-50 rounded-lg p-4 border border-red-100">
+                            <div
+                                class="bg-red-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-red-100 dark:border-gray-700">
                                 <div class="flex items-center mb-2">
                                     <i class="fa-solid fa-circle-exclamation text-red-500 mr-2"></i>
                                     <h4 class="font-semibold text-red-500 text-base">Alasan Penolakan</h4>
                                 </div>
-                                <p class="text-red-700 text-sm font-medium">
+                                <p class="text-red-700 dark:text-text-dark-primary text-sm font-medium">
                                     {{ $rejectedRecipe?->moderation?->notes }}
                                 </p>
                             </div>
 
                             <!-- Rejection Details -->
                             <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                                <div
+                                    class="bg-gray-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                                     <div class="flex items-center mb-2">
-                                        <i class="fa-regular fa-calendar text-gray-600 mr-2"></i>
-                                        <h4 class="font-semibold text-gray-700 text-base">Tanggal Penolakan</h4>
+                                        <i
+                                            class="fa-regular fa-calendar text-gray-600 dark:text-text-dark-primary mr-2"></i>
+                                        <h4 class="font-semibold text-gray-700 dark:text-text-dark-primary text-base">
+                                            Tanggal Penolakan</h4>
                                     </div>
-                                    <p class="text-gray-600 text-sm font-medium">
+                                    <p class="text-gray-600 dark:text-text-dark-primary text-sm font-medium">
                                         {{ $rejectedRecipe?->moderation?->updated_at->format('d M Y, H:i') }}
                                     </p>
                                 </div>
 
-                                <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                                <div
+                                    class="bg-gray-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                                     <div class="flex items-center mb-2">
-                                        <i class="fa-regular fa-user text-gray-600 mr-2"></i>
-                                        <h4 class="font-semibold text-gray-700 text-base">Moderator</h4>
+                                        <i
+                                            class="fa-regular fa-user text-gray-600 dark:text-text-dark-primary mr-2"></i>
+                                        <h4 class="font-semibold text-gray-700 dark:text-text-dark-primary text-base">
+                                            Moderator</h4>
                                     </div>
-                                    <p class="text-gray-600 text-sm font-medium capitalize">
+                                    <p
+                                        class="text-gray-600 dark:text-text-dark-primary text-sm font-medium capitalize">
                                         {{ $rejectedRecipe?->moderation?->approver->name }}
                                     </p>
                                 </div>
