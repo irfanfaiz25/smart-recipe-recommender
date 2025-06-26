@@ -55,6 +55,16 @@ class RecipeForm extends Component
     {
         if ($recipeId) {
             $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
+
+            if (!$this->recipe) {
+                return $this->redirect(url()->previous());
+            }
+
+            // Check if user is owner or admin
+            if ($this->recipe->user_id !== auth()->user()->id) {
+                return $this->redirect(url()->previous());
+            }
+
             $this->name = $this->recipe->name;
             $this->recipeCategory = $this->recipe->category_id;
             $this->description = $this->recipe->description;
@@ -75,7 +85,6 @@ class RecipeForm extends Component
                     'isPrimary' => $ingredient->pivot->is_primary === 1 ? true : false,
                 ];
             })->toArray();
-            // dd($this->selectedIngredients);
 
             // Load steps
             $this->steps = $this->recipe->steps->pluck('description')->toArray();
