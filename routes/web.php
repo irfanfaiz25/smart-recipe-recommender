@@ -25,6 +25,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // logout
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('/', function () {
+    return view('contents.user.home');
+})->name('home.index');
+
 // admin dashboard
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
@@ -111,10 +115,6 @@ Route::prefix('creators')->middleware(['auth', 'creators'])->group(function () {
         ]);
     })->name('recipes.detail');
 });
-
-Route::get('/', function () {
-    return view('contents.user.home');
-})->name('home.index');
 
 // auth middleware
 Route::middleware('auth')->group(function () {

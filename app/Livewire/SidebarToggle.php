@@ -50,7 +50,7 @@ class SidebarToggle extends Component
                     'name' => 'Manajemen User',
                     'route' => 'user-management.index',
                     'icon' => 'fa-solid fa-users',
-                    'request' => 'admin/user-management*'
+                    'request' => 'admin/users*'
                 ],
             ];
         } else {

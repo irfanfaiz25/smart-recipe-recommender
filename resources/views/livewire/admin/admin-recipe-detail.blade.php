@@ -15,12 +15,11 @@
                     </div>
                 </div>
             @endif
-            <a href="{{ auth()->user()->hasRole('admin') ? route('admin-recipes.index') : route('recipes.index') }}"
-                wire:navigate
+            <button onclick="history.back()"
                 class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-white text-base font-semibold rounded-lg shadow-lg">
                 <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
-                Kembali ke Moderasi
-            </a>
+                Kembali
+            </button>
             @if ($recipe->is_published)
                 @switch($recipe->moderation?->status)
                     @case('approved')
@@ -138,9 +137,9 @@
                     </h2>
                     <ul class="mt-3 w-[80%] text-lg text-gray-700 space-y-3 font-normal">
                         @foreach ($recipe->ingredients as $ingredient)
-                            <li class="pb-2 border-b border-gray-200">
-                                <i class="fa-solid fa-circle-check pe-2 text-sm text-green-500"></i>
-                                {{ $ingredient->name }}
+                            <li class="pb-2 border-b border-gray-200"><i
+                                    class="fa-solid fa-circle-check pe-2 text-sm"></i>
+                                {{ $ingredient->pivot->amount . ' ' . $ingredient->pivot->unit . ' ' . $ingredient->name }}
                             </li>
                         @endforeach
                     </ul>

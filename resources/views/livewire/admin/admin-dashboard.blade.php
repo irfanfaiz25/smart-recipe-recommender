@@ -7,7 +7,8 @@
                     <h1 class="text-3xl font-bold font-display text-gray-900 capitalize">Welcome Back,
                         {{ auth()->user()->name }}!
                     </h1>
-                    <p class="text-gray-600 text-base font-medium mt-1">Ini dia yang lagi terjadi di platform resep kamu.
+                    <p class="text-gray-600 text-base font-medium mt-1">
+                        Yuk, lihat update terbaru di platform kamu!
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -310,7 +311,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <p class="text-gray-500">Mantap! Semua resep udah direview.</p>
+                            <p class="text-base text-gray-500 font-medium">Mantap! Semua resep udah direview.</p>
                         </div>
                     @endforelse
                 </div>

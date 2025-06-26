@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route($menu['route']) }}" wire:navigate
+                    <a href="{{ route($menu['route']) }}" {{ $menu['name'] !== 'Dashboard' ? 'wire:navigate' : '' }}
                         class="group relative flex items-center text-sm h-11 gap-3.5 font-medium p-2 pl-5 hover:bg-secondary/10 dark:hover:bg-[#252525] hover:text-secondary dark:hover:text-secondary rounded-md {{ request()->is($menu['request']) ? 'bg-secondary/10 dark:bg-[#252525] text-secondary' : 'text-gray-800 dark:text-gray-50' }}">
                         <i class="{{ $menu['icon'] }} text-lg"></i>
                         <h2 class="whitespace-pre duration-300 capitalize">{{ $menu['name'] }}</h2>

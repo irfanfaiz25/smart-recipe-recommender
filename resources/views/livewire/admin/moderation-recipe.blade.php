@@ -121,9 +121,8 @@
                             <div class="flex items-center">
                                 <i class="fa-solid fa-fire-flame-curved mr-1 text-rose-500"></i>
                                 <span>
-                                    {{ $recipe->calories }} kkal |
                                     {{ floor($recipe->calories / $recipe->servings) }}
-                                    kkal/porsi
+                                    kkal
                                 </span>
                             </div>
                         </div>
