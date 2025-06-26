@@ -13,7 +13,7 @@
         {{-- @dd(Auth::user()->avatar) --}}
         @if (Auth::check() && Auth::user()->avatar)
             <img wire:click='profileToggle' class="w-9 h-9 rounded-full object-cover cursor-pointer"
-                src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}">
+                src="{{ asset(Auth::user()->avatar_url) }}" alt="{{ Auth::user()->name }}">
         @else
             <button wire:click='profileToggle' class="focus:outline-none">
                 <i class="fa-solid fa-circle-user text-2xl"></i>
@@ -74,15 +74,16 @@
                         </div>
                     </div>
 
-                    {{-- <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
+                    <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
                         <div class="mx-1 pt-2 pb-2">
-                            <a href="{{ route('bookmarks.index') }}" wire:navigate
+                            <a href="{{ route(auth()->user()->hasRole('admin') ? 'admin-profile.index' : 'creators-profile.index') }}"
+                                wire:navigate
                                 class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                <i class="ri-user-settings-line text-xl"></i>
-                                <span>Favorit</span>
+                                <i class="fa fa-gear text-lg"></i>
+                                <span>Profil</span>
                             </a>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="border-t border-neutral-200/80 dark:border-[#3c3c3c]">
                         <div class="mx-1 pt-2">
                             <form action="{{ route('auth.logout') }}" method="post">

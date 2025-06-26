@@ -81,6 +81,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/users', function () {
         return view('contents.admin.users');
     })->name('user-management.index');
+
+    // User profile
+    Route::get('/profile', function () {
+        return view('contents.admin.profile');
+    })->name('admin-profile.index');
 });
 
 // creators dashboard
@@ -114,6 +119,11 @@ Route::prefix('creators')->middleware(['auth', 'creators'])->group(function () {
             'recipeId' => $id
         ]);
     })->name('recipes.detail');
+
+    // User profile
+    Route::get('/profile', function () {
+        return view('contents.admin.profile');
+    })->name('creators-profile.index');
 });
 
 // auth middleware

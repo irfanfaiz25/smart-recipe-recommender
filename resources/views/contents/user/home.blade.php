@@ -26,7 +26,7 @@
             x-transition:enter="transform transition-all duration-1000 ease-out"
             x-transition:enter-start="opacity-0 translate-y-12 scale-90"
             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-            class="relative z-10 w-full h-full py-24 md:py-36 px-4 text-center">Add commentMore actions
+            class="relative z-10 w-full h-full py-24 md:py-36 px-4 text-center">
 
             <div class="max-w-4xl mx-auto">
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold leading-tight">

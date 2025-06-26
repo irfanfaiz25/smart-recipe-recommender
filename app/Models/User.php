@@ -24,6 +24,9 @@ class User extends Authenticatable
         'password',
         'avatar',
         'last_login_at',
+        'is_oauth_user',
+        'oauth_provider',
+        'is_password_changed',
     ];
 
     protected function casts(): array
@@ -64,7 +67,7 @@ class User extends Authenticatable
 
         return Str::startsWith($this->avatar, 'http')
             ? $this->avatar
-            : asset($this->avatar);
+            : 'storage/' . $this->avatar;
     }
 
     public function bookmarkedRecipes()
@@ -85,5 +88,10 @@ class User extends Authenticatable
     public function moderations()
     {
         return $this->hasMany(RecipeModeration::class);
+    }
+
+    public function isPasswordChanged($user)
+    {
+        return $user->is_password_changed ?? false;
     }
 }

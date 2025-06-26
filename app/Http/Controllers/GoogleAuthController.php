@@ -43,6 +43,8 @@ class GoogleAuthController extends Controller
                 'password' => bcrypt(Str::random(16)), // Set a random password
                 'email_verified_at' => now(),
                 'avatar' => $user->avatar,
+                'is_oauth_user' => true,
+                'oauth_provider' => 'google',
             ]);
 
             $newUser->assignRole('user');
