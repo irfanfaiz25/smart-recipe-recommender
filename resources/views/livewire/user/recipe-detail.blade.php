@@ -34,9 +34,13 @@
                     </div>
                 @endif
             </div>
-            <h3 class="text-lg font-medium text-text-primary text-center uppercase">
+            <h3 class="text-lg font-medium text-text-primary text-center uppercase mb-1">
                 recipe by {{ $recipe->user->name }}
             </h3>
+            <div class="flex justify-center items-center space-x-2 text-sm mb-4">
+                <i class="fa fa-location-dot text-text-primary"></i>
+                <p class="text-gray-600 capitalize">{{ $recipe->user->creators->city }}</p>
+            </div>
             <h1 class="mt-2 text-6xl font-bold font-display text-center">
                 {{ $recipe->name }}
             </h1>
@@ -199,7 +203,8 @@
                                                 {{ $i }}
                                         }"
                                         @click="rating = {{ $i }}; $wire.rating = {{ $i }}"
-                                        @mouseenter="hoverRating = {{ $i }}" @mouseleave="hoverRating = 0">
+                                        @mouseenter="hoverRating = {{ $i }}"
+                                        @mouseleave="hoverRating = 0">
                                     </i>
                                 @endfor
                             </div>

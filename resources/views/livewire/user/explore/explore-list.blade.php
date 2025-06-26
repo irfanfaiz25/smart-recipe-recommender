@@ -78,9 +78,31 @@
                         </div>
                     @endif
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-                    <div class="absolute top-4 right-4 text-xs font-normal">
+                    <div class="absolute w-full top-0 p-3 flex justify-between">
+                        <div
+                            class="flex items-center gap-1 text-xs px-2 py-1 bg-black/60 backdrop-blur-sm rounded-full">
+                            @if ($recipe->ratings->count() > 0)
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i
+                                        class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-400"></i>
+                                @endfor
+                            @else
+                                <i
+                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                <i
+                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                <i
+                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                <i
+                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                <i
+                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            @endif
+                            <span
+                                class="text-gray-200 text-sm">({{ $recipe->ratings_avg_rating ? (int) $recipe->ratings_avg_rating : '0' }})</span>
+                        </div>
                         <a href="{{ route('explore-recipes.show', $recipe->id) }}"
-                            class="bg-yellow-400 text-black px-3 py-1 rounded-full flex items-center gap-1">
+                            class="bg-yellow-400 text-xs font-normal text-black px-3 py-1 rounded-full flex items-center gap-1">
                             <i class="fa fa-up-right-from-square"></i> Lihat Detail
                         </a>
                     </div>
@@ -95,26 +117,19 @@
                             bumbu
                         </p>
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-1 text-xs">
-                                @if ($recipe->ratings->count() > 0)
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <i
-                                            class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-500"></i>
-                                    @endfor
+                            <div class="flex items-center gap-2">
+                                @if ($recipe->user->avatar_url)
+                                    <img src="{{ $recipe->user->avatar_url }}" alt="{{ $recipe->user->name }}"
+                                        class="w-7 h-7 rounded-full">
                                 @else
-                                    <i
-                                        class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                    <i
-                                        class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                    <i
-                                        class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                    <i
-                                        class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                    <i
-                                        class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                    <div
+                                        class="flex justify-center items-center bg-white/20 backdrop-blur-sm text-white h-7 w-7 rounded-full text-xs">
+                                        <i class="fa fa-user text-white"></i>
+                                    </div>
                                 @endif
-                                <span
-                                    class="text-white text-sm">({{ $recipe->ratings_avg_rating ? (int) $recipe->ratings_avg_rating : '0' }})</span>
+                                <p class="text-sm font-medium text-white capitalize">
+                                    {{ $recipe->user->name }}
+                                </p>
                             </div>
                             <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs">
                                 <i class="fa fa-clock mr-1"></i>

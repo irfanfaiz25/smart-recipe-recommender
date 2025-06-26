@@ -109,7 +109,6 @@
                                 <div class="flex gap-4">
                                     {{-- Recipe Image --}}
                                     <div class="flex-shrink-0">
-                                        {{-- Update image access --}}
                                         @if ($recipe->image)
                                             <div class="relative overflow-hidden rounded-xl shadow-md">
                                                 <img class="h-40 w-40 object-cover transition-transform duration-500 group-hover:scale-110"
@@ -129,32 +128,27 @@
                                     {{-- Recipe Details --}}
                                     <div class="flex-1 min-w-0">
                                         {{-- Recipe Title --}}
-                                        {{-- Update title access --}}
                                         <h3
                                             class="text-lg font-bold text-gray-800 mb-1 line-clamp-1 group-hover:text-green-700 transition-colors duration-200">
                                             {{ $recipe->name }}
                                         </h3>
 
                                         {{-- Description --}}
-                                        {{-- Update description access --}}
-                                        <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+                                        <p class="text-sm text-gray-600 mb-3 line-clamp-1 leading-relaxed">
                                             {{ $recipe->description }}
                                         </p>
 
-                                        {{-- Ingredients Section --}}
                                         <div class="mb-3">
                                             <h4
                                                 class="text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wide">
                                                 Bahan Makanan</h4>
                                             <div class="flex flex-wrap gap-1">
-                                                {{-- Update ingredients access --}}
                                                 @foreach ($recipe->ingredients->take(3) as $ingredient)
                                                     <span
                                                         class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
                                                         {{ $ingredient->name }}
                                                     </span>
                                                 @endforeach
-                                                {{-- Show +X more if there are more ingredients --}}
                                                 @if ($recipe->ingredients->count() > 3)
                                                     <span
                                                         class="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-medium">
@@ -163,6 +157,22 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <div class="flex items-center gap-2">
+                                            @if ($recipe->user->avatar_url)
+                                                <img src="{{ $recipe->user->avatar_url }}"
+                                                    alt="{{ $recipe->user->name }}" class="w-7 h-7 rounded-full">
+                                            @else
+                                                <div
+                                                    class="flex justify-center items-center bg-gray-200 backdrop-blur-sm text-gray-800 h-7 w-7 rounded-full text-xs">
+                                                    <i class="fa fa-user text-gray-800"></i>
+                                                </div>
+                                            @endif
+                                            <p class="text-sm font-medium text-gray-800 capitalize">
+                                                {{ $recipe->user->name }}
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
