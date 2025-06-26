@@ -1,11 +1,12 @@
 <div class="min-h-screen">
     <!-- Header -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+    <div
+        class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-sm border border-gray-200 dark:border-bg-dark-secondary mb-8">
         <div class="px-6 py-8">
             <div class="flex items-center space-x-6">
                 <!-- Avatar -->
                 <div class="relative">
-                    <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
+                    <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
                         @if ($avatar)
                             <img src="{{ asset($avatar) }}" alt="Profile" class="w-full h-full object-cover">
                         @else
@@ -31,9 +32,10 @@
 
                 <!-- User Info -->
                 <div class="flex-1">
-                    <h1 class="text-2xl font-bold text-gray-900 capitalize">{{ $name }}</h1>
-                    <p class="text-base text-gray-600 font-medium">{{ $email }}</p>
-                    <div class="flex items-center space-x-4 mt-3 text-sm text-gray-500">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-text-dark-primary capitalize">
+                        {{ $name }}</h1>
+                    <p class="text-base text-gray-600 dark:text-gray-200 font-medium">{{ $email }}</p>
+                    <div class="flex items-center space-x-4 mt-3 text-sm text-gray-500 dark:text-gray-100">
                         @if ($city)
                             <span class="flex items-center capitalize">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,11 +55,12 @@
     </div>
 
     <!-- Navigation Tabs -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
-        <div class="border-b border-gray-200">
+    <div
+        class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-sm border border-gray-200 dark:border-bg-dark-secondary mb-8">
+        <div class="border-b border-gray-200 dark:border-bg-dark-secondary">
             <nav class="-mb-px flex space-x-8 px-6">
                 <button wire:click="setActiveTab('profile')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'profile' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'profile' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,7 +70,7 @@
                     </div>
                 </button>
                 <button wire:click="setActiveTab('security')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'security' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'security' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -91,7 +94,7 @@
                     </div>
                 </button> --}}
                 <button wire:click="setActiveTab('avatar')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'avatar' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'avatar' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -108,26 +111,29 @@
     </div>
 
     <!-- Tab Content -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div
+        class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-sm border border-gray-200 dark:border-bg-dark-secondary">
         <!-- Profile Tab -->
         @if ($activeTab === 'profile')
             <div class="p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-6">Informasi Profil</h2>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Informasi Profil</h2>
                 <form wire:submit.prevent="updateProfile" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama
+                            <label for="name"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">Nama
                                 Lengkap</label>
                             <input type="text" id="name" wire:model="name"
-                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-bg-dark-secondary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             @error('name')
                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <label for="email"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">Email</label>
                             <input type="email" id="email" wire:model="email"
-                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-bg-dark-secondary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 disabled>
                             @error('email')
                                 <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -135,19 +141,20 @@
                         </div>
                         @if ($user->creators)
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor
+                                <label for="phone"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">Nomor
                                     Telepon</label>
                                 <input type="text" id="phone" wire:model="phone"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-bg-dark-secondary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 @error('phone')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
                                 <label for="city"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">Lokasi</label>
                                 <input type="text" id="city" wire:model="city"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-bg-dark-secondary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 @error('city')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -167,10 +174,10 @@
         <!-- Security Tab -->
         @if ($activeTab === 'security')
             <div class="p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-6">Keamanan Akun</h2>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Keamanan Akun</h2>
                 <form wire:submit.prevent="updatePassword" class="space-y-6">
                     @if ($user->is_oauth_user && !$user->is_password_changed)
-                        <p class="text-sm text-gray-600">
+                        <p class="text-sm text-gray-600 dark:text-gray-50">
                             Perhatian: Akun Anda dibuat dengan OAuth. Perubahan password akan memaksa Anda untuk
                             membuat password baru saat login.
                         </p>
@@ -180,7 +187,7 @@
                                     class="block text-sm font-medium text-gray-700 mb-2">Password
                                     Baru</label>
                                 <input type="password" id="new_password" wire:model="new_password"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-text-dark-primary border bg-white dark:bg-bg-dark-secondary border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 @error('new_password')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -191,16 +198,16 @@
                                     Baru</label>
                                 <input type="password" id="new_password_confirmation"
                                     wire:model="new_password_confirmation"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-text-dark-primary border bg-white dark:bg-bg-dark-secondary border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
                         </div>
                     @else
                         <div>
                             <label for="current_password"
-                                class="block text-sm font-medium text-gray-700 mb-2">Password
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-2">Password
                                 Saat Ini</label>
                             <input type="password" id="current_password" wire:model="current_password"
-                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-text-dark-primary border bg-white dark:bg-bg-dark-secondary border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             @error('current_password')
                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
@@ -208,34 +215,37 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="new_password"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Password
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-2">Password
                                     Baru</label>
                                 <input type="password" id="new_password" wire:model="new_password"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-text-dark-primary border bg-white dark:bg-bg-dark-secondary border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 @error('new_password')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
                                 <label for="new_password_confirmation"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-2">Konfirmasi
+                                    Password
                                     Baru</label>
                                 <input type="password" id="new_password_confirmation"
                                     wire:model="new_password_confirmation"
-                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    class="w-full px-3 py-2 text-sm font-medium text-gray-900 dark:text-text-dark-primary border bg-white dark:bg-bg-dark-secondary border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
                         </div>
                     @endif
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                    <div class="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 rounded-md p-4">
                         <div class="flex">
-                            <svg class="w-5 h-5 text-yellow-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-yellow-400 dark:text-yellow-500 mr-3 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
                             <div>
-                                <h3 class="text-sm font-medium text-yellow-800">Tips Keamanan</h3>
-                                <p class="text-sm font-normal text-yellow-700 mt-1">Gunakan password yang kuat
+                                <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-50">Tips Keamanan</h3>
+                                <p class="text-sm font-normal text-yellow-700 dark:text-yellow-400 mt-1">Gunakan
+                                    password yang kuat
                                     dengan
                                     kombinasi
                                     huruf besar, huruf kecil, angka, dan simbol. Minimal 8 karakter.</p>
@@ -309,7 +319,7 @@
         <!-- Avatar Tab -->
         @if ($activeTab === 'avatar')
             <div class="p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-6">Foto Profil</h2>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Foto Profil</h2>
                 <div class="space-y-6">
                     <div class="flex items-center space-x-6">
                         <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
@@ -325,8 +335,9 @@
                             @endif
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-sm font-medium text-gray-900 mb-2">Upload Foto Baru</h3>
-                            <p class="text-sm font-medium text-gray-500 mb-4">Format yang didukung: JPG, PNG, GIF.
+                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Upload Foto Baru</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Format yang didukung:
+                                JPG, PNG, GIF.
                                 Maksimal
                                 2MB.
                             </p>

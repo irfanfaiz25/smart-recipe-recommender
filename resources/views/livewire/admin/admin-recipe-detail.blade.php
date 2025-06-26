@@ -204,8 +204,8 @@
                     @foreach ($ratings as $item)
                         <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
                             @if ($item->user->avatar)
-                                <img class="h-9 w-9 rounded-full object-cover" src="{{ asset($item->user->avatar) }}"
-                                    alt="{{ $item->user->name }}">
+                                <img class="h-9 w-9 rounded-full object-cover"
+                                    src="{{ asset($item->user->avatar_url) }}" alt="{{ $item->user->name }}">
                             @else
                                 <i class="fa fa-circle-user text-4xl text-gray-500 dark:text-text-dark-primary"></i>
                             @endif

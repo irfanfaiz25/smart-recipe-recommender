@@ -66,12 +66,12 @@ class UserProfile extends Component
         $user = Auth::user();
 
         // Delete old avatar if exists
-        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-            Storage::disk('public')->delete($user->avatar);
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar_url)) {
+            Storage::disk('public')->delete($user->avatar_url);
         }
 
         // Store new avatar
-        $path = $this->newAvatar->store('avatars', 'public');
+        $path = $this->newAvatar->store('users', 'public');
 
         $user->update(['avatar' => $path]);
         $this->avatar = $path;

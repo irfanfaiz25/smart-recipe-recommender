@@ -7,19 +7,8 @@
         <div class="absolute inset-0 w-full h-full">
             <img src="{{ asset('/storage/img/main/main-background.jpg') }}" class="w-full h-full object-cover"
                 alt="Delicious food background">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
-            {{-- Subtle pattern overlay --}}
-            <div class="absolute inset-0 opacity-5"
-                style="background-image: url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.4%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
-            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-transparent"></div>
         </div>
-
-        <!-- Decorative Blobs -->
-        <div
-            class="absolute -top-20 -left-20 w-72 h-72 bg-gradient-to-br from-[#FF564E]/30 to-[#ff834e]/30 rounded-full filter blur-3xl opacity-70 animate-pulse">
-        </div>
-        <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-gradient-to-tl from-[#43c8a9]/30 to-[#64e9d1]/30 rounded-full filter blur-3xl opacity-70 animate-pulse"
-            style="animation-duration: 5s;"></div>
 
         <!-- Content with transition -->
         <div x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 200)" x-show="pageLoaded"
@@ -724,42 +713,54 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 lg:py-32 min-h-screen flex flex-col justify-center bg-gray-50">
-        <div class="container mx-auto px-6 text-center" x-data="{ inView: false }" x-intersect.once="inView = true">
-            <div class="max-w-3xl mx-auto">
-                <div x-show="inView" x-transition:enter="transition ease-out duration-1000 delay-100"
-                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
-                    <span
-                        class="inline-block px-4 py-2 text-sm font-semibold text-[#FF564E] bg-rose-100 rounded-full mb-8">
-                        <i class="fas fa-rocket mr-2"></i>Siap Memulai?
-                    </span>
-                </div>
-                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-8" x-show="inView"
-                    x-transition:enter="transition ease-out duration-1000 delay-200"
-                    x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
-                    Mulai Petualangan Kuliner Anda Hari Ini!
-                </h2>
-                <p class="text-lg font-normal text-gray-600 mb-20 leading-relaxed" x-show="inView"
-                    x-transition:enter="transition ease-out duration-1000 delay-400"
-                    x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
-                    Bergabunglah dengan ribuan pengguna yang telah menemukan kemudahan dan kegembiraan memasak bersama
-                    SavoryAI. Ciptakan hidangan lezat, hemat waktu, dan jelajahi rasa baru.
-                </p>
+    <section class="relative overflow-hidden min-h-screen flex flex-col justify-center bg-gray-50">
+        <div class="py-20 lg:py-32 min-h-screen flex flex-col justify-center">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="{{ asset('/storage/img/main/start-journey-background.jpg') }}"
+                    class="w-full h-full object-cover" alt="Delicious food background">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+            </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" x-show="inView"
-                    x-transition:enter="transition ease-out duration-1000 delay-600"
-                    x-transition:enter-start="opacity-0 translate-y-8 scale-95"
-                    x-transition:enter-end="opacity-100 translate-y-0 scale-100">
-                    <a href="{{ Auth::check() ? route('savoryai.index') : route('register') }}" wire:navigate
-                        class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FF564E]/50">
-                        {{ Auth::check() ? 'Masuk ke Dapur AI' : 'Daftar Gratis Sekarang' }}
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+            <div class="container mx-auto px-6 text-center z-50" x-data="{ inView: false }"
+                x-intersect.once="inView = true">
+                <div class="max-w-3xl mx-auto">
+                    <div x-show="inView" x-transition:enter="transition ease-out duration-1000 delay-100"
+                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                        <span
+                            class="inline-block px-4 py-2 text-sm font-semibold text-[#FF564E] bg-rose-100 rounded-full mb-8">
+                            <i class="fas fa-rocket mr-2"></i>Siap Memulai?
+                        </span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-display font-bold text-white mb-8" x-show="inView"
+                        x-transition:enter="transition ease-out duration-1000 delay-200"
+                        x-transition:enter-start="opacity-0 translate-y-8"
+                        x-transition:enter-end="opacity-100 translate-y-0">
+                        Mulai Petualangan Kuliner Anda Hari Ini!
+                    </h2>
+                    <p class="text-lg font-normal text-gray-50 mb-20 leading-relaxed" x-show="inView"
+                        x-transition:enter="transition ease-out duration-1000 delay-400"
+                        x-transition:enter-start="opacity-0 translate-y-8"
+                        x-transition:enter-end="opacity-100 translate-y-0">
+                        Bergabunglah dengan ribuan pengguna yang telah menemukan kemudahan dan kegembiraan memasak bersama
+                        SavoryAI. Ciptakan hidangan lezat, hemat waktu, dan jelajahi rasa baru.
+                    </p>
 
-                    <a href="{{ route('explore-recipes.index') }}" wire:navigate
-                        class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-lg text-gray-700 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
-                        Jelajahi Resep <i class="fas fa-search ml-2"></i>
-                    </a>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" x-show="inView"
+                        x-transition:enter="transition ease-out duration-1000 delay-600"
+                        x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100">
+                        <a href="{{ Auth::check() ? route('savoryai.index') : route('register') }}" wire:navigate
+                            class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FF564E]/50">
+                            {{ Auth::check() ? 'Masuk ke Dapur AI' : 'Daftar Gratis Sekarang' }}
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+
+                        <a href="{{ route('explore-recipes.index') }}" wire:navigate
+                            class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-lg text-gray-50 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
+                            Jelajahi Resep <i class="fas fa-search ml-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

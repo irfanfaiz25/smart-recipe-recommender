@@ -127,15 +127,31 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="flex-1">
-                            <h2
-                                class="text-2xl font-bold text-text-primary dark:text-text-dark-primary group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">
-                                {{ $recipe->name }}
-                            </h2>
-                            <p
-                                class="mt-2.5 text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
-                                {{ $recipe->description }}
-                            </p>
+                        <div class="flex flex-col justify-between">
+                            <div class="space-y-2.5">
+                                <h2
+                                    class="text-2xl font-bold text-text-primary dark:text-text-dark-primary group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">
+                                    {{ $recipe->name }}
+                                </h2>
+                                <p
+                                    class="text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
+                                    {{ $recipe->description }}
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2.5">
+                                @if ($recipe->user->avatar_url)
+                                    <img src="{{ asset($recipe->user->avatar_url) }}" alt="{{ $recipe->user->name }}"
+                                        class="w-7 h-7 rounded-full object-cover">
+                                @else
+                                    <div
+                                        class="flex justify-center items-center bg-gray-200 backdrop-blur-sm text-gray-800 h-7 w-7 rounded-full text-xs">
+                                        <i class="fa fa-user text-gray-800"></i>
+                                    </div>
+                                @endif
+                                <p class="text-sm font-medium text-gray-800 capitalize">
+                                    {{ $recipe->user->name }}
+                                </p>
+                            </div>
                         </div>
                     </div>
 

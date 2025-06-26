@@ -355,7 +355,7 @@
                                             <div class="flex items-center space-x-3">
                                                 <div class="relative">
                                                     @if ($creator->avatar_url)
-                                                        <img src="{{ $creator->avatar_url }}"
+                                                        <img src="{{ asset($creator->avatar_url) }}"
                                                             alt="{{ $creator->name }}"
                                                             class="w-16 h-16 rounded-full object-cover border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
                                                     @else

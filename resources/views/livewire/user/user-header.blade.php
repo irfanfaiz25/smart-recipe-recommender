@@ -105,7 +105,7 @@
                         'text-text-primary dark:text-text-dark-primary': isScrolled
                     }">
                     @if (Auth::check() && Auth::user()->avatar)
-                        <img class="h-9 w-9 rounded-full object-cover mr-2" src="{{ asset(Auth::user()->avatar) }}"
+                        <img class="h-8 w-8 rounded-full object-cover mr-2" src="{{ asset(Auth::user()->avatar_url) }}"
                             alt="{{ Auth::user()->avatar }}">
                     @else
                         <i class="fa fa-circle-user mr-2 text-2xl"></i>

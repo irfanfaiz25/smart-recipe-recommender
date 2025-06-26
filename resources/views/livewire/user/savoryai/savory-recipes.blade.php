@@ -158,8 +158,9 @@
 
                                         <div class="flex items-center gap-2">
                                             @if ($recipe->user->avatar_url)
-                                                <img src="{{ $recipe->user->avatar_url }}"
-                                                    alt="{{ $recipe->user->name }}" class="w-7 h-7 rounded-full">
+                                                <img src="{{ asset($recipe->user->avatar_url) }}"
+                                                    alt="{{ $recipe->user->name }}"
+                                                    class="w-7 h-7 rounded-full object-cover">
                                             @else
                                                 <div
                                                     class="flex justify-center items-center bg-gray-200 backdrop-blur-sm text-gray-800 h-7 w-7 rounded-full text-xs">
