@@ -64,14 +64,14 @@ class LoginForm extends Component
 
         // check if user exists
         if (!$user) {
-            Toaster::error('Akun tidak terdaftar.');
+            session()->flash('error', 'Akun tidak terdaftar');
             $this->reset('password');
             return;
         }
 
         // check if password matched
         if (!Hash::check($this->password, $user->password)) {
-            Toaster::error('Username atau password salah.');
+            session()->flash('error', 'Invalid Credentials');
             $this->reset('password');
             return;
         }

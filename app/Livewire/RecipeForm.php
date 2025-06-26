@@ -283,6 +283,7 @@ class RecipeForm extends Component
             $imagePath = 'storage/' . $this->newImage->store('img/recipes', 'public');
         }
 
+        // if recipe doesn't have image and new image is null, delete the image
         if (!$this->newImage && !$this->existingImagePath) {
             if ($this->recipe && $this->recipe->image && Storage::disk('public')->exists(str_replace('storage/', '', $this->recipe->image))) {
                 Storage::disk('public')->delete(str_replace('storage/', '', $this->recipe->image));
