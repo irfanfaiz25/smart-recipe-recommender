@@ -138,8 +138,16 @@
 
             <div class="border border-t-gray-100"></div>
 
+            {{-- loading state --}}
+            <div wire:loading class="w-full flex justify-center py-8">
+                <div class="flex text-sm justify-center items-center gap-2 text-gray-600">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Dalam proses ...
+                </div>
+            </div>
+
             {{-- ingredients list --}}
-            <div class="p-5 max-h-[13.2rem] overflow-y-auto">
+            <div wire:loading.remove class="p-5 max-h-[13.2rem] overflow-y-auto">
                 <h2 class="text-base">
                     Pilih Bahan Makanan :
                 </h2>

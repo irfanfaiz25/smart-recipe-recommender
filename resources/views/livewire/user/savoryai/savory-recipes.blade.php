@@ -32,17 +32,15 @@
             </div>
 
             {{-- loading state --}}
-            <div wire:loading class="w-full flex justify-center py-8">
+            <div wire:loading wire:target.except="toggleBookmark" class="w-full flex justify-center py-8">
                 <div class="flex text-lg justify-center items-center gap-2 text-gray-600">
                     <i class="fa-solid fa-spinner fa-spin"></i>
                     Memuat resep...
                 </div>
             </div>
 
-            {{-- Remove the debug line --}}
-            {{-- @dd($recipes) --}}
-
-            <div id="savoryRecipes" wire:loading.remove>
+            {{-- Recipes --}}
+            <div id="savoryRecipes" wire:loading.remove wire:target.except="toggleBookmark">
                 <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {{-- Change from $matchedRecipes to $recipes --}}
                     @foreach ($recipes as $recipe)

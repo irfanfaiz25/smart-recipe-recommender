@@ -18,11 +18,6 @@ class SavoryRecipes extends Component
     public $caloriesCategory;
     public $perPage = 6;
 
-    // Remove these manual pagination properties
-    // public $matchedRecipes = [];
-    // public $totalRecipes = 0;
-    // public $hasMoreRecipes = false;
-
     protected $queryString = [
         'caloriesCategory' => ['except' => ''],
     ];
@@ -329,11 +324,20 @@ class SavoryRecipes extends Component
 
     private function getRecipesQuery($caloriesCategory = null)
     {
-        $query = Recipe::approved()->with(['user', 'ratings', 'ingredients', 'category'])
-        ;
+        $query = Recipe::approved()->with(['user', 'ratings', 'ingredients', 'category']);
 
         if ($caloriesCategory) {
-            $query->where('calories_category', $caloriesCategory);
+            $caloriesRange = [
+                'rendah' => '0-400',
+                'sedang' => '401-800',
+                'tinggi' => '801-9999'
+            ];
+
+            if (isset($caloriesRange[$caloriesCategory])) {
+                [$minCalories, $maxCalories] = explode('-', $caloriesRange[$caloriesCategory]);
+                $query->where(DB::raw('calories / servings'), '>=', $minCalories)
+                    ->where(DB::raw('calories / servings'), '<=', $maxCalories);
+            }
         }
 
         // If ingredients are selected, we'll handle the filtering differently
