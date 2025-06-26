@@ -70,6 +70,13 @@
                                         <div class="flex flex-col items-center space-y-4 mb-8">
                                             @if ($image)
                                                 <div class="relative group">
+                                                    <div wire:loading wire:target="image"
+                                                        class="absolute inset-0 flex items-center justify-center z-10 bg-white/80 rounded-xl">
+                                                        <div class="flex items-center space-x-2">
+                                                            <i class="fa-solid fa-spinner fa-spin text-secondary"></i>
+                                                            <span class="text-sm text-gray-600">Memuat gambar...</span>
+                                                        </div>
+                                                    </div>
                                                     <img class="w-64 h-48 rounded-xl shadow-lg object-cover transition-transform group-hover:scale-[1.02]"
                                                         src="{{ $image->temporaryUrl() }}" alt="Preview">
                                                     <div
@@ -80,8 +87,15 @@
                                             @else
                                                 <div
                                                     class="w-64 h-48 bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl flex flex-col justify-center items-center transition-colors hover:bg-gray-100">
-                                                    <i class="fa-regular fa-image text-3xl text-gray-400 mb-2"></i>
-                                                    <p class="text-sm text-gray-500">Klik untuk memilih gambar</p>
+                                                    <div wire:loading wire:target="image"
+                                                        class="flex items-center space-x-2">
+                                                        <i class="fa-solid fa-spinner fa-spin text-gray-400"></i>
+                                                        <span class="text-sm text-gray-500">Memuat gambar...</span>
+                                                    </div>
+                                                    <div wire:loading.remove wire:target="image" class="text-center">
+                                                        <i class="fa-regular fa-image text-3xl text-gray-400 mb-2"></i>
+                                                        <p class="text-sm text-gray-500">Pilih gambar bahan makanan</p>
+                                                    </div>
                                                 </div>
                                             @endif
 

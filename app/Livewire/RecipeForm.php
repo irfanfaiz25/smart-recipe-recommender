@@ -189,53 +189,109 @@ class RecipeForm extends Component
 
     private function countTotalCalories()
     {
-        $recipeName = $this->name;
-
-        $client = OpenAI::client(config('services.openai.key'));
-
-        // Get and format selected ingredients
-        $selectedIngredients = collect($this->selectedIngredients)->map(function ($ingredient) {
-            $detailIngredient = $ingredient['name'] . ' ' . $ingredient['amount'] . ' ' . $ingredient['unit'];
-            return $detailIngredient;
-        })->toArray();
-
-        // separate selected ingredients by comma
-        $selectedIngredients = implode(', ', $selectedIngredients);
-
-        // Prompt for getting the total calories
-        $prompt = "Calculate the total calories in kcal for the recipe: {$recipeName} with the following ingredients: {$selectedIngredients}. Return only the number of total calories without any text, nothing else";
-
-        // Build the request payload
-        $payload = [
-            'model' => 'gpt-4o',
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => $prompt
-                        ],
-                    ]
-                ]
-            ],
-            'max_tokens' => 300,
-        ];
-
-        // Send the request to OpenAI
         try {
-            $response = $client->chat()->create($payload);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            // Set execution time limit
+            set_time_limit(60);
+
+            $recipeName = $this->name;
+
+            // Validate inputs
+            if (empty($recipeName)) {
+                Toaster::error('Nama resep tidak boleh kosong.');
+                return 0;
+            }
+
+            if (empty($this->selectedIngredients)) {
+                Toaster::error('Pilih bahan-bahan terlebih dahulu.');
+                return 0;
+            }
+
+            $client = OpenAI::client(config('services.openai.key'));
+
+            // Get and format selected ingredients
+            $selectedIngredients = collect($this->selectedIngredients)->map(function ($ingredient) {
+                $detailIngredient = $ingredient['name'] . ' ' . $ingredient['amount'] . ' ' . $ingredient['unit'];
+                return $detailIngredient;
+            })->toArray();
+
+            // separate selected ingredients by comma
+            $selectedIngredients = implode(', ', $selectedIngredients);
+
+            // Prompt for getting the total calories
+            $prompt = "Calculate the total calories in kcal for the recipe: {$recipeName} with the following ingredients: {$selectedIngredients}. Return only the number of total calories without any text, nothing else";
+
+            // Build the request payload
+            $payload = [
+                'model' => 'gpt-4o',
+                'messages' => [
+                    [
+                        'role' => 'user',
+                        'content' => [
+                            [
+                                'type' => 'text',
+                                'text' => $prompt
+                            ],
+                        ]
+                    ]
+                ],
+                'max_tokens' => 300,
+            ];
+
+            // Send the request to OpenAI with error handling
+            try {
+                $response = $client->chat()->create($payload);
+            } catch (\OpenAI\Exceptions\ErrorException $e) {
+                Toaster::error('Gagal menghitung kalori: ' . $e->getMessage());
+                return 0;
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 429) {
+                    Toaster::error('Terlalu banyak permintaan. Silakan tunggu sebentar.');
+                } else {
+                    Toaster::error('Koneksi bermasalah. Periksa internet Anda.');
+                }
+                return 0;
+            } catch (\Exception $e) {
+                Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
+                return 0;
+            }
+
+            // Validate response
+            if (!isset($response->choices[0]->message->content)) {
+                Toaster::error('Respons tidak valid dari layanan AI.');
+                return 0;
+            }
+
+            $detectedCalories = $response->choices[0]->message->content;
+
+            // Validate content
+            if (empty(trim($detectedCalories))) {
+                Toaster::error('Tidak dapat menghitung kalori untuk resep ini.');
+                return 0;
+            }
+
+            // remove non-numeric characters
+            $detectedCalories = preg_replace('/\D/', '', $detectedCalories);
+
+            // Validate numeric result
+            if (empty($detectedCalories)) {
+                Toaster::error('Format kalori tidak valid.');
+                return 0;
+            }
+
+            // convert to integer
+            $detectedCalories = (int) $detectedCalories;
+
+            // Validate reasonable calorie range (0-10000 kcal)
+            if ($detectedCalories < 0 || $detectedCalories > 10000) {
+                Toaster::warning('Kalori yang dihitung mungkin tidak akurat: ' . $detectedCalories . ' kcal');
+            }
+
+            return $detectedCalories;
+
+        } catch (\Throwable $e) {
+            Toaster::error('Kesalahan sistem: ' . $e->getMessage());
+            return 0;
         }
-
-        $detectedCalories = $response->choices[0]->message->content;
-        // remove non-numeric characters
-        $detectedCalories = preg_replace('/\D/', '', $detectedCalories);
-        // convert to integer
-        $detectedCalories = (int) $detectedCalories;
-
-        return $detectedCalories;
     }
 
     public function save()
