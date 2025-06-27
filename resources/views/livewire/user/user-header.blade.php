@@ -12,9 +12,7 @@
 @endif
 
 <div class="hidden lg:flex items-center">
-    <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
-        <i class="fa-solid fa-plate-wheat text-xl"></i>
-    </div>
+    <img src="{{ asset('storage/img/main/savory-logo.png') }}" alt="logo" class="w-9 h-9">
     <h1 class="relative font-semibold text-xl ml-2 font-display transition-colors duration-300"
         :class="{ 'text-white': !isScrolled, 'text-text-primary dark:text-text-dark-primary': isScrolled }">
         SavoryAI<span class="absolute bottom-0 left-[5rem] text-primary dark:text-primary-light text-3xl">.</span>

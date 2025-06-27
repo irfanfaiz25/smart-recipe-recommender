@@ -20,7 +20,7 @@
 
                 {{-- Recipe Rating Badge --}}
                 <div
-                    class="absolute top-3 left-3 text-black px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    class="absolute top-3 left-3 bg-black/60 text-black px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                     <div class="flex items-center gap-1 text-xs">
                         @if ($todayTrending['recipes']['ratings_count'] > 0)
                             @for ($i = 1; $i <= 5; $i++)
