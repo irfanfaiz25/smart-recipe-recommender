@@ -33,7 +33,8 @@
                                 'text-text-primary dark:text-text-dark-primary': isScrolled
                             }">
                             {{ $menu['name'] }}
-                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300"
+                                :class="{ 'transform rotate-180': open }"></i>
                         </button>
                         <div x-show="open" x-transition
                             class="absolute right-0 mt-6 w-48 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
@@ -65,98 +66,90 @@
         </ul>
     @endauth
     <div class="relative flex items-center space-x-4">
-
         @if (!Auth::check())
             <a href="{{ route('login') }}" wire:navigate
-                class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium transition text-white duration-300 ease-out border-2 rounded-full shadow-md group"
+                class="group relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium transition-all rounded-lg"
                 :class="{
-                    'border-white': !isScrolled,
-                    'border-secondary': isScrolled
+                    'bg-white/10 hover:bg-white/20': !isScrolled,
+                    'bg-secondary/10 hover:bg-secondary/20': isScrolled
                 }">
-                <span
-                    class="absolute inset-0 flex items-center justify-center w-full h-full duration-300 -translate-x-full group-hover:translate-x-0 ease"
+                <span class="relative flex items-center gap-2"
                     :class="{
-                        'bg-white text-secondary': !isScrolled,
-                        'bg-secondary text-white': isScrolled
+                        'text-white': !isScrolled,
+                        'text-secondary': isScrolled
                     }">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <span class="text-sm font-semibold">Masuk atau Daftar</span>
+                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                     </svg>
                 </span>
-                <span
-                    class="absolute flex items-center justify-center w-full h-full transition-all duration-300 transform group-hover:translate-x-full ease"
-                    :class="{
-                        'text-white': !isScrolled,
-                        'text-secondary': isScrolled
-                    }">Masuk
-                    atau Daftar</span>
-                <span class="relative invisible">Masuk atau Daftar</span>
             </a>
         @else
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.away="open = false"
-                    class="flex items-center text-sm font-normal cursor-pointer transition-all duration-300 hover:text-secondary hover:scale-105 hover:font-medium capitalize"
+                    class="flex items-center gap-3 px-4 py-2 rounded-full transition-all duration-300 hover:scale-105"
                     :class="{
-                        'text-white': !isScrolled,
-                        'text-text-primary dark:text-text-dark-primary': isScrolled
+                        'bg-white/10 hover:bg-white/20 text-white': !isScrolled,
+                        'bg-secondary/10 hover:bg-secondary/20 text-text-primary dark:text-text-dark-primary': isScrolled
                     }">
                     @if (Auth::check() && Auth::user()->avatar)
-                        <img class="h-8 w-8 rounded-full object-cover mr-2" src="{{ asset(Auth::user()->avatar_url) }}"
-                            alt="{{ Auth::user()->avatar }}">
+                        <img class="h-8 w-8 rounded-full object-cover ring-2 ring-secondary/30"
+                            src="{{ asset(Auth::user()->avatar_url) }}" alt="{{ Auth::user()->avatar }}">
                     @else
-                        <i class="fa fa-circle-user mr-2 text-2xl"></i>
+                        <div class="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                            <i class="fa fa-circle-user text-2xl"></i>
+                        </div>
                     @endif
-                    {{ Auth::user()->name }}
+                    <span class="text-sm font-medium capitalize">{{ Auth::user()->name }}</span>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-300"
+                        :class="{ 'transform rotate-180': open }"></i>
                 </button>
-                <div x-show="open" x-transition
-                    class="absolute right-0 p-2 mt-6 w-52 bg-white dark:bg-bg-dark-primary rounded-md shadow-lg py-1">
+
+                <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                    class="absolute right-0 mt-5 w-56 rounded-xl bg-white dark:bg-bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-800 focus:outline-none">
                     @role('admin')
-                        <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
-                            <div class="mx-1 py-1">
-                                <a href="{{ route('admin-recipes.index') }}" wire:navigate
-                                    class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                    <i class="fa-solid fa-user-shield text-base"></i>
-                                    <span>Admin Panel</span>
-                                </a>
-                            </div>
+                        <div class="p-2">
+                            <a href="{{ route('admin-recipes.index') }}" wire:navigate
+                                class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
+                                <i class="fa-solid fa-user-shield text-base"></i>
+                                <span>Admin Panel</span>
+                            </a>
                         </div>
                     @endrole
                     @role('creators')
-                        <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
-                            <div class="mx-1 py-1">
-                                <a href="{{ route('recipes.index') }}" wire:navigate
-                                    class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                    <i class="fa-solid fa-kitchen-set text-base"></i>
-                                    <span>Creators Panel</span>
-                                </a>
-                            </div>
-                        </div>
-                    @endrole
-                    <div class="border-b border-neutral-200/80 dark:border-[#3c3c3c]">
-                        <div class="mx-1 py-1">
-                            <a href="{{ route('bookmarks.index') }}" wire:navigate
-                                class="hover:bg-neutral-100 dark:hover:bg-[#373636] {{ $isSetting ? 'text-green-500 bg-neutral-100 dark:bg-[#373636]' : 'text-text-primary dark:text-text-dark-primary' }} px-4 py-2.5 rounded-md flex items-center space-x-2 text-sm cursor-pointer">
-                                <i class="fa-solid fa-bookmark text-base"></i>
-                                <span>Favorit Saya</span>
+                        <div class="p-2">
+                            <a href="{{ route('recipes.index') }}" wire:navigate
+                                class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
+                                <i class="fa-solid fa-kitchen-set text-base"></i>
+                                <span>Creators Panel</span>
                             </a>
                         </div>
+                    @endrole
+                    <div class="p-2">
+                        <a href="{{ route('bookmarks.index') }}" wire:navigate
+                            class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
+                            <i class="fa-solid fa-bookmark text-base"></i>
+                            <span>Favorit Saya</span>
+                        </a>
                     </div>
-                    <div class="mx-1 py-1">
+                    <div class="p-2">
                         <form method="POST" action="{{ route('auth.logout') }}">
                             @csrf
                             <button
-                                class="w-full block px-4 py-2.5 text-sm text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:text-secondary dark:hover:bg-gray-800 text-start rounded-md">
-                                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
-                                Logout
+                                class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-red-500/10 hover:text-red-500 w-full text-text-primary dark:text-text-dark-primary">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                <span>Logout</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
         @endif
-
     </div>
 
 </div>
