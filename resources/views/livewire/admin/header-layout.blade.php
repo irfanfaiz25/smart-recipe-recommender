@@ -26,7 +26,7 @@
                     <div class="px-4 pt-1 pb-2">
                         <div class="flex items-center space-x-2 pl-1 py-1">
                             @if (Auth::check() && Auth::user()->avatar)
-                                <img class="w-10 h-10 rounded-full object-cover" src="{{ asset(Auth::user()->avatar) }}"
+                                <img class="w-10 h-10 rounded-full object-cover" src="{{ Auth::user()->avatar_url }}"
                                     alt="{{ Auth::user()->name }}">
                             @else
                                 <i class="fa-solid fa-circle-user text-2xl"></i>

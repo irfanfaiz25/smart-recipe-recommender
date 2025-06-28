@@ -67,7 +67,7 @@ class User extends Authenticatable
 
         return Str::startsWith($this->avatar, 'http')
             ? $this->avatar
-            : 'storage/' . $this->avatar;
+            : asset('storage/' . $this->avatar);
     }
 
     public function bookmarkedRecipes()

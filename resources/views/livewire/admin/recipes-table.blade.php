@@ -140,7 +140,7 @@
                             </div>
                             <div class="flex items-center gap-2 mt-2.5">
                                 @if ($recipe->user->avatar_url)
-                                    <img src="{{ asset($recipe->user->avatar_url) }}" alt="{{ $recipe->user->name }}"
+                                    <img src="{{ $recipe->user->avatar_url }}" alt="{{ $recipe->user->name }}"
                                         class="w-7 h-7 rounded-full object-cover">
                                 @else
                                     <div

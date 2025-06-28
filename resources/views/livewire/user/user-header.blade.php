@@ -68,7 +68,7 @@
     <div class="relative flex items-center space-x-4">
         @if (!Auth::check())
             <a href="{{ route('login') }}" wire:navigate
-                class="group relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium transition-all rounded-lg"
+                class="group relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium transition-all rounded-lg"
                 :class="{
                     'bg-white/10 hover:bg-white/20': !isScrolled,
                     'bg-secondary/10 hover:bg-secondary/20': isScrolled
@@ -96,7 +96,7 @@
                     }">
                     @if (Auth::check() && Auth::user()->avatar)
                         <img class="h-8 w-8 rounded-full object-cover ring-2 ring-secondary/30"
-                            src="{{ asset(Auth::user()->avatar_url) }}" alt="{{ Auth::user()->avatar }}">
+                            src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}">
                     @else
                         <div class="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center">
                             <i class="fa fa-circle-user text-2xl"></i>

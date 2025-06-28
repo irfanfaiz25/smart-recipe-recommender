@@ -8,7 +8,7 @@
                 <div class="relative">
                     <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
                         @if ($avatar)
-                            <img src="{{ asset($avatar) }}" alt="Profile" class="w-full h-full object-cover">
+                            <img src="{{ $avatar }}" alt="Profile" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-gray-400">
                                 <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
@@ -321,7 +321,7 @@
                     <div class="flex items-center space-x-6">
                         <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
                             @if ($avatar)
-                                <img src="{{ asset($avatar) }}" alt="Profile" class="w-full h-full object-cover">
+                                <img src="{{ $avatar }}" alt="Profile" class="w-full h-full object-cover">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-gray-400">
                                     <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
