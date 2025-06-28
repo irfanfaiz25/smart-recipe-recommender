@@ -1,20 +1,22 @@
 <div class="min-h-screen">
     <!-- Header Section -->
-    <div class="bg-white shadow-sm border-b border-gray-200 mb-8">
+    <div class="bg-white dark:bg-bg-dark-primary shadow-sm border-b border-gray-200 dark:border-gray-700 mb-8">
         <div class="px-6 py-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold font-display text-gray-900 capitalize">Welcome Back,
+                    <h1 class="text-3xl font-bold font-display text-gray-900 dark:text-text-dark-primary capitalize">
+                        Welcome Back,
                         {{ auth()->user()->name }}!
                     </h1>
-                    <p class="text-gray-600 text-base font-medium mt-1">
+                    <p class="text-gray-600 dark:text-gray-300 text-base font-medium mt-1">
                         Yuk, lihat update terbaru di platform kamu!
                     </p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="text-right">
-                        <p class="text-sm text-gray-500">Terakhir diupdate</p>
-                        <p class="text-sm font-medium text-gray-900">{{ now()->format('M d, Y H:i') }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-300">Terakhir diupdate</p>
+                        <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary">
+                            {{ now()->format('M d, Y H:i') }}</p>
                     </div>
                     <div
                         class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
@@ -31,7 +33,7 @@
 
     <div class="pb-8">
         <!-- Key Metrics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             <!-- Total Recipes -->
             <div
                 class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
@@ -61,6 +63,24 @@
                         <p class="text-orange-100 text-xs mt-1">Perlu dicek nih</p>
                     </div>
                     <div class="bg-orange-400 bg-opacity-30 rounded-full p-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div
+                class="bg-gradient-to-r from-yellow-500 to-amber-500 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform duration-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-yellow-100 text-sm font-medium">Saran dan Masukan</p>
+                        <p class="text-3xl font-bold">{{ $metrics['total_suggestions'] }}</p>
+                        <p class="text-yellow-100 text-xs mt-1">Perlu dicek nih</p>
+                    </div>
+                    <div class="bg-yellow-400 bg-opacity-30 rounded-full p-3">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -116,12 +136,16 @@
         <!-- Quick Actions -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <a href="{{ route('admin-moderation.index') }}"
-                class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-orange-200">
+                class="group bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 dark:border-gray-700 hover:border-orange-200 dark:hover:border-orange-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-orange-600">Review Resep</h3>
-                        <p class="text-gray-600 text-sm mt-1">{{ $metrics['pending_moderation'] }} resep nunggu
-                            disetujui</p>
+                        <h3
+                            class="text-lg font-semibold text-gray-900 dark:text-text-dark-primary group-hover:text-orange-600">
+                            Review Resep</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">{{ $metrics['pending_moderation'] }}
+                            resep nunggu
+                            disetujui
+                        </p>
                     </div>
                     <div
                         class="bg-orange-100 group-hover:bg-orange-200 rounded-full p-3 transition-colors duration-200">
@@ -134,15 +158,18 @@
             </a>
 
             <a href="{{ route('admin-recipes.create') }}"
-                class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-green-200">
+                class="group bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-600">Tambah Resep Baru
+                        <h3
+                            class="text-lg font-semibold text-gray-900 dark:text-text-dark-primary group-hover:text-green-600">
+                            Tambah Resep Baru
                         </h3>
-                        <p class="text-gray-600 text-sm mt-1">Bikin dan terbitin resep baru</p>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Bikin dan terbitin resep baru</p>
                     </div>
                     <div class="bg-green-100 group-hover:bg-green-200 rounded-full p-3 transition-colors duration-200">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
@@ -151,12 +178,14 @@
             </a>
 
             <a href="{{ route('admin-ingredients.index') }}"
-                class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 hover:border-blue-200">
+                class="group bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600">Kelola Bahan-bahan
+                        <h3
+                            class="text-lg font-semibold text-gray-900 dark:text-text-dark-primary group-hover:text-blue-600">
+                            Kelola Bahan-bahan
                         </h3>
-                        <p class="text-gray-600 text-sm mt-1">Tambah atau ubah bahan resep</p>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Tambah atau ubah bahan resep</p>
                     </div>
                     <div class="bg-blue-100 group-hover:bg-blue-200 rounded-full p-3 transition-colors duration-200">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,8 +201,8 @@
         <!-- Charts and Analytics Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Recipe Categories Chart -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Kategori Resep</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4">Kategori Resep</h3>
                 <div class="relative h-64">
                     <canvas id="categoriesChart"></canvas>
                 </div>
@@ -192,8 +221,9 @@
             </div>
 
             <!-- Monthly Recipe Submissions Chart -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Statistik Publikasi Resep</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4">Statistik Publikasi
+                    Resep</h3>
                 <div class="relative h-64">
                     <canvas id="monthlyChart"></canvas>
                 </div>
@@ -208,16 +238,18 @@
         <!-- Additional Analytics Charts -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Recipe Ratings Distribution -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Statistik Rating Resep</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4">Statistik Rating Resep
+                </h3>
                 <div class="relative h-64">
                     <canvas id="ratingsChart"></canvas>
                 </div>
             </div>
 
             <!-- User Engagement Metrics -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Interaksi Pengguna</h3>
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4">Interaksi Pengguna
+                </h3>
                 <div class="relative h-64">
                     <canvas id="engagementChart"></canvas>
                 </div>
@@ -227,11 +259,12 @@
         <!-- Recent Activity Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Recent Recipes -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900">Resep Terbaru</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Resep Terbaru</h3>
                     <a href="{{ route('admin-recipes.index') }}"
-                        class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat Semua</a>
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-sm font-medium">Lihat
+                        Semua</a>
                 </div>
                 <div class="space-y-4">
                     @forelse($recentRecipes as $recipe)
@@ -248,8 +281,10 @@
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500">oleh {{ $recipe->user->name }} •
+                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
+                                    {{ $recipe->name }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-300">oleh
+                                    {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-100 text-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-800">
@@ -257,19 +292,20 @@
                                 </span>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm font-medium text-gray-900">{{ $recipe->views_count }} dilihat</p>
+                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary">
+                                    {{ $recipe->views_count }} dilihat</p>
                             </div>
                         </div>
                     @empty
-                        <p class="text-gray-500 text-center py-4">Belum ada resep terbaru nih.</p>
+                        <p class="text-gray-500 dark:text-gray-300 text-center py-4">Belum ada resep terbaru nih.</p>
                     @endforelse
                 </div>
             </div>
 
             <!-- Pending Moderations -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900">Menunggu Review</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Menunggu Review</h3>
                     <a href="{{ route('admin-moderation.index') }}"
                         class="text-orange-600 hover:text-orange-800 text-sm font-medium">Review Semua</a>
                 </div>
@@ -288,8 +324,9 @@
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500">oleh {{ $recipe->user->name }} •
+                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
+                                    {{ $recipe->name }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-300">oleh {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">

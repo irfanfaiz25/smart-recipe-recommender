@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Creator;
 use App\Models\Recipe;
 use App\Models\RecipeModeration;
+use App\Models\Suggestion;
 use App\Models\User;
 use App\Models\RecipeCategory;
 use Livewire\Component;
@@ -26,6 +27,7 @@ class AdminDashboard extends Component
         $this->metrics = [
             'total_recipes' => Recipe::approved()->count(),
             'pending_moderation' => RecipeModeration::where('status', 'pending')->count(),
+            'total_suggestions' => Suggestion::where('status', 'pending')->count(),
             'total_creators' => Creator::count(),
             'total_users' => User::role('user')->count(),
             'recipes_this_month' => Recipe::approved()->whereMonth('created_at', now()->month)->count(),
