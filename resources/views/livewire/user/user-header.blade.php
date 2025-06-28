@@ -123,7 +123,7 @@
                     @endrole
                     @role('creators')
                         <div class="p-2">
-                            <a href="{{ route('recipes.index') }}" wire:navigate
+                            <a href="{{ route('dashboard.index') }}" wire:navigate
                                 class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
                                 <i class="fa-solid fa-kitchen-set text-base"></i>
                                 <span>Creators Panel</span>

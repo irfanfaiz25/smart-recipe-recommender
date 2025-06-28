@@ -86,6 +86,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/profile', function () {
         return view('contents.admin.profile');
     })->name('admin-profile.index');
+
+    // Suggestion management
+    Route::get('/suggestions', function () {
+        return view('contents.admin.suggestions');
+    })->name('suggestion-management.index');
 });
 
 // creators dashboard
@@ -190,4 +195,9 @@ Route::middleware('auth')->group(function () {
             'previousPage' => 'bookmarks'
         ]);
     })->name('bookmarks.show');
+
+    // suggestion form
+    Route::get('/suggestions', function () {
+        return view('contents.user.suggestions');
+    })->name('suggestions.index');
 });

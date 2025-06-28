@@ -124,7 +124,15 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
                                 </svg>
-                                Bookmark
+                                Favorit Saya
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('suggestions.index') }}" wire:navigate
+                                class="text-sm text-gray-600 hover:text-orange-400 transition-colors duration-200 flex items-center group">
+                                <i
+                                    class="fa fa-file-pen text-sm mr-2 group-hover:translate-x-1 transition-transform"></i>
+                                Saran dan Masukan
                             </a>
                         </li>
                     </ul>

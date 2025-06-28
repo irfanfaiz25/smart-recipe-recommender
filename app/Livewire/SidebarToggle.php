@@ -52,6 +52,12 @@ class SidebarToggle extends Component
                     'icon' => 'fa-solid fa-users',
                     'request' => 'admin/users*'
                 ],
+                [
+                    'name' => 'Saran dan Masukan',
+                    'route' => 'suggestion-management.index',
+                    'icon' => 'fa-solid fa-comments',
+                    'request' => 'admin/suggestions*'
+                ],
             ];
         } else {
             $this->sidebarMenu = [
