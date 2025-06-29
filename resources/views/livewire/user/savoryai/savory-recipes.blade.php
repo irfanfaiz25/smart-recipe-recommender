@@ -230,7 +230,7 @@
                             {{-- Action Button --}}
                             <div class="relative px-3 sm:px-4 pb-3 sm:pb-4">
                                 {{-- Update route parameter --}}
-                                <a href="{{ route('explore-recipes.show', $recipe->id) }}"
+                                <a href="{{ route('savoryai.show', $recipe->id) }}"
                                     class="block w-full text-white text-sm sm:text-base text-center font-semibold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
                                     style="background: linear-gradient(135deg, #DD5C36 0%, #FF8C4B 100%);
                                        transition: all 0.3s ease-in-out;">
