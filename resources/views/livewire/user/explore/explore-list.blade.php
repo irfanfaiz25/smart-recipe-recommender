@@ -1,48 +1,50 @@
 <div>
     {{-- display all recipes here --}}
     <div class="space-y-2 mb-10 text-center">
-        <h1 class="text-4xl font-bold font-display text-secondary">
+        <h1 class="text-3xl md:text-4xl font-bold font-display text-secondary">
             Semua Resep Masakan
         </h1>
-        <p class="text-primary text-sm">
+        <p class="text-primary text-xs md:text-sm">
             Resep masakan yang tersedia di SavoryAI
         </p>
     </div>
 
     {{-- Advanced Filter Section --}}
     <div
-        class="bg-primary/10 backdrop-blur-md backdrop-opacity-50 border-2 border-primary/60 rounded-xl p-6 mb-8 shadow-sm">
-        <div class="flex flex-col lg:flex-row gap-6 items-center">
+        class="bg-primary/10 backdrop-blur-md backdrop-opacity-50 border-2 border-primary/60 rounded-xl p-4 sm:p-6 mb-8 shadow-sm">
+        <div class="flex flex-col lg:flex-row gap-4 sm:gap-6 items-start lg:items-center">
             {{-- Category Pills --}}
-            <div class="flex flex-wrap items-center gap-2 flex-1">
-                <span class="text-sm font-medium text-gray-700 mr-2">Filter:</span>
-                <button wire:click='setCategory("")'
-                    class="px-4 py-2 {{ $category === '' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-sm font-medium transition-all duration-300 shadow-sm">
-                    <i class="fa-solid fa-utensils mr-1"></i> Semua
-                </button>
-                <button wire:click='setCategory("utama")'
-                    class="px-4 py-2 {{ $category === 'utama' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-sm font-medium transition-all duration-300 shadow-sm border">
-                    <i class="fa-solid fa-drumstick-bite mr-1"></i> Makanan Utama
-                </button>
-                <button wire:click='setCategory("dessert")'
-                    class="px-4 py-2 {{ $category === 'dessert' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-sm font-medium transition-all duration-300 shadow-sm border">
-                    <i class="fa-solid fa-ice-cream mr-1"></i> Dessert
-                </button>
-                <button wire:click='setCategory("diet")'
-                    class="px-4 py-2 {{ $category === 'diet' ? 'bg-secondary text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-sm font-medium transition-all duration-300 shadow-sm border">
-                    <i class="fa-solid fa-fire-flame-curved mr-1"></i> Diet Friendly
-                </button>
+            <div class="flex flex-wrap items-center gap-2 w-full lg:flex-1">
+                <span class="text-sm font-medium text-gray-700 mb-2 sm:mb-0 sm:mr-2 w-full sm:w-auto">Filter:</span>
+                <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                    <button wire:click='setCategory("")'
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 {{ $category === '' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-xs sm:text-sm font-medium transition-all duration-300 shadow-sm flex-grow sm:flex-grow-0">
+                        <i class="fa-solid fa-utensils mr-1"></i> Semua
+                    </button>
+                    <button wire:click='setCategory("utama")'
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 {{ $category === 'utama' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-xs sm:text-sm font-medium transition-all duration-300 shadow-sm border flex-grow sm:flex-grow-0">
+                        <i class="fa-solid fa-drumstick-bite mr-1"></i> Makanan Utama
+                    </button>
+                    <button wire:click='setCategory("dessert")'
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 {{ $category === 'dessert' ? 'bg-secondary hover:bg-secondary/90 text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-xs sm:text-sm font-medium transition-all duration-300 shadow-sm border flex-grow sm:flex-grow-0">
+                        <i class="fa-solid fa-ice-cream mr-1"></i> Dessert
+                    </button>
+                    <button wire:click='setCategory("diet")'
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 {{ $category === 'diet' ? 'bg-secondary text-white' : 'bg-white hover:bg-gray-100 text-gray-700' }} rounded-full text-xs sm:text-sm font-medium transition-all duration-300 shadow-sm border flex-grow sm:flex-grow-0">
+                        <i class="fa-solid fa-fire-flame-curved mr-1"></i> Diet Friendly
+                    </button>
+                </div>
             </div>
 
             {{-- Search and Sort --}}
-            <div class="flex items-center gap-3">
-                <div class="relative">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="relative flex-grow sm:flex-grow-0">
                     <input type="text" placeholder="Cari resep favorit..." wire:model.live.debounce.300ms='search'
-                        class="pl-10 pr-4 py-2.5 w-64 text-sm font-medium border border-gray-200 rounded-full focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all duration-300 bg-white">
+                        class="w-full sm:w-64 pl-10 pr-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border border-gray-200 rounded-full focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all duration-300 bg-white">
                     <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
                 <select wire:model.live.debounce.300ms='sortBy'
-                    class="px-4 py-2.5 text-sm font-medium border border-gray-200 rounded-full focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none bg-white">
+                    class="w-full sm:w-auto px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border border-gray-200 rounded-full focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none bg-white">
                     <option value="latest">Terbaru</option>
                     <option value="popular">Terpopuler</option>
                     <option value="rating">Rating Tertinggi</option>

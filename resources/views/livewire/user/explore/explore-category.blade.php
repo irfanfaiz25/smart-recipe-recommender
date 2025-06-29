@@ -40,24 +40,24 @@
 
     {{-- Search and Filter Section --}}
     <div class="max-w-6xl mx-auto px-4 -mt-8 relative z-10">
-        <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-gray-200">
+            <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
                 {{-- Search Bar --}}
-                <div class="flex-1 relative">
+                <div class="flex-1 w-full sm:w-auto">
                     <div class="relative">
                         <i
                             class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="text" wire:model.live.debounce.300ms="searchTerm"
                             placeholder="Cari resep, bahan, atau kreator..."
-                            class="w-full pl-12 pr-4 py-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            class="w-full pl-12 pr-4 py-2.5 sm:py-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                     </div>
                 </div>
 
                 {{-- Sort Dropdown --}}
-                <div class="flex items-center gap-4">
-                    <label class="text-sm font-medium text-gray-700">Urutkan:</label>
+                <div class="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                    <label class="text-sm font-medium text-gray-700 whitespace-nowrap">Urutkan:</label>
                     <select wire:model.live="sortBy"
-                        class="px-4 py-3 text-sm font-medium border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full sm:w-auto px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-medium border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="trending">Trending</option>
                         <option value="newest">Terbaru</option>
                         <option value="rating">Rating Tertinggi</option>

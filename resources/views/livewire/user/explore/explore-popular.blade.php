@@ -1,20 +1,20 @@
 <div>
     {{-- Popular Recipes Carousel Section --}}
-    <div class="relative w-full overflow-hidden mb-16">
+    <div class="relative w-full overflow-hidden mb-8 md:mb-16">
         {{-- Carousel Container --}}
         <div class="carousel-container relative">
             <div class="carousel-track flex transition-transform duration-700 ease-in-out" id="popularCarousel">
                 @foreach ($popularRecipes as $index => $recipe)
-                    <div class="carousel-slide flex-none w-1/3 px-2">
+                    <div class="carousel-slide flex-none w-full sm:w-1/2 lg:w-1/3 px-1 sm:px-2">
                         <div
-                            class="h-72 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
+                            class="h-64 sm:h-72 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
                             {{-- Recipe Image --}}
                             @if ($recipe->image)
                                 <img src="{{ asset($recipe['image']) }}" alt="{{ $recipe['name'] }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             @else
                                 <div class="w-full h-full bg-gray-100 flex justify-center items-center">
-                                    <i class="fa fa-utensils text-3xl text-gray-300"></i>
+                                    <i class="fa fa-utensils text-2xl sm:text-3xl text-gray-300"></i>
                                 </div>
                             @endif
 
@@ -25,15 +25,16 @@
 
                             {{-- Recipe Info --}}
                             <div
-                                class="w-full absolute bottom-0 left-0 px-5 pb-2 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500 flex justify-between group-hover:block">
+                                class="w-full absolute bottom-0 left-0 px-3 sm:px-5 pb-2 group-hover:bottom-1/2 group-hover:left-1/2 group-hover:-translate-x-1/2 group-hover:translate-y-1/2 transition-all duration-500 flex justify-between group-hover:block">
                                 {{-- Recipe Name --}}
                                 <h3
-                                    class="text-lg font-semibold text-white transition-all duration-500 group-hover:text-center mb-2">
+                                    class="text-sm sm:text-lg font-semibold text-white transition-all duration-500 group-hover:text-center mb-1 sm:mb-2 line-clamp-2 sm:line-clamp-none">
                                     {{ $recipe['name'] }}
                                 </h3>
 
                                 {{-- Recipe Rating --}}
-                                <div class="group-hover:hidden text-sm font-medium text-gray-300">
+                                <div
+                                    class="group-hover:hidden text-xs sm:text-sm font-medium text-gray-300 flex-shrink-0">
                                     @if ($recipe->ratings->count() > 0)
                                         @for ($i = 1; $i <= 5; $i++)
                                             <i
@@ -54,20 +55,23 @@
                                 </div>
 
                                 {{-- Recipe Description --}}
-                                <p class="hidden group-hover:block text-sm text-center font-medium text-gray-300">
+                                <p
+                                    class="hidden group-hover:block text-xs sm:text-sm text-center font-medium text-gray-300 line-clamp-3">
                                     {{ $recipe['description'] }}
                                 </p>
                             </div>
 
                             {{-- Recipe Badge --}}
                             <div
-                                class="absolute top-4 left-4 bg-white text-secondary text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                                class="absolute top-2 sm:top-4 left-2 sm:left-4 bg-white text-secondary text-xs font-bold px-2 sm:px-3 py-1 rounded-full shadow-lg">
                                 #{{ $index + 1 }}
                             </div>
-                            <div class="absolute top-4 right-4 text-xs font-normal">
+                            <div class="absolute top-2 sm:top-4 right-2 sm:right-4 text-xs font-normal">
                                 <a href="{{ route('explore-recipes.show', $recipe->id) }}"
-                                    class="bg-yellow-400 text-black px-3 py-1 rounded-full flex items-center gap-1">
-                                    <i class="fa fa-up-right-from-square"></i> Lihat Detail
+                                    class="bg-yellow-400 text-black px-2 sm:px-3 py-1 rounded-full flex items-center gap-1 text-xs">
+                                    <i class="fa fa-up-right-from-square"></i>
+                                    <span class="hidden sm:inline">Lihat Detail</span>
+                                    <span class="sm:hidden">Detail</span>
                                 </a>
                             </div>
                         </div>
@@ -77,21 +81,23 @@
         </div>
 
         {{-- Navigation Arrows --}}
-        <button
-            class="carousel-btn carousel-prev absolute left-4 top-[45%] transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-3 text-sm rounded-full shadow-lg transition-all duration-300 z-10 group">
-            <i class="fa-solid fa-chevron-left group-hover:scale-110 transition-transform duration-300"></i>
-        </button>
+        @if ($popularRecipes->count() > 1)
+            <button
+                class="carousel-btn carousel-prev absolute left-1 sm:left-4 top-[45%] transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-2 sm:p-3 text-xs sm:text-sm rounded-full shadow-lg transition-all duration-300 z-10 group">
+                <i class="fa-solid fa-chevron-left group-hover:scale-110 transition-transform duration-300"></i>
+            </button>
 
-        <button
-            class="carousel-btn carousel-next absolute right-4 top-[45%] transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-3 text-sm rounded-full shadow-lg transition-all duration-300 z-10 group">
-            <i class="fa-solid fa-chevron-right group-hover:scale-110 transition-transform duration-300"></i>
-        </button>
+            <button
+                class="carousel-btn carousel-next absolute right-1 sm:right-4 top-[45%] transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-2 sm:p-3 text-xs sm:text-sm rounded-full shadow-lg transition-all duration-300 z-10 group">
+                <i class="fa-solid fa-chevron-right group-hover:scale-110 transition-transform duration-300"></i>
+            </button>
+        @endif
 
         {{-- Carousel Indicators --}}
-        <div class="flex justify-center mt-6 py-2 space-x-2">
-            @for ($i = 0; $i < 6; $i++)
+        <div class="flex justify-center mt-4 sm:mt-6 py-2 space-x-1 sm:space-x-2">
+            @for ($i = 0; $i < $popularRecipes->count(); $i++)
                 <button
-                    class="carousel-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-secondary transition-all duration-300 {{ $i === 0 ? 'bg-secondary scale-125' : '' }}"
+                    class="carousel-indicator w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-300 hover:bg-secondary transition-all duration-300 {{ $i === 0 ? 'bg-secondary scale-125' : '' }}"
                     data-slide="{{ $i }}"></button>
             @endfor
         </div>
@@ -104,9 +110,16 @@
             const carousel = document.getElementById('popularCarousel');
             const slides = carousel.children;
             const totalSlides = slides.length;
-            const slidesToShow = 3;
-            const maxSlideIndex = totalSlides - slidesToShow;
 
+            // Responsive slides to show
+            function getSlidesToShow() {
+                if (window.innerWidth < 640) return 1; // Mobile
+                if (window.innerWidth < 1024) return 2; // Tablet
+                return 3; // Desktop
+            }
+
+            let slidesToShow = getSlidesToShow();
+            let maxSlideIndex = totalSlides - slidesToShow;
             let currentSlide = 0;
             let isAutoPlaying = true;
             let autoPlayInterval;
@@ -114,7 +127,6 @@
             const indicators = document.querySelectorAll('.carousel-indicator');
             const prevBtn = document.querySelector('.carousel-prev');
             const nextBtn = document.querySelector('.carousel-next');
-            // Removed references to play/pause button elements
 
             // Update carousel position
             function updateCarousel() {
@@ -156,6 +168,17 @@
                 clearInterval(autoPlayInterval);
             }
 
+            // Handle window resize
+            function handleResize() {
+                const newSlidesToShow = getSlidesToShow();
+                if (newSlidesToShow !== slidesToShow) {
+                    slidesToShow = newSlidesToShow;
+                    maxSlideIndex = totalSlides - slidesToShow;
+                    currentSlide = Math.min(currentSlide, maxSlideIndex);
+                    updateCarousel();
+                }
+            }
+
             // Event listeners
             nextBtn.addEventListener('click', () => {
                 nextSlide();
@@ -183,7 +206,8 @@
                 });
             });
 
-            // Removed play/pause button event listener
+            // Window resize listener
+            window.addEventListener('resize', handleResize);
 
             // Pause on hover
             carousel.addEventListener('mouseenter', () => {
