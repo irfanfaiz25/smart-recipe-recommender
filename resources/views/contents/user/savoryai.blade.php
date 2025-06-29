@@ -12,8 +12,8 @@
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 -translate-y-8 scale-95">
             <div>
-                <h1 class="text-[44px] font-display text-center text-secondary mb-3">SavoryAI</h1>
-                <h1 class="text-lg font-sans font-medium text-center">Smart Recipe Recommender</h1>
+                <h1 class="text-3xl md:text-[44px] font-display text-center text-secondary md:mb-3">SavoryAI</h1>
+                <h1 class="text-base md:text-lg font-sans font-medium text-center">Smart Recipe Recommender</h1>
             </div>
 
             <div class="mt-10 w-full space-y-4">

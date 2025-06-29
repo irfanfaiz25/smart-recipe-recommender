@@ -1,7 +1,7 @@
 <div class="mt-20 w-full space-y-4">
     <!-- Search and Filter Section -->
-    <div class="flex justify-between items-center mb-6">
-        <div class="w-1/3">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6 mb-6">
+        <div class="w-full md:w-1/3">
             <div class="relative">
                 <input type="text" placeholder="Cari resep favorit..." wire:model.live.debounce.300ms="search"
                     class="w-full bg-white dark:bg-bg-dark-primary placeholder:text-slate-400 text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full pl-10 pr-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
@@ -10,16 +10,16 @@
                 </div>
             </div>
         </div>
-        <div class="flex space-x-3">
+        <div class="flex flex-col sm:flex-row w-full md:w-auto gap-3">
             <select wire:model.live.debounce.300ms="category"
-                class="bg-white dark:bg-bg-dark-primary text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full px-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
+                class="w-full sm:w-auto bg-white dark:bg-bg-dark-primary text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full px-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
                 <option value="">Semua Kategori</option>
                 <option value="rendah">Kalori Rendah</option>
                 <option value="sedang">Kalori Sedang</option>
                 <option value="tinggi">Kalori Tinggi</option>
             </select>
             <select wire:model.live.debounce.300ms="sortBy"
-                class="bg-white dark:bg-bg-dark-primary text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full px-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
+                class="w-full sm:w-auto bg-white dark:bg-bg-dark-primary text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-full px-4 py-2.5 transition duration-300 ease focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 hover:border-gray-300 shadow-md">
                 <option value="latest">Terbaru</option>
                 <option value="higher">Rating Tertinggi</option>
                 <option value="lower">Rating Terendah</option>
@@ -134,13 +134,13 @@
                     <!-- View Recipe Button -->
                     <div class="mt-4 flex space-x-2">
                         <a href="{{ route('explore-recipes.show', $recipe->id) }}"
-                            class="block text-lg font-semibold w-full py-2 bg-gradient-to-r from-primary to-primary-light text-center text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
+                            class="block text-base md:text-lg font-semibold w-full py-2 bg-gradient-to-r from-primary to-primary-light text-center text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
                             Lihat Resep
                         </a>
                         <!-- Bookmark Icon (for removal) -->
                         <button wire:click='toggleBookmark({{ $recipe->id }})'
                             class="w-[20%] p-1.5 bg-white/80 hover:bg-white border border-secondary/30 hover:border-secondary text-secondary hover:text-rose-500 rounded-md shadow-md transition-all duration-200 z-10">
-                            <i class="fa-solid fa-bookmark"></i>
+                            <i class="fa-solid fa-bookmark text-base md:text-lg"></i>
                         </button>
                     </div>
                 </div>
@@ -152,9 +152,10 @@
                 <div class="text-6xl text-gray-300 dark:text-gray-600 mb-4">
                     <i class="fa-regular fa-bookmark"></i>
                 </div>
-                <h3 class="text-xl font-medium text-gray-500 dark:text-gray-400 mb-2">Belum Ada Resep Favorit
+                <h3 class="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 mb-2">Belum Ada Resep Favorit
                 </h3>
-                <p class="text-gray-400 dark:text-gray-500 mb-6 text-base font-medium text-center max-w-md">Anda belum
+                <p class="text-gray-400 dark:text-gray-500 mb-6 text-sm md:text-base font-medium text-center max-w-md">
+                    Anda belum
                     menyimpan
                     resep
                     favorit. Jelajahi resep-resep menarik dan simpan untuk referensi nanti.</p>
