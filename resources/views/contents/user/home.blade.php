@@ -44,27 +44,27 @@
                 </p> --}}
 
                 <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8">
-                    <div class="flex items-center space-x-3 text-gray-100">
-                        <i class="fa-solid fa-users text-2xl text-[#64e9d1]"></i>
+                    <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
+                        <i class="fa-solid fa-users text-lg md:text-2xl text-[#64e9d1]"></i>
                         <div>
-                            <p class="text-xl font-bold">20K+</p>
-                            <p class="text-sm opacity-80">Happy Users</p>
+                            <p class="text-base md:text-xl font-bold">20K+</p>
+                            <p class="text-xs md:text-sm opacity-80">Happy Users</p>
                         </div>
                     </div>
                     <div class="hidden sm:block w-px h-10 bg-gray-500/50"></div>
-                    <div class="flex items-center space-x-3 text-gray-100">
-                        <i class="fa-solid fa-lemon text-2xl text-[#FAD126]"></i>
+                    <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
+                        <i class="fa-solid fa-lemon text-lg md:text-2xl text-[#FAD126]"></i>
                         <div>
-                            <p class="text-xl font-bold">500+</p>
-                            <p class="text-sm opacity-80">Ingredients Recognized</p>
+                            <p class="text-base md:text-xl font-bold">500+</p>
+                            <p class="text-xs md:text-sm opacity-80">Ingredients Recognized</p>
                         </div>
                     </div>
                     <div class="hidden sm:block w-px h-10 bg-gray-500/50"></div>
-                    <div class="flex items-center space-x-3 text-gray-100">
-                        <i class="fa-solid fa-book-open-reader text-2xl text-[#ff834e]"></i>
+                    <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
+                        <i class="fa-solid fa-book-open-reader text-lg md:text-2xl text-[#ff834e]"></i>
                         <div>
-                            <p class="text-xl font-bold">1.5K+</p>
-                            <p class="text-sm opacity-80">Unique Recipes</p>
+                            <p class="text-base md:text-xl font-bold">1.5K+</p>
+                            <p class="text-xs md:text-sm opacity-80">Unique Recipes</p>
                         </div>
                     </div>
                 </div>
@@ -104,12 +104,12 @@
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16 lg:mb-24" x-data="{ inView: false }" x-intersect.once="inView = true">
-                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
+                <h2 class="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Masak Cerdas dalam 3 Langkah
                 </h2>
-                <p class="text-lg font-medium text-gray-600 max-w-3xl mx-auto" x-show="inView"
+                <p class="text-sm md:text-lg font-medium text-gray-600 max-w-3xl mx-auto" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-400"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Cukup foto bahanmu atau pilih manual, biarkan AI kami bekerja, dan nikmati resep lezat yang
@@ -177,7 +177,7 @@
                         <div
                             class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-gray-200/50 transform hover:-translate-y-2">
                             <div
-                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#FF564E] to-[#ff834e] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
+                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FF564E] to-[#ff834e] rounded-full flex items-center justify-center text-white font-bold text-base md:text-xl shadow-lg group-hover:scale-110 transition-transform">
                                 1
                             </div>
                             <div class="mt-8 mb-6 text-center">
@@ -186,8 +186,10 @@
                                     <i class="fas fa-camera-retro text-4xl text-[#FF564E]"></i>
                                 </div>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">Pilih Bahanmu</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed text-center mb-6">Mulai dengan apa yang ada di
+                            <h3 class="text-lg md:text-2xl font-bold text-gray-800 mb-3 text-center">Pilih Bahanmu</h3>
+                            <p class="text-gray-600 text-xs md:text-sm font-medium leading-relaxed text-center mb-6">Mulai
+                                dengan apa
+                                yang ada di
                                 kulkas atau pantry Anda.</p>
                             <div class="space-y-3">
                                 <div class="flex items-center space-x-3 p-3 bg-rose-50 rounded-xl border border-rose-200">
@@ -197,7 +199,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-800 text-sm">Upload Foto Bahan</p>
-                                        <p class="text-gray-600 text-xs">AI deteksi otomatis.</p>
+                                        <p class="text-gray-600 font-normal text-xs">AI deteksi otomatis.</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-3 p-3 bg-gray-100 rounded-xl border border-gray-200">
@@ -207,7 +209,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-800 text-sm">Pilih Manual</p>
-                                        <p class="text-gray-600 text-xs">Dari daftar lengkap kami.</p>
+                                        <p class="text-gray-600 font-normal text-xs">Dari daftar lengkap kami.</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +224,7 @@
                         <div
                             class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-gray-200/50 transform hover:-translate-y-2">
                             <div
-                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#43c8a9] to-[#64e9d1] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
+                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#43c8a9] to-[#64e9d1] rounded-full flex items-center justify-center text-white font-bold text-base md:text-xl shadow-lg group-hover:scale-110 transition-transform">
                                 2
                             </div>
                             <div class="mt-8 mb-6 text-center">
@@ -231,9 +233,13 @@
                                     <i class="fas fa-brain text-4xl text-[#43c8a9]"></i>
                                 </div>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">Analisis AI Cerdas</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed text-center mb-6">AI kami mencocokkan bahan
-                                dengan database resep & preferensi Anda.</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-gray-800 mb-3 text-center">
+                                Analisis AI Cerdas
+                            </h3>
+                            <p class="text-gray-600 font-normal text-sm leading-relaxed text-center mb-6">
+                                AI kami mencocokkan bahan
+                                dengan database resep & preferensi Anda.
+                            </p>
                             <div class="text-center space-y-3">
                                 <div class="flex justify-center space-x-2 my-4">
                                     <div class="w-3 h-3 bg-[#43c8a9] rounded-full animate-bounce"></div>
@@ -258,7 +264,7 @@
                         <div
                             class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-gray-200/50 transform hover:-translate-y-2">
                             <div
-                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#FAD126] to-[#ffc04e] rounded-full flex items-center justify-center text-gray-800 font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
+                                class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FAD126] to-[#ffc04e] rounded-full flex items-center justify-center text-gray-800 font-bold text-base md:text-xl shadow-lg group-hover:scale-110 transition-transform">
                                 3
                             </div>
                             <div class="mt-8 mb-6 text-center">
@@ -267,9 +273,12 @@
                                     <i class="fas fa-utensils text-4xl text-[#FAD126]"></i>
                                 </div>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">Resep Lezat Menanti</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed text-center mb-6">Dapatkan rekomendasi resep
-                                lengkap dengan instruksi langkah demi langkah.</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-gray-800 mb-3 text-center">
+                                Resep Lezat Menanti
+                            </h3>
+                            <p class="text-gray-600 text-sm font-normal leading-relaxed text-center mb-6">
+                                Dapatkan rekomendasi resep lengkap dengan instruksi langkah demi langkah.
+                            </p>
                             <div class="space-y-2">
                                 <div
                                     class="bg-yellow-50 rounded-lg p-3 flex items-center space-x-2 border border-yellow-200">
@@ -296,7 +305,7 @@
                     x-transition:enter="transition ease-out duration-1000 delay-1200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     <a href="{{ Auth::check() ? route('savoryai.index') : route('login') }}" wire:navigate
-                        class="inline-flex items-center px-10 py-4 bg-gradient-to-r from-teal-500 to-[#6cf2da] text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-teal-500/50">
+                        class="inline-flex items-center px-10 py-4 bg-gradient-to-r from-teal-500 to-[#6cf2da] text-white text-base md:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-teal-500/50">
                         <i
                             class="fas fa-magic mr-3 transform group-hover:rotate-[15deg] transition-transform duration-300"></i>
                         Coba SavoryAI Sekarang
@@ -312,12 +321,12 @@
     <section class="py-20 min-h-screen flex flex-col justify-center lg:py-32 bg-gradient-to-br from-slate-100 to-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 lg:mb-24" x-data="{ inView: false }" x-intersect.once="inView = true">
-                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
+                <h2 class="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Jelajahi Dunia Rasa
                 </h2>
-                <p class="text-lg font-medium text-gray-600 max-w-2xl mx-auto" x-show="inView"
+                <p class="text-sm md:text-lg font-medium text-gray-600 max-w-2xl mx-auto" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-400"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Temukan inspirasi dari berbagai kategori resep favorit.
@@ -380,8 +389,8 @@
                                         class="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-md">
                                         <i class="{{ $category['icon'] }} text-4xl text-white"></i>
                                     </div>
-                                    <h3 class="text-2xl font-bold mb-1">{{ $category['name'] }}</h3>
-                                    <p class="text-white/80 text-sm px-2">{{ $category['desc'] }}</p>
+                                    <h3 class="text-lg md:text-2xl font-bold mb-1">{{ $category['name'] }}</h3>
+                                    <p class="text-white/80 font-medium text-sm px-2">{{ $category['desc'] }}</p>
                                 </div>
                                 <div class="text-center mt-auto">
                                     <div
@@ -398,7 +407,7 @@
             </div>
             <div class="text-center mt-12 lg:mt-24" x-data="{ inView: false }" x-intersect.once="inView = true">
                 <a href="{{ route('explore-recipes.index') }}" wire:navigate
-                    class="inline-flex items-center px-8 py-3 bg-white text-gray-700 text-lg font-semibold rounded-xl shadow-md hover:shadow-lg hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 border border-gray-300"
+                    class="inline-flex items-center px-8 py-3 bg-white text-gray-700 text-base md:text-lg font-semibold rounded-xl shadow-md hover:shadow-lg hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 border border-gray-300"
                     x-show="inView" x-transition:enter="transition ease-out duration-1000 delay-1200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Jelajahi Semua Kategori
@@ -412,12 +421,12 @@
     <section class="py-20 min-h-screen flex flex-col justify-center lg:py-32 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 lg:mb-24" x-data="{ inView: false }" x-intersect.once="inView = true">
-                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
+                <h2 class="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-gray-800 mb-4" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Resep Pilihan Minggu Ini
                 </h2>
-                <p class="text-lg font-medium text-gray-600 max-w-2xl mx-auto" x-show="inView"
+                <p class="text-sm md:text-lg font-medium text-gray-600 max-w-2xl mx-auto" x-show="inView"
                     x-transition:enter="transition ease-out duration-1000 delay-400"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Lihat apa yang sedang populer dan dicintai oleh komunitas SavoryAI.
@@ -528,7 +537,7 @@
 
             <div class="text-center mt-12 lg:mt-24" x-data="{ inView: false }" x-intersect.once="inView = true">
                 <a href="{{ route('explore-recipes.index') }}" wire:navigate
-                    class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                    class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-base md:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                     x-show="inView" x-transition:enter="transition ease-out duration-1000 delay-1200"
                     x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     Lihat Semua Resep Populer
@@ -591,13 +600,13 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div x-data="{ inView: false }" x-intersect.once="inView = true">
-                    <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6" x-show="inView"
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6" x-show="inView"
                         x-transition:enter="transition ease-out duration-1000 delay-200"
                         x-transition:enter-start="opacity-0 translate-x-8"
                         x-transition:enter-end="opacity-100 translate-x-0">
                         AI yang Beneran Ngerti, <br class="hidden sm:block">Masak Jadi Gampang!
                     </h2>
-                    <p class="text-xl mb-10 opacity-90 leading-relaxed" x-show="inView"
+                    <p class="text-base md:text-xl font-medium mb-10 opacity-90 leading-relaxed" x-show="inView"
                         x-transition:enter="transition ease-out duration-1000 delay-400"
                         x-transition:enter-start="opacity-0 translate-x-8"
                         x-transition:enter-end="opacity-100 translate-x-0">
@@ -641,8 +650,9 @@
                                     <i class="{{ $feature['icon'] }} text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-1">{{ $feature['title'] }}</h3>
-                                    <p class="opacity-80 text-sm leading-relaxed">{{ $feature['desc'] }}</p>
+                                    <h3 class="text-base md:text-xl font-semibold mb-1">{{ $feature['title'] }}</h3>
+                                    <p class="opacity-80 text-xs md:text-sm font-medium leading-relaxed">
+                                        {{ $feature['desc'] }}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -660,8 +670,9 @@
                                     class="w-24 h-24 bg-gradient-to-br from-white/30 to-white/10 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
                                     <i class="fas fa-robot text-5xl text-white animate-pulse-slow"></i>
                                 </div>
-                                <h3 class="text-3xl font-bold font-display">SavoryAI Assistant</h3>
-                                <p class="opacity-90 mt-1">Temen masak yang selalu siap bantuin!</p>
+                                <h3 class="text-2xl md:text-3xl font-bold font-display">SavoryAI Assistant</h3>
+                                <p class="opacity-90 text-sm md:text-base font-medium mt-1">Temen masak yang selalu siap
+                                    bantuin!</p>
                             </div>
 
                             <div class="space-y-4">
@@ -690,9 +701,9 @@
                                         <div class="flex items-center space-x-3">
                                             <div
                                                 class="w-8 h-8 flex items-center justify-center rounded-full {{ $feat['color'] }}">
-                                                <i class="{{ $feat['icon'] }} text-xl"></i>
+                                                <i class="{{ $feat['icon'] }} text-base md:text-xl"></i>
                                             </div>
-                                            <span class="font-medium">{{ $feat['text'] }}</span>
+                                            <span class="font-medium text-base md:text-lg">{{ $feat['text'] }}</span>
                                         </div>
                                     </div>
                                 @endforeach
@@ -732,13 +743,13 @@
                             <i class="fas fa-rocket mr-2"></i>Siap Memulai?
                         </span>
                     </div>
-                    <h2 class="text-4xl lg:text-5xl font-display font-bold text-white mb-8" x-show="inView"
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-8" x-show="inView"
                         x-transition:enter="transition ease-out duration-1000 delay-200"
                         x-transition:enter-start="opacity-0 translate-y-8"
                         x-transition:enter-end="opacity-100 translate-y-0">
                         Mulai Petualangan Kuliner Anda Hari Ini!
                     </h2>
-                    <p class="text-lg font-normal text-gray-50 mb-20 leading-relaxed" x-show="inView"
+                    <p class="text-sm md:text-lg font-normal text-gray-50 mb-20 leading-relaxed" x-show="inView"
                         x-transition:enter="transition ease-out duration-1000 delay-400"
                         x-transition:enter-start="opacity-0 translate-y-8"
                         x-transition:enter-end="opacity-100 translate-y-0">
@@ -751,13 +762,13 @@
                         x-transition:enter-start="opacity-0 translate-y-8 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100">
                         <a href="{{ Auth::check() ? route('savoryai.index') : route('register') }}" wire:navigate
-                            class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FF564E]/50">
+                            class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#FF564E] to-[#ff834e] text-white text-base md:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FF564E]/50">
                             {{ Auth::check() ? 'Masuk ke Dapur AI' : 'Daftar Gratis Sekarang' }}
                             <i class="fas fa-arrow-right ml-2"></i>
                         </a>
 
                         <a href="{{ route('explore-recipes.index') }}" wire:navigate
-                            class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-lg text-gray-50 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
+                            class="w-full sm:w-auto px-8 py-4 border-2 border-gray-300 text-base md:text-lg text-gray-50 font-semibold rounded-xl hover:border-[#FF564E] hover:text-[#FF564E] hover:bg-rose-50 transition-all duration-300 transform hover:scale-105">
                             Jelajahi Resep <i class="fas fa-search ml-2"></i>
                         </a>
                     </div>
