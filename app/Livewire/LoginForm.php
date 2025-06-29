@@ -31,7 +31,7 @@ class LoginForm extends Component
             'avatar' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:8'
         ]);
 
         $avatarPath = '';

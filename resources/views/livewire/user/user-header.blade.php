@@ -114,7 +114,7 @@
                     class="absolute right-0 mt-5 w-56 rounded-xl bg-white dark:bg-bg-dark-primary shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-800 focus:outline-none">
                     @role('admin')
                         <div class="p-2">
-                            <a href="{{ route('admin-recipes.index') }}" wire:navigate
+                            <a href="{{ route('admin-recipes.index') }}"
                                 class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
                                 <i class="fa-solid fa-user-shield text-base"></i>
                                 <span>Admin Panel</span>
@@ -123,7 +123,7 @@
                     @endrole
                     @role('creators')
                         <div class="p-2">
-                            <a href="{{ route('dashboard.index') }}" wire:navigate
+                            <a href="{{ route('dashboard.index') }}"
                                 class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary dark:text-text-dark-primary' }}">
                                 <i class="fa-solid fa-kitchen-set text-base"></i>
                                 <span>Creators Panel</span>

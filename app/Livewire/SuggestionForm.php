@@ -112,7 +112,7 @@ class SuggestionForm extends Component
                 'error' => $e->getMessage(),
                 'user_id' => auth()->id()
             ]);
-            
+
             Toaster::error('Maaf, terjadi kesalahan saat mengirim saran. Silakan coba lagi.');
         }
     }
@@ -127,14 +127,14 @@ class SuggestionForm extends Component
             'priority',
             'additional_features'
         ]);
-        
+
         // Reset ratings to default values
         $this->rating = 5;
         $this->ease_of_use = 5;
         $this->performance = 5;
         $this->design = 5;
         $this->would_recommend = true;
-        
+
         // Keep user info if logged in
         if (!auth()->check()) {
             $this->reset(['name', 'email']);

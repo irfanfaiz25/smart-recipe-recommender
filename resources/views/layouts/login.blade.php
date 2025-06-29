@@ -29,7 +29,7 @@
     <link rel="icon" href="{{ asset('img/Logo.png') }}">
 
     <!-- Include Tailwind CSS -->
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- google font --}}
     <link
@@ -48,7 +48,10 @@
 
 <body class="h-full flex items-center justify-center p-4 font-sans">
 
-    @livewire('login-form')
+    @yield('content')
+
+    <!-- Include GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <script>
         gsap.to('.fab', {
@@ -62,6 +65,9 @@
     </script>
 
     @livewireScripts
+
+    <x-toaster-hub />
+
 </body>
 
 </html>

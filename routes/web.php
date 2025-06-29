@@ -13,7 +13,7 @@ Route::get('/api/auth/google/callback', [GoogleAuthController::class, 'callback'
 
 // redirect to login page
 Route::get('/login', function () {
-    return view('layouts.login');
+    return view('contents.auth.form');
 })->name('login');
 
 // login action
@@ -21,6 +21,18 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.action');
 
 // register
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+// forgot password
+Route::get('/forgot-password', function () {
+    return view('contents.auth.forgot-password');
+})->name('forgot-password.index');
+
+// reset password
+Route::get('/reset-password/{token}', function ($token) {
+    return view('contents.auth.reset-password', [
+        'token' => $token
+    ]);
+})->name('password.reset');
 
 // logout
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
