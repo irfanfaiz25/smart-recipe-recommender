@@ -137,18 +137,19 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             <!-- Recent Recipes -->
             <div class="lg:col-span-2">
-                <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">📝 Resep Terbaru
-                        </h3>
+                <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-4 sm:p-6">
+                    <div class="flex items-center justify-between mb-4 sm:mb-6">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary">📝 Resep
+                            Terbaru</h3>
                         <a href="{{ route('recipes.index') }}"
                             class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300 text-sm font-medium">Lihat
                             Semua</a>
                     </div>
-                    <div class="space-y-1">
+                    <div class="space-y-2 sm:space-y-1">
                         @forelse($recentRecipes as $recipe)
-                            <div class="flex space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200">
-                                <div class="w-[20%] h-24">
+                            <div
+                                class="flex flex-col sm:flex-row gap-3 sm:space-x-4 p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200">
+                                <div class="w-full sm:w-[20%] h-32 sm:h-24">
                                     @if ($recipe->image)
                                         <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
                                             class="w-full h-full rounded-lg object-cover shadow-md">
@@ -159,49 +160,50 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900 dark:text-text-dark-primary">
+                                <div class="flex-1 min-w-0">
+                                    <h4
+                                        class="text-base font-semibold text-gray-900 dark:text-text-dark-primary truncate">
                                         {{ $recipe->name }}</h4>
-                                    <p class="text-sm font-normal text-gray-500 dark:text-gray-200">
+                                    <p class="text-sm font-normal text-gray-500 dark:text-gray-200 truncate">
                                         {{ $recipe->category->name }}
                                         •
                                         {{ $recipe->views_count }} kali dilihat</p>
                                     <p class="text-xs font-normal text-gray-400">
                                         {{ $recipe->created_at->diffForHumans() }}</p>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    @if ($recipe->moderation)
-                                        <span
-                                            class="px-2 py-1 text-xs rounded-full 
-                                            {{ $recipe->moderation->status === 'approved'
-                                                ? 'bg-green-100 text-green-800'
-                                                : ($recipe->moderation->status === 'pending'
-                                                    ? 'bg-yellow-100 text-yellow-800'
-                                                    : 'bg-red-100 text-red-800') }}">
-                                            {{ $recipe->moderation->status === 'approved' ? 'Disetujui' : ($recipe->moderation->status === 'pending' ? 'Menunggu' : 'Ditolak') }}
-                                        </span>
-                                    @endif
-                                    <a href="{{ route('recipes.edit', $recipe) }}"
-                                        class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
+                                    <div class="flex items-center space-x-2 mt-2 sm:mt-0">
+                                        @if ($recipe->moderation)
+                                            <span
+                                                class="inline-block px-2 py-1 text-xs rounded-full 
+                                                {{ $recipe->moderation->status === 'approved'
+                                                    ? 'bg-green-100 text-green-800'
+                                                    : ($recipe->moderation->status === 'pending'
+                                                        ? 'bg-yellow-100 text-yellow-800'
+                                                        : 'bg-red-100 text-red-800') }}">
+                                                {{ $recipe->moderation->status === 'approved' ? 'Disetujui' : ($recipe->moderation->status === 'pending' ? 'Menunggu' : 'Ditolak') }}
+                                            </span>
+                                        @endif
+                                        <a href="{{ route('recipes.edit', $recipe) }}"
+                                            class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         @empty
                             <div class="text-center py-8">
-                                <svg class="w-16 h-16 mx-auto text-gray-300 dark:text-gray-200 mb-4" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-gray-300 dark:text-gray-200 mb-4"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <p class="text-gray-500 dark:text-gray-300">Belum ada resep nih. Yuk bikin resep
-                                    pertamamu!</p>
+                                <p class="text-gray-500 dark:text-gray-300 text-sm sm:text-base">Belum ada resep nih.
+                                    Yuk bikin resep pertamamu!</p>
                                 <a href="{{ route('recipes.create') }}"
-                                    class="mt-2 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Buat
+                                    class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Buat
                                     Resep</a>
                             </div>
                         @endforelse
@@ -260,48 +262,52 @@
 
         <!-- Recent Ratings -->
         @if ($recentRatings->count() > 0)
-            <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6 mb-8">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">⭐ Rating & Ulasan
+            <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-4 sm:p-6 mb-8">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4 sm:mb-6">⭐
+                    Rating & Ulasan
                     Terbaru</h3>
                 <div class="space-y-4">
                     @foreach ($recentRatings as $rating)
-                        <div class="border-l-4 border-indigo-500 pl-4 py-2">
-                            <div class="flex items-center justify-between">
+                        <div class="border-l-4 border-indigo-500 pl-3 sm:pl-4 py-2">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
                                 <div class="flex items-center space-x-3">
                                     @if ($rating->user->avatar_url)
                                         <img src="{{ $rating->user->avatar_url }}" alt="{{ $rating->user->name }}"
-                                            class="w-8 h-8 rounded-full object-cover shadow-md">
+                                            class="w-8 h-8 rounded-full object-cover shadow-md flex-shrink-0">
                                     @else
                                         <div
-                                            class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base">
+                                            class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base flex-shrink-0">
                                             {{ implode('',array_map(function ($word) {return ucfirst(substr($word, 0, 1));}, explode(' ', $rating->user->name))) }}
                                         </div>
                                     @endif
-                                    <div>
+                                    <div class="min-w-0">
                                         <p
-                                            class="font-semibold text-sm text-gray-900 dark:text-text-dark-primary capitalize">
+                                            class="font-semibold text-sm text-gray-900 dark:text-text-dark-primary capitalize truncate">
                                             {{ $rating->user->name }}
                                         </p>
-                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-200">
+                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-200 truncate">
                                             {{ $rating->recipe->name }}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center space-x-2">
+                                <div class="flex items-center justify-between sm:justify-end space-x-2">
                                     <div class="flex items-center">
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <svg class="w-4 h-4 {{ $i <= $rating->rating ? 'text-yellow-400' : 'text-gray-300' }}"
+                                            <svg class="w-3 h-3 sm:w-4 sm:h-4 {{ $i <= $rating->rating ? 'text-yellow-400' : 'text-gray-300' }}"
                                                 fill="currentColor" viewBox="0 0 20 20">
                                                 <path
                                                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                             </svg>
                                         @endfor
                                     </div>
-                                    <span
-                                        class="text-sm text-gray-500 dark:text-gray-200">{{ $rating->created_at->diffForHumans() }}</span>
+                                    <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-200">
+                                        {{ $rating->created_at->diffForHumans() }}
+                                    </span>
                                 </div>
                             </div>
                             @if ($rating->comment)
-                                <p class="text-gray-700 dark:text-gray-200 mt-2 text-sm">"{{ $rating->comment }}"</p>
+                                <p class="text-gray-700 dark:text-gray-200 mt-2 text-xs sm:text-sm break-words">
+                                    "{{ $rating->comment }}"
+                                </p>
                             @endif
                         </div>
                     @endforeach
