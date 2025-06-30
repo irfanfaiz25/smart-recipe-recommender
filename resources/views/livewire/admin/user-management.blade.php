@@ -158,6 +158,7 @@
                 <tbody class="bg-white dark:bg-bg-dark-primary divide-y divide-gray-200 dark:divide-neutral-700"
                     wire:loading.remove>
                     @forelse($this->users as $user)
+                        {{-- @dd($user->avatar_url) --}}
                         <tr class="hover:bg-gray-50 dark:hover:bg-neutral-600">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
