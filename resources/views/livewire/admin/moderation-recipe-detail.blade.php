@@ -4,114 +4,130 @@
     <div class="mt-3 w-full bg-white dark:bg-bg-dark-primary rounded-lg shadow-lg h-fit">
         <div class="relative w-full rounded-t-lg">
             @if ($recipe->image)
-                <img class="w-full h-[30rem] rounded-t-lg object-cover" src="{{ asset($recipe->image) }}">
+                <img class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg object-cover"
+                    src="{{ asset($recipe->image) }}">
             @else
                 <div
-                    class="w-full h-[30rem] rounded-t-lg bg-gray-200 dark:bg-bg-dark-primary flex justify-center items-center">
+                    class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg bg-gray-200 dark:bg-bg-dark-primary flex justify-center items-center">
                     <div class="flex flex-col items-center space-y-3">
-                        <i class="fa-solid fa-utensils text-4xl text-gray-500 dark:text-text-dark-primary"></i>
-                        <p class="font-normal italic text-gray-500 dark:text-text-dark-primary">
+                        <i
+                            class="fa-solid fa-utensils text-2xl sm:text-3xl md:text-4xl text-gray-500 dark:text-text-dark-primary"></i>
+                        <p
+                            class="font-normal italic text-gray-500 dark:text-text-dark-primary text-sm sm:text-base px-4 text-center">
                             {{ $recipe->name }}
                         </p>
                     </div>
                 </div>
             @endif
             <a href="{{ route('admin-moderation.index') }}" wire:navigate
-                class="px-6 py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-white text-base font-semibold rounded-lg shadow-lg">
-                <i class="fa-solid fa-chevron-left pe-1 text-sm"></i>
-                Kembali
+                class="px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 absolute top-3 left-3 bg-black/40 hover:bg-black/60 text-white text-sm sm:text-base font-semibold rounded-lg shadow-lg">
+                <i class="fa-solid fa-chevron-left pe-1 text-xs sm:text-sm"></i>
+                <span class="hidden sm:inline">Kembali</span>
+                <span class="sm:hidden">Back</span>
             </a>
         </div>
-        <div class="py-8 px-32">
+        <div class="py-4 px-4 sm:py-6 sm:px-8 md:py-8 md:px-16 lg:px-32">
             {{-- head details --}}
-            <h3 class="text-lg font-medium text-gray-600 dark:text-text-dark-primary text-center uppercase">
+            <h3
+                class="text-sm sm:text-base md:text-lg font-medium text-gray-600 dark:text-text-dark-primary text-center uppercase">
                 recipe by {{ $recipe->user->name }}
             </h3>
-            <h1 class="mt-2 text-6xl font-bold font-display text-center dark:text-text-dark-primary">
+            <h1
+                class="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-center dark:text-text-dark-primary px-2">
                 {{ $recipe->name }}
             </h1>
-            <div class="mt-8 flex items-center justify-center">
-                <div class="w-[60%] h-28 grid grid-cols-4">
+            <div class="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
+                <div
+                    class="w-full sm:w-[90%] md:w-[80%] lg:w-[60%] h-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-0">
                     <div
-                        class="border-t border-b border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
+                        class="border border-gray-200 dark:border-gray-700 md:border-t md:border-b md:border-l-0 md:border-r-0 flex justify-center items-center p-3 md:p-0 md:h-28 text-sm sm:text-base md:text-lg">
                         <div class="text-center">
-                            <i class="fa-solid fa-sliders text-yellow-500"></i>
-                            <p class="font-medium capitalize dark:text-text-dark-primary">{{ $recipe->difficulty }}</p>
+                            <i class="fa-solid fa-sliders text-yellow-500 mb-1 md:mb-0"></i>
+                            <p
+                                class="font-medium capitalize dark:text-text-dark-primary text-xs sm:text-sm md:text-base">
+                                {{ $recipe->difficulty }}</p>
                         </div>
                     </div>
                     <div
-                        class="border border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
+                        class="border border-gray-200 dark:border-gray-700 flex justify-center items-center p-3 md:p-0 md:h-28 text-sm sm:text-base md:text-lg">
                         <div class="text-center">
-                            <i class="fa-regular fa-clock text-blue-500"></i>
-                            <p class="font-medium dark:text-text-dark-primary">{{ $recipe->cooking_time }} min</p>
+                            <i class="fa-regular fa-clock text-blue-500 mb-1 md:mb-0"></i>
+                            <p class="font-medium dark:text-text-dark-primary text-xs sm:text-sm md:text-base">
+                                {{ $recipe->cooking_time }} min</p>
                         </div>
                     </div>
-                    <div class="border border-gray-200 dark:border-gray-700 flex justify-center items-center text-lg">
+                    <div
+                        class="border border-gray-200 dark:border-gray-700 flex justify-center items-center p-3 md:p-0 md:h-28 text-sm sm:text-base md:text-lg col-span-2 md:col-span-1">
                         <div class="text-center py-2">
-                            <i class="fa-solid fa-fire-flame-curved text-orange-500 text-xl mb-2"></i>
+                            <i class="fa-solid fa-fire-flame-curved text-orange-500 text-lg sm:text-xl mb-2"></i>
                             @if ($recipe->calories)
-                                <div class="flex">
+                                <div class="flex justify-center">
                                     <div class="px-1.5 flex flex-col border-r border-gray-200 dark:border-gray-700">
                                         <span
-                                            class="font-bold text-lg text-primary dark:text-text-dark-primary">{{ $recipe->calories }}</span>
+                                            class="font-bold text-sm sm:text-base md:text-lg text-primary dark:text-text-dark-primary">{{ $recipe->calories }}</span>
                                         <span
                                             class="text-xs text-gray-600 dark:text-text-dark-primary font-medium">Total
                                             Kkal</span>
                                     </div>
                                     <div class="px-1.5 flex flex-col">
                                         <span
-                                            class="font-bold text-lg text-primary dark:text-text-dark-primary">{{ floor($recipe->calories / $recipe->servings) }}</span>
+                                            class="font-bold text-sm sm:text-base md:text-lg text-primary dark:text-text-dark-primary">{{ floor($recipe->calories / $recipe->servings) }}</span>
                                         <span
                                             class="text-xs text-gray-600 dark:text-text-dark-primary font-medium">Kkal/Porsi</span>
                                     </div>
                                 </div>
                             @else
-                                <span class="text-sm text-gray-400 dark:text-text-dark-primary font-medium">Tidak ada
+                                <span
+                                    class="text-xs sm:text-sm text-gray-400 dark:text-text-dark-primary font-medium">Tidak
+                                    ada
                                     info kalori</span>
                             @endif
                         </div>
                     </div>
                     <div
-                        class="border-t border-b border-gray-200 dark:border-gray-700 flex justify-center items-center space-x-2 text-lg">
+                        class="border border-gray-200 dark:border-gray-700 md:border-t md:border-b md:border-l-0 md:border-r-0 flex justify-center items-center p-3 md:p-0 md:h-28 text-sm sm:text-base md:text-lg col-span-2 md:col-span-1">
                         <div class="text-center">
-                            <i class="fa-solid fa-bowl-food text-orange-500"></i>
-                            <p class="font-medium dark:text-text-dark-primary">{{ $recipe->servings }} porsi</p>
+                            <i class="fa-solid fa-bowl-food text-orange-500 mb-1 md:mb-0"></i>
+                            <p class="font-medium dark:text-text-dark-primary text-xs sm:text-sm md:text-base">
+                                {{ $recipe->servings }} porsi</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-6 flex justify-center items-center">
-                <p class="w-1/2 text-base text-center font-medium text-gray-700 dark:text-text-dark-primary italic">
+            <div class="mt-4 sm:mt-6 flex justify-center items-center">
+                <p
+                    class="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 text-sm sm:text-base text-center font-medium text-gray-700 dark:text-text-dark-primary italic px-4">
                     {{ $recipe->description ?? 'Resep lezat yang siap untuk dimoderasi dan dinikmati oleh semua pengguna.' }}
                 </p>
             </div>
             {{-- end head details --}}
 
             {{-- moderation status --}}
-            <div class="mt-10 flex justify-center items-center">
+            <div class="mt-6 sm:mt-8 md:mt-10 flex justify-center items-center">
                 <div
-                    class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-700 dark:to-orange-700 border-amber-200 dark:border-gray-700 rounded-2xl p-6 w-1/2">
+                    class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-700 dark:to-orange-700 border-amber-200 dark:border-gray-700 rounded-2xl p-4 sm:p-6 w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
                     <div class="text-center">
                         <div
-                            class="inline-flex items-center px-6 py-3 text-white rounded-full text-base font-semibold shadow-lg mb-4
+                            class="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 text-white rounded-full text-sm sm:text-base font-semibold shadow-lg mb-3 sm:mb-4
                             @if ($recipe->moderation->status === 'approved') bg-gradient-to-r from-green-700 to-green-500
                             @elseif($recipe->moderation->status === 'rejected') 
                                 bg-gradient-to-r from-red-500 to-orange-600
                             @else
                                 bg-gradient-to-r from-amber-400 to-orange-400 @endif
                             ">
-                            <i class="fa-solid fa-clock mr-2"></i>
-                            Status: {{ ucfirst($recipe->moderation->status) }}
+                            <i class="fa-solid fa-clock mr-1 sm:mr-2"></i>
+                            <span class="hidden sm:inline">Status: {{ ucfirst($recipe->moderation->status) }}</span>
+                            <span class="sm:hidden">{{ ucfirst($recipe->moderation->status) }}</span>
                         </div>
-                        <p class="text-gray-600 dark:text-text-dark-primary text-base font-medium">
+                        <p class="text-gray-600 dark:text-text-dark-primary text-sm sm:text-base font-medium px-2">
                             Diajukan oleh: <span
                                 class="font-semibold text-gray-800 dark:text-text-dark-primary">{{ $recipe->user->name }}</span>
                         </p>
                         @if ($recipe->moderation?->notes)
-                            <div class="mt-4 bg-white/70 p-4 rounded-xl border border-white/50">
-                                <p class="text-sm font-semibold text-gray-600 mb-2">Catatan
+                            <div class="mt-3 sm:mt-4 bg-white/70 p-3 sm:p-4 rounded-xl border border-white/50">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-600 mb-2">Catatan
                                     Moderator:</p>
-                                <p class="text-gray-700 text-base leading-relaxed">
+                                <p class="text-gray-700 text-sm sm:text-base leading-relaxed">
                                     {{ $recipe->moderation->notes }}</p>
                             </div>
                         @endif
@@ -122,49 +138,53 @@
 
             {{-- moderation buttons --}}
             @if ($recipe->moderation->status === 'pending')
-                <div class="mt-8 flex justify-center items-center space-x-4">
+                <div
+                    class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 px-4">
                     <button wire:click="handleApproveRecipe"
-                        class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                        <i class="fa-solid fa-check pe-2 text-base"></i>
+                        class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <i class="fa-solid fa-check pe-2 text-sm sm:text-base"></i>
                         Setujui Resep
                     </button>
                     <button wire:click='handleOpenFormRejection'
-                        class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                        <i class="fa-solid fa-times pe-2 text-base"></i>
+                        class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <i class="fa-solid fa-times pe-2 text-sm sm:text-base"></i>
                         Tolak Resep
                     </button>
                 </div>
             @elseif ($recipe->moderation->status === 'approved')
-                <div class="mt-8 flex justify-center items-center space-x-4">
+                <div class="mt-6 sm:mt-8 flex justify-center items-center px-4">
                     <button wire:click="handleOpenFormRejection"
-                        class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                        <i class="fa-solid fa-times pe-2 text-base"></i>
+                        class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <i class="fa-solid fa-times pe-2 text-sm sm:text-base"></i>
                         Batalkan Pengajuan
                     </button>
                 </div>
             @elseif ($recipe->moderation->status === 'rejected')
-                <div class="mt-8 flex justify-center items-center space-x-4">
+                <div
+                    class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 px-4">
                     <button wire:click="handleApproveRecipe"
-                        class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                        <i class="fa-solid fa-check pe-2 text-base"></i>
+                        class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <i class="fa-solid fa-check pe-2 text-sm sm:text-base"></i>
                         Setujui Resep
                     </button>
                     <button wire:click="handleOpenDetailRejection"
-                        class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                        <i class="fa-solid fa-eye pe-2 text-base"></i>
-                        Lihat Alasan Penolakan
+                        class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <i class="fa-solid fa-eye pe-2 text-sm sm:text-base"></i>
+                        <span class="hidden sm:inline">Lihat Alasan Penolakan</span>
+                        <span class="sm:hidden">Lihat Alasan</span>
                     </button>
                 </div>
             @endif
             {{-- end moderation buttons --}}
 
             {{-- recipe ingredients & steps --}}
-            <div class="mt-12 flex space-x-4">
-                <div class="w-[40%]">
-                    <h2 class="text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
+            <div class="mt-8 sm:mt-10 md:mt-12 flex flex-col lg:flex-row lg:space-x-4 space-y-6 lg:space-y-0">
+                <div class="w-full lg:w-[40%]">
+                    <h2 class="text-xl sm:text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
                         Bahan Masakan
                     </h2>
-                    <ul class="mt-3 w-[80%] text-lg text-gray-700 dark:text-text-dark-primary space-y-3 font-normal">
+                    <ul
+                        class="mt-3 w-full lg:w-[80%] text-sm sm:text-base md:text-lg text-gray-700 dark:text-text-dark-primary space-y-3 font-normal">
                         @foreach ($recipe->ingredients as $ingredient)
                             <li class="pb-2 border-b border-gray-200 dark:border-gray-700"><i
                                     class="fa-solid fa-circle-check pe-2 text-sm"></i>
@@ -173,16 +193,17 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="w-[60%]">
-                    <h2 class="text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
+                <div class="w-full lg:w-[60%]">
+                    <h2 class="text-xl sm:text-2xl font-display font-medium text-gray-800 dark:text-text-dark-primary">
                         Langkah Pembuatan
                     </h2>
-                    <ul class="mt-3 text-lg text-gray-700 dark:text-text-dark-primary space-y-4 font-normal">
+                    <ul
+                        class="mt-3 text-sm sm:text-base md:text-lg text-gray-700 dark:text-text-dark-primary space-y-4 font-normal">
                         @foreach ($recipe->steps as $step)
                             <li class="pb-3 flex space-x-2 border-b border-gray-200 dark:border-gray-700">
-                                <p class="text-base font-normal pt-1 flex items-start">
+                                <p class="text-sm sm:text-base font-normal pt-1 flex items-start">
                                     <span
-                                        class="text-5xl font-display font pe-3 text-gray-800 dark:text-text-dark-primary">{{ $loop->iteration }}</span>
+                                        class="text-3xl sm:text-4xl md:text-5xl font-display font pe-2 sm:pe-3 text-gray-800 dark:text-text-dark-primary flex-shrink-0">{{ $loop->iteration }}</span>
                                     <span class="pt-1">
                                         {{ $step->description }}
                                     </span>
@@ -204,11 +225,11 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div
-                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg mx-4 sm:mx-0">
                     <div class="bg-white dark:bg-bg-dark-primary">
                         <div
                             class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
-                            <h3 class="text-lg font-semibold dark:text-text-dark-primary">
+                            <h3 class="text-base sm:text-lg font-semibold dark:text-text-dark-primary">
                                 Form Penolakan Resep
                             </h3>
                             <i wire:click='handleCloseFormRejection' wire:loading.remove
@@ -243,11 +264,11 @@
                                 </div>
                                 <div class="flex justify-end space-x-2">
                                     <button type="button" wire:click='handleCloseFormRejection'
-                                        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
+                                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
                                         Batal
                                     </button>
                                     <button type="submit"
-                                        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-hover">
+                                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-hover">
                                         Lanjutkan
                                     </button>
                                 </div>
@@ -267,11 +288,11 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div
-                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg mx-4 sm:mx-0">
                     <div class="bg-white dark:bg-bg-dark-primary">
                         <div
                             class="mb-0 border-b border-slate-200 dark:border-slate-700 py-3 px-4 flex justify-between items-center">
-                            <h3 class="text-lg font-semibold dark:text-text-dark-primary">
+                            <h3 class="text-base sm:text-lg font-semibold dark:text-text-dark-primary">
                                 Detail Penolakan Resep
                             </h3>
                             <i wire:click='handleCloseDetailRejection' wire:loading.remove
@@ -291,48 +312,23 @@
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
-
-                        <div class="p-6 space-y-6">
-                            <!-- Rejection Reason -->
-                            <div
-                                class="bg-red-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-red-100 dark:border-gray-700">
-                                <div class="flex items-center mb-2">
-                                    <i class="fa-solid fa-circle-exclamation text-red-500 mr-2"></i>
-                                    <h4 class="font-semibold text-red-500 text-base">Alasan Penolakan</h4>
+                        <div class="p-4">
+                            <div class="mb-4">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 dark:text-text-dark-primary mb-2">Alasan
+                                    Penolakan:</label>
+                                <div
+                                    class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md">
+                                    <p class="text-sm text-gray-700 dark:text-text-dark-primary leading-relaxed">
+                                        {{ $recipe->moderation->notes ?? 'Tidak ada catatan penolakan.' }}
+                                    </p>
                                 </div>
-                                <p class="text-red-700 dark:text-text-dark-primary text-sm font-medium">
-                                    {{ $rejectedRecipe?->moderation?->notes }}
-                                </p>
                             </div>
-
-                            <!-- Rejection Details -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <div
-                                    class="bg-gray-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                                    <div class="flex items-center mb-2">
-                                        <i
-                                            class="fa-regular fa-calendar text-gray-600 dark:text-text-dark-primary mr-2"></i>
-                                        <h4 class="font-semibold text-gray-700 dark:text-text-dark-primary text-base">
-                                            Tanggal Penolakan</h4>
-                                    </div>
-                                    <p class="text-gray-600 dark:text-text-dark-primary text-sm font-medium">
-                                        {{ $rejectedRecipe?->moderation?->updated_at->format('d M Y, H:i') }}
-                                    </p>
-                                </div>
-
-                                <div
-                                    class="bg-gray-50 dark:bg-bg-dark-primary rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                                    <div class="flex items-center mb-2">
-                                        <i
-                                            class="fa-regular fa-user text-gray-600 dark:text-text-dark-primary mr-2"></i>
-                                        <h4 class="font-semibold text-gray-700 dark:text-text-dark-primary text-base">
-                                            Moderator</h4>
-                                    </div>
-                                    <p
-                                        class="text-gray-600 dark:text-text-dark-primary text-sm font-medium capitalize">
-                                        {{ $rejectedRecipe?->moderation?->approver->name }}
-                                    </p>
-                                </div>
+                            <div class="flex justify-end">
+                                <button type="button" wire:click='handleCloseDetailRejection'
+                                    class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
+                                    Tutup
+                                </button>
                             </div>
                         </div>
                     </div>
