@@ -1,26 +1,28 @@
 <div class="min-h-screen">
     <!-- Header Section -->
     <div class="bg-white dark:bg-bg-dark-primary shadow-sm border-b border-gray-200 dark:border-gray-700 mb-8">
-        <div class="px-6 py-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold font-display text-gray-900 dark:text-text-dark-primary capitalize">
+        <div class="px-4 sm:px-6 py-6 sm:py-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+                <div class="w-full sm:w-auto">
+                    <h1
+                        class="text-2xl sm:text-3xl font-bold font-display text-gray-900 dark:text-text-dark-primary capitalize break-words">
                         Welcome Back,
                         {{ auth()->user()->name }}!
                     </h1>
-                    <p class="text-gray-600 dark:text-gray-300 text-base font-medium mt-1">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium mt-1">
                         Yuk, lihat update terbaru di platform kamu!
                     </p>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-end">
                     <div class="text-right">
-                        <p class="text-sm text-gray-500 dark:text-gray-300">Terakhir diupdate</p>
-                        <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary">
+                        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-300">Terakhir diupdate</p>
+                        <p class="text-xs sm:text-sm font-medium text-gray-900 dark:text-text-dark-primary">
                             {{ now()->format('M d, Y H:i') }}</p>
                     </div>
                     <div
-                        class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
                             </path>
@@ -257,98 +259,106 @@
         </div>
 
         <!-- Recent Activity Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             <!-- Recent Recipes -->
-            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-4 sm:p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Resep Terbaru</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Resep
+                        Terbaru</h3>
                     <a href="{{ route('admin-recipes.index') }}"
-                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-sm font-medium">Lihat
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 text-xs sm:text-sm font-medium">Lihat
                         Semua</a>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                     @forelse($recentRecipes as $recipe)
                         <div
-                            class="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                            <div class="w-[20%] h-20">
+                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                            <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
                                     <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
                                         class="w-full h-full rounded-lg object-cover">
                                 @else
-                                    <div class="w-full h-full flex justify-center items-center">
+                                    <div class="w-full h-full flex justify-center items-center bg-gray-100 rounded-lg">
                                         <i class="fa fa-image text-sm text-gray-300"></i>
                                     </div>
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
+                                <p
+                                    class="text-xs sm:text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
                                     {{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-300">oleh
+                                <p class="text-xs text-gray-500 dark:text-gray-300 mt-0.5">oleh
                                     {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
-                                    class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-100 text-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-800">
+                                    class="inline-flex items-center px-2 py-0.5 mt-1 rounded-full text-xs font-medium bg-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-100 text-{{ $recipe->category->name === 'Hidangan Utama' ? 'blue' : ($recipe->category->name === 'Hidangan Penutup' ? 'purple' : 'green') }}-800">
                                     {{ $recipe->category->name }}
                                 </span>
                             </div>
-                            <div class="text-right">
-                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-xs sm:text-sm font-medium text-gray-900 dark:text-text-dark-primary">
                                     {{ $recipe->views_count }} dilihat</p>
                             </div>
                         </div>
                     @empty
-                        <p class="text-gray-500 dark:text-gray-300 text-center py-4">Belum ada resep terbaru nih.</p>
+                        <p class="text-gray-500 dark:text-gray-300 text-center py-4 text-sm">Belum ada resep terbaru
+                            nih.</p>
                     @endforelse
                 </div>
             </div>
 
             <!-- Pending Moderations -->
-            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-6">
+            <div class="bg-white dark:bg-bg-dark-primary rounded-xl shadow-lg p-4 sm:p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Menunggu Review</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Menunggu
+                        Review</h3>
                     <a href="{{ route('admin-moderation.index') }}"
-                        class="text-orange-600 hover:text-orange-800 text-sm font-medium">Review Semua</a>
+                        class="text-orange-600 hover:text-orange-800 text-xs sm:text-sm font-medium">Review Semua</a>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                     @forelse($pendingModerations as $recipe)
                         <div
-                            class="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                            <div class="w-[20%] h-20">
+                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                            <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
                                     <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
                                         class="w-full h-full rounded-lg object-cover">
                                 @else
-                                    <div class="w-full h-full flex justify-center items-center">
+                                    <div class="w-full h-full flex justify-center items-center bg-gray-100 rounded-lg">
                                         <i class="fa fa-image text-sm text-gray-300"></i>
                                     </div>
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
+                                <p
+                                    class="text-xs sm:text-sm font-medium text-gray-900 dark:text-text-dark-primary truncate">
                                     {{ $recipe->name }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-300">oleh {{ $recipe->user->name }} •
+                                <p class="text-xs text-gray-500 dark:text-gray-300 mt-0.5">oleh
+                                    {{ $recipe->user->name }} •
                                     {{ $recipe->created_at->diffForHumans() }}</p>
                                 <span
-                                    class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                    class="inline-flex items-center px-2 py-0.5 mt-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
                                     Nunggu Review
                                 </span>
                             </div>
                             <a href="{{ route('admin-moderation.show', $recipe->id) }}"
-                                class="text-orange-600 hover:text-orange-800">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="text-orange-600 hover:text-orange-800 p-1 sm:p-2">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
                         </div>
                     @empty
-                        <div class="text-center py-8">
-                            <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                        <div class="text-center py-6 sm:py-8">
+                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3 sm:mb-4" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <p class="text-base text-gray-500 font-medium">Mantap! Semua resep udah direview.</p>
+                            <p class="text-sm sm:text-base text-gray-500 font-medium">Mantap! Semua resep udah
+                                direview.</p>
                         </div>
                     @endforelse
                 </div>
@@ -357,90 +367,98 @@
 
         <!-- Top Creators Section -->
         @if ($topCreators->count() > 0)
-            <div class="mt-8">
+            <div class="mt-4 sm:mt-8">
                 <div
-                    class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-xl shadow-xl p-8 text-white overflow-hidden relative">
+                    class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-xl shadow-xl p-4 sm:p-8 text-white overflow-hidden relative">
                     <!-- Background decoration -->
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
-                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-10 rounded-full -ml-12 -mb-12">
+                    <div
+                        class="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-white opacity-10 rounded-full -mr-12 sm:-mr-16 -mt-12 sm:-mt-16">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 w-20 sm:w-24 h-20 sm:h-24 bg-white opacity-10 rounded-full -ml-10 sm:-ml-12 -mb-10 sm:-mb-12">
                     </div>
 
                     <div class="relative z-10">
-                        <div class="flex items-center justify-between mb-6">
+                        <div
+                            class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
                             <div>
-                                <h3 class="text-2xl font-bold text-white mb-2">🌟 Creators Terbaik</h3>
-                                <p class="text-blue-100 text-sm font-medium">Creators paling keren bulan ini</p>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">🌟 Creators Terbaik
+                                </h3>
+                                <p class="text-blue-100 text-xs sm:text-sm font-medium">Creators paling keren bulan ini
+                                </p>
                             </div>
                             <div class="hidden md:flex items-center space-x-2 text-blue-100">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
                                     </path>
                                 </svg>
-                                <span class="text-sm font-medium">Hall of Fame</span>
+                                <span class="text-xs sm:text-sm font-medium">Hall of Fame</span>
                             </div>
                         </div>
 
                         <!-- Horizontal scrollable creators list -->
-                        <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                        <div
+                            class="flex space-x-4 sm:space-x-6 overflow-x-auto pb-4 scrollbar-hide -mx-4 sm:mx-0 px-4 sm:px-0">
                             @foreach ($topCreators as $index => $creator)
                                 <div class="flex-shrink-0 group">
                                     <div
-                                        class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 transform hover:shadow-2xl border border-white/20 min-w-[280px]">
+                                        class="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/20 transition-all duration-300 transform hover:shadow-2xl border border-white/20 w-[250px] sm:w-[280px]">
                                         <!-- Rank badge -->
                                         <div class="flex items-center justify-between mb-4">
-                                            <div class="flex items-center space-x-3">
+                                            <div class="flex items-center space-x-2 sm:space-x-3">
                                                 <div class="relative">
                                                     @if ($creator->avatar_url)
                                                         <img src="{{ $creator->avatar_url }}"
                                                             alt="{{ $creator->name }}"
-                                                            class="w-16 h-16 rounded-full object-cover border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
+                                                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-3 sm:border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
                                                     @else
                                                         <div
-                                                            class="w-16 h-16 rounded-full border-4 border-white/30 group-hover:border-white/50 transition-all duration-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                                                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-3 sm:border-4 border-white/30 group-hover:border-white/50 transition-all duration-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base sm:text-xl">
                                                             {{ implode('',array_map(function ($word) {return ucfirst(substr($word, 0, 1));}, explode(' ', $creator->name))) }}
                                                         </div>
                                                     @endif
                                                     <!-- Online indicator -->
                                                     <div
-                                                        class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white">
+                                                        class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full border-2 border-white">
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <h4
-                                                        class="font-bold text-white text-lg group-hover:text-yellow-200 transition-colors duration-300">
+                                                        class="font-bold text-white text-base sm:text-lg group-hover:text-yellow-200 transition-colors duration-300 truncate max-w-[150px]">
                                                         {{ $creator->name }}</h4>
-                                                    <p class="text-blue-100 text-sm">Pembuat Resep</p>
+                                                    <p class="text-blue-100 text-xs sm:text-sm">Pembuat Resep</p>
                                                 </div>
                                             </div>
                                             <!-- Rank number -->
                                             <div
-                                                class="bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center shadow-lg">
+                                                class="bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold text-base sm:text-lg w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg">
                                                 {{ $index + 1 }}
                                             </div>
                                         </div>
 
                                         <!-- Stats -->
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div class="bg-white/10 rounded-lg p-3 text-center">
-                                                <div class="text-2xl font-bold text-white">
+                                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                                            <div class="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+                                                <div class="text-xl sm:text-2xl font-bold text-white">
                                                     {{ $creator->recipes_count }}</div>
-                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Resep
-                                                </div>
+                                                <div
+                                                    class="text-blue-100 text-[10px] sm:text-xs uppercase tracking-wide">
+                                                    Resep</div>
                                             </div>
-                                            <div class="bg-white/10 rounded-lg p-3 text-center">
-                                                <div class="text-2xl font-bold text-white">
+                                            <div class="bg-white/10 rounded-lg p-2 sm:p-3 text-center">
+                                                <div class="text-xl sm:text-2xl font-bold text-white">
                                                     {{ number_format($creator->recipes_avg_views_count ?? 0) }}</div>
-                                                <div class="text-blue-100 text-xs uppercase tracking-wide">Rata-rata
-                                                    Dilihat
-                                                </div>
+                                                <div
+                                                    class="text-blue-100 text-[10px] sm:text-xs uppercase tracking-wide">
+                                                    Rata-rata Dilihat</div>
                                             </div>
                                         </div>
 
                                         <!-- Action button -->
                                         <div class="mt-4">
                                             <button
-                                                class="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 text-sm border border-white/30 hover:border-white/50">
+                                                class="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-2 px-3 sm:px-4 rounded-lg transition-all duration-300 text-xs sm:text-sm border border-white/30 hover:border-white/50">
                                                 Lihat Profil
                                             </button>
                                         </div>
@@ -450,9 +468,10 @@
                         </div>
 
                         <!-- Navigation hint -->
-                        <div class="flex justify-center mt-4 md:hidden">
-                            <p class="text-blue-100 text-sm flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex justify-center mt-3 sm:mt-4 md:hidden">
+                            <p class="text-blue-100 text-xs sm:text-sm flex items-center">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
                                 </svg>
