@@ -57,27 +57,27 @@
     <!-- Navigation Tabs -->
     <div
         class="bg-white dark:bg-bg-dark-primary rounded-lg shadow-sm border border-gray-200 dark:border-bg-dark-secondary mb-8">
-        <div class="border-b border-gray-200 dark:border-bg-dark-secondary">
-            <nav class="-mb-px flex space-x-8 px-6">
+        <div class="border-b border-gray-200 dark:border-bg-dark-secondary overflow-x-auto">
+            <nav class="-mb-px flex flex-nowrap md:flex-wrap px-4 md:px-6">
                 <button wire:click="setActiveTab('profile')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'profile' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
+                    class="flex-shrink-0 py-4 px-3 md:px-1 border-b-2 font-medium text-sm whitespace-nowrap {{ $activeTab === 'profile' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
-                        Profil
+                        <span>Profil</span>
                     </div>
                 </button>
                 <button wire:click="setActiveTab('security')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'security' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
+                    class="flex-shrink-0 py-4 px-3 md:px-1 ml-4 md:ml-8 border-b-2 font-medium text-sm whitespace-nowrap {{ $activeTab === 'security' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
                             </path>
                         </svg>
-                        Keamanan
+                        <span>Keamanan</span>
                     </div>
                 </button>
                 {{-- <button wire:click="setActiveTab('preferences')"
@@ -90,11 +90,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        Preferensi
+                        <span>Preferensi</span>
                     </div>
                 </button> --}}
                 <button wire:click="setActiveTab('avatar')"
-                    class="py-4 px-1 border-b-2 font-medium text-sm {{ $activeTab === 'avatar' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
+                    class="flex-shrink-0 py-4 px-3 md:px-1 ml-4 md:ml-8 border-b-2 font-medium text-sm whitespace-nowrap {{ $activeTab === 'avatar' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300' }}">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -103,7 +103,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        Foto Profil
+                        <span>Foto Profil</span>
                     </div>
                 </button>
             </nav>
@@ -319,12 +319,12 @@
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Foto Profil</h2>
                 <div class="space-y-6">
                     <div class="flex items-center space-x-6">
-                        <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+                        <div class="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200">
                             @if ($avatar)
                                 <img src="{{ $avatar }}" alt="Profile" class="w-full h-full object-cover">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                    <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-8 h-8 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                                     </svg>
@@ -343,7 +343,7 @@
                                     <input type="file" wire:model="newAvatar" accept="image/*"
                                         class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                                     <button type="submit"
-                                        class="bg-blue-600 text-white px-4 py-2 text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                                        class="bg-blue-600 text-white px-4 py-2 text-sm md:text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
                                         {{ !$newAvatar ? 'disabled' : '' }}>
                                         Upload
                                     </button>
