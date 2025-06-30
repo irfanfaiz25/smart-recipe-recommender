@@ -50,6 +50,160 @@ class RecipeForm extends Component
     ];
     public $searchIngredients = '';
 
+    public $quickAdd = '';
+    public $quickAddStatus = null;
+    public $searchResults = [];
+    public $suggestedIngredients = [];
+    public $selectedCategoryName = '';
+
+    // Simplified search-only method
+    public function updatedQuickAdd()
+    {
+        $this->quickAddStatus = null;
+
+        if (strlen($this->quickAdd) > 1) {
+            // Search for ingredients
+            $this->searchResults = Ingredient::where('name', 'like', '%' . $this->quickAdd . '%')
+                ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
+                ->limit(8)
+                ->get()
+                ->map(function ($ingredient) {
+                    return [
+                        'id' => $ingredient->id,
+                        'name' => $ingredient->name,
+                        'image' => $ingredient->image,
+                        'category' => $ingredient->category ?? 'Umum'
+                    ];
+                })
+                ->toArray();
+        } else {
+            $this->searchResults = [];
+        }
+    }
+
+    // Remove the complex parsing logic, keep it simple
+    public function addQuickIngredient()
+    {
+        // This method is now only triggered by Enter key
+        // It will add the first search result if available
+        if (!empty($this->searchResults)) {
+            $firstResult = $this->searchResults[0];
+            $this->selectSearchResult($firstResult['id'], $firstResult['name']);
+        } else if (!empty($this->quickAdd)) {
+            $this->quickAddStatus = [
+                'type' => 'warning',
+                'message' => 'Bahan tidak ditemukan, coba kata kunci lain'
+            ];
+        }
+    }
+
+    public function selectSearchResult($ingredientId, $ingredientName)
+    {
+        $ingredient = Ingredient::find($ingredientId);
+        if ($ingredient) {
+            $this->addIngredientToSelection($ingredient);
+            $this->quickAdd = '';
+            $this->searchResults = [];
+            $this->quickAddStatus = [
+                'type' => 'success',
+                'message' => $ingredientName . ' ditambahkan!'
+            ];
+        }
+    }
+
+    public function addSuggestedIngredient($ingredientName, $amount = '', $unit = '')
+    {
+        $ingredient = Ingredient::where('name', $ingredientName)
+            ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
+            ->first();
+
+        if ($ingredient) {
+            $this->addIngredientToSelection($ingredient, $amount, $unit);
+        }
+    }
+
+    private function addIngredientToSelection($ingredient, $amount = '', $unit = '')
+    {
+        $this->selectedIngredients[] = [
+            'id' => $ingredient->id,
+            'name' => $ingredient->name,
+            'image' => $ingredient->image,
+            'amount' => $amount ?: '',
+            'unit' => $unit ?: ($this->units[0] ?? 'gram'),
+            'isPrimary' => false,
+            'category' => $ingredient->category ?? 'Umum'
+        ];
+    }
+
+    public function updatedRecipeCategory($value)
+    {
+        $this->loadSuggestedIngredients($value);
+
+        if ($this->recipeCategory) {
+            $category = RecipeCategory::find($this->recipeCategory);
+            $this->selectedCategoryName = $category ? $category->name : '';
+        }
+    }
+
+    private function loadSuggestedIngredients($categoryId)
+    {
+        if (!$categoryId) {
+            $this->suggestedIngredients = [];
+            return;
+        }
+
+        // Define suggestions based on recipe category
+        $suggestions = [
+            // hidangan pembuka (appetizer)
+            1 => [
+                ['text' => 'selada', 'amount' => '100', 'unit' => 'gram'],
+                ['text' => 'tomat', 'amount' => '2', 'unit' => 'buah'],
+                ['text' => 'timun', 'amount' => '1', 'unit' => 'buah'],
+                ['text' => 'garam', 'amount' => '1', 'unit' => 'sdt'],
+                ['text' => 'lemon', 'amount' => '1', 'unit' => 'buah'],
+                ['text' => 'mayonaise', 'amount' => '2', 'unit' => 'sdm'],
+            ],
+            // hidangan utama (main course)
+            2 => [
+                ['text' => 'daging sapi', 'amount' => '500', 'unit' => 'gram'],
+                ['text' => 'nasi putih', 'amount' => '4', 'unit' => 'piring'],
+                ['text' => 'kentang', 'amount' => '3', 'unit' => 'buah'],
+                ['text' => 'bawang merah', 'amount' => '3', 'unit' => 'siung'],
+                ['text' => 'bawang putih', 'amount' => '2', 'unit' => 'siung'],
+                ['text' => 'bawang bombay', 'amount' => '1', 'unit' => 'buah']
+            ],
+            // hidangan penutup (dessert)
+            3 => [
+                ['text' => 'tepung terigu', 'amount' => '250', 'unit' => 'gram'],
+                ['text' => 'gula', 'amount' => '200', 'unit' => 'gram'],
+                ['text' => 'telur', 'amount' => '2', 'unit' => 'butir'],
+                ['text' => 'susu cair', 'amount' => '200', 'unit' => 'ml'],
+                ['text' => 'mentega', 'amount' => '100', 'unit' => 'gram']
+            ]
+        ];
+
+        if (isset($suggestions[$categoryId])) {
+            $this->suggestedIngredients = $suggestions[$categoryId];
+            return;
+        }
+
+        // Default suggestions
+        $this->suggestedIngredients = [
+            ['text' => 'garam', 'amount' => '1', 'unit' => 'sdt'],
+            ['text' => 'merica', 'amount' => '1/2', 'unit' => 'sdt'],
+            ['text' => 'minyak goreng', 'amount' => '2', 'unit' => 'sdm']
+        ];
+    }
+
+    public function clearAllIngredients()
+    {
+        $this->selectedIngredients = [];
+        $this->quickAddStatus = [
+            'type' => 'success',
+            'message' => 'Semua bahan telah dihapus'
+        ];
+    }
+
 
     public function mount($recipeId = null)
     {
@@ -79,6 +233,7 @@ class RecipeForm extends Component
                 return [
                     'id' => $ingredient->id,
                     'name' => $ingredient->name,
+                    'category' => $ingredient->category,
                     'image' => $ingredient->image,
                     'amount' => (int) $ingredient->pivot->amount,
                     'unit' => $ingredient->pivot->unit,
@@ -90,7 +245,7 @@ class RecipeForm extends Component
             $this->steps = $this->recipe->steps->pluck('description')->toArray();
         }
 
-        $ingredients = Ingredient::select('id', 'name', 'image')->get()->toArray();
+        $ingredients = Ingredient::select('id', 'name', 'image', 'category')->get()->toArray();
         $this->ingredients = $ingredients;
     }
 

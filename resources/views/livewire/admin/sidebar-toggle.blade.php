@@ -19,7 +19,7 @@
                 Smart Recipe<span class="absolute bottom-0 left-[6.85rem] text-secondary text-3xl">.</span>
             </h1>
         </div> --}}
-        <div class="mt-0 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
+        <div class="mt-0 md:mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
             @foreach ($sidebarMenu as $menu)
                 @if (isset($menu['submenu']))
                     <div x-data="{ isOpen: false }" class="relative">

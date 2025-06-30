@@ -1,5 +1,5 @@
 <div>
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col-reverse md:flex-row md:justify-between gap-2 items-center">
         <div class="w-full max-w-xs min-w-[200px]">
             <div class="relative">
                 <input type="text" placeholder="Cari resep ..." wire:model.live.debounce.300ms="search"
@@ -27,13 +27,13 @@
 
                 <!-- Card Header with Actions - Enhanced styling -->
                 <div
-                    class="border-b border-slate-200 dark:border-slate-700 py-3.5 px-5 flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50">
-                    <div class="flex space-x-2.5 items-center">
+                    class="border-b border-slate-200 dark:border-slate-700 py-3 px-3 sm:px-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50">
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5 items-center">
                         @if ($recipe->is_published)
                             @switch($recipe->moderation?->status)
                                 @case('approved')
                                     <div
-                                        class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 transform hover:scale-105 transition-transform duration-300">
+                                        class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 transform hover:scale-105 transition-transform duration-300">
                                         <i class="fa-solid fa-earth-americas text-green-600 dark:text-green-400"></i>
                                         <span class="font-medium">Public</span>
                                     </div>
@@ -41,7 +41,7 @@
 
                                 @case('pending')
                                     <div
-                                        class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 transform hover:scale-105 transition-transform duration-300">
+                                        class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 transform hover:scale-105 transition-transform duration-300">
                                         <i class="fa-solid fa-clock text-amber-600 dark:text-amber-400"></i>
                                         <span class="font-medium">Dalam Peninjauan</span>
                                     </div>
@@ -49,7 +49,7 @@
 
                                 @case('rejected')
                                     <button wire:click='handleOpenDetailRejection({{ $recipe->id }})'
-                                        class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-rose-100 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 transform hover:scale-105 transition-transform duration-300">
+                                        class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-rose-100 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 transform hover:scale-105 transition-transform duration-300">
                                         <i class="fa-solid fa-ban text-rose-600 dark:text-rose-400"></i>
                                         <span class="font-medium">
                                             Publikasi Ditolak
@@ -61,13 +61,13 @@
                             @endswitch
                         @else
                             <div
-                                class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transform hover:scale-105 transition-transform duration-300">
+                                class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transform hover:scale-105 transition-transform duration-300">
                                 <i class="fa-solid fa-box-archive text-gray-700 dark:text-gray-400"></i>
                                 <span class="font-medium">Draf</span>
                             </div>
                         @endif
                         <a href="{{ auth()->user()->hasRole('admin') ? route('admin-recipes.detail', $recipe->id) : route('recipes.detail', $recipe->id) }}"
-                            class="px-3.5 py-1.5 flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-hover text-text-dark-primary group-hover:shadow-md transition-all duration-300 text-xs font-medium hover:scale-105">
+                            class="px-3 py-1.5 flex items-center rounded-full bg-gradient-to-r from-secondary to-secondary-hover text-text-dark-primary group-hover:shadow-md transition-all duration-300 text-xs font-medium hover:scale-105">
                             <i class="fa-solid fa-circle-info mr-1.5 group-hover:animate-pulse"></i>
                             <span>Lihat Detail</span>
                         </a>
@@ -106,11 +106,11 @@
 
                 <!-- Card Content - Enhanced with better spacing and visual hierarchy -->
                 <div
-                    class="p-6 bg-gradient-to-br from-white to-gray-50/50 dark:from-bg-dark-primary dark:to-gray-800/10">
-                    <div class="flex space-x-5">
+                    class="p-4 sm:p-6 bg-gradient-to-br from-white to-gray-50/50 dark:from-bg-dark-primary dark:to-gray-800/10">
+                    <div class="flex flex-col sm:flex-row gap-4 sm:gap-5">
                         @if ($recipe->image)
                             <div
-                                class="relative overflow-hidden rounded-lg h-36 w-36 shadow-md group-hover:shadow-lg transition-all duration-300">
+                                class="relative overflow-hidden rounded-lg h-32 sm:h-36 w-full sm:w-36 shadow-md group-hover:shadow-lg transition-all duration-300">
                                 <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
                                     class="h-full w-full object-cover transform group-hover:scale-110 transition-all duration-700">
                                 <div
@@ -119,7 +119,7 @@
                             </div>
                         @else
                             <div
-                                class="relative overflow-hidden h-36 w-36 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800 rounded-lg shadow-md flex justify-center items-center group-hover:shadow-lg transition-all duration-300">
+                                class="relative overflow-hidden h-32 sm:h-36 w-full sm:w-36 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800 rounded-lg shadow-md flex justify-center items-center group-hover:shadow-lg transition-all duration-300">
                                 <i
                                     class="fa-regular fa-image text-gray-400 text-3xl group-hover:scale-125 transition-transform duration-300"></i>
                                 <div
@@ -127,10 +127,10 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="flex flex-col justify-between">
-                            <div class="space-y-2.5">
+                        <div class="flex flex-col justify-between flex-1">
+                            <div class="space-y-2">
                                 <h2
-                                    class="text-2xl font-bold text-text-primary dark:text-text-dark-primary group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">
+                                    class="text-xl sm:text-2xl font-bold text-text-primary dark:text-text-dark-primary group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">
                                     {{ $recipe->name }}
                                 </h2>
                                 <p
@@ -156,25 +156,26 @@
                     </div>
 
                     <!-- Recipe Stats - Enhanced with better visual separation -->
-                    <div class="mt-6 flex justify-between items-center">
+                    <div
+                        class="mt-4 sm:mt-6 flex flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between sm:items-center">
                         <div class="flex flex-wrap gap-1.5">
                             <div
-                                class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 transform hover:scale-105 transition-transform duration-300">
+                                class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 transform hover:scale-105 transition-transform duration-300">
                                 <i class="fa-regular fa-clock text-blue-600 dark:text-blue-400"></i>
                                 <span class="font-medium">{{ $recipe->cooking_time }} min</span>
                             </div>
                             <div
-                                class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 capitalize transform hover:scale-105 transition-transform duration-300">
+                                class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 capitalize transform hover:scale-105 transition-transform duration-300">
                                 <i class="fa-solid fa-sliders text-yellow-600 dark:text-yellow-400"></i>
                                 <span class="font-medium">{{ $recipe->difficulty }}</span>
                             </div>
                             <div
-                                class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 transform hover:scale-105 transition-transform duration-300">
+                                class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 transform hover:scale-105 transition-transform duration-300">
                                 <i class="fa-solid fa-bowl-food text-purple-600 dark:text-purple-400"></i>
                                 <span class="font-medium">{{ $recipe->servings }}</span>
                             </div>
                             <div
-                                class="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full bg-rose-100 dark:bg-purple-900/30 border border-rose-200 dark:border-rose-800 transform hover:scale-105 transition-transform duration-300">
+                                class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-rose-100 dark:bg-purple-900/30 border border-rose-200 dark:border-rose-800 transform hover:scale-105 transition-transform duration-300">
                                 <i class="fa-solid fa-fire-flame-curved text-rose-600 dark:text-rose-400"></i>
                                 <span class="font-medium">
                                     {{ floor($recipe->calories / $recipe->servings) }} kkal/porsi
@@ -219,14 +220,13 @@
                             <i
                                 class="fa-solid fa-bowl-food text-6xl text-primary/50 dark:text-primary/30 group-hover:text-primary transition-colors duration-500"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-text-primary dark:text-text-dark-primary mb-3">
+                        <h3 class="text-lg md:text-2xl font-bold text-text-primary dark:text-text-dark-primary mb-3">
                             Belum Ada Resep
                         </h3>
-                        <p class="text-base font-medium text-gray-500 dark:text-gray-400 mb-8 max-w-xs mx-auto">
+                        <p class="text-sm md:text-base font-medium text-gray-500 dark:text-gray-400 mb-8 max-w-xs mx-auto">
                             Anda belum memiliki resep apapun. Mulai tambahkan resep pertama Anda sekarang!
                         </p>
-                        <a href="{{ route(auth()->user()->hasRole('admin') ? 'recipes.create' : 'recipes.create') }}"
-                            wire:navigate
+                        <a href="{{ route('recipes.create') }}" wire:navigate
                             class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary to-primary-hover text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium">
                             <i class="fa-solid fa-plus mr-2"></i>
                             Tambah Resep
@@ -354,7 +354,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div class="px-4 py-3 flex flex-row-reverse gap-2 sm:px-6">
                             <button wire:click='handleDelete' type="button"
                                 class="flex w-full justify-center space-x-2 items-center rounded-md bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">
                                 <span>Delete</span>
