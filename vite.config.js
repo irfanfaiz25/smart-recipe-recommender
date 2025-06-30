@@ -8,15 +8,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    // server: {
-    //     host: "0.0.0.0", // Add this line
-    //     hmr: {
-    //         // host: "192.168.43.239",
-    //         host: "192.168.1.5",
-    //     },
-    //     port: 5173,
-    //     watch: {
-    //         usePolling: true,
-    //     },
-    // },
+    server: {
+        host: "0.0.0.0", // Add this line
+        hmr: {
+            // host: "192.168.43.239",
+            host: "192.168.1.4",
+        },
+        port: 5173,
+        watch: {
+            usePolling: true,
+        },
+    },
 });
