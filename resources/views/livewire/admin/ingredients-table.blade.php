@@ -1,16 +1,16 @@
 <div>
-    <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-2 w-full">
-            <div class="w-full max-w-xs min-w-[200px]">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-2 w-full">
+            <div class="w-full sm:max-w-xs">
                 <div class="relative">
                     <input wire:model.live.debounce.300ms='search'
                         class="w-full bg-bg-primary dark:bg-bg-dark-primary placeholder:text-slate-400 text-text-primary dark:text-text-dark-primary text-sm border border-gray-200 dark:border-[#393939] rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-secondary-light dark:focus:border-secondary-light hover:border-gray-300 shadow-sm focus:shadow"
                         placeholder="Cari ingredient ..." />
                     <button
-                        class="absolute top-1 right-1 flex items-center space-x-1 rounded bg-secondary/80 py-1 px-2.5 border border-transparent text-center text-sm text-text-dark-primary transition-all shadow-smdisabled:pointer-events-none font-normal"
+                        class="absolute top-1 right-1 flex items-center space-x-1 rounded bg-secondary/80 py-1 px-2.5 border border-transparent text-center text-sm text-text-dark-primary transition-all shadow-sm disabled:pointer-events-none font-normal"
                         type="button" disabled>
                         <i class="fa-solid fa-magnifying-glass text-sm"></i>
-                        <span>
+                        <span class="hidden sm:inline">
                             Cari
                         </span>
                     </button>
@@ -18,15 +18,15 @@
             </div>
 
             {{-- filter dropdown --}}
-            <div x-data="{ isOpen: false }" class="relative w-full">
+            <div x-data="{ isOpen: false }" class="relative w-full sm:w-auto">
                 <button @click="isOpen = !isOpen"
-                    class="px-3 py-2 w-full sm:min-w-[150px] sm:max-w-[150px] bg-secondary hover:bg-secondary-hover rounded-md text-sm text-text-dark-primary flex justify-between space-x-1 items-center transition-all duration-300 capitalize"
+                    class="px-3 py-2 w-full sm:w-[150px] bg-secondary hover:bg-secondary-hover rounded-md text-sm text-text-dark-primary flex justify-between space-x-1 items-center transition-all duration-300 capitalize"
                     type="button">
                     <span>{{ $selectedFilter == '' ? 'Semua' : $selectedFilter }}</span>
                     <i class="fa-solid" :class="isOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                 </button>
                 <ul role="menu" x-show="isOpen" @click.away="isOpen = false"
-                    class="absolute left-0 mt-2 z-10 w-full sm:min-w-[150px] sm:max-w-[150px] overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-bg-primary dark:bg-bg-dark-secondary p-1.5 shadow-lg focus:outline-none space-y-1 transition-colors">
+                    class="absolute left-0 mt-2 z-10 w-full sm:w-[150px] overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-bg-primary dark:bg-bg-dark-secondary p-1.5 shadow-lg focus:outline-none space-y-1 transition-colors">
                     <li role="menuitem" wire:click="$set('selectedFilter', null)"
                         class="cursor-pointer rounded-md flex w-full text-sm items-center p-3 transition-all {{ $selectedFilter == '' ? 'bg-secondary text-text-dark-primary' : 'text-text-primary dark:text-text-dark-primary hover:bg-gray-100 hover:dark:bg-bg-dark-primary' }}"
                         @click="isOpen = false">
@@ -43,14 +43,72 @@
             </div>
         </div>
         <button wire:click='handleOpenModal'
-            class="px-3 py-2 min-w-40 max-w-48 bg-primary hover:bg-primary-hover rounded-md text-sm text-text-dark-primary transition-all duration-300">
-            Tambah
+            class="w-full sm:w-auto px-3 py-2 bg-primary hover:bg-primary-hover rounded-md text-sm text-text-dark-primary transition-all duration-300">
+            <span class="flex items-center justify-center gap-2">
+                <i class="fa-solid fa-plus sm:hidden"></i>
+                Tambah
+            </span>
         </button>
     </div>
 
     <div class="relative mt-8">
         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left text-text-primary dark:text-text-dark-primary">
+            <!-- Mobile view cards -->
+            <div class="md:hidden space-y-4">
+                @foreach ($ingredients as $ingredient)
+                    <div class="bg-bg-primary dark:bg-bg-dark-primary rounded-lg p-4 shadow">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-sm font-medium">
+                                #{{ ($ingredients->currentPage() - 1) * $ingredients->perPage() + $loop->iteration }}
+                            </span>
+                            <div x-data="{ isOpen: false }" class="relative">
+                                <button
+                                    class="w-8 h-8 bg-gray-100 dark:bg-bg-dark-secondary hover:bg-gray-200 border border-gray-300 text-text-primary dark:text-text-dark-primary rounded-md flex justify-center items-center"
+                                    @click="isOpen = !isOpen">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <ul role="menu" x-show="isOpen" @click.away="isOpen = false"
+                                    class="absolute right-0 mt-2 z-50 w-36 rounded-lg border border-slate-200 dark:border-slate-800 bg-bg-primary dark:bg-bg-dark-secondary p-1.5 shadow-lg">
+                                    <li role="menuitem" wire:click="editIngredient({{ $ingredient->id }})"
+                                        @click="isOpen = false"
+                                        class="cursor-pointer rounded-md text-text-primary dark:text-text-dark-primary flex w-full text-sm items-center p-3 transition-all hover:bg-gray-100 dark:hover:bg-bg-dark-primary">
+                                        <i class="fa-solid fa-pencil text-blue-500 pr-2"></i>
+                                        Edit
+                                    </li>
+                                    <li role="menuitem" wire:click="openConfirmationModal({{ $ingredient->id }})"
+                                        @click="isOpen = false"
+                                        class="cursor-pointer rounded-md text-text-primary dark:text-text-dark-primary flex w-full text-sm items-center p-3 transition-all hover:bg-gray-100 dark:hover:bg-bg-dark-primary">
+                                        <i class="fa-solid fa-trash text-rose-500 pr-2"></i>
+                                        Hapus
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 mb-3">
+                            @if ($ingredient->image)
+                                <img src="{{ asset($ingredient->image) }}" alt="{{ $ingredient->name }}"
+                                    class="h-20 w-24 rounded-md object-cover">
+                            @else
+                                <div
+                                    class="h-20 w-24 bg-gray-200 dark:bg-neutral-700 rounded-md shadow-sm flex justify-center items-center">
+                                    <i class="fa-regular fa-image text-gray-400"></i>
+                                </div>
+                            @endif
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1">{{ $ingredient->name ?? '-' }}</h3>
+                                <p class="text-sm font-normal text-gray-600 dark:text-gray-400 capitalize">
+                                    {{ $ingredient->category ?? '-' }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mt-1">
+                                    {{ $ingredient->description != '' ? $ingredient->description : '-' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Desktop view table -->
+            <table class="w-full text-sm text-left text-text-primary dark:text-text-dark-primary hidden md:table">
                 <thead>
                     <tr class="px-3 bg-bg-primary dark:bg-bg-dark-primary text-sm">
                         <th class="rounded-s-md px-2 py-3 text-center">No</th>
@@ -115,7 +173,6 @@
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>
@@ -132,51 +189,50 @@
         <div class="fixed inset-0 bg-black/75" aria-hidden="true" wire:click='closeModal'></div>
 
         <!-- Modal Container -->
-        <div class="relative flex min-h-screen items-center justify-center px-4 pt-4 pb-20 text-center">
+        <div class="relative flex min-h-screen items-center justify-center p-4">
             <!-- Modal Content -->
-
             <div x-show="$wire.showModal" x-transition.scale.origin.center
-                class="inline-block align-middle bg-white dark:bg-bg-dark-primary rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-3xl sm:w-full">
+                class="w-full max-w-3xl bg-white dark:bg-bg-dark-primary rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
                 <!-- Modal Header -->
-                <div class="bg-white dark:bg-bg-dark-primary px-6 pt-6 pb-4 relative">
+                <div class="bg-white dark:bg-bg-dark-primary px-4 sm:px-6 pt-4 sm:pt-6 pb-4 relative">
                     <button type="button" wire:click='closeModal'
-                        class="absolute top-4 right-4 text-gray-400 hover:text-gray-500">
+                        class="absolute top-3 sm:top-4 right-3 sm:right-4 text-gray-400 hover:text-gray-500">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
-                    <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-text-dark-primary">
+                    <h3
+                        class="text-base sm:text-lg font-semibold leading-6 text-gray-900 dark:text-text-dark-primary pr-8">
                         {{ $isEditMode ? 'Edit Ingredient' : 'Tambah Ingredient' }}
                     </h3>
                 </div>
 
                 <!-- Modal Body -->
                 <form enctype="multipart/form-data" wire:submit.prevent='handleSaveIngredient'>
-                    <div class="px-6 py-4 font-normal text-sm">
+                    <div class="px-4 sm:px-6 py-4 font-normal text-sm">
                         <div class="mb-5">
-                            <div class="flex items-center space-x-4">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:space-x-4">
                                 @if ($newImage)
                                     <div
-                                        class="w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg flex items-center justify-center overflow-hidden relative shadow-md">
+                                        class="w-full sm:w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg flex items-center justify-center overflow-hidden relative shadow-md">
                                         <img src="{{ $newImage->temporaryUrl() }}" id="preview" alt="Preview"
                                             class="w-full h-full object-cover">
                                         <button type="button" wire:click="$set('newImage', null)"
-                                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full flex justify-center items-center hover:bg-red-600 px-1.5 py-1">
+                                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full flex justify-center items-center hover:bg-red-600 p-1.5">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>
                                 @elseif ($existingImagePath)
                                     <div
-                                        class="w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg flex items-center justify-center overflow-hidden relative shadow-md">
+                                        class="w-full sm:w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg flex items-center justify-center overflow-hidden relative shadow-md">
                                         <img src="{{ asset($existingImagePath) }}" id="preview"
                                             alt="Existing Image" class="w-full h-full object-cover">
                                         <button type="button" wire:click="$set('existingImagePath', null)"
-                                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full flex justify-center items-center hover:bg-red-600 px-1.5 py-1">
+                                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full flex justify-center items-center hover:bg-red-600 p-1.5">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>
                                 @else
                                     <div
-                                        class="w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg shadow-md flex justify-center items-center">
-
+                                        class="w-full sm:w-52 h-24 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg shadow-md flex justify-center items-center">
                                         <div role="status" wire:loading wire:target="newImage">
                                             <svg aria-hidden="true"
                                                 class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-primary"
@@ -191,7 +247,6 @@
                                             </svg>
                                             <span class="sr-only">Loading...</span>
                                         </div>
-
                                         <i wire:loading.remove wire:target="newImage"
                                             class="fa-regular fa-image text-lg text-gray-400"></i>
                                     </div>
@@ -205,47 +260,38 @@
                                     <input wire:model='newImage' type="file" id="image" accept="image/*"
                                         class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:shadow-xs-light" />
                                     @error('newImage')
-                                        <p class="text-red-500 text-xs mt-1">
-                                            {{ $message }}
-                                        </p>
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mb-2 flex space-x-2 w-full">
+                        <div class="mb-4 flex flex-col sm:flex-row gap-4 sm:space-x-2 w-full">
                             <div class="w-full">
                                 <label for="name"
                                     class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Nama Ingredient
-                                    <span class="text-xs text-red-500">
-                                        *
-                                    </span>
+                                    <span class="text-xs text-red-500">*</span>
                                 </label>
-                                <input wire:model='name' type="text" id="name"
-                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light"
-                                    placeholder="Bawang Merah" />
+                                <input wire:model='name' type="text" id="name" placeholder="Bawang Merah"
+                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:shadow-xs-light" />
                                 @error('name')
-                                    <p class="text-red-500 text-xs mt-1">
-                                        {{ $message }}
-                                    </p>
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="w-full">
                                 <label for="category"
                                     class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Kategori
-                                    <span class="text-xs text-red-500">
-                                        *
-                                    </span>
+                                    <span class="text-xs text-red-500">*</span>
                                 </label>
                                 @if ($isAddCategory)
                                     <div class="flex space-x-1">
                                         <input wire:model='category' type="text" id="category"
-                                            class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light"
-                                            placeholder="protein" />
+                                            placeholder="protein"
+                                            class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:shadow-xs-light" />
                                         <button type="button" wire:click="$set('isAddCategory', false)"
-                                            class="px-4 py-2.5 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md transition duration-300">
+                                            class="px-3 sm:px-4 py-2.5 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md transition duration-300">
                                             Batal
                                         </button>
                                     </div>
@@ -256,46 +302,43 @@
                                         <option value="addNewCategory">--tambah kategori baru--</option>
                                         @foreach ($filterOptions as $option)
                                             <option value="{{ $option }}"
-                                                {{ $option == $category ? 'selected' : '' }}>{{ $option }}
+                                                {{ $option == $category ? 'selected' : '' }}>
+                                                {{ $option }}
                                             </option>
                                         @endforeach
                                     </select>
                                 @endif
-
                                 @error('category')
-                                    <p class="text-red-500 text-xs mt-1">
-                                        {{ $message }}
-                                    </p>
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
-                        <div class="mb-2">
+
+                        <div class="mb-4">
                             <label for="description"
                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                 Deskripsi
                             </label>
-                            <textarea wire:model='description' name="description" id="description"
-                                class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:shadow-xs-light"
-                                rows="3"></textarea>
+                            <textarea wire:model='description' name="description" id="description" rows="3"
+                                class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:shadow-xs-light"></textarea>
                             @error('description')
-                                <p class="text-red-500 text-xs mt-1">
-                                    {{ $message }}
-                                </p>
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <div
-                        class="flex items-center justify-end space-x-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                        class="flex items-center justify-end gap-2 p-4 md:p-5 border-t border-gray-200 dark:border-gray-600">
                         <button type="button" wire:click='closeModal'
-                            class="py-1.5 px-5 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md transition duration-300">Batal</button>
+                            class="w-full sm:w-auto py-1.5 px-4 sm:px-5 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md transition duration-300">
+                            Batal
+                        </button>
                         <button type="submit"
-                            class="text-white bg-primary hover:bg-primary-hover border border-primary px-6 py-1.5 text-sm text-center rounded-md transition duration-300">
+                            class="w-full sm:w-auto text-white bg-primary hover:bg-primary-hover border border-primary px-5 sm:px-6 py-1.5 text-sm text-center rounded-md transition duration-300">
                             {{ $isEditMode ? 'Simpan' : 'Tambah' }}
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -309,36 +352,41 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div
-                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white dark:bg-bg-dark-primary px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
+                    class="relative transform overflow-hidden rounded-lg bg-white dark:bg-bg-dark-primary text-left shadow-xl transition-all w-full mx-4 sm:mx-0 sm:my-8 sm:max-w-lg">
+                    <div class="bg-white dark:bg-bg-dark-primary p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                             <div
-                                class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
+                                class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0">
                                 <svg class="size-6 text-red-600" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
                                 </svg>
                             </div>
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold text-main-text dark:text-dark-main-text"
+                            <div class="text-center sm:text-left flex-1">
+                                <h3 class="text-lg font-semibold text-main-text dark:text-dark-main-text"
                                     id="modal-title">Delete Ingredient
                                 </h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 dark:text-gray-300">Apakah anda yakin akan
-                                        menghapus ingredient ini?
+                                <div class="mt-2 space-y-2">
+                                    <p class="text-sm text-gray-500 dark:text-gray-300">
+                                        Apakah anda yakin akan menghapus ingredient ini?
                                     </p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-300">Data akan di hapus secara
-                                        permanen. Tindakan ini tidak dapat di batalkan.</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-300">
+                                        Data akan di hapus secara permanen. Tindakan ini tidak dapat di batalkan.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button wire:click='handleDelete' type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
+                    <div class="px-4 py-3 sm:px-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
                         <button type="button" wire:click='closeConfirmationModal'
-                            class="py-1.5 px-5 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md">Cancel</button>
+                            class="w-full sm:w-auto py-2 px-4 text-sm font-medium text-text-primary dark:text-text-dark-primary border border-gray-500 hover:bg-gray-500 hover:text-text-dark-primary rounded-md transition-colors">
+                            Cancel
+                        </button>
+                        <button wire:click='handleDelete' type="button"
+                            class="w-full sm:w-auto py-2 px-4 text-sm font-semibold text-white bg-red-600 hover:bg-red-500 rounded-md transition-colors">
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
