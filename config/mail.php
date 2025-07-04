@@ -113,4 +113,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    // Tambahkan konfigurasi admin email
+    'admin_notifications' => env('MAIL_ADMIN_NOTIFICATIONS', false),
+    'admin_email' => env('MAIL_ADMIN_EMAIL', 'admin@example.com'),
+
 ];

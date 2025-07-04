@@ -288,10 +288,12 @@
 
         <!-- Submit Button -->
         <div class="text-center">
-            <button type="submit"
+            <button type="submit" wire:loading.class="opacity-75 cursor-wait"
                 class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-secondary to-orange-500 text-base text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/50">
-                <i class="fas fa-paper-plane mr-3"></i>
-                Kirim Saran & Masukan
+                <i class="fas fa-paper-plane mr-3" wire:loading.remove></i>
+                <i class="fas fa-spinner fa-spin mr-3" wire:loading></i>
+                <span wire:loading.remove>Kirim Saran & Masukan</span>
+                <span wire:loading>Mengirim...</span>
             </button>
 
             <p class="text-sm text-gray-600 mt-4">

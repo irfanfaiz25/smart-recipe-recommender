@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Suggestion;
+use App\Mail\NewSuggestionMail;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\Mail;
@@ -96,10 +97,18 @@ class SuggestionForm extends Component
                 'priority' => $this->priority
             ]);
 
-            // Optional: Send notification email to admin
-            // if (config('mail.admin_notifications', false)) {
-            //     Mail::to(config('mail.admin_email'))->send(new NewSuggestionMail($suggestion));
-            // }
+            // Send notification email to admin
+            if (config('mail.admin_notifications', false)) {
+                try {
+                    Mail::to(config('mail.admin_email'))->send(new NewSuggestionMail($suggestion));
+                    Log::info('Admin notification email sent', ['suggestion_id' => $suggestion->id]);
+                } catch (\Exception $mailException) {
+                    Log::error('Failed to send admin notification email', [
+                        'suggestion_id' => $suggestion->id,
+                        'error' => $mailException->getMessage()
+                    ]);
+                }
+            }
 
             // Success message
             Toaster::success('Terima kasih! Saran Anda telah berhasil dikirim dan akan kami review.');
