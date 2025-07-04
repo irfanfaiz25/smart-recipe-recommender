@@ -272,7 +272,7 @@
                 <div class="space-y-3 sm:space-y-4">
                     @forelse($recentRecipes as $recipe)
                         <div
-                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-bg-dark-secondary transition-colors duration-200">
                             <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
                                     <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
@@ -318,7 +318,7 @@
                 <div class="space-y-3 sm:space-y-4">
                     @forelse($pendingModerations as $recipe)
                         <div
-                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                            class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-bg-dark-secondary transition-colors duration-200">
                             <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
                                     <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"

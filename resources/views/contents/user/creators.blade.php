@@ -79,16 +79,32 @@
                             class="group bg-white dark:bg-bg-dark-secondary p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:bg-gradient-to-br from-secondary/5 to-primary/5 border border-gray-200 hover:border-secondary/20">
                             <div
                                 class="text-3xl sm:text-4xl mb-4 sm:mb-6 bg-secondary/10 w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center group-hover:bg-secondary/20 transition-all">
+                                <i class="fa-solid fa-robot text-secondary group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <h3
+                                class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-white group-hover:text-secondary transition-colors">
+                                AI-Powered Recipes</h3>
+                            <p
+                                class="text-sm sm:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+                                Manfaatkan teknologi AI untuk mengoptimalkan dan meningkatkan kualitas resep yang kamu
+                                bagikan.
+                            </p>
+                        </div>
+
+                        <div
+                            class="group bg-white dark:bg-bg-dark-secondary p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:bg-gradient-to-br from-secondary/5 to-primary/5 border border-gray-200 hover:border-secondary/20">
+                            <div
+                                class="text-3xl sm:text-4xl mb-4 sm:mb-6 bg-secondary/10 w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center group-hover:bg-secondary/20 transition-all">
                                 <i
-                                    class="fa-solid fa-lightbulb text-secondary group-hover:scale-110 transition-transform"></i>
+                                    class="fa-solid fa-chart-line text-secondary group-hover:scale-110 transition-transform"></i>
                             </div>
                             <h3
                                 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-white group-hover:text-secondary transition-colors">
-                                Bagikan Kreativitasmu</h3>
+                                Analytics & Insights</h3>
                             <p
                                 class="text-sm sm:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                                Tampilkan resep unik dan teknik memasak kepada audiens
-                                yang haus akan inspirasi kuliner.
+                                Pantau performa resepmu dengan analitik mendalam dan dapatkan wawasan untuk pengembangan
+                                konten.
                             </p>
                         </div>
 
@@ -96,32 +112,17 @@
                             class="group bg-white dark:bg-bg-dark-secondary p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:bg-gradient-to-br from-secondary/5 to-primary/5 border border-gray-200 hover:border-secondary/20">
                             <div
                                 class="text-3xl sm:text-4xl mb-4 sm:mb-6 bg-secondary/10 w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center group-hover:bg-secondary/20 transition-all">
-                                <i class="fa-solid fa-users text-secondary group-hover:scale-110 transition-transform"></i>
+                                <i
+                                    class="fa-solid fa-wand-magic-sparkles text-secondary group-hover:scale-110 transition-transform"></i>
                             </div>
                             <h3
                                 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-white group-hover:text-secondary transition-colors">
-                                Bangun Pengikut</h3>
-                            <p
-                                class="text-sm sm:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                                Terhubung dengan pecinta makanan yang menghargai gaya
-                                kulinermu dan bangun komunitasmu sendiri.
-                            </p>
-                        </div>
-
-                        <div
-                            class="group bg-white dark:bg-bg-dark-secondary p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:bg-gradient-to-br from-secondary/5 to-primary/5 border border-gray-200 hover:border-secondary/20">
-                            <div
-                                class="text-3xl sm:text-4xl mb-4 sm:mb-6 bg-secondary/10 w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center group-hover:bg-secondary/20 transition-all">
-                                <i class="fa-solid fa-star text-secondary group-hover:scale-110 transition-transform"></i>
-                            </div>
-                            <h3
-                                class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800 dark:text-white group-hover:text-secondary transition-colors">
-                                Dapatkan Penghargaan
+                                Smart Features
                             </h3>
                             <p
                                 class="text-sm sm:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                                Tampil di platform kami dan terima umpan balik serta
-                                apresiasi untuk kreasi kulinermu.
+                                Akses fitur cerdas seperti konversi otomatis, rekomendasi bahan, dan optimasi resep berbasis
+                                AI.
                             </p>
                         </div>
                     </div>

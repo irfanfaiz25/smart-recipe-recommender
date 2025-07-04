@@ -55,7 +55,7 @@ class HomeSection extends Component
                 'name' => 'Makanan Penutup',
                 'desc' => 'Maniskan harimu dengan dessert.',
                 'icon' => 'fas fa-ice-cream',
-                'color_from' => 'from-purple-400',
+                'color_from' => 'from-purple-500',
                 'color_to' => 'to-pink-500',
                 'recipes' => Recipe::where('category_id', 3)->count() . '+',
                 'delay' => '900',

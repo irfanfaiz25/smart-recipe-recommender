@@ -105,3 +105,31 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .animate-float {
     animation: float 3s ease-in-out infinite;
 }
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* .animate-float {
+    animation: float 6s ease-in-out infinite;
+} */
+
+/* Custom glassmorphism hover effects */
+.group:hover .backdrop-blur-md {
+    backdrop-filter: blur(20px);
+}
+
+/* Smooth animations for floating elements */
+.animate-pulse {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+    animation: bounce 3s infinite;
+}
