@@ -1,7 +1,7 @@
 <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
     x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
     class="w-full">
-    <div class="mt-3 w-full bg-white rounded-lg shadow-lg h-fit">
+    <div class="mt-3 w-full bg-white rounded-lg shadow-lg h-fit recipe-container">
         <div class="relative w-full rounded-t-lg">
             @if ($recipe->image)
                 <img class="w-full h-[20rem] sm:h-[25rem] lg:h-[30rem] rounded-t-lg object-cover"
@@ -56,7 +56,7 @@
                 </p>
             </div>
             <div class="mt-6 sm:mt-8 flex items-center justify-center px-4">
-                <div class="w-full sm:w-3/4 lg:w-1/2 h-auto">
+                <div class="w-full sm:w-[85%] lg:w-[60%] h-auto">
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-0">
                         <div
                             class="border border-gray-200 sm:border-t sm:border-b sm:border-l-0 sm:border-r-0 flex justify-center items-center p-3 sm:p-4 text-sm sm:text-base lg:text-lg rounded-lg sm:rounded-none">
@@ -116,7 +116,7 @@
             {{-- end head details --}}
             {{-- button --}}
             <div
-                class="mt-6 sm:mt-8 lg:mt-10 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-3 px-4">
+                class="hide-on-export mt-6 sm:mt-8 lg:mt-10 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-3 px-4">
                 <button wire:click='toggleBookmark({{ $recipe->id }})'
                     class="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-secondary hover:bg-secondary-hover text-text-dark-primary text-sm sm:text-base font-semibold rounded-full shadow-lg">
                     @if ($recipe->isBookmarkedBy(auth()->user()))
@@ -127,10 +127,34 @@
                         <span class="text-xs sm:text-base">Tambah ke Favorit</span>
                     @endif
                 </button>
+
                 <button
                     class="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-primary hover:bg-primary-hover text-text-dark-primary text-sm sm:text-base font-semibold rounded-full shadow-lg">
                     <i class="fa-solid fa-utensils pe-1 text-sm sm:text-base"></i>
                     <span class="text-xs sm:text-base">Tambah Ke Riwayat Masak</span>
+                </button>
+            </div>
+
+            {{-- Export Buttons Section --}}
+            <div
+                class="export-buttons mt-4 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2 px-4">
+
+                <button onclick="RecipeExporter.exportAsImage({{ $recipe->id }}, '{{ addslashes($recipe->name) }}')"
+                    class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
+                    <i class="fa-solid fa-image pe-1"></i>
+                    <span class="text-xs sm:text-sm">Export Gambar</span>
+                </button>
+
+                <button onclick="RecipeExporter.shareAsImage({{ $recipe->id }}, '{{ addslashes($recipe->name) }}')"
+                    class="w-full sm:w-auto px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
+                    <i class="fa-solid fa-share pe-1"></i>
+                    <span class="text-xs sm:text-sm">Share</span>
+                </button>
+
+                <button onclick="RecipeExporter.copyRecipeLink()"
+                    class="w-full sm:w-auto px-4 py-2.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
+                    <i class="fa-solid fa-link pe-1"></i>
+                    <span class="text-xs sm:text-sm">Copy Link</span>
                 </button>
             </div>
             {{-- end button --}}
@@ -170,7 +194,7 @@
             </div>
             {{-- end recipe ingredients & steps --}}
             {{-- comment section --}}
-            <div class="mt-5">
+            <div class="comment-section mt-5">
                 <h2 class="text-xl sm:text-2xl font-display font-semibold">
                     {{ $recipe->ratings->count() }} Reviews
                 </h2>
@@ -297,3 +321,7 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    @vite(['resources/js/recipe-export.js'])
+@endpush

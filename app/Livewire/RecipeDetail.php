@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
+use Illuminate\Support\Str;
 
 class RecipeDetail extends Component
 {
