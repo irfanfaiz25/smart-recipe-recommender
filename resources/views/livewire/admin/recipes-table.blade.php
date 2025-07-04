@@ -110,7 +110,7 @@
                     <div class="flex flex-col sm:flex-row gap-4 sm:gap-5">
                         @if ($recipe->image)
                             <div
-                                class="relative overflow-hidden rounded-lg h-32 sm:h-36 w-full sm:w-36 shadow-md group-hover:shadow-lg transition-all duration-300">
+                                class="relative overflow-hidden rounded-lg h-32 sm:h-36 w-full sm:w-44 shadow-md group-hover:shadow-lg transition-all duration-300">
                                 <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                                     class="h-full w-full object-cover transform group-hover:scale-110 transition-all duration-700">
                                 <div
@@ -119,7 +119,7 @@
                             </div>
                         @else
                             <div
-                                class="relative overflow-hidden h-32 sm:h-36 w-full sm:w-36 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800 rounded-lg shadow-md flex justify-center items-center group-hover:shadow-lg transition-all duration-300">
+                                class="relative overflow-hidden h-32 sm:h-36 w-full sm:w-44 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800 rounded-lg shadow-md flex justify-center items-center group-hover:shadow-lg transition-all duration-300">
                                 <i
                                     class="fa-regular fa-image text-gray-400 text-3xl group-hover:scale-125 transition-transform duration-300"></i>
                                 <div

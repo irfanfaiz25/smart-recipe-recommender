@@ -43,10 +43,13 @@ class RecipeForm extends Component
         'gram',
         'kg',
         'ml',
+        'liter',
         'sdm',
         'sdt',
         'buah',
+        'ekor',
         'piring',
+        'mangkok',
         'gelas',
     ];
     public $searchIngredients = '';
@@ -56,6 +59,103 @@ class RecipeForm extends Component
     public $searchResults = [];
     public $suggestedIngredients = [];
     public $selectedCategoryName = '';
+
+    public function mount($recipeId = null)
+    {
+        if (!$recipeId) {
+            $this->loadDraft();
+        }
+
+        if ($recipeId) {
+            $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
+
+            if (!$this->recipe) {
+                return $this->redirect(url()->previous());
+            }
+
+            // Check if user is owner or admin
+            if ($this->recipe->user_id !== auth()->user()->id) {
+                return $this->redirect(url()->previous());
+            }
+
+            $this->name = $this->recipe->name;
+            $this->recipeCategory = $this->recipe->category_id;
+            $this->description = $this->recipe->description;
+            $this->cookingTime = $this->recipe->cooking_time;
+            $this->difficulty = $this->recipe->difficulty;
+            $this->servings = $this->recipe->servings;
+            $this->existingImagePath = $this->recipe->image;
+            $this->status = $this->recipe->is_published;
+
+            // Load ingredients with pivot data
+            $this->selectedIngredients = $this->recipe->ingredients->map(function ($ingredient) {
+                return [
+                    'id' => $ingredient->id,
+                    'name' => $ingredient->name,
+                    'category' => $ingredient->category,
+                    'image' => $ingredient->image,
+                    'amount' => (int) $ingredient->pivot->amount,
+                    'unit' => $ingredient->pivot->unit,
+                    'isPrimary' => $ingredient->pivot->is_primary === 1 ? true : false,
+                ];
+            })->toArray();
+
+            // Load steps
+            $this->steps = $this->recipe->steps->pluck('description')->toArray();
+        }
+
+        $ingredients = Ingredient::select('id', 'name', 'image', 'category')->get()->toArray();
+        $this->ingredients = $ingredients;
+    }
+
+    // Tambahkan di class RecipeForm
+    public function saveDraft()
+    {
+        $draftData = [
+            'name' => $this->name,
+            'description' => $this->description,
+            'cooking_time' => $this->cookingTime,
+            'difficulty' => $this->difficulty,
+            'servings' => $this->servings,
+            'category_id' => $this->recipeCategory,
+            'selected_ingredients' => $this->selectedIngredients,
+            'steps' => $this->steps,
+            'status' => $this->status,
+        ];
+
+        // Simpan ke session atau database
+        session(['recipe_draft_' . auth()->id() => $draftData]);
+
+        $this->dispatch('draft-saved');
+    }
+
+    public function loadDraft()
+    {
+        $draftKey = 'recipe_draft_' . auth()->id();
+        $draft = session($draftKey);
+
+        if ($draft) {
+            $this->name = $draft['name'] ?? '';
+            $this->description = $draft['description'] ?? '';
+            $this->cookingTime = $draft['cooking_time'] ?? '';
+            $this->difficulty = $draft['difficulty'] ?? '';
+            $this->servings = $draft['servings'] ?? '';
+            $this->recipeCategory = $draft['category_id'] ?? '';
+            $this->selectedIngredients = $draft['selected_ingredients'] ?? [];
+            $this->steps = $draft['steps'] ?? [''];
+            $this->status = $draft['status'] ?? 0;
+
+            Toaster::info('Draft terakhir berhasil dimuat');
+        }
+    }
+
+    public function clearDraft()
+    {
+        $draftKey = 'recipe_draft_' . auth()->id();
+        session()->forget($draftKey);
+
+        $this->dispatch('draft-cleared');
+    }
 
     // Simplified search-only method
     public function updatedQuickAdd()
@@ -153,47 +253,65 @@ class RecipeForm extends Component
             return;
         }
 
-        // Define suggestions based on recipe category
-        $suggestions = [
-            // hidangan pembuka (appetizer)
-            1 => [
-                ['text' => 'selada', 'amount' => '100', 'unit' => 'gram'],
-                ['text' => 'tomat', 'amount' => '2', 'unit' => 'buah'],
-                ['text' => 'timun', 'amount' => '1', 'unit' => 'buah'],
+        // Ambil bahan yang sering digunakan berdasarkan kategori dari database
+        $popularIngredients = \DB::table('recipe_ingredients')
+            ->join('recipes', 'recipes.id', '=', 'recipe_ingredients.recipe_id')
+            ->join('ingredients', 'ingredients.id', '=', 'recipe_ingredients.ingredient_id')
+            ->where('recipes.category_id', $categoryId)
+            ->select('ingredients.name', \DB::raw('COUNT(*) as usage_count'))
+            ->groupBy('ingredients.name')
+            ->orderBy('usage_count', 'desc')
+            ->limit(6)
+            ->get();
+
+        $this->suggestedIngredients = $popularIngredients->map(function ($item) {
+            return ['text' => $item->name, 'amount' => '', 'unit' => ''];
+        })->toArray();
+
+        // Fallback ke suggestions manual jika tidak ada data
+        if (empty($this->suggestedIngredients)) {
+            // Define suggestions based on recipe category
+            $suggestions = [
+                // hidangan pembuka (appetizer)
+                1 => [
+                    ['text' => 'selada', 'amount' => '100', 'unit' => 'gram'],
+                    ['text' => 'tomat', 'amount' => '2', 'unit' => 'buah'],
+                    ['text' => 'timun', 'amount' => '1', 'unit' => 'buah'],
+                    ['text' => 'garam', 'amount' => '1', 'unit' => 'sdt'],
+                    ['text' => 'lemon', 'amount' => '1', 'unit' => 'buah'],
+                    ['text' => 'mayonaise', 'amount' => '2', 'unit' => 'sdm'],
+                ],
+                // hidangan utama (main course)
+                2 => [
+                    ['text' => 'daging sapi', 'amount' => '500', 'unit' => 'gram'],
+                    ['text' => 'nasi putih', 'amount' => '4', 'unit' => 'piring'],
+                    ['text' => 'kentang', 'amount' => '3', 'unit' => 'buah'],
+                    ['text' => 'bawang merah', 'amount' => '3', 'unit' => 'siung'],
+                    ['text' => 'bawang putih', 'amount' => '2', 'unit' => 'siung'],
+                    ['text' => 'bawang bombay', 'amount' => '1', 'unit' => 'buah']
+                ],
+                // hidangan penutup (dessert)
+                3 => [
+                    ['text' => 'tepung terigu', 'amount' => '250', 'unit' => 'gram'],
+                    ['text' => 'gula', 'amount' => '200', 'unit' => 'gram'],
+                    ['text' => 'telur', 'amount' => '2', 'unit' => 'butir'],
+                    ['text' => 'susu cair', 'amount' => '200', 'unit' => 'ml'],
+                    ['text' => 'mentega', 'amount' => '100', 'unit' => 'gram']
+                ]
+            ];
+
+            if (isset($suggestions[$categoryId])) {
+                $this->suggestedIngredients = $suggestions[$categoryId];
+                return;
+            }
+
+            // Default suggestions
+            $this->suggestedIngredients = [
                 ['text' => 'garam', 'amount' => '1', 'unit' => 'sdt'],
-                ['text' => 'lemon', 'amount' => '1', 'unit' => 'buah'],
-                ['text' => 'mayonaise', 'amount' => '2', 'unit' => 'sdm'],
-            ],
-            // hidangan utama (main course)
-            2 => [
-                ['text' => 'daging sapi', 'amount' => '500', 'unit' => 'gram'],
-                ['text' => 'nasi putih', 'amount' => '4', 'unit' => 'piring'],
-                ['text' => 'kentang', 'amount' => '3', 'unit' => 'buah'],
-                ['text' => 'bawang merah', 'amount' => '3', 'unit' => 'siung'],
-                ['text' => 'bawang putih', 'amount' => '2', 'unit' => 'siung'],
-                ['text' => 'bawang bombay', 'amount' => '1', 'unit' => 'buah']
-            ],
-            // hidangan penutup (dessert)
-            3 => [
-                ['text' => 'tepung terigu', 'amount' => '250', 'unit' => 'gram'],
-                ['text' => 'gula', 'amount' => '200', 'unit' => 'gram'],
-                ['text' => 'telur', 'amount' => '2', 'unit' => 'butir'],
-                ['text' => 'susu cair', 'amount' => '200', 'unit' => 'ml'],
-                ['text' => 'mentega', 'amount' => '100', 'unit' => 'gram']
-            ]
-        ];
-
-        if (isset($suggestions[$categoryId])) {
-            $this->suggestedIngredients = $suggestions[$categoryId];
-            return;
+                ['text' => 'merica', 'amount' => '1/2', 'unit' => 'sdt'],
+                ['text' => 'minyak goreng', 'amount' => '2', 'unit' => 'sdm']
+            ];
         }
-
-        // Default suggestions
-        $this->suggestedIngredients = [
-            ['text' => 'garam', 'amount' => '1', 'unit' => 'sdt'],
-            ['text' => 'merica', 'amount' => '1/2', 'unit' => 'sdt'],
-            ['text' => 'minyak goreng', 'amount' => '2', 'unit' => 'sdm']
-        ];
     }
 
     public function clearAllIngredients()
@@ -204,62 +322,6 @@ class RecipeForm extends Component
             'message' => 'Semua bahan telah dihapus'
         ];
     }
-
-
-    public function mount($recipeId = null)
-    {
-        if ($recipeId) {
-            $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
-
-            if (!$this->recipe) {
-                return $this->redirect(url()->previous());
-            }
-
-            // Check if user is owner or admin
-            if ($this->recipe->user_id !== auth()->user()->id) {
-                return $this->redirect(url()->previous());
-            }
-
-            $this->name = $this->recipe->name;
-            $this->recipeCategory = $this->recipe->category_id;
-            $this->description = $this->recipe->description;
-            $this->cookingTime = $this->recipe->cooking_time;
-            $this->difficulty = $this->recipe->difficulty;
-            $this->servings = $this->recipe->servings;
-            $this->existingImagePath = $this->recipe->image;
-            $this->status = $this->recipe->is_published;
-
-            // Load ingredients with pivot data
-            $this->selectedIngredients = $this->recipe->ingredients->map(function ($ingredient) {
-                return [
-                    'id' => $ingredient->id,
-                    'name' => $ingredient->name,
-                    'category' => $ingredient->category,
-                    'image' => $ingredient->image,
-                    'amount' => (int) $ingredient->pivot->amount,
-                    'unit' => $ingredient->pivot->unit,
-                    'isPrimary' => $ingredient->pivot->is_primary === 1 ? true : false,
-                ];
-            })->toArray();
-
-            // Load steps
-            $this->steps = $this->recipe->steps->pluck('description')->toArray();
-        }
-
-        $ingredients = Ingredient::select('id', 'name', 'image', 'category')->get()->toArray();
-        $this->ingredients = $ingredients;
-    }
-
-    // OLD METHOD
-    // public function updatedIngredient($value)
-    // {
-    //     $ingredient = json_decode($value, true);
-    //     $ingredient['amount'] = '';
-    //     $ingredient['unit'] = 'pcs';
-
-    //     $this->selectedIngredients[] = $ingredient;
-    //     $this->ingredient = '';
-    // }
 
     public function selectIngredient($ingredientId)
     {
@@ -280,26 +342,6 @@ class RecipeForm extends Component
         foreach ($this->selectedIngredients as $key => $ingredient) {
             if ($ingredient['id'] === $id) {
                 $this->selectedIngredients[$key]['isPrimary'] = $value;
-                break;
-            }
-        }
-    }
-
-    public function increaseIngredientAmount($id)
-    {
-        foreach ($this->selectedIngredients as $key => $ingredient) {
-            if ($ingredient['id'] === $id) {
-                $this->selectedIngredients[$key]['amount']++;
-                break;
-            }
-        }
-    }
-
-    public function decreaseIngredientAmount($id)
-    {
-        foreach ($this->selectedIngredients as $key => $ingredient) {
-            if ($ingredient['id'] === $id) {
-                $this->selectedIngredients[$key]['amount']--;
                 break;
             }
         }
@@ -453,21 +495,29 @@ class RecipeForm extends Component
     public function uploadImage($image)
     {
         try {
-            // Upload ke Cloudinary dengan folder dan transformasi
-            $uploadedFileUrl = Cloudinary::upload($image->getRealPath(), [
+            // Upload ke Cloudinary menggunakan UploadApi
+            $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+
+            // Generate unique public_id
+            $publicId = 'recipe_' . uniqid();
+
+            $uploadResult = $uploadApi->upload($image->getRealPath(), [
                 'folder' => 'recipes',
+                'public_id' => $publicId,
                 'transformation' => [
-                    'quality' => 'auto',
-                    'fetch_format' => 'auto',
+                    'quality' => 'auto:good',
+                    'format' => 'auto',
                     'width' => 800,
                     'height' => 600,
                     'crop' => 'fill'
                 ]
-            ])->getSecurePath();
+            ]);
 
-            return $uploadedFileUrl;
+            return $uploadResult['secure_url'];
         } catch (\Exception $e) {
-            throw new \Exception('Gagal upload gambar: ' . $e->getMessage());
+            // Fallback ke penyimpanan lokal jika Cloudinary gagal
+            \Log::warning('Cloudinary upload failed, using local storage: ' . $e->getMessage());
+            return 'storage/' . $image->store('img/recipes', 'public');
         }
     }
 
@@ -694,6 +744,7 @@ class RecipeForm extends Component
         $this->redirect($redirectUrl, navigate: true);
         Toaster::success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
         $this->recipe = null;
+        $this->clearDraft();
     }
 
     public function render()
@@ -705,5 +756,30 @@ class RecipeForm extends Component
         return view('livewire.admin.recipe-form', [
             'recipeCategories' => $recipeCategories
         ]);
+    }
+
+    public function getFormProgress()
+    {
+        $totalFields = 8; // Total field yang harus diisi
+        $filledFields = 0;
+
+        if (!empty($this->name))
+            $filledFields++;
+        if (!empty($this->description))
+            $filledFields++;
+        if (!empty($this->cookingTime))
+            $filledFields++;
+        if (!empty($this->difficulty))
+            $filledFields++;
+        if (!empty($this->servings))
+            $filledFields++;
+        if (!empty($this->recipeCategory))
+            $filledFields++;
+        if (count($this->selectedIngredients) > 0)
+            $filledFields++;
+        if (count(array_filter($this->steps)) > 0)
+            $filledFields++;
+
+        return round(($filledFields / $totalFields) * 100);
     }
 }

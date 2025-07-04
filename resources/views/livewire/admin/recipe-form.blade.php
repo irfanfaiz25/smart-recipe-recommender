@@ -1,5 +1,34 @@
 <div>
-    <div class="w-full h-fit bg-bg-primary dark:bg-bg-dark-primary p-4 rounded-lg">
+    <!-- Sticky Progress Bar -->
+    {{-- <div class="bg-white dark:bg-bg-dark-primary p-4 shadow-md mb-6 rounded-lg">
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-3 dark:bg-gray-700">
+            <div class="bg-secondary h-2 rounded-full transition-all duration-300"
+                style="width: {{ $this->getFormProgress() }}%"></div>
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400 text-center">
+            Progress: {{ $this->getFormProgress() }}%
+        </div>
+    </div> --}}
+    <!-- Progress Indicator -->
+    <div class="mb-6 bg-white dark:bg-bg-dark-secondary rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-medium text-gray-900 dark:text-white">Progress Pengisian Form</h3>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ $this->getFormProgress() }}%</span>
+        </div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div class="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                style="width: {{ $this->getFormProgress() }}%"></div>
+        </div>
+        <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            @if ($this->getFormProgress() < 100)
+                <i class="fas fa-save mr-1"></i>Data tersimpan otomatis setiap perubahan
+            @else
+                <i class="fas fa-check-circle mr-1 text-green-500"></i>Form siap untuk dikirim
+            @endif
+        </div>
+    </div>
+
+    <div class="w-full h-fit bg-bg-primary dark:bg-bg-dark-primary p-4 rounded-lg relative">
         <form wire:submit='save'>
             <div class="w-full mb-6">
                 <div class="flex flex-col md:flex-row md:space-x-4 w-full md:w-1/2 justify-center mx-auto">
@@ -247,8 +276,7 @@
                                 <div wire:click="selectSearchResult('{{ $result['id'] }}', '{{ $result['name'] }}'); $nextTick(() => document.getElementById('quickAddInput').focus())"
                                     class="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b last:border-b-0 border-gray-100 dark:border-gray-700">
                                     @if ($result['image'])
-                                        <img src="{{ asset($result['image']) }}"
-                                            class="w-8 h-8 rounded object-cover mr-3">
+                                        <img src="{{ $result['image'] }}" class="w-8 h-8 rounded object-cover mr-3">
                                     @else
                                         <div
                                             class="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded flex items-center justify-center mr-3">
@@ -323,7 +351,7 @@
                                     <div class="flex items-start justify-between mb-3">
                                         <div class="flex items-center flex-1">
                                             @if ($ingredient['image'])
-                                                <img src="{{ asset($ingredient['image']) }}"
+                                                <img src="{{ $ingredient['image'] }}"
                                                     class="w-12 h-12 rounded-lg object-cover mr-3 border border-gray-200">
                                             @else
                                                 <div
@@ -347,7 +375,6 @@
                                         </button>
                                     </div>
 
-                                    <!-- Amount and Unit Inputs -->
                                     <div class="grid grid-cols-2 gap-3 mb-3">
                                         <div>
                                             <label
@@ -359,9 +386,6 @@
                                                 type="text"
                                                 class="w-full text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white"
                                                 placeholder="2.5">
-                                            @error('selectedIngredients.' . $key . '.amount')
-                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                            @enderror
                                         </div>
                                         <div>
                                             <label
@@ -386,7 +410,7 @@
                                         <input wire:model.live="selectedIngredients.{{ $key }}.isPrimary"
                                             wire:change="updateIngredientIsPrimary({{ $ingredient['id'] }}, $event.target.checked)"
                                             id="isPrimary{{ $key }}" type="checkbox"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
                                         <label for="isPrimary{{ $key }}"
                                             class="ml-2 text-sm text-gray-700 dark:text-gray-300">
                                             <i class="fas fa-star text-yellow-500 mr-1"></i>Bahan utama
@@ -412,167 +436,6 @@
                     <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                 @enderror
             </div>
-            {{-- <div class="mb-3 w-full flex flex-col md:flex-row md:space-x-3 space-y-4 md:space-y-0">
-                <div class="w-full md:w-1/3">
-                    <div class="w-full">
-                        <label for="search" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                            Cari Bahan Masakan
-                            <span class="text-xs text-red-500">
-                                *
-                            </span>
-                        </label>
-                        <div class="flex space-x-2 items-center">
-                            <div class="relative w-full">
-                                <!-- Search Input -->
-                                <input wire:model.live.debounce.300ms='searchIngredients' type="text"
-                                    id="search"
-                                    x-on:keydown.arrow-down.prevent="$event.target.nextElementSibling.querySelector('.ingredient-item:not(.hidden)')?.focus()"
-                                    x-on:keydown.enter.prevent
-                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
-                                    placeholder="bawang merah" />
-                                <!-- Search Results -->
-                                @if ($searchIngredients)
-                                    <div
-                                        class="mt-2 absolute w-full h-36 bg-gray-100 rounded-lg overflow-y-auto space-y-1 z-10">
-                                        @foreach ($ingredients as $ingredient)
-                                            <div wire:click="selectIngredient({{ $ingredient['id'] }}); $nextTick(() => document.getElementById('search').focus())"
-                                                tabindex="0"
-                                                x-on:keydown.arrow-down.prevent="$event.target.nextElementSibling?.classList.contains('hidden') ? $event.target.nextElementSibling?.nextElementSibling?.focus() : $event.target.nextElementSibling?.focus()"
-                                                x-on:keydown.arrow-up.prevent="$event.target.previousElementSibling?.classList.contains('hidden') ? $event.target.previousElementSibling?.previousElementSibling?.focus() : $event.target.previousElementSibling?.focus()"
-                                                x-on:keydown.enter.prevent="$wire.selectIngredient({{ $ingredient['id'] }}); document.getElementById('search').focus()"
-                                                class="ingredient-item p-2 hover:bg-gray-200 text-text-primary cursor-pointer text-sm focus:bg-gray-200 focus:outline-none {{ collect($selectedIngredients)->contains('id', $ingredient['id']) ? 'hidden' : '' }}">
-                                                {{ $ingredient['name'] }}
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                            <div role="status" wire:loading wire:target="ingredient">
-                                <svg aria-hidden="true"
-                                    class="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-primary"
-                                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                        fill="currentColor" />
-                                    <path
-                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                        fill="currentFill" />
-                                </svg>
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                        @error('selectedIngredients')
-                            <p class="text-red-500 text-xs mt-1">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="w-full md:w-2/3">
-                    <p class="text-sm mb-1">Bahan Masakan Terpilih :</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        @forelse ($selectedIngredients as $key => $ingredient)
-                            <div class="h-auto sm:h-[9rem] p-2 bg-gray-50 dark:bg-neutral-700 rounded-lg shadow-md">
-                                <div
-                                    class="flex flex-col sm:flex-row w-full sm:h-[5.8rem] items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                                    <div class="w-full sm:w-[25%] h-32 sm:h-full">
-                                        @if ($ingredient['image'])
-                                            <img src="{{ asset($ingredient['image']) }}"
-                                                alt="{{ $ingredient['name'] }}"
-                                                class="h-full w-full sm:w-24 rounded-md object-cover shadow-md">
-                                        @else
-                                            <div
-                                                class="h-full w-full sm:w-24 flex justify-center items-center bg-gray-100 rounded-md shadow-md">
-                                                <i class="fa-regular fa-image text-sm text-gray-400"></i>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="w-full sm:w-[75%] h-full flex flex-col justify-between">
-                                        <div class="flex justify-between space-x-2">
-                                            <div class="w-[90%] h-fit">
-                                                <p class="text-sm font-medium">{{ $ingredient['name'] }}</p>
-                                            </div>
-                                            <div class="w-[10%] text-end">
-                                                <i wire:click="removeIngredient({{ $ingredient['id'] }})"
-                                                    wire:loading.remove
-                                                    wire:target="removeIngredient({{ $ingredient['id'] }})"
-                                                    class="fa fa-solid fa-circle-xmark cursor-pointer text-base text-rose-500 hover:text-rose-600"></i>
-                                                <div role="status" wire:loading
-                                                    wire:target="removeIngredient({{ $ingredient['id'] }})">
-                                                    <svg aria-hidden="true"
-                                                        class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-primary"
-                                                        viewBox="0 0 100 101" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                                            fill="currentFill" />
-                                                    </svg>
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex space-x-3 mt-2 sm:mt-0">
-                                            <div class="space-y-1 w-1/2">
-                                                <label for="unit"
-                                                    class="text-xs text-text-primary dark:text-text-dark-primary">
-                                                    Jumlah/Berat
-                                                </label>
-                                                <input
-                                                    wire:model.live="selectedIngredients.{{ $key }}.amount"
-                                                    wire:change="updateIngredientAmount({{ $ingredient['id'] }}, $event.target.value)"
-                                                    type="text"
-                                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
-                                                    placeholder="2.5">
-                                                @error('selectedIngredients.' . $key . '.amount')
-                                                    <p class="text-red-500 text-xs mt-1">
-                                                        {{ $message }}
-                                                    </p>
-                                                @enderror
-                                            </div>
-                                            <div class="space-y-1 w-1/2">
-                                                <label for="unit"
-                                                    class="text-xs text-text-primary dark:text-text-dark-primary">
-                                                    Satuan
-                                                </label>
-                                                <select
-                                                    wire:change="updateIngredientUnit({{ $ingredient['id'] }}, $event.target.value)"
-                                                    class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full px-2 py-1.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
-                                                    @foreach ($units as $unit)
-                                                        <option value="{{ $unit }}" class="capitalize"
-                                                            {{ $ingredient['unit'] == $unit ? 'selected' : '' }}>
-                                                            {{ $unit }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-2 sm:mt-1 flex justify-center">
-                                    <div class="flex items-center py-2 ps-3">
-                                        <input wire:model.live="selectedIngredients.{{ $key }}.isPrimary"
-                                            id="isPrimary{{ $key }}"
-                                            wire:change="updateIngredientIsPrimary({{ $ingredient['id'] }}, $event.target.checked)"
-                                            type="checkbox"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="isPrimary{{ $key }}"
-                                            class="ms-1.5 text-sm font-normal text-gray-500 dark:text-gray-300">
-                                            Tandai sebagai bahan utama
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p class="mt-2 text-sm font-normal">
-                                Belum ada ingredient terpilih.
-                            </p>
-                        @endforelse
-                    </div>
-                </div>
-            </div> --}}
             <div class="mb-3 w-full">
                 <label for="step" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Langkah Pembuatan

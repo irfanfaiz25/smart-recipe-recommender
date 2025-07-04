@@ -26,7 +26,7 @@
     <title>Login</title>
 
     {{-- logo title --}}
-    <link rel="icon" href="{{ asset('img/Logo.png') }}">
+    <link rel="icon" href="{{ asset('storage/img/main/savory-logo.png') }}">
 
     <!-- Include Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -97,8 +97,7 @@
                                             @if ($ingredient->image)
                                                 <div class="w-10 sm:w-12 h-full flex-shrink-0">
                                                     <img class="w-10 sm:w-12 h-full object-cover rounded-md shadow-md"
-                                                        src="{{ asset($ingredient->image) }}"
-                                                        alt="{{ $ingredient->name }}">
+                                                        src="{{ $ingredient->image }}" alt="{{ $ingredient->name }}">
                                                 </div>
                                             @else
                                                 <div

@@ -58,6 +58,12 @@ class SidebarToggle extends Component
                     'icon' => 'fa-solid fa-comments',
                     'request' => 'admin/suggestions*'
                 ],
+                [
+                    'name' => 'Halaman Utama',
+                    'route' => 'home.index',
+                    'icon' => 'fa fa-circle-arrow-left',
+                    'request' => 'home*'
+                ],
             ];
         } else {
             $this->sidebarMenu = [
@@ -72,6 +78,12 @@ class SidebarToggle extends Component
                     'route' => 'recipes.index',
                     'icon' => 'fa-solid fa-utensils',
                     'request' => 'creators/recipes*'
+                ],
+                [
+                    'name' => 'Halaman Utama',
+                    'route' => 'home.index',
+                    'icon' => 'fa fa-circle-arrow-left',
+                    'request' => 'home*'
                 ],
             ];
         }

@@ -111,11 +111,34 @@ class IngredientsTable extends Component
         ]);
 
         $imagePath = $this->isEditMode ? $this->existingImagePath : null;
+
         if ($this->newImage) {
-            if ($this->isEditMode && $ingredient->image && Storage::disk('public')->exists(str_replace('storage/', '', $ingredient->image))) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $ingredient->image));
+            try {
+                // Upload ke Cloudinary
+                $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+                $uploadResult = $uploadApi->upload($this->newImage->getRealPath(), [
+                    'folder' => 'ingredients',
+                    'public_id' => 'ingredient_' . ($this->isEditMode ? $this->ingredientId : 'temp'),
+                    'transformation' => [
+                        'quality' => 'auto:good',
+                        'format' => 'auto',
+                        'width' => 600,
+                        'height' => 400,
+                        'crop' => 'fill'
+                    ]
+                ]);
+
+                $imagePath = $uploadResult['secure_url'];
+            } catch (\Exception $e) {
+                // Fallback ke penyimpanan lokal jika Cloudinary gagal
+                if (
+                    $this->isEditMode && $ingredient->image && !str_contains($ingredient->image, 'cloudinary.com') &&
+                    Storage::disk('public')->exists(str_replace('storage/', '', $ingredient->image))
+                ) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $ingredient->image));
+                }
+                $imagePath = 'storage/' . $this->newImage->store('img/ingredients', 'public');
             }
-            $imagePath = 'storage/' . $this->newImage->store('img/ingredients', 'public');
         }
 
         if ($this->isEditMode) {
@@ -125,13 +148,43 @@ class IngredientsTable extends Component
                 'category' => $validated['category'],
                 'image' => $imagePath ?? null,
             ]);
+
+            // Update public_id jika menggunakan temporary ID
+            if ($this->newImage && str_contains($imagePath, 'cloudinary.com') && str_contains($imagePath, 'ingredient_temp')) {
+                try {
+                    $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+                    $uploadApi->rename(
+                        'ingredients/ingredient_temp',
+                        'ingredients/ingredient_' . $ingredient->id
+                    );
+                } catch (\Exception $e) {
+                    // Lanjutkan meskipun rename gagal
+                }
+            }
         } else {
-            Ingredient::create([
+            $newIngredient = Ingredient::create([
                 'name' => $validated['name'],
                 'description' => $validated['description'],
                 'category' => $validated['category'],
                 'image' => $imagePath ?? null,
             ]);
+
+            // Update public_id jika menggunakan temporary ID
+            if ($this->newImage && str_contains($imagePath, 'cloudinary.com') && str_contains($imagePath, 'ingredient_temp')) {
+                try {
+                    $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+                    $uploadApi->rename(
+                        'ingredients/ingredient_temp',
+                        'ingredients/ingredient_' . $newIngredient->id
+                    );
+
+                    // Update URL dengan ID yang benar
+                    $newUrl = str_replace('ingredient_temp', 'ingredient_' . $newIngredient->id, $imagePath);
+                    $newIngredient->update(['image' => $newUrl]);
+                } catch (\Exception $e) {
+                    // Lanjutkan meskipun rename gagal
+                }
+            }
         }
 
         $this->closeModal();

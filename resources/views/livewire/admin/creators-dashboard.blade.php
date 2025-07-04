@@ -122,7 +122,7 @@
                     </svg>
                     <span class="text-sm font-medium">Statistik</span>
                 </a>
-                <a href=""
+                <a href="{{ route('creators-profile.index') }}"
                     class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl p-4 text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
                     <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
