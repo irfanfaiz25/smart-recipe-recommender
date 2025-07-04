@@ -7,7 +7,7 @@
             class="h-auto min-h-64 md:h-64 col-span-1 md:col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex flex-col md:flex-row group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
             <div class="w-full md:w-[40%] h-48 md:h-full relative overflow-hidden">
                 @if ($todayTrending['recipes']['image'])
-                    <img src="{{ asset($todayTrending['recipes']['image']) }}" alt="featured-recipe"
+                    <img src="{{ $todayTrending['recipes']['image'] }}" alt="featured-recipe"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 @else
                     <div class="w-full h-full bg-gray-200 flex justify-center items-center">

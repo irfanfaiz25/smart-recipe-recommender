@@ -275,7 +275,7 @@
                             class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-bg-dark-secondary transition-colors duration-200">
                             <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
-                                    <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
+                                    <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                                         class="w-full h-full rounded-lg object-cover">
                                 @else
                                     <div class="w-full h-full flex justify-center items-center bg-gray-100 rounded-lg">
@@ -321,7 +321,7 @@
                             class="flex items-center space-x-3 sm:space-x-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-bg-dark-secondary transition-colors duration-200">
                             <div class="w-16 sm:w-[20%] h-16 sm:h-20 flex-shrink-0">
                                 @if ($recipe->image)
-                                    <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
+                                    <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                                         class="w-full h-full rounded-lg object-cover">
                                 @else
                                     <div class="w-full h-full flex justify-center items-center bg-gray-100 rounded-lg">

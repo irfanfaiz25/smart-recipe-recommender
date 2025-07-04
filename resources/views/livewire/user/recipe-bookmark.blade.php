@@ -36,7 +36,7 @@
                 <!-- Recipe Image with Overlay -->
                 <div class="relative h-48 overflow-hidden">
                     @if ($recipe->image)
-                        <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
+                        <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     @else
                         <div class="h-full w-full flex justify-center items-center bg-gray-200 dark:bg-gray-700">

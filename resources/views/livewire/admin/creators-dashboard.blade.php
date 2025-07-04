@@ -151,7 +151,7 @@
                                 class="flex flex-col sm:flex-row gap-3 sm:space-x-4 p-3 sm:p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-bg-dark-secondary transition-colors duration-200">
                                 <div class="w-full sm:w-[20%] h-32 sm:h-24">
                                     @if ($recipe->image)
-                                        <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}"
+                                        <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                                             class="w-full h-full rounded-lg object-cover shadow-md">
                                     @else
                                         <div

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -449,6 +450,50 @@ class RecipeForm extends Component
         }
     }
 
+    public function uploadImage($image)
+    {
+        try {
+            // Upload ke Cloudinary dengan folder dan transformasi
+            $uploadedFileUrl = Cloudinary::upload($image->getRealPath(), [
+                'folder' => 'recipes',
+                'transformation' => [
+                    'quality' => 'auto',
+                    'fetch_format' => 'auto',
+                    'width' => 800,
+                    'height' => 600,
+                    'crop' => 'fill'
+                ]
+            ])->getSecurePath();
+
+            return $uploadedFileUrl;
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal upload gambar: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteImageFromCloudinary($imageUrl)
+    {
+        try {
+            // Extract public_id dari URL Cloudinary
+            $publicId = $this->extractPublicIdFromUrl($imageUrl);
+
+            if ($publicId) {
+                Cloudinary::destroy($publicId);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Gagal hapus gambar dari Cloudinary: ' . $e->getMessage());
+        }
+    }
+
+    private function extractPublicIdFromUrl($url)
+    {
+        // Extract public_id dari URL Cloudinary
+        // Format: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/filename.jpg
+        $pattern = '/\/upload\/(?:v\d+\/)?(.+)\.[a-zA-Z]{3,4}$/';
+        preg_match($pattern, $url, $matches);
+        return $matches[1] ?? null;
+    }
+
     public function save()
     {
         $user = auth()->user();
@@ -485,20 +530,29 @@ class RecipeForm extends Component
             return;
         }
 
-        // storing image to storage
-        $imagePath = $this->existingImagePath ?? '';
+        // Handle image upload to Cloudinary
+        $imageUrl = $this->existingImagePath ?? null;
         if ($this->newImage) {
-            if ($this->recipe && $this->recipe->image && Storage::disk('public')->exists(str_replace('storage/', '', $this->recipe->image))) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $this->recipe->image));
+            try {
+                // Delete old image from Cloudinary if exists
+                if ($this->recipe && $this->recipe->image && str_contains($this->recipe->image, 'cloudinary.com')) {
+                    $this->deleteImageFromCloudinary($this->recipe->image);
+                }
+
+                // Upload new image to Cloudinary
+                $imageUrl = $this->uploadImage($this->newImage);
+            } catch (\Exception $e) {
+                Toaster::error('Gagal upload gambar: ' . $e->getMessage());
+                return;
             }
-            $imagePath = 'storage/' . $this->newImage->store('img/recipes', 'public');
         }
 
         // if recipe doesn't have image and new image is null, delete the image
         if (!$this->newImage && !$this->existingImagePath) {
-            if ($this->recipe && $this->recipe->image && Storage::disk('public')->exists(str_replace('storage/', '', $this->recipe->image))) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $this->recipe->image));
+            if ($this->recipe && $this->recipe->image && str_contains($this->recipe->image, 'cloudinary.com')) {
+                $this->deleteImageFromCloudinary($this->recipe->image);
             }
+            $imageUrl = null;
         }
 
         if ($this->recipe) {
@@ -531,7 +585,7 @@ class RecipeForm extends Component
             // Recalculate calories only if ingredients changed and if calories field is not null
             $calories = $ingredientsChanged || $this->recipe->calories === null ? $this->countTotalCalories() : $this->recipe->calories;
 
-            // update recipe
+            // update recipe - sesuaikan dengan struktur tabel
             $this->recipe->update([
                 'name' => $validated['name'],
                 'category_id' => $validated['recipeCategory'],
@@ -539,7 +593,7 @@ class RecipeForm extends Component
                 'cooking_time' => $validated['cookingTime'],
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
-                'image' => $imagePath ?? null,
+                'image' => $imageUrl, // Simpan URL Cloudinary
                 'calories' => $calories,
                 'is_published' => (bool) $validated['status'],
             ]);
@@ -580,18 +634,18 @@ class RecipeForm extends Component
                 ]);
             }
 
-            // recreate steps
+            // recreate steps - sesuaikan dengan struktur tabel recipe_steps
             foreach ($this->steps as $index => $step) {
                 $this->recipe->steps()->create([
                     'step_number' => $index + 1,
-                    'description' => $step
+                    'description' => $step // field 'description' sesuai dengan migrasi
                 ]);
             }
         } else {
             // count calories for each portion
             $calories = $this->countTotalCalories();
 
-            // insert field to recipes table
+            // insert field to recipes table - sesuaikan dengan struktur tabel
             $recipe = Recipe::create([
                 'name' => $validated['name'],
                 'user_id' => $user->id,
@@ -600,7 +654,7 @@ class RecipeForm extends Component
                 'cooking_time' => $validated['cookingTime'],
                 'difficulty' => $validated['difficulty'],
                 'servings' => $validated['servings'],
-                'image' => $imagePath ?? null,
+                'image' => $imageUrl, // Simpan URL Cloudinary
                 'calories' => $calories,
                 'is_published' => (bool) $validated['status'],
             ]);
@@ -623,10 +677,11 @@ class RecipeForm extends Component
                 ]);
             }
 
+            // create steps - sesuaikan dengan struktur tabel recipe_steps
             foreach ($this->steps as $index => $step) {
                 $recipe->steps()->create([
                     'step_number' => $index + 1,
-                    'description' => $step
+                    'description' => $step // field 'description' sesuai dengan migrasi
                 ]);
             }
         }

@@ -17,7 +17,7 @@
                         @elseif ($existingImagePath)
                             <div
                                 class="w-full md:w-52 h-32 bg-gray-100 dark:bg-bg-dark-secondary rounded-lg flex items-center justify-center overflow-hidden relative">
-                                <img src="{{ asset($existingImagePath) }}" id="preview" alt="Existing Image"
+                                <img src="{{ $existingImagePath }}" id="preview" alt="Existing Image"
                                     class="w-full h-full object-cover">
                                 <button type="button" wire:click="$set('existingImagePath', null)"
                                     class="absolute top-2 right-2 bg-red-500 text-white rounded-full flex justify-center items-center hover:bg-red-600 px-2 py-1">

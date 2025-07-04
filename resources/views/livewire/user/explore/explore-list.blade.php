@@ -72,7 +72,7 @@
                 class="break-inside-avoid bg-gradient-to-br from-secondary to-primary overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group mb-6 rounded-xl">
                 <div class="relative h-72">
                     @if ($recipe->image)
-                        <img src="{{ asset($recipe['image']) }}" alt="{{ $recipe['name'] }}"
+                        <img src="{{ $recipe['image'] }}" alt="{{ $recipe['name'] }}"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     @else
                         <div class="w-full h-full bg-gray-100 flex justify-center items-center">

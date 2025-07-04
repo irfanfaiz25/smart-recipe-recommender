@@ -90,7 +90,7 @@
                             {{-- Recipe Image --}}
                             <div class="relative h-48 overflow-hidden">
                                 @if ($recipe->image)
-                                    <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->title }}"
+                                    <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                 @else
                                     <div

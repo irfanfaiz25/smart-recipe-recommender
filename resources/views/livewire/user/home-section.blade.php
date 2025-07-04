@@ -96,7 +96,7 @@
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100">
                         <div class="relative h-56 overflow-hidden">
                             @if ($recipe['image'])
-                                <img src="{{ asset($recipe['image']) }}" alt="{{ $recipe['name'] }}"
+                                <img src="{{ $recipe['image'] }}" alt="{{ $recipe['name'] }}"
                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                     onerror="this.parentElement.innerHTML = `
                                         <div class='absolute inset-0 bg-gradient-to-br {{ $colors[$recipe['color']]['from'] }} {{ $colors[$recipe['color']]['to'] }} flex items-center justify-center'>

@@ -10,7 +10,7 @@
                             class="h-64 sm:h-72 shadow-md hover:shadow-xl transition-all duration-500 relative group cursor-pointer overflow-hidden rounded-xl">
                             {{-- Recipe Image --}}
                             @if ($recipe->image)
-                                <img src="{{ asset($recipe['image']) }}" alt="{{ $recipe['name'] }}"
+                                <img src="{{ $recipe['image'] }}" alt="{{ $recipe['name'] }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             @else
                                 <div class="w-full h-full bg-gray-100 flex justify-center items-center">

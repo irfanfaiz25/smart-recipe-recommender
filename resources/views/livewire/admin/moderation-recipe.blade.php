@@ -31,7 +31,7 @@
                     <!-- Recipe Image -->
                     <div class="h-52 relative overflow-hidden">
                         @if ($recipe->image)
-                            <img src="{{ asset($recipe->image) }}" alt="Nasi Goreng Special"
+                            <img src="{{ $recipe->image }}" alt="Nasi Goreng Special"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="w-full h-full bg-gray-100 dark:bg-[#2b2b2b] flex justify-center items-center">

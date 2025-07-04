@@ -5,7 +5,7 @@
         <div class="relative w-full rounded-t-lg">
             @if ($recipe->image)
                 <img class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg object-cover"
-                    src="{{ asset($recipe->image) }}">
+                    src="{{ $recipe->image }}">
             @else
                 <div
                     class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg bg-gray-200 dark:bg-bg-dark-primary flex justify-center items-center">

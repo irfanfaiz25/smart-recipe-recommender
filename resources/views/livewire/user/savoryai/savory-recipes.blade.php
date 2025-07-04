@@ -114,7 +114,7 @@
                                         @if ($recipe->image)
                                             <div class="relative overflow-hidden rounded-lg sm:rounded-xl shadow-md">
                                                 <img class="h-32 w-32 sm:h-40 sm:w-40 object-cover transition-transform duration-500 group-hover:scale-110"
-                                                    src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}">
+                                                    src="{{ $recipe->image }}" alt="{{ $recipe->name }}">
                                                 <div
                                                     class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                 </div>
