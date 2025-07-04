@@ -228,7 +228,7 @@
                         <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
                             @if ($item->user->avatar)
                                 <img class="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover flex-shrink-0"
-                                    src="{{ $item->user->avatar_url }}" alt="{{ $item->user->name }}">
+                                    src="{{ $item->user->avatar }}" alt="{{ $item->user->name }}">
                             @else
                                 <i
                                     class="fa fa-circle-user text-3xl sm:text-4xl text-gray-500 dark:text-text-dark-primary flex-shrink-0"></i>

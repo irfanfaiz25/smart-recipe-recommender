@@ -104,7 +104,7 @@
                         }">
                         @if (Auth::check() && Auth::user()->avatar)
                             <img class="h-8 w-8 rounded-full object-cover ring-2 ring-secondary/30"
-                                src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}">
+                                src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
                         @else
                             <div class="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center">
                                 <i class="fa fa-circle-user text-2xl"></i>

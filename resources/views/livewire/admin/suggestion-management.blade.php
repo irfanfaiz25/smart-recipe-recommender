@@ -237,9 +237,9 @@
                                 @if ($suggestion->user)
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-8 w-8">
-                                            @if ($suggestion->user->avatar_url)
+                                            @if ($suggestion->user->avatar)
                                                 <img class="h-8 w-8 rounded-full object-cover"
-                                                    src="{{ $suggestion->user->avatar_url }}"
+                                                    src="{{ $suggestion->user->avatar }}"
                                                     alt="{{ $suggestion->user->name }}">
                                             @else
                                                 <div
@@ -446,9 +446,9 @@
                                 </label>
                                 @if ($selectedSuggestion->user)
                                     <div class="flex items-center space-x-3">
-                                        @if ($selectedSuggestion->user->avatar_url)
+                                        @if ($selectedSuggestion->user->avatar)
                                             <img class="h-10 w-10 rounded-full object-cover"
-                                                src="{{ $selectedSuggestion->user->avatar_url }}"
+                                                src="{{ $selectedSuggestion->user->avatar }}"
                                                 alt="{{ $selectedSuggestion->user->name }}">
                                         @else
                                             <div

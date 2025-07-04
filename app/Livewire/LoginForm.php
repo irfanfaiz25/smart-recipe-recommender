@@ -36,7 +36,7 @@ class LoginForm extends Component
 
         $avatarPath = '';
         if ($this->avatar) {
-            $avatarPath = 'storage/' . $this->avatar->store('img/users', 'public');
+            $avatarPath = $this->uploadAvatarToCloudinary($this->avatar);
         }
 
         $user = User::create([
@@ -44,6 +44,7 @@ class LoginForm extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'avatar' => $avatarPath,
+            'is_password_changed' => false,
         ]);
 
         $user->assignRole('user');
@@ -51,6 +52,36 @@ class LoginForm extends Component
         auth()->login($user);
         $this->reset('name', 'email', 'password', 'avatar');
         $this->redirectRoute('home.index', navigate: true);
+    }
+
+    private function uploadAvatarToCloudinary($avatar)
+    {
+        try {
+            // Upload ke Cloudinary menggunakan UploadApi
+            $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+
+            // Generate unique public_id
+            $publicId = 'avatar_' . uniqid();
+
+            $uploadResult = $uploadApi->upload($avatar->getRealPath(), [
+                'folder' => 'avatars',
+                'public_id' => $publicId,
+                'transformation' => [
+                    'quality' => 'auto:good',
+                    'format' => 'auto',
+                    'width' => 300,
+                    'height' => 300,
+                    'crop' => 'fill',
+                    'gravity' => 'face'
+                ]
+            ]);
+
+            return $uploadResult['secure_url'];
+        } catch (\Exception $e) {
+            // Fallback ke penyimpanan lokal jika Cloudinary gagal
+            \Log::warning('Cloudinary upload failed, using local storage: ' . $e->getMessage());
+            return 'storage/' . $avatar->store('img/users', 'public');
+        }
     }
 
     public function login()

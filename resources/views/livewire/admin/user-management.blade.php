@@ -158,14 +158,14 @@
                 <tbody class="bg-white dark:bg-bg-dark-primary divide-y divide-gray-200 dark:divide-neutral-700"
                     wire:loading.remove>
                     @forelse($this->users as $user)
-                        {{-- @dd($user->avatar_url) --}}
+                        {{-- @dd($user->avatar) --}}
                         <tr class="hover:bg-gray-50 dark:hover:bg-neutral-600">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        @if ($user->avatar_url)
-                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
+                                        @if ($user->avatar)
+                                            <img class="h-10 w-10 rounded-full object-cover" src="{{ $user->avatar }}"
+                                                alt="{{ $user->name }}">
                                         @else
                                             <div
                                                 class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center dark:bg-neutral-700">
@@ -272,9 +272,9 @@
                             <!-- User Basic Info -->
                             <div class="flex items-center space-x-4">
                                 <div class="flex-shrink-0">
-                                    @if ($editingUser->avatar_url)
+                                    @if ($editingUser->avatar)
                                         <img class="h-20 w-20 rounded-full object-cover"
-                                            src="{{ $editingUser->avatar_url }}" alt="{{ $editingUser->name }}">
+                                            src="{{ $editingUser->avatar }}" alt="{{ $editingUser->name }}">
                                     @else
                                         <div
                                             class="h-20 w-20 rounded-full bg-gray-300 flex items-center justify-center">

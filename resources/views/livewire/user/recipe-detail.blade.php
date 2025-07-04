@@ -27,9 +27,9 @@
             {{-- head details --}}
             {{-- user avatar --}}
             <div class="flex justify-center items-center mb-2">
-                @if ($recipe->user->avatar_url)
-                    <img class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
-                        src="{{ $recipe->user->avatar_url }}" alt="{{ $recipe->user->name }}">
+                @if ($recipe->user->avatar)
+                    <img class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover" src="{{ $recipe->user->avatar }}"
+                        alt="{{ $recipe->user->name }}">
                 @else
                     <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200 flex justify-center items-center">
                         <i class="fa-solid fa-user text-xl sm:text-2xl text-gray-500"></i>
@@ -252,7 +252,7 @@
                         <div class="flex space-x-2 w-full border-b border-gray-300 py-3">
                             @if ($item->user->avatar)
                                 <img class="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover flex-shrink-0"
-                                    src="{{ $item->user->avatar_url }}" alt="{{ $item->user->name }}">
+                                    src="{{ $item->user->avatar }}" alt="{{ $item->user->name }}">
                             @else
                                 <i class="fa fa-circle-user text-3xl sm:text-4xl text-gray-500 flex-shrink-0"></i>
                             @endif

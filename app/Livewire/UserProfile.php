@@ -65,19 +65,91 @@ class UserProfile extends Component
 
         $user = Auth::user();
 
-        // Delete old avatar if exists
-        if ($user->avatar && Storage::disk('public')->exists($user->avatar_url)) {
-            Storage::disk('public')->delete($user->avatar_url);
+        // Delete old avatar if exists and it's a Cloudinary URL
+        if ($user->avatar) {
+            $this->deleteOldAvatar($user->avatar);
         }
 
-        // Store new avatar
-        $path = $this->newAvatar->store('users', 'public');
+        // Upload new avatar to Cloudinary
+        $avatarPath = $this->uploadAvatarToCloudinary($this->newAvatar);
 
-        $user->update(['avatar' => $path]);
-        $this->avatar = $path;
+        $user->update(['avatar' => $avatarPath]);
+        $this->avatar = $avatarPath;
         $this->newAvatar = null;
 
         Toaster::success('Foto profil berhasil diperbarui!');
+    }
+
+    private function uploadAvatarToCloudinary($avatar)
+    {
+        try {
+            // Upload ke Cloudinary menggunakan UploadApi
+            $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+
+            // Generate unique public_id
+            $publicId = 'avatar_' . uniqid();
+
+            $uploadResult = $uploadApi->upload($avatar->getRealPath(), [
+                'folder' => 'avatars',
+                'public_id' => $publicId,
+                'transformation' => [
+                    'quality' => 'auto:good',
+                    'format' => 'auto',
+                    'width' => 300,
+                    'height' => 300,
+                    'crop' => 'fill',
+                    'gravity' => 'face'
+                ]
+            ]);
+
+            return $uploadResult['secure_url'];
+        } catch (\Exception $e) {
+            // Fallback ke penyimpanan lokal jika Cloudinary gagal
+            \Log::warning('Cloudinary upload failed, using local storage: ' . $e->getMessage());
+            return 'storage/' . $avatar->store('users', 'public');
+        }
+    }
+
+    private function deleteOldAvatar($avatarUrl)
+    {
+        try {
+            // Cek apakah ini URL Cloudinary
+            if (strpos($avatarUrl, 'cloudinary.com') !== false) {
+                // Extract public_id dari URL Cloudinary
+                $publicId = $this->extractPublicIdFromUrl($avatarUrl);
+
+                if ($publicId) {
+                    $uploadApi = new \Cloudinary\Api\Upload\UploadApi();
+                    $uploadApi->destroy($publicId);
+                }
+            } else {
+                // Hapus dari local storage jika bukan Cloudinary
+                $localPath = str_replace('storage/', '', $avatarUrl);
+                if (Storage::disk('public')->exists($localPath)) {
+                    Storage::disk('public')->delete($localPath);
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error('Gagal hapus avatar lama: ' . $e->getMessage());
+        }
+    }
+
+    private function extractPublicIdFromUrl($url)
+    {
+        try {
+            // Pattern untuk extract public_id dari Cloudinary URL
+            // Format: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/public_id.ext
+            $pattern = '/\/v\d+\/(.+?)\.[a-zA-Z]{3,4}$/';
+
+            if (preg_match($pattern, $url, $matches)) {
+                return $matches[1]; // Return public_id dengan folder
+            }
+
+            return null;
+        } catch (\Exception $e) {
+            \Log::error('Error extracting public_id: ' . $e->getMessage());
+            return null;
+        }
     }
 
     public function isOauthUser($user)
@@ -130,7 +202,7 @@ class UserProfile extends Component
         $this->user = $user;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->avatar = $user->avatar_url;
+        $this->avatar = $user->avatar;
 
         if ($user->creators()) {
             $this->phone = $user->creators->phone_number ?? '';

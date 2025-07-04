@@ -408,9 +408,8 @@
                                         <div class="flex items-center justify-between mb-4">
                                             <div class="flex items-center space-x-2 sm:space-x-3">
                                                 <div class="relative">
-                                                    @if ($creator->avatar_url)
-                                                        <img src="{{ $creator->avatar_url }}"
-                                                            alt="{{ $creator->name }}"
+                                                    @if ($creator->avatar)
+                                                        <img src="{{ $creator->avatar }}" alt="{{ $creator->name }}"
                                                             class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-3 sm:border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
                                                     @else
                                                         <div

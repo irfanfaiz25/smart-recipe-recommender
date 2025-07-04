@@ -11,7 +11,7 @@
         {{-- @dd(Auth::user()->avatar) --}}
         @if (Auth::check() && Auth::user()->avatar)
             <img wire:click='profileToggle' class="w-9 h-9 rounded-full object-cover cursor-pointer"
-                src="{{ asset(Auth::user()->avatar_url) }}" alt="{{ Auth::user()->name }}">
+                src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
         @else
             <button wire:click='profileToggle' class="focus:outline-none">
                 <i class="fa-solid fa-circle-user text-2xl"></i>
@@ -26,7 +26,7 @@
                     <div class="px-4 pt-1 pb-2">
                         <div class="flex items-center space-x-2 pl-1 py-1">
                             @if (Auth::check() && Auth::user()->avatar)
-                                <img class="w-10 h-10 rounded-full object-cover" src="{{ Auth::user()->avatar_url }}"
+                                <img class="w-10 h-10 rounded-full object-cover" src="{{ Auth::user()->avatar }}"
                                     alt="{{ Auth::user()->name }}">
                             @else
                                 <i class="fa-solid fa-circle-user text-2xl"></i>

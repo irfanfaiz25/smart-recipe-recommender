@@ -120,8 +120,8 @@
                         </p>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                @if ($recipe->user->avatar_url)
-                                    <img src="{{ $recipe->user->avatar_url }}" alt="{{ $recipe->user->name }}"
+                                @if ($recipe->user->avatar)
+                                    <img src="{{ $recipe->user->avatar }}" alt="{{ $recipe->user->name }}"
                                         class="w-7 h-7 rounded-full object-cover">
                                 @else
                                     <div

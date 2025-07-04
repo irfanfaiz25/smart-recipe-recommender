@@ -271,8 +271,8 @@
                         <div class="border-l-4 border-indigo-500 pl-3 sm:pl-4 py-2">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
                                 <div class="flex items-center space-x-3">
-                                    @if ($rating->user->avatar_url)
-                                        <img src="{{ $rating->user->avatar_url }}" alt="{{ $rating->user->name }}"
+                                    @if ($rating->user->avatar)
+                                        <img src="{{ $rating->user->avatar }}" alt="{{ $rating->user->name }}"
                                             class="w-8 h-8 rounded-full object-cover shadow-md flex-shrink-0">
                                     @else
                                         <div

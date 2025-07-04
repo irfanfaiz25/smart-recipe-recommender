@@ -66,9 +66,7 @@ class User extends Authenticatable implements CanResetPassword
             return null;
         }
 
-        return Str::startsWith($this->avatar, 'http')
-            ? $this->avatar
-            : asset('storage/' . $this->avatar);
+        return $this->avatar;
     }
 
     public function bookmarkedRecipes()
