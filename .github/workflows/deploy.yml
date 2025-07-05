@@ -69,47 +69,15 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Copy production environment
-          cp .env.production .env
+          # Copy production environment (jika ada)
+          if [ -f .env.production ]; then
+            cp .env.production .env
+          else
+            cp .env.example .env
+          fi
 
           # Generate optimized autoloader
           composer dump-autoloader --optimize
-
-          # Create post-deployment script
-          cat > post-deploy.php << 'EOF'
-          <?php
-          // Post deployment script for Recipe App
-          echo "Running post-deployment tasks...\n";
-
-          // Clear caches
-          if (file_exists('artisan')) {
-              exec('php artisan config:clear');
-              exec('php artisan cache:clear');
-              exec('php artisan view:clear');
-              exec('php artisan route:clear');
-              
-              // Cache for production
-              exec('php artisan config:cache');
-              exec('php artisan route:cache');
-              exec('php artisan view:cache');
-              
-              echo "Caches cleared and optimized.\n";
-          }
-
-          // Set permissions
-          if (is_dir('storage')) {
-              exec('chmod -R 755 storage');
-              echo "Storage permissions set.\n";
-          }
-
-          if (is_dir('bootstrap/cache')) {
-              exec('chmod -R 755 bootstrap/cache');
-              echo "Bootstrap cache permissions set.\n";
-          }
-
-          echo "Post-deployment completed successfully!\n";
-          ?>
-          EOF
 
       - name: Deploy to hosting via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -142,18 +110,7 @@ jobs:
             !**/storage/framework/views/.gitignore
             **/.github/**
             **/database/database.sqlite
-
-      - name: Run post-deployment script
-        uses: garygrossgarten/github-action-ssh-deploy@release
-        with:
-          command: |
-            cd /public_html
-            php post-deploy.php
-            rm post-deploy.php
-          host: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-        continue-on-error: true
+            **/scripts/**
 
       - name: Notify deployment status
         if: always()
@@ -161,6 +118,11 @@ jobs:
           if [ "${{ job.status }}" == "success" ]; then
             echo "✅ Deployment berhasil!"
             echo "🚀 Recipe App telah di-update di production"
+            echo "📝 Jangan lupa untuk menjalankan perintah berikut di hosting:"
+            echo "   - php artisan config:cache"
+            echo "   - php artisan route:cache"
+            echo "   - php artisan view:cache"
+            echo "   - chmod -R 755 storage bootstrap/cache"
           else
             echo "❌ Deployment gagal!"
             echo "🔍 Silakan cek logs untuk detail error"
