@@ -56,8 +56,8 @@ jobs:
             **/node_modules/**
             **/tests/**
             **/storage/logs/**
+            **/storage/app/public/**
             **/.env
-            **/public/**
             **/vendor/**
             **/.github/**
             **/package*.json
