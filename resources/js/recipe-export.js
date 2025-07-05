@@ -225,62 +225,6 @@ class RecipeExporter {
         console.log("All images processed");
     }
 
-    static async shareAsImage(recipeId, recipeName) {
-        if (!navigator.share || !navigator.canShare) {
-            // Fallback to copy link
-            this.copyRecipeLink();
-            return;
-        }
-
-        try {
-            this.showLoadingIndicator("Memproses untuk share...");
-
-            const recipeContainer = document.querySelector(".recipe-container");
-            const canvas = await this.captureRecipeImage(recipeContainer);
-
-            canvas.toBlob(
-                async (blob) => {
-                    try {
-                        const file = new File(
-                            [blob],
-                            `resep-${this.slugify(recipeName)}.png`,
-                            {
-                                type: "image/png",
-                            }
-                        );
-
-                        if (navigator.canShare({ files: [file] })) {
-                            await navigator.share({
-                                title: `Resep ${recipeName}`,
-                                text: `Coba resep ${recipeName} ini!`,
-                                files: [file],
-                            });
-                        } else {
-                            // Fallback to share URL only
-                            await navigator.share({
-                                title: `Resep ${recipeName}`,
-                                text: `Coba resep ${recipeName} ini!`,
-                                url: window.location.href,
-                            });
-                        }
-
-                        this.hideLoadingIndicator();
-                    } catch (shareError) {
-                        console.error("Share error:", shareError);
-                        this.hideLoadingIndicator();
-                        this.copyRecipeLink();
-                    }
-                },
-                "image/png",
-                0.9
-            );
-        } catch (error) {
-            console.error("Share preparation error:", error);
-            this.hideLoadingIndicator();
-            this.copyRecipeLink();
-        }
-    }
-
     static copyRecipeLink() {
         if (navigator.clipboard) {
             navigator.clipboard

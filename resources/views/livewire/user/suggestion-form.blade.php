@@ -237,8 +237,7 @@
                 <label class="block text-sm font-medium text-text-primary  mb-2">
                     Fitur Tambahan yang Diinginkan
                 </label>
-                <textarea wire:model="additional_features" rows="3"
-                    placeholder="Adakah fitur khusus yang Anda inginkan? Misalnya: kalkulator nutrisi, timer memasak, sharing resep ke media sosial, dll."
+                <textarea wire:model="additional_features" rows="3" placeholder="Adakah fitur khusus yang Anda inginkan?"
                     class="w-full px-4 py-2.5 border border-gray-300  rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white  text-sm font-normal text-text-primary  transition-all duration-200 resize-none"></textarea>
                 <div class="flex justify-end">
                     <span class="text-xs md:text-sm font-medium text-gray-500">

@@ -145,12 +145,6 @@
                     <span class="text-xs sm:text-sm">Export Gambar</span>
                 </button>
 
-                <button onclick="RecipeExporter.shareAsImage({{ $recipe->id }}, '{{ addslashes($recipe->name) }}')"
-                    class="w-full sm:w-auto px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
-                    <i class="fa-solid fa-share pe-1"></i>
-                    <span class="text-xs sm:text-sm">Share</span>
-                </button>
-
                 <button onclick="RecipeExporter.copyRecipeLink()"
                     class="w-full sm:w-auto px-4 py-2.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
                     <i class="fa-solid fa-link pe-1"></i>
