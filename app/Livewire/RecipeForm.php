@@ -71,7 +71,7 @@ class RecipeForm extends Component
             }
 
             // Check if user is owner or admin
-            if ($this->recipe->user_id !== auth()->user()->id && !auth()->user()->hasRole('admin')) {
+            if ($this->recipe->user_id !== auth()->user()->id) {
                 Toaster::error('Anda tidak memiliki akses untuk mengedit resep ini');
                 return $this->redirect(route(auth()->user()->hasRole('admin') ? 'admin-recipes.index' : 'recipes.index'));
             }
