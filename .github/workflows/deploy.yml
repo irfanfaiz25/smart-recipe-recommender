@@ -76,8 +76,24 @@ jobs:
             cp .env.example .env
           fi
 
-          # Generate optimized autoloader (PERBAIKAN: dump-autoload bukan dump-autoloader)
+          # Generate optimized autoloader
           composer dump-autoload --optimize
+
+          # Ensure storage directories exist
+          mkdir -p storage/framework/cache
+          mkdir -p storage/framework/sessions
+          mkdir -p storage/framework/views
+          mkdir -p storage/framework/testing
+          mkdir -p storage/app/public
+          mkdir -p storage/logs
+
+          # Create .gitignore files if they don't exist
+          touch storage/framework/cache/.gitignore
+          touch storage/framework/sessions/.gitignore
+          touch storage/framework/views/.gitignore
+          touch storage/framework/testing/.gitignore
+          touch storage/app/.gitignore
+          touch storage/logs/.gitignore
 
       - name: Deploy to hosting via FTP (Recipe App)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
