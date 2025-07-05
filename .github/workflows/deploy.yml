@@ -80,13 +80,12 @@ jobs:
           composer dump-autoload --optimize
 
       - name: Deploy to hosting via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /public_html/
+          server-dir: /savoryai.cloud/
           exclude: |
             **/.git*
             **/.git*/**
