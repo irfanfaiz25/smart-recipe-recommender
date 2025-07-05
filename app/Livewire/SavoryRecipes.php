@@ -116,7 +116,7 @@ class SavoryRecipes extends Component
             $caloriesRange = $caloriesCategory[$category];
             [$minCalories, $maxCalories] = explode('-', $caloriesRange);
 
-            $query = Recipe::approved()->query()
+            $query = Recipe::approved()
                 ->where(DB::raw('calories / servings'), '>=', $minCalories)
                 ->where(DB::raw('calories / servings'), '<=', $maxCalories)
                 ->whereHas('ingredients', function ($query) {
