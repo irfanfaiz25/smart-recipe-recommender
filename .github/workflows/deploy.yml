@@ -76,8 +76,8 @@ jobs:
             cp .env.example .env
           fi
 
-          # Generate optimized autoloader
-          composer dump-autoloader --optimize
+          # Generate optimized autoloader (PERBAIKAN: dump-autoload bukan dump-autoloader)
+          composer dump-autoload --optimize
 
       - name: Deploy to hosting via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
