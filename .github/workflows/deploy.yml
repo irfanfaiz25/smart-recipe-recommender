@@ -79,7 +79,7 @@ jobs:
           # Generate optimized autoloader (PERBAIKAN: dump-autoload bukan dump-autoloader)
           composer dump-autoload --optimize
 
-      - name: Deploy to hosting via FTP
+      - name: Deploy to hosting via FTP (Recipe App)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
