@@ -59,6 +59,7 @@ jobs:
             **/storage/app/public/**
             **/.env
             **/vendor/**
+            !**/resources/views/vendor/livewire/**
             **/.github/**
             **/package*.json
             **/vite.config.js
