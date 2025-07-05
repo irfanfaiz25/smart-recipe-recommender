@@ -1,4 +1,4 @@
-name: Deploy SavoryAI App
+name: Deploy SavoryAI Apps
 
 on:
   push:
@@ -8,16 +8,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo
 
       - name: Cache Composer packages
         uses: actions/cache@v3
@@ -27,14 +33,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      - name: Install Composer dependencies (for build)
-        run: composer install --no-dev --optimize-autoloader
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "npm"
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Install NPM dependencies
         run: npm ci
@@ -42,51 +42,49 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Prepare deployment files
-        run: |
-          # Copy environment file
-          if [ -f .env.production ]; then
-            cp .env.production .env
-          else
-            cp .env.example .env
-          fi
-
-          # Create deployment info
-          echo "Deployed at: $(date)" > deployment-info.txt
-          echo "Commit: ${{ github.sha }}" >> deployment-info.txt
-
-      - name: Deploy to hosting via FTP
+      # Deploy Laravel core files (exclude public and vendor)
+      - name: Deploy Laravel Core to /savoryai-master
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
+          server-dir: /savoryai-master/
           exclude: |
             **/.git*
             **/.git*/**
-            **/vendor/**
             **/node_modules/**
             **/tests/**
             **/storage/logs/**
-            **/storage/framework/cache/**
-            **/storage/framework/sessions/**
-            **/storage/framework/views/**
-            **/.env.example
-            **/phpunit.xml
-            **/package*.json
-            **/tailwind.config.js
-            **/vite.config.js
-            **/postcss.config.js
-            **/.editorconfig
-            **/README.md
-            **/scripts/**
+            **/.env
+            **/public/**
+            **/vendor/**
             **/.github/**
+            **/package*.json
+            **/vite.config.js
+            **/tailwind.config.js
+            **/postcss.config.js
+            **/*.md
 
-      - name: Deployment notification
+      # Deploy public folder contents to public_html
+      - name: Deploy Public Files to /public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /
+          local-dir: ./public/
+          exclude: |
+            **/.gitignore
+
+      - name: Notify deployment status
+        if: always()
         run: |
-          echo "✅ Deployment completed successfully!"
-          echo "📋 Manual steps required on hosting:"
-          echo "1. Run: composer install --no-dev --optimize-autoloader"
-          echo "2. Run post-deploy.php script for cache optimization"
-          echo "3. Check .env file configuration"
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "Deployed successfully!"
+            echo "Recipe App has been updated in production"
+          else
+            echo "Deployment failed!"
+            echo "Check logs for detailed error"
+          fi
