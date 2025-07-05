@@ -157,7 +157,7 @@ class ExploreDashboard extends Component
                     ->where('created_at', '>=', now()->subWeek());
             }
         ])
-            ->where('recipes_count', '>', 0)
+            ->having('recipes_count', '>', 0)  // Ganti dari where ke having
             ->orderBy('recipes_count', 'desc')
             ->get()
             ->map(function ($category) {
@@ -180,7 +180,7 @@ class ExploreDashboard extends Component
                 $query->approved();
             }
         ])
-            ->where('recipes_count', '>', 0)
+            ->having('recipes_count', '>', 0)  // Ganti dari where ke having
             ->orderBy('recipes_count', 'desc')
             ->get()
             ->map(function ($category) {
