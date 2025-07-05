@@ -15,7 +15,7 @@
                 <h1 class="text-3xl md:text-[44px] font-display text-center text-secondary mb-3">
                     Saran dan Masukan
                 </h1>
-                <h1 class="text-base md:text-lg font-sans font-medium text-center mx-auto max-w-full md:max-w-2xl">Bantu
+                <h1 class="text-sm md:text-lg font-sans font-medium text-center mx-auto max-w-full md:max-w-2xl">Bantu
                     kami meningkatkan
                     SavoryAI
                     dengan

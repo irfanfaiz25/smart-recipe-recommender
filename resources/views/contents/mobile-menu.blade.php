@@ -114,7 +114,19 @@
                             </div>
                             <div>
                                 <p class="font-medium text-text-primary">Favorit Saya</p>
-                                <p class="text-xs text-gray-500">Saved recipes</p>
+                                <p class="text-xs text-gray-500">Resep tersimpan</p>
+                            </div>
+                        </a>
+
+                        {{-- saran dan masukan --}}
+                        <a href="{{ route('suggestions.index') }}" wire:navigate @click="closeSubmenu()"
+                            class="flex items-center gap-4 p-3 rounded-xl hover:bg-secondary/10 hover:text-secondary transition-all duration-200">
+                            <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-file-pen text-secondary"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-text-primary">Saran & Masukan</p>
+                                <p class="text-xs text-gray-500">Berikan saran & masukan kepada kami</p>
                             </div>
                         </a>
 
@@ -128,7 +140,7 @@
                                 </div>
                                 <div>
                                     <p class="font-medium">Logout</p>
-                                    <p class="text-xs text-gray-500">Sign out</p>
+                                    <p class="text-xs text-gray-500">Keluar dari akun</p>
                                 </div>
                             </button>
                         </form>
@@ -182,7 +194,7 @@
                     @else
                         <i class="fa fa-user text-lg"
                             :class="activeSubmenu === 'profile' ||
-                                {{ request()->is('admin*') || request()->is('dashboard*') || request()->is('bookmarks*') ? 'true' : 'false' }} ?
+                                {{ request()->is('admin*') || request()->is('dashboard*') || request()->is('bookmarks*') || request()->is('suggestions*') ? 'true' : 'false' }} ?
                                 'text-secondary' : 'text-gray-400'"></i>
                     @endif
                 </div>

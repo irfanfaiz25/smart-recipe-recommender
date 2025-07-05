@@ -147,6 +147,13 @@
                             </a>
                         </div>
                         <div class="p-2">
+                            <a href="{{ route('suggestions.index') }}" wire:navigate
+                                class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                                <i class="fa-solid fa-file-pen text-base"></i>
+                                <span>Saran & Masukan</span>
+                            </a>
+                        </div>
+                        <div class="p-2">
                             <form method="POST" action="{{ route('auth.logout') }}">
                                 @csrf
                                 <button
@@ -169,6 +176,104 @@
         x-transition:leave-end="opacity-0 scale-95"
         class="absolute top-full left-0 right-0 bg-white shadow-lg mt-2 p-4 lg:hidden">
         @auth
+            <!-- User Profile Section -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <div class="flex items-center gap-3 mb-3">
+                    @if (Auth::check() && Auth::user()->avatar)
+                        <img class="h-10 w-10 rounded-full object-cover ring-2 ring-secondary/30"
+                            src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
+                    @else
+                        <div class="h-10 w-10 rounded-full bg-secondary/20 flex items-center justify-center">
+                            <i class="fa fa-circle-user text-2xl text-secondary"></i>
+                        </div>
+                    @endif
+                    <div>
+                        <p class="text-sm font-medium text-text-primary capitalize">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                    </div>
+                </div>
+
+                <!-- Profile Menu Items -->
+                <div class="space-y-2">
+                    @role('admin')
+                        <a href="{{ route('admin-recipes.index') }}"
+                            class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                            <i class="fa-solid fa-user-shield text-base"></i>
+                            <span>Admin Panel</span>
+                        </a>
+                    @endrole
+                    @role('creators')
+                        <a href="{{ route('dashboard.index') }}"
+                            class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                            <i class="fa-solid fa-kitchen-set text-base"></i>
+                            <span>Creators Panel</span>
+                        </a>
+                    @endrole
+                    <a href="{{ route('bookmarks.index') }}" wire:navigate
+                        class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                        <i class="fa-solid fa-bookmark text-base"></i>
+                        <span>Favorit Saya</span>
+                    </a>
+                    <a href="{{ route('suggestions.index') }}" wire:navigate
+                        class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                        <i class="fa-solid fa-file-pen text-base"></i>
+                        <span>Saran & Masukan</span>
+                    </a>
+                    <form method="POST" action="{{ route('auth.logout') }}">
+                        @csrf
+                        <button
+                            class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-red-500/10 hover:text-red-500 w-full text-left text-text-primary">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="space-y-4">
+                @foreach ($menus as $menu)
+                    @if (isset($menu['dropdown']))
+                        <div x-data="{ open: false }">
+                            <button @click="open = !open"
+                                class="flex items-center justify-between w-full text-sm font-normal py-2 {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary' }}">
+                                {{ $menu['name'] }}
+                                <i class="fas fa-chevron-down text-xs" :class="{ 'transform rotate-180': open }"></i>
+                            </button>
+                            <div x-show="open" class="pl-4 space-y-2 mt-2">
+                                @foreach ($menu['dropdown'] as $item)
+                                    <a href="{{ route($item['route']) }}"
+                                        {{ $item['route'] != 'explore-recipes.index' ? 'wire:navigate' : '' }}
+                                        class="block py-2 text-sm {{ request()->is($item['request']) ? 'text-secondary font-semibold' : 'text-text-primary' }}">
+                                        {{ $item['name'] }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <li>
+                            <a href="{{ route($menu['route']) }}" wire:navigate
+                                class="block py-2 text-sm {{ request()->is($menu['request']) ? 'text-secondary font-semibold' : 'text-text-primary' }}">
+                                {{ $menu['name'] }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        @else
+            <!-- Login Button for Mobile -->
+            <div class="mb-4 pb-4 border-b border-gray-200">
+                <a href="{{ route('login') }}" wire:navigate
+                    class="flex items-center justify-center gap-2 w-full px-4 py-3 bg-secondary text-white rounded-lg font-medium transition-all duration-200 hover:bg-secondary/90">
+                    <span>Masuk atau Daftar</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Navigation Menu for Guests -->
             <ul class="space-y-4">
                 @foreach ($menus as $menu)
                     @if (isset($menu['dropdown']))
