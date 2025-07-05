@@ -64,9 +64,9 @@ class ExploreDashboard extends Component
         // Today's trending
         $todayTrending = Recipe::approved()
             ->where('created_at', '>=', now()->startOfDay())
+            ->where('views_count', '>', 0)  // Ganti dari having ke where
             ->withCount(['bookmarkedBy', 'ratings'])
             ->withAvg('ratings', 'rating')
-            ->having('views_count', '>', 0)
             ->orderByRaw('(views_count * 0.5) + (bookmarked_by_count * 0.3) + (ratings_count * 0.2) DESC')
             ->limit(1)
             ->get();
@@ -81,9 +81,9 @@ class ExploreDashboard extends Component
         // Fallback: this week's trending
         $weekTrending = Recipe::approved()
             ->where('created_at', '>=', now()->startOfWeek())
+            ->where('views_count', '>', 0)  // Ganti dari having ke where
             ->withCount(['bookmarkedBy', 'ratings'])
             ->withAvg('ratings', 'rating')
-            ->having('views_count', '>', 0)
             ->orderByRaw('(views_count * 0.5) + (bookmarked_by_count * 0.3) + (ratings_count * 0.2) DESC')
             ->limit(1)
             ->get();
@@ -95,12 +95,12 @@ class ExploreDashboard extends Component
             ];
         }
 
-        // Falback: 30 days trending
+        // Fallback: 30 days trending
         $monthTrending = Recipe::approved()
             ->where('created_at', '>=', now()->subDays(30))
+            ->where('views_count', '>', 0)  // Ganti dari having ke where
             ->withCount(['bookmarkedBy', 'ratings'])
             ->withAvg('ratings', 'rating')
-            ->having('views_count', '>', 0)
             ->orderByRaw('(views_count * 0.5) + (bookmarked_by_count * 0.3) + (ratings_count * 0.2) DESC')
             ->limit(1)
             ->get();
@@ -114,9 +114,9 @@ class ExploreDashboard extends Component
 
         // Fallback: all time trending
         $allTimeTrending = Recipe::approved()
+            ->where('views_count', '>', 0)  // Ganti dari having ke where
             ->withCount(['bookmarkedBy', 'ratings'])
             ->withAvg('ratings', 'rating')
-            ->having('views_count', '>', 0)
             ->orderByRaw('(views_count * 0.5) + (bookmarked_by_count * 0.3) + (ratings_count * 0.2) DESC')
             ->limit(1)
             ->get();
@@ -157,7 +157,7 @@ class ExploreDashboard extends Component
                     ->where('created_at', '>=', now()->subWeek());
             }
         ])
-            ->having('recipes_count', '>', 0)
+            ->where('recipes_count', '>', 0)
             ->orderBy('recipes_count', 'desc')
             ->get()
             ->map(function ($category) {
@@ -180,7 +180,7 @@ class ExploreDashboard extends Component
                 $query->approved();
             }
         ])
-            ->having('recipes_count', '>', 0)
+            ->where('recipes_count', '>', 0)
             ->orderBy('recipes_count', 'desc')
             ->get()
             ->map(function ($category) {
