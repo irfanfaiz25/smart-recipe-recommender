@@ -1,4 +1,4 @@
-name: Deploy SavoryAI Apps to Production
+name: Deploy SavoryAI App (Optimized for Shared Hosting)
 
 on:
   push:
@@ -6,39 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, pdo_sqlite, mysql, gd, zip, bcmath
-          coverage: none
-
-      - name: Copy environment file
-        run: cp .env.example .env
-
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction
-
-      - name: Generate application key
-        run: php artisan key:generate
-
-      - name: Create SQLite database
-        run: touch database/database.sqlite
-
-      - name: Run database migrations
-        run: php artisan migrate --force
-
   deploy:
-    name: Deploy to Production
     runs-on: ubuntu-latest
-    needs: test
     if: github.ref == 'refs/heads/main'
 
     steps:
@@ -49,17 +18,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, pdo_sqlite, mysql, gd, zip, bcmath
-          coverage: none
 
-      - name: Setup node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
-
-      - name: Install Composer dependencies (Production)
-        run: composer install --no-dev --prefer-dist --no-interaction
 
       - name: Install NPM dependencies
         run: npm ci
@@ -69,77 +33,50 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Copy production environment (jika ada)
+          # Copy environment file
           if [ -f .env.production ]; then
             cp .env.production .env
           else
             cp .env.example .env
           fi
 
-          # Generate optimized autoloader
-          composer dump-autoload --optimize
+          # Create deployment info
+          echo "Deployed at: $(date)" > deployment-info.txt
+          echo "Commit: ${{ github.sha }}" >> deployment-info.txt
 
-          # Ensure storage directories exist
-          mkdir -p storage/framework/cache
-          mkdir -p storage/framework/sessions
-          mkdir -p storage/framework/views
-          mkdir -p storage/framework/testing
-          mkdir -p storage/app/public
-          mkdir -p storage/logs
-
-          # Create .gitignore files if they don't exist
-          touch storage/framework/cache/.gitignore
-          touch storage/framework/sessions/.gitignore
-          touch storage/framework/views/.gitignore
-          touch storage/framework/testing/.gitignore
-          touch storage/app/.gitignore
-          touch storage/logs/.gitignore
-
-      - name: Deploy to hosting via FTP (Recipe App)
+      - name: Deploy to hosting via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
           server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
+            **/vendor/**
             **/node_modules/**
             **/tests/**
+            **/storage/logs/**
+            **/storage/framework/cache/**
+            **/storage/framework/sessions/**
+            **/storage/framework/views/**
             **/.env.example
-            **/README.md
-            **/package-lock.json
-            **/composer.lock
             **/phpunit.xml
-            **/postcss.config.js
+            **/package*.json
             **/tailwind.config.js
             **/vite.config.js
-            **/storage/logs/**
-            !**/storage/logs/.gitignore
-            **/storage/framework/cache/**
-            !**/storage/framework/cache/.gitignore
-            **/storage/framework/sessions/**
-            !**/storage/framework/sessions/.gitignore
-            **/storage/framework/views/**
-            !**/storage/framework/views/.gitignore
-            **/.github/**
-            **/database/database.sqlite
+            **/postcss.config.js
+            **/.editorconfig
+            **/README.md
             **/scripts/**
+            **/.github/**
 
-      - name: Notify deployment status
-        if: always()
+      - name: Deployment notification
         run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "✅ Deployment berhasil!"
-            echo "🚀 Recipe App telah di-update di production"
-            echo "📝 Jangan lupa untuk menjalankan perintah berikut di hosting:"
-            echo "   - php artisan config:cache"
-            echo "   - php artisan route:cache"
-            echo "   - php artisan view:cache"
-            echo "   - chmod -R 755 storage bootstrap/cache"
-          else
-            echo "❌ Deployment gagal!"
-            echo "🔍 Silakan cek logs untuk detail error"
-          fi
+          echo "✅ Deployment completed successfully!"
+          echo "📋 Manual steps required on hosting:"
+          echo "1. Upload vendor.zip (if needed) and extract"
+          echo "2. Run composer install via cPanel Terminal (if available)"
+          echo "3. Clear cache via post-deploy.php script"
+          echo "4. Check .env file configuration"
