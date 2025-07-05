@@ -66,12 +66,14 @@ class RecipeForm extends Component
             $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
 
             if (!$this->recipe) {
-                return $this->redirect(url()->previous());
+                Toaster::error('Resep tidak ditemukan');
+                return $this->redirect(route(auth()->user()->hasRole('admin') ? 'admin-recipes.index' : 'recipes.index'));
             }
 
             // Check if user is owner or admin
-            if ($this->recipe->user_id !== auth()->user()->id) {
-                return $this->redirect(url()->previous());
+            if ($this->recipe->user_id !== auth()->user()->id && !auth()->user()->hasRole('admin')) {
+                Toaster::error('Anda tidak memiliki akses untuk mengedit resep ini');
+                return $this->redirect(route(auth()->user()->hasRole('admin') ? 'admin-recipes.index' : 'recipes.index'));
             }
 
             $this->name = $this->recipe->name;
