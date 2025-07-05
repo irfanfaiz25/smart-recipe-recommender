@@ -1,4 +1,4 @@
-name: Deploy SavoryAI App (Optimized for Shared Hosting)
+name: Deploy SavoryAI App
 
 on:
   push:
@@ -18,6 +18,17 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
+
+      - name: Cache Composer packages
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer dependencies (for build)
+        run: composer install --no-dev --optimize-autoloader
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -76,7 +87,6 @@ jobs:
         run: |
           echo "✅ Deployment completed successfully!"
           echo "📋 Manual steps required on hosting:"
-          echo "1. Upload vendor.zip (if needed) and extract"
-          echo "2. Run composer install via cPanel Terminal (if available)"
-          echo "3. Clear cache via post-deploy.php script"
-          echo "4. Check .env file configuration"
+          echo "1. Run: composer install --no-dev --optimize-autoloader"
+          echo "2. Run post-deploy.php script for cache optimization"
+          echo "3. Check .env file configuration"
