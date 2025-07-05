@@ -62,10 +62,6 @@ class RecipeForm extends Component
 
     public function mount($recipeId = null)
     {
-        if (!$recipeId) {
-            $this->loadDraft();
-        }
-
         if ($recipeId) {
             $this->recipe = Recipe::with('ingredients', 'steps')->find($recipeId);
 
@@ -106,55 +102,6 @@ class RecipeForm extends Component
 
         $ingredients = Ingredient::select('id', 'name', 'image', 'category')->get()->toArray();
         $this->ingredients = $ingredients;
-    }
-
-    // Tambahkan di class RecipeForm
-    public function saveDraft()
-    {
-        $draftData = [
-            'name' => $this->name,
-            'description' => $this->description,
-            'cooking_time' => $this->cookingTime,
-            'difficulty' => $this->difficulty,
-            'servings' => $this->servings,
-            'category_id' => $this->recipeCategory,
-            'selected_ingredients' => $this->selectedIngredients,
-            'steps' => $this->steps,
-            'status' => $this->status,
-        ];
-
-        // Simpan ke session atau database
-        session(['recipe_draft_' . auth()->id() => $draftData]);
-
-        $this->dispatch('draft-saved');
-    }
-
-    public function loadDraft()
-    {
-        $draftKey = 'recipe_draft_' . auth()->id();
-        $draft = session($draftKey);
-
-        if ($draft) {
-            $this->name = $draft['name'] ?? '';
-            $this->description = $draft['description'] ?? '';
-            $this->cookingTime = $draft['cooking_time'] ?? '';
-            $this->difficulty = $draft['difficulty'] ?? '';
-            $this->servings = $draft['servings'] ?? '';
-            $this->recipeCategory = $draft['category_id'] ?? '';
-            $this->selectedIngredients = $draft['selected_ingredients'] ?? [];
-            $this->steps = $draft['steps'] ?? [''];
-            $this->status = $draft['status'] ?? 0;
-
-            Toaster::info('Draft terakhir berhasil dimuat');
-        }
-    }
-
-    public function clearDraft()
-    {
-        $draftKey = 'recipe_draft_' . auth()->id();
-        session()->forget($draftKey);
-
-        $this->dispatch('draft-cleared');
     }
 
     // Simplified search-only method
@@ -744,7 +691,6 @@ class RecipeForm extends Component
         $this->redirect($redirectUrl, navigate: true);
         Toaster::success($this->recipe ? 'Resep berhasil di perbarui' : 'Resep berhasil di buat');
         $this->recipe = null;
-        $this->clearDraft();
     }
 
     public function render()

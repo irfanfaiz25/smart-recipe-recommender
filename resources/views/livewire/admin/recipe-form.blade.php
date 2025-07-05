@@ -19,13 +19,6 @@
             <div class="bg-blue-600 h-2 rounded-full transition-all duration-300"
                 style="width: {{ $this->getFormProgress() }}%"></div>
         </div>
-        <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            @if ($this->getFormProgress() < 100)
-                <i class="fas fa-save mr-1"></i>Data tersimpan otomatis setiap perubahan
-            @else
-                <i class="fas fa-check-circle mr-1 text-green-500"></i>Form siap untuk dikirim
-            @endif
-        </div>
     </div>
 
     <div class="w-full h-fit bg-bg-primary dark:bg-bg-dark-primary p-4 rounded-lg relative">
