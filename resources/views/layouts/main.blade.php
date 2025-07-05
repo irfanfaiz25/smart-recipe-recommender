@@ -85,6 +85,8 @@
             </div>
         </div>
 
+        @include('contents.mobile-menu')
+
         @include('contents.user.footer')
     @endif
 

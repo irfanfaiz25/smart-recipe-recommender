@@ -92,16 +92,23 @@
                                     </div>
 
                                     {{-- Bookmark Button --}}
-                                    {{-- Update recipe ID access --}}
                                     <button wire:click="toggleBookmark({{ $recipe->id }})"
-                                        class="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
-                                        @if ($recipe->isBookmarkedBy(auth()->user()))
-                                            <i class="fa-solid fa-bookmark text-lg sm:text-xl hover:text-red-600"
-                                                style="color: #DD5C36;"></i>
-                                        @else
-                                            <i class="fa-regular fa-bookmark text-lg sm:text-xl text-gray-400"
-                                                style="hover: #DD5C36;"></i>
-                                        @endif
+                                        wire:loading.class="opacity-50 cursor-wait"
+                                        wire:target="toggleBookmark({{ $recipe->id }})"
+                                        class="relative p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                                        <div wire:loading.remove wire:target="toggleBookmark({{ $recipe->id }})">
+                                            @if ($recipe->isBookmarkedBy(auth()->user()))
+                                                <i class="fa-solid fa-bookmark text-lg sm:text-xl hover:text-red-600"
+                                                    style="color: #DD5C36;"></i>
+                                            @else
+                                                <i class="fa-regular fa-bookmark text-lg sm:text-xl text-gray-400"
+                                                    style="hover: #DD5C36;"></i>
+                                            @endif
+                                        </div>
+                                        <div wire:loading wire:target="toggleBookmark({{ $recipe->id }})"
+                                            class="absolute inset-0 flex items-center justify-center">
+                                            <i class="fa-solid fa-spinner fa-spin text-lg sm:text-xl text-gray-400"></i>
+                                        </div>
                                     </button>
                                 </div>
                             </div>

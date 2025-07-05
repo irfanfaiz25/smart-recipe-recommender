@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="mt-16 py-10 px-4 md:px-20 page-background bg-fixed bg-repeat min-h-screen relative">
+    <div class="md:mt-16 py-2 md:py-10 px-4 md:px-20 page-background bg-fixed bg-repeat min-h-screen relative">
 
         @livewire('floating-bookmarks')
 

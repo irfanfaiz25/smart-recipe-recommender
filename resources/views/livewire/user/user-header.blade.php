@@ -1,13 +1,13 @@
 @if (request()->is('/') || request()->is('creators'))
     <div x-data="{ isScrolled: false, mobileMenuOpen: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 0 })"
-        class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary px-4 md:px-8 lg:px-20 py-4"
+        class="hidden md:block fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary px-4 md:px-8 lg:px-20 py-4"
         :class="{
             'bg-white bg-opacity-70 backdrop-blur-md shadow-md': isScrolled,
             'bg-transparent': !isScrolled
         }">
     @else
-        <div x-data="{ mobileMenuOpen: false }"
-            class="fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary bg-white bg-opacity-20 backdrop-blur-md shadow-md px-4 md:px-8 lg:px-20 py-4">
+        <div x-data="{ mobileMenuOpen: false }" x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 0 })"
+            class="hidden md:block fixed w-full z-50 bg-transparent transition-all duration-300 text-text-primary bg-white bg-opacity-20 backdrop-blur-md shadow-md px-4 md:px-8 lg:px-20 py-4">
 @endif
 
 <nav class="flex justify-between items-center">
@@ -73,6 +73,7 @@
             </ul>
         @endauth
 
+        {{-- profile menu --}}
         <div class="relative flex items-center space-x-4">
             @if (!Auth::check())
                 <a href="{{ route('login') }}" wire:navigate
@@ -199,6 +200,6 @@
             </ul>
         @endauth
     </div>
-</nav>
 
+</nav>
 </div>

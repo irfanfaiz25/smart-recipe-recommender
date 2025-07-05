@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="mt-16 py-10 px-4 md:px-20 page-background min-h-screen bg-fixed bg-repeat relative">
+    <div class="md:mt-16 py-2 md:py-10 px-4 md:px-20 page-background min-h-screen bg-fixed bg-repeat relative">
 
         <div x-show="pageLoaded" x-transition:enter="transform transition-all duration-700 ease-out"
             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
