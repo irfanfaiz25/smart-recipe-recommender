@@ -67,7 +67,7 @@
                                 #{{ $index + 1 }}
                             </div>
                             <div class="absolute top-2 sm:top-4 right-2 sm:right-4 text-xs font-normal">
-                                <a href="{{ route('explore-recipes.show', $recipe->id) }}"
+                                <a href="{{ route('explore-recipes.show', $recipe->id) }}" wire:navigate
                                     class="bg-yellow-400 text-black px-2 sm:px-3 py-1 rounded-full flex items-center gap-1 text-xs">
                                     <i class="fa fa-up-right-from-square"></i>
                                     <span class="hidden sm:inline">Lihat Detail</span>
