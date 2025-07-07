@@ -159,9 +159,20 @@
                         @endif
                     </div>
                     <div class="flex justify-end">
-                        <button type="submit"
-                            class="bg-blue-600 text-base font-medium text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Simpan Perubahan
+                        <button type="submit" wire:loading.attr="disabled"
+                            class="bg-blue-600 text-base font-medium text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span wire:loading.remove wire:target='updateProfile'>Simpan Perubahan</span>
+                            <span wire:loading wire:target='updateProfile'>
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                Menyimpan...
+                            </span>
                         </button>
                     </div>
                 </form>
@@ -251,119 +262,192 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button type="submit"
+                        <button type="submit" wire:loading.attr="disabled"
                             class="bg-blue-600 text-base font-medium text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Update Password
+                            <span wire:loading.remove wire:target='updatePassword'>Update Password</span>
+                            <span wire:loading wire:target='updatePassword'>
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                Menyimpan...
+                            </span>
                         </button>
                     </div>
                 </form>
             </div>
         @endif
 
-        <!-- Preferences Tab -->
-        {{-- @if ($activeTab === 'preferences')
-            <div class="p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-6">Preferensi</h2>
-                <form wire:submit.prevent="updatePreferences" class="space-y-6">
-                    <div class="space-y-4">
-                        <h3 class="text-md font-medium text-gray-900">Notifikasi</h3>
-                        <div class="space-y-3">
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="email_notifications"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-3 text-sm text-gray-700">Notifikasi Email</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="push_notifications"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-3 text-sm text-gray-700">Notifikasi Push</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="recipe_recommendations"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-3 text-sm text-gray-700">Rekomendasi Resep</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="newsletter"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-3 text-sm text-gray-700">Newsletter</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <h3 class="text-md font-medium text-gray-900">Privasi</h3>
-                        <div class="space-y-3">
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="privacy_mode"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-3 text-sm text-gray-700">Mode Privasi (Sembunyikan profil dari
-                                    pencarian)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button type="submit"
-                            class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Simpan Preferensi
-                        </button>
-                    </div>
-                </form>
-            </div>
-        @endif --}}
-
         <!-- Avatar Tab -->
         @if ($activeTab === 'avatar')
             <div class="p-6">
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Foto Profil</h2>
                 <div class="space-y-6">
-                    <div class="flex items-center space-x-6">
-                        <div class="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200">
-                            @if ($avatar)
-                                <img src="{{ $avatar }}" alt="Profile" class="w-full h-full object-cover">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                    <svg class="w-8 h-8 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    <div
+                        class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+                        <!-- Avatar Display -->
+                        <div class="flex-shrink-0">
+                            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200 relative">
+                                @if ($avatar)
+                                    <img src="{{ $avatar }}" alt="Profile"
+                                        class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                        <svg class="w-8 h-8 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                                        </svg>
+                                    </div>
+                                @endif
+
+                                <!-- Loading overlay for avatar -->
+                                <div wire:loading wire:target="updateAvatar"
+                                    class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-full">
+                                    <svg class="animate-spin h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                            stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
                                     </svg>
                                 </div>
-                            @endif
+                            </div>
                         </div>
-                        <div class="flex-1">
+
+                        <!-- Upload Form -->
+                        <div class="flex-1 w-full">
                             <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Upload Foto Baru</h3>
-                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Format yang didukung:
-                                JPG, PNG, GIF.
-                                Maksimal
-                                2MB.
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                Format yang didukung: JPG, PNG, GIF. Maksimal 2MB.
                             </p>
-                            <form wire:submit.prevent="updateAvatar">
-                                <div class="flex items-center space-x-4">
+
+                            <form wire:submit.prevent="updateAvatar" class="space-y-4">
+                                <!-- File Input -->
+                                <div class="relative">
                                     <input type="file" wire:model="newAvatar" accept="image/*"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900 dark:file:text-blue-300 dark:hover:file:bg-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        wire:loading.attr="disabled" wire:target="updateAvatar">
+
+                                    <!-- File input loading state -->
+                                    <div wire:loading wire:target="newAvatar"
+                                        class="absolute inset-0 bg-white bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75 flex items-center justify-center rounded-md">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="animate-spin h-4 w-4 text-blue-600"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
+                                            </svg>
+                                            <span class="text-sm text-gray-600 dark:text-gray-300">Memproses
+                                                file...</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @error('newAvatar')
+                                    <span class="text-red-500 text-sm block">{{ $message }}</span>
+                                @enderror
+
+                                <!-- Submit Button -->
+                                <div class="flex justify-start">
                                     <button type="submit"
-                                        class="bg-blue-600 text-white px-4 py-2 text-sm md:text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                                        {{ !$newAvatar ? 'disabled' : '' }}>
-                                        Upload
+                                        class="relative bg-blue-600 text-white px-6 py-2 text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                                        wire:loading.attr="disabled" wire:target="updateAvatar"
+                                        @if (!$newAvatar) disabled @endif>
+
+                                        <!-- Button content -->
+                                        <span wire:loading.remove wire:target='updateAvatar'
+                                            class="flex items-center space-x-2">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                </path>
+                                            </svg>
+                                            <span>Upload Foto</span>
+                                        </span>
+
+                                        <!-- Loading state -->
+                                        <span wire:loading wire:target='updateAvatar'
+                                            class="flex items-center space-x-2">
+                                            <svg class="animate-spin h-4 w-4 text-white"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
+                                            </svg>
+                                            <span>Mengupload...</span>
+                                        </span>
                                     </button>
                                 </div>
-                                @error('newAvatar')
-                                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                                @enderror
                             </form>
                         </div>
                     </div>
 
+                    <!-- Preview Section -->
                     @if ($newAvatar)
-                        <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="text-sm font-medium text-gray-900 mb-2">Preview</h4>
-                            <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
-                                <img src="{{ $newAvatar->temporaryUrl() }}" alt="Preview"
-                                    class="w-full h-full object-cover">
+                        <div
+                            class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">Preview Foto Baru
+                            </h4>
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-gray-200 relative">
+                                    <img src="{{ $newAvatar->temporaryUrl() }}" alt="Preview"
+                                        class="w-full h-full object-cover">
+
+                                    <!-- Preview loading overlay -->
+                                    <div wire:loading wire:target="updateAvatar"
+                                        class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-full">
+                                        <svg class="animate-spin h-4 w-4 text-white"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Foto ini akan menggantikan foto
+                                        profil Anda saat ini.</p>
+                                </div>
                             </div>
                         </div>
                     @endif
+
+                    <!-- Upload Progress Indicator -->
+                    <div wire:loading wire:target="updateAvatar"
+                        class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            <div>
+                                <p class="text-sm font-medium text-blue-800 dark:text-blue-200">Sedang mengupload foto
+                                    profil...</p>
+                                <p class="text-xs text-blue-600 dark:text-blue-300">Mohon tunggu, jangan menutup
+                                    halaman ini.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
