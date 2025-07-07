@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Beranda')
+
 @section('content')
     {{-- Hero Section --}}
     <div class="relative overflow-hidden min-h-screen flex flex-col justify-center bg-gray-50">

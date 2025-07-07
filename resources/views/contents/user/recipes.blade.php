@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Jelajahi Resep')
+
 @section('content')
     <div class="md:mt-16 py-2 md:py-10 px-4 md:px-20 page-background bg-fixed bg-repeat min-h-screen relative">
 

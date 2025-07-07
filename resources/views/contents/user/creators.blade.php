@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Creators')
+
 @section('content')
     <div class="relative overflow-hidden min-h-screen">
         <!-- Hero Section with Background -->
