@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
+@section('title', 'Manajemen User')
+
 @section('content')
+
     <div class="mt-2 mb-7">
 
         {{-- breadcumbs --}}

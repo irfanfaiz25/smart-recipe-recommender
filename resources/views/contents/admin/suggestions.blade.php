@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Data Saran dan Masukan')
+
 @section('content')
     <div class="mt-2 mb-7">
 

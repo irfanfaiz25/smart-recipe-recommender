@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Profil')
+
 @section('content')
     <div class="mt-2 mb-7">
 

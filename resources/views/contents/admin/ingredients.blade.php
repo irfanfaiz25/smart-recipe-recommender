@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Bahan Makanan')
+
 @section('content')
     <div class="mt-2 mb-7">
 
