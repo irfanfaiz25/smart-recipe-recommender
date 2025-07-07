@@ -38,7 +38,16 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('auth.logout');
 
 Route::get('/', function () {
-    return view('contents.user.home');
+    // Get counts using efficient queries
+    $totalUsers = \App\Models\User::count();
+    $totalRecipes = \App\Models\Recipe::approved()->count();
+    $totalIngredients = \App\Models\Ingredient::count();
+
+    return view('contents.user.home', [
+        'totalUsers' => $totalUsers,
+        'totalRecipes' => $totalRecipes,
+        'totalIngredients' => $totalIngredients
+    ]);
 })->name('home.index');
 
 // admin dashboard

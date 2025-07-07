@@ -49,7 +49,7 @@
                     <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
                         <i class="fa-solid fa-users text-lg md:text-2xl text-[#64e9d1]"></i>
                         <div>
-                            <p class="text-base md:text-xl font-bold">20K+</p>
+                            <p class="text-base md:text-xl font-bold">{{ $totalUsers }}+</p>
                             <p class="text-xs md:text-sm opacity-80">Happy Users</p>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
                         <i class="fa-solid fa-lemon text-lg md:text-2xl text-[#FAD126]"></i>
                         <div>
-                            <p class="text-base md:text-xl font-bold">500+</p>
+                            <p class="text-base md:text-xl font-bold">{{ $totalIngredients }}+</p>
                             <p class="text-xs md:text-sm opacity-80">Ingredients Recognized</p>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="flex flex-col md:flex-row items-center space-x-3 text-gray-100">
                         <i class="fa-solid fa-book-open-reader text-lg md:text-2xl text-[#ff834e]"></i>
                         <div>
-                            <p class="text-base md:text-xl font-bold">1.5K+</p>
+                            <p class="text-base md:text-xl font-bold">{{ $totalRecipes }}+</p>
                             <p class="text-xs md:text-sm opacity-80">Unique Recipes</p>
                         </div>
                     </div>
