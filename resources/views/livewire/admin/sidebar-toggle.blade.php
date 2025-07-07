@@ -1,6 +1,6 @@
 <div x-data="{ isSidebarVisible: @entangle('isSidebarVisible') }">
     <!-- Toggle Button -->
-    <button @click="isSidebarVisible = !isSidebarVisible" class="lg:hidden p-2 fixed top-4 left-4 z-50 dark:text-gray-50">
+    <button @click="isSidebarVisible = !isSidebarVisible" class="lg:hidden fixed top-4 left-4 z-50 dark:text-gray-50">
         <i class="fa-solid fa-bars"></i>
     </button>
 
@@ -11,14 +11,6 @@
     <!-- Sidebar -->
     <div :class="isSidebarVisible ? 'translate-x-0' : '-translate-x-full'"
         class="bg-gray-100 dark:bg-[#1c1c1c] fixed top-0 left-0 min-h-screen w-72 duration-500 text-gray-100 px-3 z-40 pt-20 lg:pt-10 transform lg:translate-x-0">
-        {{-- <div class="flex lg:hidden items-center mt-2">
-            <div class="bg-gradient-to-r from-secondary to-secondary-light inline-block text-transparent bg-clip-text">
-                <i class="fa-solid fa-plate-wheat text-xl"></i>
-            </div>
-            <h1 class="relative font-semibold text-lg ml-2 font-sans text-primary dark:text-primary-light">
-                Smart Recipe<span class="absolute bottom-0 left-[6.85rem] text-secondary text-3xl">.</span>
-            </h1>
-        </div> --}}
         <div class="mt-0 md:mt-10 flex flex-col gap-2 relative text-gray-800 dark:text-gray-50">
             @foreach ($sidebarMenu as $menu)
                 @if (isset($menu['submenu']))

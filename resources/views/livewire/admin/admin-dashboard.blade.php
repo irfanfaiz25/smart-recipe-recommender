@@ -382,7 +382,7 @@
                         <div
                             class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
                             <div>
-                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">🌟 Creators Terbaik
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Creators Terbaik
                                 </h3>
                                 <p class="text-blue-100 text-xs sm:text-sm font-medium">Creators paling keren bulan ini
                                 </p>
@@ -452,14 +452,6 @@
                                                     class="text-blue-100 text-[10px] sm:text-xs uppercase tracking-wide">
                                                     Rata-rata Dilihat</div>
                                             </div>
-                                        </div>
-
-                                        <!-- Action button -->
-                                        <div class="mt-4">
-                                            <button
-                                                class="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-2 px-3 sm:px-4 rounded-lg transition-all duration-300 text-xs sm:text-sm border border-white/30 hover:border-white/50">
-                                                Lihat Profil
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

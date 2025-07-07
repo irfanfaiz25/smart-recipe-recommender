@@ -96,7 +96,7 @@
 
         <!-- Quick Actions -->
         <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6 mb-8">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4">🚀 Quick Actions</h3>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-4">Quick Actions</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <a href="{{ route('recipes.create') }}"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl p-4 text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
@@ -139,7 +139,7 @@
             <div class="lg:col-span-2">
                 <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-4 sm:p-6">
                     <div class="flex items-center justify-between mb-4 sm:mb-6">
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary">📝 Resep
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary">Resep
                             Terbaru</h3>
                         <a href="{{ route('recipes.index') }}"
                             class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-200 dark:hover:text-indigo-300 text-sm font-medium">Lihat
@@ -214,7 +214,7 @@
             <!-- Top Performing Recipes -->
             <div>
                 <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">🏆 Resep
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">Resep
                         Terpopuler</h3>
                     <div class="space-y-4">
                         @forelse($topRecipes as $index => $recipe)
@@ -244,7 +244,7 @@
         <div id="analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Category Distribution -->
             <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">📊 Kategori Resep</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">Kategori Resep</h3>
                 <div class="h-80">
                     <canvas id="categoryChart"></canvas>
                 </div>
@@ -252,7 +252,7 @@
 
             <!-- Monthly Views Trend -->
             <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-6">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">📈 Statistik Total
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-6">Statistik Total
                     Resep Dibuat</h3>
                 <div class="h-80">
                     <canvas id="viewsChart"></canvas>
@@ -263,7 +263,7 @@
         <!-- Recent Ratings -->
         @if ($recentRatings->count() > 0)
             <div class="bg-white dark:bg-bg-dark-primary rounded-2xl shadow-xl p-4 sm:p-6 mb-8">
-                <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4 sm:mb-6">⭐
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-text-dark-primary mb-4 sm:mb-6">
                     Rating & Ulasan
                     Terbaru</h3>
                 <div class="space-y-4">
