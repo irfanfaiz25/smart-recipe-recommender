@@ -50,7 +50,10 @@
                                 @case('rejected')
                                     <button wire:click='handleOpenDetailRejection({{ $recipe->id }})'
                                         class="flex items-center space-x-1.5 text-xs px-2 sm:px-3 py-1.5 rounded-full bg-rose-100 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 transform hover:scale-105 transition-transform duration-300">
-                                        <i class="fa-solid fa-ban text-rose-600 dark:text-rose-400"></i>
+                                        <i wire:loading.remove wire:target="handleOpenDetailRejection({{ $recipe->id }})"
+                                            class="fa-solid fa-ban text-rose-600 dark:text-rose-400"></i>
+                                        <i wire:loading wire:target="handleOpenDetailRejection({{ $recipe->id }})"
+                                            class="fa-solid fa-spinner fa-spin text-rose-600 dark:text-rose-400"></i>
                                         <span class="font-medium">
                                             Publikasi Ditolak
                                         </span>
