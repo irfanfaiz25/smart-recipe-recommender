@@ -8,7 +8,6 @@
     </div>
     <div class="relative flex items-center space-x-4">
         <!-- Profile Toggle Button -->
-        {{-- @dd(Auth::user()->avatar) --}}
         @if (Auth::check() && Auth::user()->avatar)
             <img wire:click='profileToggle' class="w-9 h-9 rounded-full object-cover cursor-pointer"
                 src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
