@@ -9,7 +9,9 @@
 </p>
 
 <p align="center">
-  <strong>An AI-powered recipe recommendation platform that uses advanced machine learning algorithms to suggest personalized recipes based on available ingredients and user preferences.</strong>
+  <strong>
+  An AI-powered recipe recommendation platform that uses advanced machine learning algorithms to suggest personalized recipes based on available ingredients and user preferences.
+  </strong>
 </p>
 
 ---
@@ -20,7 +22,6 @@
 
 -   **Smart Ingredient Recognition**: Upload photos of ingredients and let GPT-4 Vision identify them automatically
 -   **Advanced Recipe Matching**: Uses TF-IDF and Cosine Similarity algorithms for precise recipe recommendations
--   **Personalized Suggestions**: AI learns from user preferences and cooking patterns
 -   **Dynamic Scoring System**: Combines ingredient matching, recipe complexity, and popularity metrics
 
 ### 🔍 **Smart Recipe Discovery**
@@ -163,7 +164,7 @@ php artisan serve
 npm run dev
 ```
 
-Visit http://localhost:8000 to access the application.
+Visit https://savoryai.cloud to access the application.
 
 ## 📱 Usage
 
@@ -236,9 +237,8 @@ We welcome contributions to SavoryAI! Here's how you can help:
 
 ### Contribution Guidelines
 
--   Follow PSR-12 coding standards
 -   Write comprehensive tests for new features
--   Update documentation for any API changes
+-   Update documentation for any changes
 -   Ensure responsive design compatibility
 -   Test AI features with various ingredient combinations
 

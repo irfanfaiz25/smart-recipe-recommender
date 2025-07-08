@@ -202,7 +202,13 @@
                 </div>
                 <form wire:submit.prevent='submitRating'>
                     <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
-                        <i class="fa fa-circle-user text-3xl sm:text-4xl text-gray-500 self-start sm:self-auto"></i>
+                        @if (auth()->user()->avatar)
+                            <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover self-start sm:self-auto"
+                                src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
+                        @else
+                            <i
+                                class="fa fa-circle-user text-3xl sm:text-4xl text-gray-500 self-start sm:self-auto"></i>
+                        @endif
                         <div class="w-full space-y-1">
                             <textarea wire:model='comment'
                                 class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal"
@@ -245,9 +251,12 @@
                                 @endfor
                             </div>
                         </div>
-                        <button type="submit"
-                            class="w-full sm:w-auto px-6 sm:px-8 py-2.5 bg-secondary hover:bg-secondary-hover rounded-lg shadow-md text-text-dark-primary text-sm sm:text-base">
-                            Simpan
+                        <button type="submit" wire:loading.class="opacity-50 cursor-not-allowed"
+                            wire:target='submitRating'
+                            class="w-full sm:w-auto px-6 sm:px-8 py-2.5 bg-secondary hover:bg-secondary-hover rounded-lg shadow-md text-text-dark-primary text-sm sm:text-base flex items-center justify-center">
+                            <i class="fas fa-spinner fa-spin me-2" wire:loading wire:target='submitRating'></i>
+                            <span wire:loading.remove wire:target='submitRating'>Simpan</span>
+                            <span wire:loading wire:target='submitRating'>Menyimpan</span>
                         </button>
                     </div>
                 </form>
@@ -257,13 +266,17 @@
                         <i class="fa-solid fa-arrow-up-wide-short"></i>
                         Urutkan
                     </label>
-                    <select id="sortby" wire:model.live.debounce.300ms='sortBy'
-                        class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full sm:min-w-32 sm:w-auto p-2 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
-                        <option value="latest">Terbaru</option>
-                        <option value="higher">Tertinggi</option>
-                        <option value="lower">Terendah</option>
-                        <option value="likes">Disukai</option>
-                    </select>
+                    <div class="relative">
+                        <select id="sortby" wire:model.live.debounce.300ms='sortBy'
+                            class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full sm:min-w-32 sm:w-auto p-2 dark:bg-bg-dark-primary dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark dark:shadow-xs-light font-normal">
+                            <option value="latest">Terbaru</option>
+                            <option value="higher">Tertinggi</option>
+                            <option value="lower">Terendah</option>
+                            <option value="likes">Disukai</option>
+                        </select>
+                        <i class="fas fa-spinner fa-spin absolute right-2 top-1/4 -translate-y-1/4 text-gray-500"
+                            wire:loading wire:target="sortBy"></i>
+                    </div>
                 </div>
                 <div class="mt-3">
                     @foreach ($ratings as $item)

@@ -75,6 +75,24 @@
                         class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-3">
                         {{ $todayTrending['recipes']['description'] }}
                     </p>
+
+                    <div class="flex items-center gap-2 mb-3 md:mb-4">
+                        @if ($todayTrending['recipes']['user']['avatar'])
+                            <img src="{{ $todayTrending['recipes']['user']['avatar'] }}"
+                                alt="{{ $todayTrending['recipes']['user']['name'] }}"
+                                class="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover border-2 border-white shadow-sm">
+                        @else
+                            <div
+                                class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border-2 border-white shadow-sm">
+                                <span class="text-xs md:text-sm font-medium text-gray-600">
+                                    {{ substr($todayTrending['recipes']['user']['name'], 0, 1) }}
+                                </span>
+                            </div>
+                        @endif
+                        <span class="text-xs md:text-sm text-gray-600">
+                            {{ $todayTrending['recipes']['user']['name'] }}
+                        </span>
+                    </div>
                 </div>
 
                 {{-- Recipe Stats --}}
