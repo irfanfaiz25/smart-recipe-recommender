@@ -72,7 +72,7 @@
                     </h3>
 
                     <p
-                        class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-3">
+                        class="text-xs md:text-sm font-normal text-gray-600 mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-3">
                         {{ $todayTrending['recipes']['description'] }}
                     </p>
 
@@ -97,7 +97,7 @@
 
                 {{-- Recipe Stats --}}
                 <div class="flex flex-col gap-2 md:gap-0 md:flex-row md:items-center md:justify-between text-xs">
-                    <div class="flex flex-col gap-1 md:gap-0 md:flex-row md:items-center md:gap-4">
+                    <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4 font-medium">
                         <span class="flex items-center text-gray-500">
                             <i class="fa-solid fa-users mr-1 text-secondary"></i>
                             <span class="truncate">{{ $todayTrending['recipes']['views_count'] }} pengunjung</span>

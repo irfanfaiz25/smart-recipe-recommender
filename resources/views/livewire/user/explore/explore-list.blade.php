@@ -69,74 +69,77 @@
         @forelse ($recipes as $recipe)
             {{-- Featured Large Card --}}
             <div
-                class="break-inside-avoid bg-gradient-to-br from-secondary to-primary overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group mb-6 rounded-xl">
+                class="break-inside-avoid overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group mb-6 rounded-2xl bg-white border-2 border-primary/10">
                 <div class="relative h-72">
                     @if ($recipe->image)
                         <img src="{{ $recipe['image'] }}" alt="{{ $recipe['name'] }}"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     @else
-                        <div class="w-full h-full bg-gray-100 flex justify-center items-center">
-                            <i class="fa fa-utensils text-3xl text-gray-300"></i>
+                        <div
+                            class="w-full h-full bg-gradient-to-br from-primary/5 to-secondary/5 flex justify-center items-center">
+                            <i class="fa fa-utensils text-4xl text-primary/30"></i>
                         </div>
                     @endif
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-                    <div class="absolute w-full top-0 p-3 flex justify-between">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+
+                    {{-- Top badges --}}
+                    <div
+                        class="absolute w-full top-0 p-4 flex justify-between opacity-100 group-hover:opacity-100 transition-opacity duration-500">
                         <div
-                            class="flex items-center gap-1 text-xs px-2 py-1 bg-black/60 backdrop-blur-sm rounded-full">
+                            class="flex items-center gap-1 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full shadow-lg">
                             @if ($recipe->ratings->count() > 0)
                                 @for ($i = 1; $i <= 5; $i++)
                                     <i
-                                        class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-400"></i>
+                                        class="fa-{{ $i <= (int) number_format($recipe->ratings->avg('rating')) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-400 text-sm"></i>
                                 @endfor
                             @else
-                                <i
-                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                <i
-                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                <i
-                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                <i
-                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
-                                <i
-                                    class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i
+                                        class="text-gray-300 fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-sm"></i>
+                                @endfor
                             @endif
                             <span
-                                class="text-gray-200 text-sm">({{ $recipe->ratings_avg_rating ? (int) $recipe->ratings_avg_rating : '0' }})</span>
+                                class="text-gray-700 text-sm font-medium ml-1">({{ $recipe->ratings_avg_rating ? (int) $recipe->ratings_avg_rating : '0' }})</span>
                         </div>
-                        <a href="{{ route('explore-recipes.show', $recipe->id) }}" wire:navigate
-                            class="bg-yellow-400 text-xs font-normal text-black px-3 py-1 rounded-full flex items-center gap-1">
-                            <i class="fa fa-up-right-from-square"></i> Lihat Detail
-                        </a>
+                        <span
+                            class="bg-white/95 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+                            <i class="fa fa-clock mr-1"></i>
+                            {{ $recipe->cooking_time }} menit
+                        </span>
                     </div>
-                    <div class="absolute bottom-4 left-4 right-4">
-                        <h3 class="text-white text-lg font-bold mb-1">
+
+                    {{-- Content overlay --}}
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                        <h3 class="text-white text-xl font-bold mb-2 drop-shadow-lg">
                             {{ $recipe->name }}
                         </h3>
-                        <p class="text-white/90 text-sm font-normal mb-3 line-clamp-1">
-                            Resep gudeg autentik dengan cita rasa
-                            tradisional yang
-                            kaya
-                            bumbu
+                        <p class="text-white/90 text-sm font-normal mb-4 line-clamp-2 drop-shadow-md">
+                            Resep gudeg autentik dengan cita rasa tradisional yang kaya bumbu
                         </p>
+
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-3">
                                 @if ($recipe->user->avatar)
                                     <img src="{{ $recipe->user->avatar }}" alt="{{ $recipe->user->name }}"
-                                        class="w-7 h-7 rounded-full object-cover">
+                                        class="w-8 h-8 rounded-full object-cover ring-2 ring-white/50">
                                 @else
                                     <div
-                                        class="flex justify-center items-center bg-white/20 backdrop-blur-sm text-white h-7 w-7 rounded-full text-xs">
-                                        <i class="fa fa-user text-white"></i>
+                                        class="flex justify-center items-center bg-white/20 backdrop-blur-sm text-white h-8 w-8 rounded-full text-sm ring-2 ring-white/50">
+                                        <i class="fa fa-user"></i>
                                     </div>
                                 @endif
-                                <p class="text-sm font-medium text-white capitalize">
+                                <p class="text-sm font-medium text-white capitalize drop-shadow-md">
                                     {{ $recipe->user->name }}
                                 </p>
                             </div>
-                            <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs">
-                                <i class="fa fa-clock mr-1"></i>
-                                {{ $recipe->cooking_time }} menit
-                            </span>
+                            <a href="{{ route('explore-recipes.show', $recipe->id) }}" wire:navigate
+                                class="bg-secondary hover:bg-secondary/90 text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-2 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                                <span>Lihat Detail</span>
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -196,14 +196,31 @@
                                     {{ ucfirst($user->getRoleNames()->first()) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-200">
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-200 font-normal">
                                 {{ $user->created_at->format('d M Y') }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-normal">
                                 @if ($user->last_login_at)
-                                    {{ $user->last_login_at->diffForHumans() }}
+                                    <div class="flex items-center space-x-1">
+                                        <i class="fas fa-clock text-blue-500"></i>
+                                        <span class="text-gray-700 dark:text-neutral-200">
+                                            @if ($user->last_login_at->isToday())
+                                                <span class="text-green-600 font-medium">Hari ini</span>
+                                                {{ $user->last_login_at->format('H:i') }}
+                                            @elseif ($user->last_login_at->isYesterday()) 
+                                                <span class="text-blue-600 font-medium">Kemarin</span>
+                                                {{ $user->last_login_at->format('H:i') }}
+                                            @else
+                                                {{ $user->last_login_at->diffForHumans(['locale' => 'id']) }}
+                                            @endif
+                                        </span>
+                                    </div>
                                 @else
-                                    <span class="text-gray-400">Belum Pernah</span>
+                                    <div class="flex items-center space-x-1">
+                                        <i class="fas fa-user-clock text-gray-400"></i>
+                                        <span class="text-gray-400 italic">Belum pernah login</span>
+                                    </div>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
