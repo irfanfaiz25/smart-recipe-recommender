@@ -128,6 +128,7 @@
                         </div>
                         <span class="text-sm font-medium text-text-primary">Tinggi</span>
                     </label>
+                    <i class="fas fa-spinner fa-spin text-gray-500 mr-2" wire:loading wire:target="priority"></i>
                 </div>
                 @error('priority')
                     <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -143,7 +144,7 @@
                     placeholder="Jelaskan saran, masukan, atau masalah yang Anda temukan secara detail. Semakin spesifik, semakin membantu kami untuk melakukan perbaikan."
                     class="w-full px-4 py-2.5 border border-gray-300  rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-sm font-normal text-text-primary  transition-all duration-200 resize-none"></textarea>
                 <div class="flex justify-between items-center mt-2">
-                    @error('message')
+                    @error('feedback_message')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     <span class="text-xs md:text-sm font-normal text-gray-500 ml-auto">
@@ -173,6 +174,8 @@
                                 <i class="fas fa-star"></i>
                             </button>
                         @endfor
+                        <i class="fas fa-spinner fa-spin text-gray-500 ml-2" wire:loading
+                            wire:target="ease_of_use"></i>
                     </div>
                 </div>
 
@@ -188,6 +191,8 @@
                                 <i class="fas fa-star"></i>
                             </button>
                         @endfor
+                        <i class="fas fa-spinner fa-spin text-gray-500 ml-2" wire:loading
+                            wire:target="performance"></i>
                     </div>
                 </div>
 
@@ -203,6 +208,7 @@
                                 <i class="fas fa-star"></i>
                             </button>
                         @endfor
+                        <i class="fas fa-spinner fa-spin text-gray-500 ml-2" wire:loading wire:target="design"></i>
                     </div>
                 </div>
             </div>
@@ -214,7 +220,8 @@
                 </label>
                 <div class="flex space-x-6">
                     <label class="flex items-center cursor-pointer">
-                        <input type="radio" wire:model="would_recommend" value="1" class="sr-only">
+                        <input type="radio" wire:model.live.debounce.300ms="would_recommend" value="1"
+                            class="sr-only">
                         <div
                             class="w-4 h-4 md:w-5 md:h-5 border-2 rounded-full mr-3 transition-all duration-200 {{ $would_recommend ? 'bg-green-500 border-green-500' : 'border-gray-300 ' }}">
                         </div>
@@ -222,13 +229,16 @@
                             pasti!</span>
                     </label>
                     <label class="flex items-center cursor-pointer">
-                        <input type="radio" wire:model="would_recommend" value="0" class="sr-only">
+                        <input type="radio" wire:model.live.debounce.300ms="would_recommend" value="0"
+                            class="sr-only">
                         <div
                             class="w-4 h-4 md:w-5 md:h-5 border-2 rounded-full mr-3 transition-all duration-200 {{ !$would_recommend ? 'bg-red-500 border-red-500' : 'border-gray-300 ' }}">
                         </div>
                         <span class="text-sm font-medium text-text-primary ">👎 Belum
                             yakin</span>
                     </label>
+                    <i class="fas fa-spinner fa-spin text-gray-500 ml-2" wire:loading
+                        wire:target="would_recommend"></i>
                 </div>
             </div>
 
