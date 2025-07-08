@@ -233,22 +233,20 @@
                                            transition-colors"
                                     placeholder="Cari bahan makanan ...">
 
-                                <button wire:click="addQuickIngredient" type="button"
+                                <button wire:loading.remove wire:target='quickAdd' wire:click="addQuickIngredient"
+                                    type="button"
                                     class="absolute right-3 top-1/2 -translate-y-1/2
                                            text-gray-400 hover:text-blue-600 
                                            transition-colors duration-200 ease-in-out">
                                     <i class="fas fa-plus-circle text-lg"></i>
                                 </button>
+                                <i class="absolute right-3 top-1/4 -translate-y-1/4 fas fa-spinner fa-spin text-gray-500"
+                                    wire:loading wire:target="quickAdd"></i>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-end mt-2 gap-2">
-                        {{-- <p class="text-xs text-gray-500 dark:text-gray-400">
-                            💡 Contoh: "2 sdm garam", "500g daging sapi", "1 buah bawang merah" atau langsung cari bahan
-                            yang anda inginkan
-                        </p> --}}
-
                         <!-- Parse status indicator -->
                         @if ($quickAddStatus)
                             <span
@@ -267,7 +265,8 @@
                             </div>
                             @foreach ($searchResults as $result)
                                 <div wire:click="selectSearchResult('{{ $result['id'] }}', '{{ $result['name'] }}'); $nextTick(() => document.getElementById('quickAddInput').focus())"
-                                    class="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b last:border-b-0 border-gray-100 dark:border-gray-700">
+                                    class="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b last:border-b-0 border-gray-100 dark:border-gray-700"
+                                    wire:loading.class="opacity-50">
                                     @if ($result['image'])
                                         <img src="{{ $result['image'] }}" class="w-8 h-8 rounded object-cover mr-3">
                                     @else
@@ -285,7 +284,14 @@
                                             </p>
                                         @endif
                                     </div>
-                                    <i class="fas fa-plus text-gray-400 text-sm"></i>
+                                    <div class="flex items-center">
+                                        <i wire:loading.remove
+                                            wire:target="selectSearchResult('{{ $result['id'] }}', '{{ $result['name'] }}')"
+                                            class="fas fa-plus text-gray-400 text-sm"></i>
+                                        <i wire:loading
+                                            wire:target="selectSearchResult('{{ $result['id'] }}', '{{ $result['name'] }}')"
+                                            class="fas fa-spinner fa-spin text-gray-400 text-sm"></i>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -328,9 +334,14 @@
                             Bahan Terpilih ({{ count($selectedIngredients) }})
                         </h4>
                         @if (count($selectedIngredients) > 0)
-                            <button wire:click="clearAllIngredients" type="button"
+                            <button wire:click="clearAllIngredients" type="button" wire:loading.remove
+                                wire:target="clearAllIngredients"
                                 class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
                                 <i class="fas fa-trash mr-1"></i>Hapus Semua
+                            </button>
+                            <button wire:loading wire:target="clearAllIngredients" type="button" disabled
+                                class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+                                <i class="fas fa-spinner fa-spin mr-1"></i>Menghapus...
                             </button>
                         @endif
                     </div>
@@ -363,9 +374,15 @@
                                             </div>
                                         </div>
                                         <button wire:click="removeIngredient({{ $ingredient['id'] }})" type="button"
-                                            class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2">
+                                            class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2"
+                                            wire:loading.remove
+                                            wire:target="removeIngredient({{ $ingredient['id'] }})">
                                             <i class="fas fa-times"></i>
                                         </button>
+                                        <div role="status" wire:loading
+                                            wire:target="removeIngredient({{ $ingredient['id'] }})" class="ml-2">
+                                            <i class="fas fa-spinner fa-spin text-red-500"></i>
+                                        </div>
                                     </div>
 
                                     <div class="grid grid-cols-2 gap-3 mb-3">
