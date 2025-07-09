@@ -163,16 +163,40 @@ class SavoryRecipes extends Component
             // Scale similarity to 0-100 for consistent calculation
             $similarityScore = $similarity * 100;
 
-            // Calculate complexity score for the recipe
-            $complexityFactor = 100 - min(($totalIngredientsInRecipe / 20) * 100, 100);
+            // Calculate complexity score for the recipe (improved formula)
+            // Lower complexity is better, but not too simple
+            $optimalIngredientCount = 8; // Sweet spot for recipe complexity
+            $complexityDifference = abs($totalIngredientsInRecipe - $optimalIngredientCount);
+            $complexityFactor = max(0, 100 - ($complexityDifference * 10));
 
-            // Calculate popularity score for the recipe based on views_count and rating
+            // Calculate popularity score with cold start handling
             $viewsScore = min(($recipe->views_count / 1000) * 100, 100);
-            $ratingScore = ($recipe->ratings->avg('rating') / 5) * 100;
-            $popularityScore = ($viewsScore * 0.6) + ($ratingScore * 0.4);
+            $avgRating = $recipe->ratings->avg('rating');
 
-            // Calculate final score for the recipe
-            $finalScore = ($similarityScore * 0.6) + ($complexityFactor * 0.2) + ($popularityScore * 0.2);
+            // Handle cold start problem for new recipes
+            if ($recipe->ratings->count() == 0) {
+                // Give new recipes a neutral rating score
+                $ratingScore = 60; // Neutral score for unrated recipes
+            } else {
+                $ratingScore = ($avgRating / 5) * 100;
+            }
+
+            // Add freshness bonus for new recipes (created within last 30 days)
+            $freshnessBonus = 0;
+            if ($recipe->created_at->diffInDays(now()) <= 30) {
+                $freshnessBonus = 10; // 10 point bonus for fresh recipes
+            }
+
+            // Calculate popularity score with cold start consideration
+            if ($recipe->views_count == 0 && $recipe->ratings->count() == 0) {
+                // For completely new recipes, use baseline + freshness bonus
+                $popularityScore = 50 + $freshnessBonus;
+            } else {
+                $popularityScore = ($viewsScore * 0.6) + ($ratingScore * 0.4) + $freshnessBonus;
+            }
+
+            // Calculate final score with new weights (70% similarity, 15% complexity, 15% popularity)
+            $finalScore = ($similarityScore * 0.7) + ($complexityFactor * 0.15) + ($popularityScore * 0.15);
 
             // Calculate missing ingredients for the recipe
             $missingIngredients = $recipe->ingredients->whereNotIn('id', $this->selectedIngredientsId);
@@ -182,11 +206,12 @@ class SavoryRecipes extends Component
                 'matching_percentage' => $finalScore,
                 'cosine_similarity' => $similarity,
                 'missing_ingredients' => $missingIngredients,
-                'ratings' => number_format($recipe->ratings->avg('rating'), 1),
+                'ratings' => number_format($avgRating ?: 0, 1),
                 'complexity_factor' => $complexityFactor,
                 'popularity_score' => $popularityScore,
                 'rating_score' => $ratingScore,
                 'views_score' => $viewsScore,
+                'freshness_bonus' => $freshnessBonus,
             ];
         });
 

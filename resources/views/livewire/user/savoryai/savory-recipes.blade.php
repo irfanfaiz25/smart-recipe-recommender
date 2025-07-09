@@ -83,7 +83,7 @@
                                         {{-- Match Percentage Badge --}}
                                         @if ($recipe->similarity_data['matching_percentage'])
                                             <div
-                                                class="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
+                                                class="flex justify-center items-center bg-gradient-to-r from-green-400 to-emerald-500 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
                                                 <span class="text-xs font-bold">
                                                     {{ (int) $recipe->similarity_data['matching_percentage'] }}% Match
                                                 </span>
