@@ -25,9 +25,9 @@
             <form wire:submit.prevent="resetPassword" class="space-y-6">
                 <!-- Email Field -->
                 <div class="input-field relative">
-                    <input wire:model.live="email" type="email" id="email"
+                    <input wire:model.blur="email" type="email" id="email"
                         class="w-full px-4 py-3 pl-12 rounded-lg bg-white bg-opacity-20 focus:bg-opacity-30 text-white placeholder-gray-200 transition duration-200 border-2 border-transparent focus:border-white focus:border-opacity-50"
-                        placeholder="Email Anda" :disabled="$wire.isLoading">
+                        placeholder="Email Anda" wire:loading.attr="disabled" wire:target="resetPassword">
                     <i class="fas fa-envelope absolute left-4 top-3 text-white text-lg"></i>
                     @error('email')
                         <p class="mt-2 text-red-300 text-xs font-normal flex items-center">
@@ -39,10 +39,15 @@
 
                 <!-- Password Field -->
                 <div class="input-field relative">
-                    <input wire:model.live="password" :type="showPassword ? 'text' : 'password'" id="password"
+                    <input wire:model.defer="password" :type="showPassword ? 'text' : 'password'" id="password"
                         class="w-full px-4 py-3 pl-12 pr-12 rounded-lg bg-white bg-opacity-20 focus:bg-opacity-30 text-white placeholder-gray-200 transition duration-200 border-2 border-transparent focus:border-white focus:border-opacity-50"
-                        placeholder="Password Baru" :disabled="$wire.isLoading">
+                        placeholder="Password Baru" wire:loading.attr="disabled" wire:target="resetPassword">
                     <i class="fas fa-key absolute left-4 top-3 text-white text-lg"></i>
+                    <button type="button" @click="showPassword = !showPassword"
+                        class="absolute right-4 top-3 text-white text-lg focus:outline-none"
+                        wire:loading.attr="disabled" wire:target="resetPassword">
+                        <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                    </button>
                     @error('password')
                         @if (!str_contains($message, 'Konfirmasi password tidak cocok'))
                             <p class="mt-2 text-red-300 text-xs font-normal flex items-center">
@@ -55,11 +60,16 @@
 
                 <!-- Password Confirmation Field -->
                 <div class="input-field relative">
-                    <input wire:model.live="password_confirmation"
+                    <input wire:model.defer="password_confirmation"
                         :type="showPasswordConfirmation ? 'text' : 'password'" id="password_confirmation"
                         class="w-full px-4 py-3 pl-12 pr-12 rounded-lg bg-white bg-opacity-20 focus:bg-opacity-30 text-white placeholder-gray-200 transition duration-200 border-2 border-transparent focus:border-white focus:border-opacity-50"
-                        placeholder="Konfirmasi Password Baru" :disabled="$wire.isLoading">
+                        placeholder="Konfirmasi Password Baru" wire:loading.attr="disabled" wire:target="resetPassword">
                     <i class="fas fa-shield-alt absolute left-4 top-3 text-white text-lg"></i>
+                    <button type="button" @click="showPasswordConfirmation = !showPasswordConfirmation"
+                        class="absolute right-4 top-3 text-white text-lg focus:outline-none"
+                        wire:loading.attr="disabled" wire:target="resetPassword">
+                        <i :class="showPasswordConfirmation ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                    </button>
                     @error('password_confirmation')
                         <p class="mt-2 text-red-300 text-xs font-normal flex items-center">
                             <i class="fas fa-exclamation-circle mr-1"></i>
@@ -76,8 +86,11 @@
                     @enderror
                 </div>
 
-                <!-- Password Requirements -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                <!-- Password Requirements - Menggunakan Alpine.js untuk real-time feedback tanpa Livewire -->
+                <div class="bg-white bg-opacity-10 rounded-lg p-4" x-data="{
+                    password: @entangle('password').defer,
+                    passwordConfirmation: @entangle('password_confirmation').defer
+                }">
                     <p class="text-gray-200 text-xs mb-2 font-semibold">
                         <i class="fas fa-info-circle mr-1"></i>
                         Persyaratan Password:
@@ -85,14 +98,13 @@
                     <ul class="text-gray-300 text-xs space-y-1">
                         <li class="flex items-center">
                             <i class="fas fa-check-circle mr-2"
-                                :class="$wire.password && $wire.password.length >= 8 ? 'text-green-400' : 'text-gray-500'"></i>
+                                :class="password && password.length >= 8 ? 'text-green-400' : 'text-gray-500'"></i>
                             Minimal 8 karakter
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check-circle mr-2"
-                                :class="$wire.password && $wire.password_confirmation && $wire.password === $wire
-                                    .password_confirmation && $wire.password.length > 0 ? 'text-green-400' :
-                                    'text-gray-500'"></i>
+                                :class="password && passwordConfirmation && password === passwordConfirmation && password
+                                    .length > 0 ? 'text-green-400' : 'text-gray-500'"></i>
                             Password dan konfirmasi harus sama
                         </li>
                     </ul>
@@ -100,7 +112,7 @@
 
                 <button type="submit"
                     class="btn w-full bg-gradient-to-r from-[#FF564E] to-pink-500 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 focus:ring-4 focus:ring-purple-300 transition duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                    :disabled="$wire.isLoading">
+                    wire:loading.attr="disabled" wire:target="resetPassword">
                     <span wire:loading.remove wire:target="resetPassword">
                         Reset Password
                         <i class="fas fa-check ml-2"></i>
