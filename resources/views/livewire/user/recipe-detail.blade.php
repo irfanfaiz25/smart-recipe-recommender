@@ -43,7 +43,7 @@
                 <i class="fa fa-location-dot text-text-primary"></i>
                 <p class="text-gray-600 capitalize">{{ $recipe->user->creators->city }}</p>
             </div>
-            <h1 class="mt-2 text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-center px-4">
+            <h1 class="mt-2 text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-center px-4 capitalize">
                 {{ $recipe->name }}
             </h1>
             <div

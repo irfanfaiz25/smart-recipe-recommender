@@ -76,7 +76,7 @@
                 recipe by {{ $recipe->user->name }}
             </h3>
             <h1
-                class="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-center dark:text-text-dark-primary px-2">
+                class="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-center dark:text-text-dark-primary px-2 capitalize">
                 {{ $recipe->name }}
             </h1>
             <div

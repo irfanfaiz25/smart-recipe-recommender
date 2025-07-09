@@ -4,8 +4,8 @@
     <div class="mt-3 w-full bg-white dark:bg-bg-dark-primary rounded-lg shadow-lg h-fit">
         <div class="relative w-full rounded-t-lg">
             @if ($recipe->image)
-                <img class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg object-cover"
-                    src="{{ $recipe->image }}">
+                <img class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg object-cover" src="{{ $recipe->image }}"
+                    alt="{{ $recipe->name }}">
             @else
                 <div
                     class="w-full h-48 sm:h-64 md:h-80 lg:h-[30rem] rounded-t-lg bg-gray-200 dark:bg-bg-dark-primary flex justify-center items-center">
@@ -33,7 +33,7 @@
                 recipe by {{ $recipe->user->name }}
             </h3>
             <h1
-                class="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-center dark:text-text-dark-primary px-2">
+                class="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-center dark:text-text-dark-primary px-2 capitalize">
                 {{ $recipe->name }}
             </h1>
             <div class="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">

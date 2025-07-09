@@ -505,7 +505,7 @@ class RecipeForm extends Component
             'cookingTime' => 'required|integer|min:1',
             'difficulty' => 'required|string|in:mudah,sedang,rumit',
             'servings' => 'required|integer|min:1',
-            'newImage' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'newImage' => 'nullable|mimes:jpg,jpeg,png|max:10240', // Increased to 10MB to accommodate high-res phone camera photos
             'status' => 'required',
             'selectedIngredients' => 'required|array|min:1',
             'selectedIngredients.*.id' => 'required|integer|exists:ingredients,id',

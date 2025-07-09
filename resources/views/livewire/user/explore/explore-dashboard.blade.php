@@ -4,8 +4,8 @@
     <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {{-- Main Featured Recipe Card with Stats --}}
         <div
-            class="h-auto min-h-64 md:h-64 col-span-1 md:col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex flex-col md:flex-row group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
-            <div class="w-full md:w-[40%] h-48 md:h-full relative overflow-hidden">
+            class="min-h-[16rem] col-span-1 md:col-span-2 bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-2xl flex flex-col lg:flex-row group transition-all duration-500 overflow-hidden rounded-xl border border-gray-100">
+            <div class="w-full lg:w-2/5 h-48 sm:h-56 lg:h-full relative overflow-hidden">
                 @if ($todayTrending['recipes']['image'])
                     <img src="{{ $todayTrending['recipes']['image'] }}" alt="featured-recipe"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -20,84 +20,79 @@
 
                 {{-- Recipe Rating Badge --}}
                 <div
-                    class="absolute top-2 left-2 md:top-3 md:left-3 bg-black/70 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                    <div class="flex items-center gap-0.5 md:gap-1 text-xs">
+                    class="absolute top-2 left-2 lg:top-4 lg:left-4 bg-black/70 text-white px-2.5 py-1.5 rounded-full text-[0.65rem] sm:text-xs font-bold flex items-center gap-1 backdrop-blur-sm">
+                    <div class="flex items-center gap-1">
                         @if ($todayTrending['recipes']['ratings_count'] > 0)
                             @for ($i = 1; $i <= 5; $i++)
                                 <i
-                                    class="fa-{{ $i <= (int) number_format($todayTrending['recipes']['ratings_avg_rating']) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-400 text-xs"></i>
+                                    class="fa-{{ $i <= (int) number_format($todayTrending['recipes']['ratings_avg_rating']) ? 'solid' : 'regular' }} fa-star group-hover:scale-110 transition-transform duration-300 text-yellow-400"></i>
                             @endfor
                         @else
-                            <i
-                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-xs"></i>
-                            <i
-                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-xs"></i>
-                            <i
-                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-xs"></i>
-                            <i
-                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-xs"></i>
-                            <i
-                                class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300 text-xs"></i>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i
+                                    class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
+                            @endfor
                         @endif
                         <span
-                            class="text-white text-xs ml-1">({{ $todayTrending['recipes']['ratings_avg_rating'] ? (int) $todayTrending['recipes']['ratings_avg_rating'] : '0' }})</span>
+                            class="text-white ml-1">({{ $todayTrending['recipes']['ratings_avg_rating'] ? (int) $todayTrending['recipes']['ratings_avg_rating'] : '0' }})</span>
                     </div>
                 </div>
 
                 {{-- Quick Action Buttons --}}
                 <div
-                    class="absolute bottom-2 left-2 md:bottom-3 md:left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex gap-2">
+                    class="absolute bottom-2 left-2 lg:bottom-4 lg:left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex gap-2">
                     <button
-                        class="bg-white/20 backdrop-blur-sm text-white px-2 md:px-3 py-1 md:py-1.5 rounded-full hover:bg-white/30 transition-all duration-300">
-                        <i class="fa-solid fa-bookmark text-xs md:text-sm"></i>
+                        class="bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 rounded-full hover:bg-white/30 transition-all duration-300">
+                        <i class="fa-solid fa-bookmark"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="w-full md:w-[60%] h-auto md:h-full px-3 md:px-6 py-3 md:py-6 flex flex-col justify-between">
+            <div class="w-full lg:w-3/5 p-4 lg:p-6 flex flex-col justify-between">
                 <div>
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 md:mb-4 gap-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <div
-                            class="bg-gradient-to-r from-secondary to-orange-400 text-white px-2.5 md:px-3 py-1 rounded-full text-xs font-medium inline-block w-fit">
+                            class="bg-gradient-to-r from-secondary to-orange-400 text-white px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium">
                             {{ $todayTrending['title'] }}
                         </div>
-                        <div class="flex items-center text-xs text-gray-500">
+                        <div class="flex items-center text-[0.65rem] sm:text-xs text-gray-500">
                             <i class="fa-solid fa-clock mr-1"></i> {{ $todayTrending['recipes']['cooking_time'] }} min
                         </div>
                     </div>
 
                     <h3
-                        class="mb-2 md:mb-3 text-sm md:text-lg font-bold text-gray-800 group-hover:text-secondary transition-colors duration-300 leading-tight">
+                        class="mb-2 text-sm sm:text-base lg:text-lg font-bold text-gray-800 group-hover:text-secondary transition-colors duration-300 leading-tight">
                         {{ $todayTrending['recipes']['name'] }}
                     </h3>
 
                     <p
-                        class="text-xs md:text-sm font-normal text-gray-600 mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-3">
+                        class="text-[0.65rem] sm:text-sm text-gray-600 mb-3 leading-relaxed line-clamp-2 lg:line-clamp-3">
                         {{ $todayTrending['recipes']['description'] }}
                     </p>
 
-                    <div class="flex items-center gap-2 mb-3 md:mb-4">
+                    <div class="flex items-center gap-2 mb-3">
                         @if ($todayTrending['recipes']['user']['avatar'])
                             <img src="{{ $todayTrending['recipes']['user']['avatar'] }}"
                                 alt="{{ $todayTrending['recipes']['user']['name'] }}"
-                                class="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover border-2 border-white shadow-sm">
+                                class="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm">
                         @else
                             <div
-                                class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border-2 border-white shadow-sm">
-                                <span class="text-xs md:text-sm font-medium text-gray-600">
+                                class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border-2 border-white shadow-sm">
+                                <span class="text-[0.65rem] sm:text-sm font-medium text-gray-600">
                                     {{ substr($todayTrending['recipes']['user']['name'], 0, 1) }}
                                 </span>
                             </div>
                         @endif
-                        <span class="text-xs md:text-sm text-gray-600">
+                        <span class="text-[0.65rem] sm:text-sm text-gray-600">
                             {{ $todayTrending['recipes']['user']['name'] }}
                         </span>
                     </div>
                 </div>
 
                 {{-- Recipe Stats --}}
-                <div class="flex flex-col gap-2 md:gap-0 md:flex-row md:items-center md:justify-between text-xs">
-                    <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4 font-medium">
+                <div
+                    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[0.65rem] sm:text-xs">
+                    <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 font-medium">
                         <span class="flex items-center text-gray-500">
                             <i class="fa-solid fa-users mr-1 text-secondary"></i>
                             <span class="truncate">{{ $todayTrending['recipes']['views_count'] }} pengunjung</span>
@@ -109,7 +104,7 @@
                         </span>
                     </div>
                     <a href="{{ route('explore-recipes.show', $todayTrending['recipes']['id']) }}" wire:navigate
-                        class="bg-secondary text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs font-medium hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105 text-center mt-2 md:mt-0 w-full md:w-auto">
+                        class="bg-secondary text-white px-4 py-2 rounded-full font-medium hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105 text-center w-full sm:w-auto">
                         Lihat Detail →
                     </a>
                 </div>
