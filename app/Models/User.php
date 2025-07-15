@@ -74,6 +74,18 @@ class User extends Authenticatable implements CanResetPassword
         return $this->belongsToMany(Recipe::class, 'bookmarks')->withTimeStamps();
     }
 
+    public function cookingHistories()
+    {
+        return $this->hasMany(CookingHistory::class);
+    }
+
+    public function cookedRecipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'cooking_histories')
+            ->withPivot('cooked_at', 'notes')
+            ->withTimestamps();
+    }
+
     public function likedRatings()
     {
         return $this->belongsToMany(Rating::class, 'rating_likes')->withTimestamps();

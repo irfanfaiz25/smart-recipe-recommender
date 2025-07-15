@@ -128,10 +128,17 @@
                     @endif
                 </button>
 
-                <button
-                    class="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-primary hover:bg-primary-hover text-text-dark-primary text-sm sm:text-base font-semibold rounded-full shadow-lg">
-                    <i class="fa-solid fa-utensils pe-1 text-sm sm:text-base"></i>
-                    <span class="text-xs sm:text-base">Tambah Ke Riwayat Masak</span>
+                <button wire:click="addToCookingHistory"
+                    class="w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 bg-primary hover:bg-primary-hover text-text-dark-primary text-sm sm:text-base font-semibold rounded-full shadow-lg transition-colors duration-200"
+                    wire:loading.attr="disabled" wire:target="addToCookingHistory">
+                    <span wire:loading.remove wire:target="addToCookingHistory">
+                        <i class="fa-solid fa-book-bookmark pe-1 text-sm sm:text-base"></i>
+                        <span class="text-xs sm:text-base">Simpan ke Riwayat</span>
+                    </span>
+                    <span wire:loading wire:target="addToCookingHistory">
+                        <i class="fas fa-spinner fa-spin pe-1 text-sm sm:text-base"></i>
+                        <span class="text-xs sm:text-base">Menyimpan...</span>
+                    </span>
                 </button>
             </div>
 

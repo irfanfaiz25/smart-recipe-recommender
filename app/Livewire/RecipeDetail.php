@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\CookingHistory;
 use App\Models\Rating;
 use App\Models\Recipe;
 use Livewire\Attributes\On;
@@ -86,6 +87,38 @@ class RecipeDetail extends Component
     private function updateAvgRating()
     {
         $this->averageRating = number_format(Rating::where('recipe_id', $this->recipeId)->avg('rating'), 1);
+    }
+
+    public function addToCookingHistory()
+    {
+        if (!auth()->check()) {
+            Toaster::error('Silakan login terlebih dahulu');
+            return;
+        }
+
+        $user = auth()->user();
+        $recipeId = $this->recipeId;
+
+        // Cek apakah sudah ada di riwayat hari ini
+        $existingHistory = CookingHistory::where('user_id', $user->id)
+            ->where('recipe_id', $recipeId)
+            ->whereDate('cooked_at', today())
+            ->first();
+
+        if ($existingHistory) {
+            Toaster::info('Resep ini sudah ada di riwayat masak hari ini');
+            return;
+        }
+
+        // Simpan ke riwayat masak
+        CookingHistory::create([
+            'user_id' => $user->id,
+            'recipe_id' => $recipeId,
+            'cooked_at' => now(),
+            'notes' => null, // Bisa ditambahkan form untuk catatan nanti
+        ]);
+
+        Toaster::success('Resep berhasil ditambahkan ke riwayat masak!');
     }
 
     public function render()
