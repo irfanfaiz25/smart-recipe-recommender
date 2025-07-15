@@ -7,7 +7,7 @@
     <title>Document</title>
 
     {{-- logo title --}}
-    <link rel="icon" href="{{ asset('storage/img/main/savory-logo.png') }}">
+    <link rel="icon" href="{{ asset('storage/img/main/logo-orange.png') }}">
 
     <!-- Include Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

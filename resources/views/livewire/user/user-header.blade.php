@@ -13,7 +13,7 @@
 <nav class="flex justify-between items-center">
     <!-- Logo -->
     <div class="flex items-center">
-        <img src="{{ asset('storage/img/main/savory-logo.png') }}" alt="logo" class="w-9 h-9">
+        <img src="{{ asset('storage/img/main/logo-orange.png') }}" alt="logo" class="w-9 h-9">
         <h1 class="relative font-semibold text-xl ml-2 font-display transition-colors duration-300"
             :class="{ 'text-white': !isScrolled, 'text-text-primary': isScrolled }">
             SavoryAI<span class="absolute bottom-0 left-[5rem] text-primary text-3xl">.</span>
