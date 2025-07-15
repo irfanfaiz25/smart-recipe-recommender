@@ -2,10 +2,10 @@
     x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
     class="w-full">
     <div class="mt-3 w-full bg-white rounded-lg shadow-lg h-fit recipe-container">
-        <div class="relative w-full rounded-t-lg">
+        <div class="relative w-full rounded-t-lg" x-data="{ showImageModal: false }">
             @if ($recipe->image)
-                <img class="w-full h-[20rem] sm:h-[25rem] lg:h-[30rem] rounded-t-lg object-cover"
-                    src="{{ $recipe->image }}">
+                <img class="w-full h-[20rem] sm:h-[25rem] lg:h-[30rem] rounded-t-lg object-cover cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                    src="{{ $recipe->image }}" alt="{{ $recipe->name }}" @click="showImageModal = true">
             @else
                 <div
                     class="w-full h-[20rem] sm:h-[25rem] lg:h-[30rem] rounded-t-lg bg-gray-200 flex justify-center items-center">
@@ -22,6 +22,70 @@
                 <i class="fa-solid fa-chevron-left pe-1 text-xs sm:text-sm"></i>
                 <span class="hidden sm:inline">Kembali</span>
             </button>
+
+            @if ($recipe->image)
+                <!-- Zoom Icon Indicator -->
+                <div class="absolute bottom-3 right-3 bg-black/40 hover:bg-black/60 text-white px-3 py-3 flex justify-center items-center rounded-full cursor-pointer transition-colors duration-200"
+                    @click="showImageModal = true">
+                    <i class="fas fa-search-plus text-sm"></i>
+                </div>
+            @endif
+
+            <!-- Image Modal -->
+            @if ($recipe->image)
+                <div x-show="showImageModal" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+                    @click="showImageModal = false" @keydown.escape.window="showImageModal = false"
+                    style="display: none;">
+
+                    <!-- Modal Content -->
+                    <div class="relative max-w-7xl max-h-[90vh] mx-4" @click.stop>
+
+                        <!-- Close Button -->
+                        <button @click="showImageModal = false"
+                            class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors duration-200 z-10">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+
+                        <!-- Image -->
+                        <img src="{{ $recipe->image }}" alt="{{ $recipe->name }}"
+                            class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                            x-transition:enter="transition ease-out duration-300 transform"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-200 transform"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-95">
+
+                        <!-- Image Info -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
+                            <h3 class="text-white text-xl font-semibold mb-2">{{ $recipe->name }}</h3>
+                            <p class="text-gray-200 text-sm">
+                                <i class="fas fa-user mr-1"></i>
+                                Oleh {{ $recipe->user->name }}
+                            </p>
+                            @if ($recipe->category)
+                                <span
+                                    class="inline-block mt-2 px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
+                                    {{ $recipe->category->name }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <!-- Download Button -->
+                        <div class="absolute top-4 right-4">
+                            <a href="{{ $recipe->image }}" download="{{ Str::slug($recipe->name) }}-recipe.jpg"
+                                class="bg-white/20 hover:bg-white/30 text-white p-3 rounded-lg backdrop-blur-sm transition-colors duration-200"
+                                title="Download Gambar">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="py-4 px-4 sm:py-6 sm:px-8 lg:py-8 lg:px-32">
             {{-- head details --}}
@@ -146,7 +210,8 @@
             <div
                 class="export-buttons mt-4 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2 px-4">
 
-                <button onclick="RecipeExporter.exportAsImage({{ $recipe->id }}, '{{ addslashes($recipe->name) }}')"
+                <button
+                    onclick="RecipeExporter.exportAsImage({{ $recipe->id }}, '{{ addslashes($recipe->name) }}')"
                     class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full shadow-lg transition-colors duration-200">
                     <i class="fa-solid fa-image pe-1"></i>
                     <span class="text-xs sm:text-sm">Export Gambar</span>
