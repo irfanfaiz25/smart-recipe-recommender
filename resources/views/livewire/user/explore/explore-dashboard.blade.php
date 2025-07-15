@@ -1,6 +1,5 @@
 <div>
     {{-- Featured Section --}}
-    {{-- Enhanced Featured Section with Interactive Elements --}}
     <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {{-- Main Featured Recipe Card with Stats --}}
         <div
@@ -33,8 +32,7 @@
                                     class="text-white fa-regular fa-star group-hover:scale-110 transition-transform duration-300"></i>
                             @endfor
                         @endif
-                        <span
-                            class="text-white ml-1">({{ $todayTrending['recipes']['ratings_avg_rating'] ? (int) $todayTrending['recipes']['ratings_avg_rating'] : '0' }})</span>
+                        <span class="text-white ml-1">({{ $todayTrending['recipes']['ratings_count'] ?? '0' }})</span>
                     </div>
                 </div>
 
