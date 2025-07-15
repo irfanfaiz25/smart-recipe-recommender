@@ -119,6 +119,18 @@
                                 </div>
                             </a>
 
+                            <!-- Riwayat Masak -->
+                            <a href="{{ route('history.index') }}" wire:navigate @click="closeSubmenu()"
+                                class="flex items-center gap-4 p-3 rounded-xl hover:bg-secondary/10 hover:text-secondary transition-all duration-200">
+                                <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-history text-secondary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Riwayat Masak</p>
+                                    <p class="text-xs text-gray-500">Resep yang telah dimasak</p>
+                                </div>
+                            </a>
+
                             {{-- saran dan masukan --}}
                             <a href="{{ route('suggestions.index') }}" wire:navigate @click="closeSubmenu()"
                                 class="flex items-center gap-4 p-3 rounded-xl hover:bg-secondary/10 hover:text-secondary transition-all duration-200">

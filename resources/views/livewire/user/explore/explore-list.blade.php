@@ -101,7 +101,7 @@
                                 @endfor
                             @endif
                             <span
-                                class="text-gray-700 text-sm font-medium ml-1">({{ $recipe->ratings_avg_rating ? (int) $recipe->ratings_avg_rating : '0' }})</span>
+                                class="text-gray-700 text-sm font-medium ml-1">({{ $recipe->ratings->count() }})</span>
                         </div>
                         <span
                             class="bg-white/95 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">

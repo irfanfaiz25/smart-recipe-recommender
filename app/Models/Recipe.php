@@ -63,6 +63,18 @@ class Recipe extends Model
         return $this->hasOne(RecipeModeration::class);
     }
 
+    public function cookingHistories()
+    {
+        return $this->hasMany(CookingHistory::class);
+    }
+
+    public function cookedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'cooking_histories')
+            ->withPivot('cooked_at', 'notes')
+            ->withTimestamps();
+    }
+
     public function scopeApproved($query)
     {
         return $query->where('is_published', true)

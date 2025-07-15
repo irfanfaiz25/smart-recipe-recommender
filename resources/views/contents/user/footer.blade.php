@@ -24,7 +24,7 @@
                 <!-- Brand Section -->
                 <div class="lg:col-span-1">
                     <div class="flex space-x-2 items-center mb-6">
-                        <img src="{{ asset('storage/img/main/savory-logo.png') }}" alt="logo" class="w-16 h-16">
+                        <img src="{{ asset('storage/img/main/logo-orange.png') }}" alt="logo" class="w-16 h-16">
                         <h3
                             class="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
                             SavoryAI

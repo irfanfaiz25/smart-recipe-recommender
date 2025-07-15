@@ -217,6 +217,18 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('bookmarks.show');
 
+    // history
+    Route::get('/history', function () {
+        return view('contents.user.cookingHistory');
+    })->name('history.index');
+
+    // history recipe detail
+    Route::get('/history/{id}', function () {
+        return view('contents.user.cookingHistory', [
+            'previousPage' => 'history'
+        ]);
+    })->name('history.show');
+
     // suggestion form
     Route::get('/suggestions', function () {
         return view('contents.user.suggestions');
