@@ -147,6 +147,13 @@
                             </a>
                         </div>
                         <div class="p-2">
+                            <a href="{{ route('history.index') }}" wire:navigate
+                                class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                                <i class="fa-solid fa-history text-base"></i>
+                                <span>Riwayat Masak</span>
+                            </a>
+                        </div>
+                        <div class="p-2">
                             <a href="{{ route('suggestions.index') }}" wire:navigate
                                 class="group flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
                                 <i class="fa-solid fa-file-pen text-base"></i>
@@ -213,6 +220,11 @@
                         class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
                         <i class="fa-solid fa-bookmark text-base"></i>
                         <span>Favorit Saya</span>
+                    </a>
+                    <a href="{{ route('history.index') }}" wire:navigate
+                        class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
+                        <i class="fa-solid fa-history text-base"></i>
+                        <span>Riwayat Masak</span>
                     </a>
                     <a href="{{ route('suggestions.index') }}" wire:navigate
                         class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:bg-secondary/10 hover:text-secondary {{ $isSetting ? 'text-secondary bg-secondary/10' : 'text-text-primary' }}">
