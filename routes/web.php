@@ -4,6 +4,24 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/admin/clear-cache-emergency', function () {
+    if (!auth()->check() || !auth()->user()->hasRole('admin')) {
+        abort(403);
+    }
+
+    try {
+        \Artisan::call('cache:clear');
+        \Artisan::call('config:clear');
+        \Artisan::call('route:clear');
+        \Artisan::call('view:clear');
+        \Artisan::call('optimize:clear');
+
+        return 'Cache cleared successfully!';
+    } catch (Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+})->name('admin.clear-cache');
+
 // AUTH
 // redirect to Google's OAuth page
 Route::get('/api/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
