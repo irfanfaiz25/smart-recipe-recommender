@@ -19,11 +19,68 @@ class SavoryIngredients extends Component
     public $testIngredients = [];
     public $isImageRecognitionOpen = false;
 
+    public $loadLimit = 20;
+    public $showLoadMore = false;
+    public $selectedCategory = 'all';
+    public $availableCategories = [];
+    public $recentlyUsed = [];
+    public $showFavorites = false;
+
 
     public function mount()
     {
+        // Load available categories
+        $this->availableCategories = Ingredient::select('category')
+            ->distinct()
+            ->orderBy('category')
+            ->pluck('category')
+            ->toArray();
+
+        // Load recently used ingredients from session
+        $this->recentlyUsed = session('recently_used_ingredients', []);
+
         $this->ingredients = Ingredient::select(['id', 'name', 'image', 'category'])
             ->get();
+    }
+
+    // Method untuk load more ingredients
+    public function loadMore()
+    {
+        $this->loadLimit += 20;
+    }
+
+    // Method untuk bulk select kategori
+    public function selectAllFromCategory($category)
+    {
+        $categoryIngredients = Ingredient::select(['id', 'name', 'image'])
+            ->where('category', $category)
+            ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
+            ->get()
+            ->map(function ($ingredient) {
+                return [
+                    'id' => $ingredient->id,
+                    'name' => $ingredient->name,
+                    'image' => $ingredient->image
+                ];
+            })
+            ->toArray();
+
+        $this->selectedIngredients = array_merge($this->selectedIngredients, $categoryIngredients);
+
+        Toaster::success('Semua bahan dari kategori ' . $category . ' berhasil ditambahkan!');
+    }
+
+    // Method untuk menambah ke recently used
+    private function addToRecentlyUsed($ingredient)
+    {
+        $recentlyUsed = collect(session('recently_used_ingredients', []))
+            ->reject(fn($item) => $item['id'] === $ingredient['id'])
+            ->prepend($ingredient)
+            ->take(10)
+            ->toArray();
+
+        session(['recently_used_ingredients' => $recentlyUsed]);
+        $this->recentlyUsed = $recentlyUsed;
     }
 
     public function recognizeImage()
@@ -272,6 +329,9 @@ class SavoryIngredients extends Component
         $ingredient = json_decode($value, true);
         $this->selectedIngredients[] = $ingredient;
 
+        // Add to recently used
+        $this->addToRecentlyUsed($ingredient);
+
         $this->ingredients = Ingredient::select(['id', 'name', 'image'])
             ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
             ->get();
@@ -290,13 +350,32 @@ class SavoryIngredients extends Component
     {
         $searchTerm = '%' . $this->search . '%';
 
-        $this->ingredients = Ingredient::select(['id', 'name', 'image', 'category'])
+        $query = Ingredient::select(['id', 'name', 'image', 'category'])
             ->whereNotIn('id', collect($this->selectedIngredients)->pluck('id'))
-            ->where('name', 'like', $searchTerm)
-            ->orderBy('category')
+            ->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', $searchTerm)
+                    ->orWhere('category', 'like', $searchTerm);
+            });
+
+        // Filter berdasarkan kategori
+        if ($this->selectedCategory !== 'all') {
+            $query->where('category', $this->selectedCategory);
+        }
+
+        // Prioritas exact match di awal
+        if (!empty($this->search)) {
+            $query->orderByRaw("CASE WHEN name LIKE '{$this->search}%' THEN 1 ELSE 2 END");
+        }
+
+        $totalCount = $query->count();
+        $ingredients = $query->orderBy('category')
+            ->orderBy('name')
+            ->limit($this->loadLimit)
             ->get()
-            ->groupBy('category')
-            ->toBase();
+            ->groupBy('category');
+
+        $this->showLoadMore = $totalCount > $this->loadLimit;
+        $this->ingredients = $ingredients->toBase();
 
         return view('livewire.user.savoryai.savory-ingredients');
     }
