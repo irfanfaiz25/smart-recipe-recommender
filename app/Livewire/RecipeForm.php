@@ -92,9 +92,10 @@ class RecipeForm extends Component
                     'name' => $ingredient->name,
                     'category' => $ingredient->category,
                     'image' => $ingredient->image,
-                    'amount' => (int) $ingredient->pivot->amount,
+                    'amount' => $ingredient->pivot->amount ?: '',
                     'unit' => $ingredient->pivot->unit,
-                    'isPrimary' => $ingredient->pivot->is_primary === 1 ? true : false,
+                    // Perbaikan konversi boolean yang lebih robust
+                    'isPrimary' => in_array($ingredient->pivot->is_primary, [1, '1', true, 'true'], true),
                 ];
             })->toArray();
 
@@ -515,8 +516,11 @@ class RecipeForm extends Component
             'steps' => 'required|array|min:1',
             'steps.*' => 'required',
         ], [
-            'selectedIngredients.*.amount.required' => 'Jumlah tidak boleh kosong',
-            'selectedIngredients.*.isPrimary.required' => 'Bahan utama tidak boleh kosong',
+            'selectedIngredients.*.amount.required' => 'Jumlah bahan tidak boleh kosong',
+            'selectedIngredients.*.unit.required' => 'Satuan bahan harus dipilih',
+            'selectedIngredients.*.isPrimary.required' => 'Status bahan utama harus ditentukan',
+            'selectedIngredients.required' => 'Minimal harus ada 1 bahan',
+            'selectedIngredients.min' => 'Minimal harus ada 1 bahan',
         ]);
 
         // check if the ingredients has primary ingredient

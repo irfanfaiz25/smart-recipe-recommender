@@ -394,8 +394,11 @@
                                             <input wire:model.live="selectedIngredients.{{ $key }}.amount"
                                                 wire:change="updateIngredientAmount({{ $ingredient['id'] }}, $event.target.value)"
                                                 type="text"
-                                                class="w-full text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white"
+                                                class="w-full text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white {{ $errors->has('selectedIngredients.' . $key . '.amount') ? 'border-red-500' : '' }}"
                                                 placeholder="2.5">
+                                            @error('selectedIngredients.' . $key . '.amount')
+                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div>
                                             <label
