@@ -142,6 +142,48 @@ class UserManagement extends Component
         Toaster::error('Data user tidak ditemukan.');
     }
 
+    public function assignAsAdmin($userId)
+    {
+        $user = User::find($userId);
+        if (!$user) {
+            Toaster::error('User tidak ditemukan.');
+            return;
+        }
+
+        // Cek apakah user sudah admin
+        if ($user->hasRole('admin')) {
+            Toaster::warning('User sudah memiliki role admin.');
+            return;
+        }
+
+        // Assign role admin
+        $user->assignRole('admin');
+        
+        Toaster::success('User berhasil diangkat menjadi admin.');
+        $this->loadStatistics();
+    }
+
+    public function removeAdminRole($userId)
+    {
+        $user = User::find($userId);
+        if (!$user) {
+            Toaster::error('User tidak ditemukan.');
+            return;
+        }
+
+        // Cek apakah user adalah admin
+        if (!$user->hasRole('admin')) {
+            Toaster::warning('User bukan admin.');
+            return;
+        }
+
+        // Hapus role admin
+        $user->removeRole('admin');
+        
+        Toaster::success('Role admin berhasil dihapus dari user.');
+        $this->loadStatistics();
+    }
+
     public function render()
     {
         return view('livewire.admin.user-management');

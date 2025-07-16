@@ -208,7 +208,7 @@
                                             @if ($user->last_login_at->isToday())
                                                 <span class="text-green-600 font-medium">Hari ini</span>
                                                 {{ $user->last_login_at->format('H:i') }}
-                                            @elseif ($user->last_login_at->isYesterday()) 
+                                            @elseif ($user->last_login_at->isYesterday())
                                                 <span class="text-blue-600 font-medium">Kemarin</span>
                                                 {{ $user->last_login_at->format('H:i') }}
                                             @else
@@ -229,6 +229,23 @@
                                         class="text-blue-600 hover:text-blue-900 transition-colors duration-200">
                                         <i class="fas fa-eye"></i>
                                     </button>
+
+                                    @if (!$user->hasRole('admin'))
+                                        <button wire:click="assignAsAdmin({{ $user->id }})"
+                                            wire:confirm="Apakah Anda yakin ingin mengangkat user ini menjadi admin?"
+                                            class="text-green-600 hover:text-green-900 transition-colors duration-200"
+                                            title="Angkat sebagai Admin">
+                                            <i class="fas fa-user-shield"></i>
+                                        </button>
+                                    @else
+                                        <button wire:click="removeAdminRole({{ $user->id }})"
+                                            wire:confirm="Apakah Anda yakin ingin menghapus role admin dari user ini?"
+                                            class="text-orange-600 hover:text-orange-900 transition-colors duration-200"
+                                            title="Hapus Role Admin">
+                                            <i class="fas fa-user-minus"></i>
+                                        </button>
+                                    @endif
+
                                     <button wire:click="deleteUser({{ $user->id }})"
                                         wire:confirm="Apakah Anda yakin ingin menghapus user ini?"
                                         class="text-red-600 hover:text-red-900 transition-colors duration-200">
