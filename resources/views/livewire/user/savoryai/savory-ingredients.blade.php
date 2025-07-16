@@ -32,7 +32,7 @@
         <!-- Main Content Area -->
         <div class="w-full lg:w-3/4 lg:pr-4">
             <!-- Search & Camera Section -->
-            <div class="bg-white rounded-lg shadow-lg mb-4 lg:mb-0 min-h-[20rem] sm:min-h-[22rem] lg:h-80">
+            <div class="bg-white rounded-lg shadow-lg mb-4 lg:mb-0 min-h-[20rem] sm:min-h-[22rem] lg:h-[31.5rem] pb-4">
                 <div class="p-3 sm:p-5">
                     <div
                         class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 items-stretch sm:items-center">
@@ -64,6 +64,51 @@
                     </div>
                 </div>
 
+                <div class="px-6">
+                    <!-- Category Filter -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                            <i class="fa-solid fa-filter mr-2 text-secondary"></i>
+                            Filter Kategori
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button wire:click="$set('selectedCategory', 'all')"
+                                class="px-3 py-1.5 text-xs rounded-full transition-colors {{ $selectedCategory === 'all' ? 'bg-secondary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                <i class="fa-solid fa-list mr-1"></i>
+                                Semua
+                            </button>
+                            @foreach ($availableCategories as $category)
+                                <button wire:click="$set('selectedCategory', '{{ $category }}')"
+                                    class="px-3 py-1.5 text-xs rounded-full transition-colors capitalize {{ $selectedCategory === $category ? 'bg-secondary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                    {{ $category }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Recently Used Section -->
+                    @if (!empty($recentlyUsed) && empty($search))
+                        <div class="mb-4">
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                                <i class="fa-solid fa-clock-rotate-left mr-2 text-secondary"></i>
+                                Bahan yang Sering Digunakan
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                                @foreach (array_slice($recentlyUsed, 0, 6) as $ingredient)
+                                    <div wire:click="selectIngredient('{{ json_encode($ingredient) }}')"
+                                        class="p-2 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg cursor-pointer transition-colors text-center group">
+                                        <div
+                                            class="text-xs font-medium text-blue-800 truncate group-hover:text-blue-900">
+                                            <i class="fa-solid fa-star text-yellow-500 mr-1"></i>
+                                            {{ $ingredient['name'] }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="border border-t-gray-100"></div>
 
                 <!-- Loading State -->
@@ -76,23 +121,37 @@
 
                 <!-- Ingredients List -->
                 <div wire:loading.remove
-                    class="p-3 sm:p-5 max-h-[16rem] sm:max-h-[18rem] lg:max-h-[15.2rem] overflow-y-auto">
+                    class="p-3 sm:p-5 max-h-[16rem] sm:max-h-[18rem] {{ !empty($recentlyUsed) ? 'lg:max-h-[15.2rem]' : 'lg:max-h-[20rem]' }} overflow-y-auto">
                     <h2 class="text-sm sm:text-base mb-3">
                         Pilih Bahan Makanan :
+                        @if ($selectedCategory !== 'all')
+                            <span class="text-xs text-gray-500 capitalize">({{ $selectedCategory }})</span>
+                        @endif
                     </h2>
                     <div class="space-y-3 sm:space-y-4">
                         @foreach ($ingredients as $category => $items)
                             <div>
-                                <h3
-                                    class="text-xs sm:text-sm font-semibold text-neutral-700 mb-2 sm:mb-3 capitalize flex items-center">
-                                    <i class="fa-solid fa-tag mr-1 sm:mr-2 text-secondary text-xs sm:text-sm"></i>
-                                    {{ $category }}
-                                </h3>
+                                <!-- Category Header dengan Bulk Select -->
+                                <div class="flex items-center justify-between mb-2 sm:mb-3">
+                                    <h3
+                                        class="text-xs sm:text-sm font-semibold text-neutral-700 capitalize flex items-center">
+                                        <i class="fa-solid fa-tag mr-1 sm:mr-2 text-secondary text-xs sm:text-sm"></i>
+                                        {{ $category }}
+                                        <span class="ml-2 text-xs text-gray-500">({{ count($items) }})</span>
+                                    </h3>
+                                    <button wire:click="selectAllFromCategory('{{ $category }}')"
+                                        class="text-xs px-2 py-1 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition-colors flex items-center">
+                                        <i class="fa-solid fa-check-double mr-1"></i>
+                                        Pilih Semua
+                                    </button>
+                                </div>
+
+                                <!-- Ingredients Grid -->
                                 <div
                                     class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3">
                                     @foreach ($items as $ingredient)
                                         <div wire:click="selectIngredient('{{ json_encode(['id' => $ingredient->id, 'name' => $ingredient->name, 'image' => $ingredient->image]) }}')"
-                                            class="h-12 sm:h-[3.5rem] p-1 sm:p-1.5 hover:border-2 group bg-gray-100 hover:border-secondary text-text-primary hover:text-secondary rounded-lg flex items-center space-x-1 sm:space-x-2 shadow-md cursor-pointer transition-all duration-200 hover:shadow-lg">
+                                            class="h-12 sm:h-[3.5rem] p-1 sm:p-1.5 hover:border-2 group bg-gray-100 hover:border-secondary text-text-primary hover:text-secondary rounded-lg flex items-center space-x-1 sm:space-x-2 shadow-md cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02]">
 
                                             @if ($ingredient->image)
                                                 <div class="w-10 sm:w-12 h-full flex-shrink-0">
@@ -110,19 +169,46 @@
                                             <h3 class="text-xs sm:text-sm font-medium truncate flex-1">
                                                 {{ $ingredient->name }}
                                             </h3>
+
+                                            <!-- Add to favorites icon -->
+                                            <div class="opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <i class="fa-solid fa-plus text-xs text-secondary"></i>
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
                         @endforeach
                     </div>
+
+                    <!-- Load More Button -->
+                    @if ($showLoadMore)
+                        <div class="text-center mt-4 pt-4 border-t border-gray-200">
+                            <button wire:click="loadMore"
+                                class="px-4 py-2.5 text-sm border-2 border-orange-500 bg-orange-50 hover:bg-orange-100 text-orange-500 rounded-lg transition-colors flex items-center mx-auto">
+                                <i class="fa-solid fa-plus mr-2"></i>
+                                Muat Lebih Banyak Bahan
+                            </button>
+                        </div>
+                    @endif
+
+                    <!-- Empty State -->
+                    @if ($ingredients->isEmpty())
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fa-solid fa-search text-3xl mb-3 text-gray-300"></i>
+                            <p class="text-sm mb-2">Tidak ada bahan yang ditemukan</p>
+                            @if ($search)
+                                <p class="text-xs text-gray-400">Coba kata kunci lain atau ubah filter kategori</p>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
 
         <!-- Desktop Sidebar -->
         <div class="hidden lg:block w-1/4 pl-4">
-            <div class="bg-white rounded-lg shadow-lg h-[22rem] p-4 sticky top-4">
+            <div class="bg-white rounded-lg shadow-lg h-[31.5rem] p-4 sticky top-4">
                 <div class="flex space-x-2 items-center mb-4">
                     <p class="flex-1 text-base font-medium">Bahan Masakan Terpilih :</p>
                     @if ($selectedIngredients)
@@ -134,7 +220,7 @@
                     @endif
                 </div>
 
-                <div class="max-h-64 overflow-y-auto">
+                <div class="max-h-[26.5rem] overflow-y-auto">
                     @if (empty($selectedIngredients))
                         <div class="text-center py-8 text-gray-500">
                             <i class="fa-solid fa-basket-shopping text-3xl mb-3 text-gray-300"></i>
@@ -168,8 +254,8 @@
             <div class="fixed right-0 top-0 h-full w-72 sm:w-80 max-w-[85vw] bg-white shadow-2xl"
                 x-transition:enter="transform transition ease-out duration-300"
                 x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
-                x-transition:leave="transform transition ease-in duration-200" x-transition:leave-start="translate-x-0"
-                x-transition:leave-end="translate-x-full">
+                x-transition:leave="transform transition ease-in duration-200"
+                x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
 
                 <!-- Sidebar Header -->
                 <div

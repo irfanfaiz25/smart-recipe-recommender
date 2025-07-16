@@ -5,7 +5,14 @@
             <div class="text-center">
                 <div class="text-6xl mb-4">{{ $this->getFilterIcon() }}</div>
                 <h1 class="text-4xl md:text-5xl font-bold mb-0">
-                    {{ $filterType === 'ingredient' ? $ingredientName : $filterName }}</h1>
+                    @if ($filterType === 'category')
+                        {{ $filterValue == '1' ? 'Menu Pembuka' : ($filterValue == '2' ? 'Menu Utama' : 'Cemilan Manis') }}
+                    @elseif ($filterType === 'ingredient')
+                        {{ $ingredientName }}
+                    @else
+                        {{ $filterName }}
+                    @endif
+                </h1>
                 <p class="text-lg font-medium opacity-90 mb-6">
                     @if ($filterType === 'category')
                         Temukan resep
