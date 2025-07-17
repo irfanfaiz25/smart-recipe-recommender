@@ -403,7 +403,7 @@
                             @foreach ($topCreators as $index => $creator)
                                 <div class="flex-shrink-0 group">
                                     <div
-                                        class="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/20 transition-all duration-300 transform hover:shadow-2xl border border-white/20 w-[250px] sm:w-[280px]">
+                                        class="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/20 transition-all duration-300 transform hover:shadow-2xl border border-white/20 w-[250px] sm:w-[280px] relative">
                                         <!-- Rank badge -->
                                         <div class="flex items-center justify-between mb-4">
                                             <div class="flex items-center space-x-2 sm:space-x-3">
@@ -424,16 +424,17 @@
                                                 </div>
                                                 <div>
                                                     <h4
-                                                        class="font-bold text-white text-base sm:text-lg group-hover:text-yellow-200 transition-colors duration-300 truncate max-w-[150px]">
+                                                        class="font-bold text-white text-sm sm:text-base group-hover:text-yellow-200 transition-colors duration-300 truncate max-w-[150px]">
                                                         {{ $creator->name }}</h4>
-                                                    <p class="text-blue-100 text-xs sm:text-sm">Pembuat Resep</p>
+                                                    <p class="text-blue-100 font-medium text-xs sm:text-sm">Pembuat
+                                                        Resep</p>
                                                 </div>
                                             </div>
-                                            <!-- Rank number -->
-                                            <div
-                                                class="bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold text-base sm:text-lg w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg">
-                                                {{ $index + 1 }}
-                                            </div>
+                                        </div>
+                                        <!-- Rank number -->
+                                        <div
+                                            class="absolute top-1 left-1 bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold text-sm w-5 h-5 sm:w-7 sm:h-7 rounded-full flex items-center justify-center shadow-lg">
+                                            {{ $index + 1 }}
                                         </div>
 
                                         <!-- Stats -->

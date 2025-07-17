@@ -109,7 +109,7 @@
 
                                     <div class="flex items-center text-sm text-gray-600">
                                         <i class="fas fa-history text-primary mr-2"></i>
-                                        <span>Dimasak {{ $history->cooked_at->diffForHumans() }}</span>
+                                        <span>Dimasak {{ $history->cooked_at->locale('id')->diffForHumans() }}</span>
                                     </div>
                                 </div>
 
