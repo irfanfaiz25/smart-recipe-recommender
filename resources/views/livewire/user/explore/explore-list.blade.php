@@ -113,11 +113,11 @@
                     {{-- Content overlay --}}
                     <div
                         class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                        <h3 class="text-white text-xl font-bold mb-2 drop-shadow-lg">
+                        <h3 class="text-white text-xl font-bold mb-2 drop-shadow-lg capitalize">
                             {{ $recipe->name }}
                         </h3>
                         <p class="text-white/90 text-sm font-normal mb-4 line-clamp-2 drop-shadow-md">
-                            Resep gudeg autentik dengan cita rasa tradisional yang kaya bumbu
+                            {{ $recipe->description }}
                         </p>
 
                         <div class="flex items-center justify-between">
